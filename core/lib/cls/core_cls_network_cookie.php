@@ -16,7 +16,7 @@ class cookie{
 	}
 	public function set($cookie_name, $cookie_value){
 		$boj_registry = new core\registry;
-		$settings = $boj_registry->get_plugin('core');
+		$settings = $boj_registry->get_plugin('administrator');
 		setcookie($cookie_name,$cookie_value,time() + $settings['cookie_max_time']);
 		return true;
 	}

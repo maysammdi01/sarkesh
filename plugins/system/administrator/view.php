@@ -66,6 +66,7 @@ class view{
 	protected function view_themes($themes,$themes_info,$active_theme){
 		
 		$form = new control\form("core_manage_themes");
+		$form->configure('LABEL',_('Themes'));
 		$tab = new control\tabbar;
 		$table = new control\table;
 		
@@ -106,22 +107,12 @@ class view{
 		
 		$tab->add($form);
 		
-		return array(_('Appearance'),$tab->draw());
-		//Assign variables
-		$this->raintpl->assign( "label_themes", _('Themes'));
-		$this->raintpl->assign( "label_disable", _('Disable'));
-		$this->raintpl->assign( "label_enable", _('Enable'));
-		$this->raintpl->assign( "label_install",_('Install new theme'));
-		$this->raintpl->assign( "label_name", _('Name'));
-		$this->raintpl->assign( "label_screen", _('Splash screen'));
-		$this->raintpl->assign( "label_author", _('Author'));
-		$this->raintpl->assign( "label_options", _('Options'));
-		$this->raintpl->assign( "active_theme", $active_theme);
-		$this->raintpl->assign( "themes", $themes_info);
-		$this->raintpl->assign( "theme_count", max(array_keys($themes_info)	)	);
+		//create install form
+		$ins_form = new control\form('core_install_theme');
+		$ins_form->configure('LABEL',_('Install'));
 		
-		//draw and return back content
-		//return array(_('Themes'),$this->raintpl->draw('core_appearance', true )	);
+		$tab->add($ins_form);
+		return array(_('Appearance'),$tab->draw());
 	}
 	
 	//this function return dashboard of administrator area

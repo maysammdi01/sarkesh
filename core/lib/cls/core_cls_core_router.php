@@ -3,7 +3,7 @@ namespace core\cls\core;
 use \core\cls\core as core;
 use \core\cls\network as network;
 use \core\cls\browser as browser;
-use \core\plugin as plugin;
+use \core\plugin as plg;
 use \core\cls\db as db;
 
 //this class seperate url addrress
@@ -49,7 +49,7 @@ class router{
 				// plugin not set
 				// now jump to Home page
 				$obj_localize = new core\localize;
-				$localize = $obj_localize->get_localize();
+				$localize = $obj_localize->get_localize(true);
 				$this->jump_page($localize['home'] ,true);
 
 			}
@@ -76,7 +76,7 @@ class router{
 						$content = call_user_func(array($plugin,'default'),'content');
 					 }
 						//show 404 page not found page
-						$plugin = new plugin\msg;
+						$plugin = new plg\msg;
 						$content = call_user_func(array($plugin,'msg_404'));
 						//jump user to 404 page
 						$this->jump_page(array('service','1','plugin','msg','action','msg404'));	
@@ -86,7 +86,7 @@ class router{
 		  else{
 		  	//plugin is not enabled
 		  	//show 404 page not found page
-		  	$plugin = new plugin\msg;
+		  	$plugin = new plg\msg;
 			$content = call_user_func(array($plugin,'msg_404'));
 			//jump user to 404 page
 			$this->jump_page(array('service','1','plugin','msg','action','msg404'));
