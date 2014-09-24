@@ -11,8 +11,7 @@ define ("DatabaseHost","localhost");
 define ("DatabaseName","sarkesh");
 
 #save  domain for load system
-define ("SiteDomain","http://localhost/");
-
+define ("SiteDomain",'http://' . $_SERVER['SERVER_NAME'] );
 #config file system
 define('AppPath',dirname(__file__) . '/');
 

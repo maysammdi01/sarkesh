@@ -160,5 +160,14 @@ class users extends users\module{
 		 public function profile(){
 			 return array(1,1);
 		 }
+		
+		/*
+		 * this function is for checking that username is exist or not
+		 * INPUT: string(username)
+		 * OUTPUT:boolean
+		 */
+		 public function is_exists($username){
+			 return $this->module_is_exists($username);
+		 }
 }
 ?>

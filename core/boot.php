@@ -43,11 +43,9 @@ if(file_exists("./config.php")) {
 		require_once("./core/inc/load.php");
 	}
 }
-else {
-	// configure file not found
-	// going to start system setup
-
-	echo("system setup...");
+else{
+	//jump to installing page
+	require_once("./install/index.php");
 }
 		
 ?>

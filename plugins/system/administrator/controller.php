@@ -80,6 +80,12 @@ class administrator extends administrator\module{
 		
 	}
 	
+	//this function start installing system
+	//it's service 
+	public function install(){
+		
+	}
+	
 	
 }
 	

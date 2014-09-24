@@ -1,27 +1,31 @@
 </html>
 	<head>
-	<link type="image/x-icon" href="{#SiteDomain#}/themes/simple/favicon.ico" rel="icon">
-	<!-- Custom styles for this template -->
-	<link href="{#SiteDomain#}/plugins/system/msg/css/404.css" rel="stylesheet">
-	<title>404!Not Found!</title>
+	{$headers}
+	
+	<title>{$msg_notfound_title}</title>
 
+	
 	<!-- Google Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Pacifico'
 		rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Rokkitt'
 		rel='stylesheet' type='text/css'>
-
-	<!-- Custom styles for this template -->
-	<link href="404.css" rel="stylesheet">
-
 </head>
 
 <body>
 
-	<!-- Wrap all page content here -->
-	<div id="wrap">
-		<div id="middle" class="col-md-6 col-md-offset-3">404!</div>
-		<div id="middle2">Sorry ! Page not found.</div>
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<div id="wrap">
+				{$msg_notfound}
+			</div>
+		</div>
 	</div>
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<a href="{#SiteDomain}" class="btn btn-primary btn-lg active" role="button">{$home}</a>
+		</div>
+	</div>
+
 </body>
 </html>

@@ -230,6 +230,69 @@ class module extends view{
 				}
 			}
 		}
-	 
+		
+		//this function is for do user registeration
+		//INPUT:ELEMENTS
+		public function module_btn_signup_onclick($e){
+			//this variable is for store errors
+			$error = array(null);
+			//first checking for input informations
+			//check for that username is exist before
+			if(strlen($e['txt_username']['VALUE']) > 4){
+				if(max(array_keys(explode(' ',$e['txt_username']['VALUE'])	)	)	!= 0){
+					array_push($error,browser\page::show_block(_('Message'),_('Format of username is not cerrect.'), 'NONE'));
+				}
+				else{
+					//check username for that exists or not
+					if($this->module_is_exists($e['txt_username']['VALUE'])){
+						array_push($error,browser\page::show_block(_('Message'),_('The username you entered is already taken by another user.'), 'NONE'));
+					}
+				}	
+			}
+			else{
+				array_push($error,browser\page::show_block(_('Message'),_('Your usernameis too short.'), 'NONE'));
+			}
+			
+			//Check passwords length and match.
+			if(strlen($e['txt_password']['VALUE']) > 5){
+				if($e['txt_password']['VALUE'] != $e['txt_repassword']['VALUE']){
+					//input passwords are not match
+					array_push($error,browser\page::show_block(_('Message'),_('The new passwords you entered do not match.'), 'NONE'));
+				}
+			}
+			else{
+				array_push($error,browser\page::show_block(_('Message'),_('Your password is to short.'), 'NONE'));
+			} 
+
+			
+			//check for that entered email is cerrect.
+			//for more info about filter_var visit http://php.net/manual/en/function.filter-var.php
+			if(!filter_var($e['txt_email']['VALUE'] , FILTER_VALIDATE_EMAIL)){
+				array_push($error,browser\page::show_block(_('Message'),_('Your email is not cerrect.'), 'NONE'));
+			}
+			
+			//check for that error is exist
+			if(max(array_keys($error)) != 0){
+				$msg_modal = '';
+				foreach($error as $msg){
+					$msg_modal = $msg_modal . '   ' . $msg;
+				}
+				$e['RV']['MODAL'] = browser\page::show_block(_('Message'),$msg_modal , 'MODAL','type-warning');
+				
+			}
+			else{
+					//going to register user.
+					//UNDER DEVELOPMENT
+			}
+			return $e;
+		}
+		
+		//this function check for that username is exist before or not
+		public function module_is_exists($username){
+			$UserNum = db\orm::count('users','username=?',array($username));
+			if($UserNum != 0){	return true;}
+			return false;
+			
+		}
 }
 ?>
