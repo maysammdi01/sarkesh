@@ -16,7 +16,7 @@ class view{
 		$username->configure('INLINE',TRUE);
 		$username->configure('ADDON','U');
 		$username->configure('PLACE_HOLDER',_('Username or e-mail address'));
-		$username->configure('HELP',_('Enter your username or email.'));
+		//$username->configure('HELP',_('Enter your username or email.'));
 		
 		$password = new control\textbox();
 		$password->configure('NAME','txt_password');
@@ -25,7 +25,7 @@ class view{
 		$password->configure('ADDON','P');
 		$password->configure('PLACE_HOLDER',_('Password'));
 		$password->configure('PASSWORD',true);
-		$password->configure('HELP',_('Enter the password that accompanies your username.'));
+		//$password->configure('HELP',_('Enter the password that accompanies your username.'));
 		
 		$remember = new control\checkbox;
 		$remember->configure('NAME','ckb_remember');

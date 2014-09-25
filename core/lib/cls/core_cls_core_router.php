@@ -65,7 +65,12 @@ class router{
 	      // this function load plugin and run controller
 	      //checking for that plugin is enabled
 	      if($this->obj_plugin->is_enabled($this->plugin)){
-				 $PluginName = '\\core\\plugin\\' . $this->plugin;
+				if(file_exists('./plugins/system/' . $this->plugin . '/controller.php')){
+					$PluginName = '\\core\\plugin\\' . $this->plugin;
+				}
+				else{
+					$PluginName = '\\addon\\plugin\\' . $this->plugin;
+				}
 	     		 $plugin = new $PluginName;
 	     		 //run action directly
 	     		 if(method_exists($plugin,$this->action)){
