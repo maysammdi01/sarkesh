@@ -2,6 +2,7 @@
 namespace core\plugin;
 use \core\plugin\users as users;
 use \core\cls\browser as browser;
+use \core\cls\network as network;
 class users extends users\module{
 	function __construct(){
 		parent::__construct();
@@ -169,5 +170,15 @@ class users extends users\module{
 		 public function is_exists($username){
 			 return $this->module_is_exists($username);
 		 }
+		 
+		 /*
+		  * This function show some messages to user
+		  * it's messages selected by id
+		  */
+		 public function show_msg($position){
+			 $id = network\io::cin('id','get');
+			 return $this->module_show_msg($id);
+		 }
+		 
 }
 ?>

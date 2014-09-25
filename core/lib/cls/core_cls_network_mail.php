@@ -1,5 +1,6 @@
 <?php
 namespace core\cls\network;
+use core\cls\core as core;
 /**
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5.0.0
@@ -20,7 +21,7 @@ namespace core\cls\network;
  */
 
 if (version_compare(PHP_VERSION, '5.0.0', '<')) {
-    exit("Sorry, PHPMailer will only run on PHP version 5 or greater!\n");
+    exit(_("Sorry, PHPMailer will only run on PHP version 5 or greater!\n"));
 }
 
 /**
@@ -3344,31 +3345,28 @@ class mail
     //this function is for send email simple
 	public function simple_send($to_name, $to_email, $subject, $body){
 		//get site email and main site name
-		$localize = new cls_localize;
+		$localize = new core\localize;
 		$localize_data = $localize->get_localize();
-				
-		//Create a new PHPMailer instance
-		$mail = new cls_mail();
 		// Set PHPMailer to use the sendmail transport
-		$mail->isSendmail();
+		$this->isSendmail();
 		//Set who the message is to be sent from
-		$mail->setFrom($localize_data['email'], $localize_data['name']);
+		$this->setFrom($localize_data['email'], $localize_data['name']);
 		//Set an alternative reply-to address
-		$mail->addReplyTo($localize_data['email'], $localize_data['name']);
+		$this->addReplyTo($localize_data['email'], $localize_data['name']);
 		//Set who the message is to be sent to
-		$mail->addAddress($to_email, $to_name);
+		$this->addAddress($to_email, $to_name);
 		//Set the subject line
-		$mail->Subject = $subject;
+		$this->Subject = $localize_data['name'] . ':' . $subject;
 		//Read an HTML message body from an external file, convert referenced images to embedded,
 		//convert HTML into a basic plain-text alternative body
-		$mail->msgHTML($body);
+		$this->msgHTML($body);
 		//Replace the plain text body with one created manually
 		//$mail->AltBody = 'This is a plain-text message body';
 		//Attach an image file
 		//$mail->addAttachment('images/phpmailer_mini.gif');
 
 		//send the message, check for errors
-		if (!$mail->send()) {
+		if (!$this->send()) {
 		    return false;
 		} else {
 		    return true;
@@ -3381,7 +3379,7 @@ class mail
  * PHPMailer exception handler
  * @package PHPMailer
  */
-class phpmailerException extends Exception
+class phpmailerException extends \Exception
 {
     /**
      * Prettify error message output

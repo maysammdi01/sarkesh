@@ -13,24 +13,24 @@ class io{
 		try{
 			switch ($Type){
 				case "get";
-				if ($Flags==""){	$Result=filter_input(INPUT_GET,$VaribleName,$filter_num);}
-				else {	$Result=filter_input(INPUT_GET,$VaribleName,$filter_num,$Flags);	}
+					if ($Flags==""){	$Result=filter_input(INPUT_GET,$VaribleName,$filter_num);}
+					else {	$Result=filter_input(INPUT_GET,$VaribleName,$filter_num,$Flags);	}
 				break;
 				case "post";
-				if ($Flags!==""){	$Result=filter_input(INPUT_POST,$VaribleName,$filter_num);	}
-				else {	$Result=filter_input(INPUT_POST,$VaribleName,$filter_num,$Flags);	}
+					if ($Flags!==""){	$Result=filter_input(INPUT_POST,$VaribleName,$filter_num);	}
+					else {	$Result=filter_input(INPUT_POST,$VaribleName,$filter_num,$Flags);	}
 				break;
 				case "cookie";
-				if ($Flags!==""){	$Result=filter_input(INPUT_COOKIE,$VaribleName,$filter_num);	}
-				else {	$Result=filter_input(INPUT_COOKIE,$VaribleName,$filter_num,$Flags);	}
+					if ($Flags!==""){	$Result=filter_input(INPUT_COOKIE,$VaribleName,$filter_num);	}
+					else {	$Result=filter_input(INPUT_COOKIE,$VaribleName,$filter_num,$Flags);	}
 				break;
 				case "server";
-				if ($Flags!==""){	$Result=filter_input(INPUT_SERVER,$VaribleName,$filter_num);	}
-				else {	$Result=filter_input(INPUT_SERVER,$VaribleName,$filter_num,$Flags);	}
+					if ($Flags!==""){	$Result=filter_input(INPUT_SERVER,$VaribleName,$filter_num);	}
+					else {	$Result=filter_input(INPUT_SERVER,$VaribleName,$filter_num,$Flags);	}
 				break;
 				case "request";
-				if ($Flags!==""){	$Result=filter_input(INPUT_SERVER,$VaribleName,$filter_num);	}
-				else {	$Result=filter_input(INPUT_REQUEST,$VaribleName,$filter_num,$Flags);	}
+					if ($Flags!==""){	$Result=filter_input(INPUT_SERVER,$VaribleName,$filter_num);	}
+					else {	$Result=filter_input(INPUT_REQUEST,$VaribleName,$filter_num,$Flags);	}
 				break;
 			}
 		}

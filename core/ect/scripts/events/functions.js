@@ -88,7 +88,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 		url = encodeURI(url);
 		$.get(url ,
 			function(data){
-				//alert(data);
+				alert(data);
 				//find deference and set that
 				window['Counter'] = 0;
 				$(form_elements).each(function(){
@@ -137,7 +137,10 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 					window.location.reload(true);
 				}
 				else if($(data).find("RV").children("URL").html() != '0'){
-					window.location.assign($(data).find("RV").children("URL").html());
+					var AdrNoneFilter = $(data).find("RV").children("URL").html();
+					var UrlJump = AdrNoneFilter.replace(/%/g,'&');
+					alert(UrlJump);
+					window.location.assign(UrlJump);
 				}
 				
 				//SHOW MODAL MESSAGES

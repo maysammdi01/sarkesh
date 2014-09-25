@@ -4,6 +4,7 @@ use \core\cls\core as core;
 use \core\cls\db as db;
 use \core\cls\network as network;
 use \core\cls\browser as browser;
+use \core\plugin as plugin;
 
 class module extends view{
 	private $registry;
@@ -282,7 +283,49 @@ class module extends view{
 			}
 			else{
 					//going to register user.
-					//UNDER DEVELOPMENT
+					$user = db\orm::dispense('users');
+					$user->username = $e['txt_username']['VALUE'];
+					$user->password = md5($e['txt_password']['VALUE']);
+					$user->email = $e['txt_email']['VALUE'];
+					//set default permation
+					$user->permation = $this->settings['default_permission'];
+					
+					/*
+					 * check for that administrator want to validate users with email or not
+					 * all states is E=>enabled B=>baned D=>Disabled NA=>not activated
+					 */
+					 
+					 //perpare email class for send email
+					$mail = new network\mail;
+					
+					if($this->settings['active_from_email'] == 1){
+						//active with email
+						$user->state = 'NA';
+						
+						//send active code to email
+						//create random code
+						
+						
+					}
+					else{
+						//user active now
+						$user->state = 'E';
+						
+						//send register information to email
+						$email_title = _('Registration complete');
+						$email_body = sprintf(_('Your registration in %s was completed.'),'sarkesh.org');
+						if(!$mail->simple_send($e['txt_username']['VALUE'],$e['txt_email']['VALUE'],$email_title,$email_body)){
+							//user activated
+							$e['RV']['URL'] = core\general::create_url(array('plugin','users','action','show_msg','id','register_successful'),true);
+						}
+						else{
+							//error in sending email
+							$e['RV']['MODAL'] = browser\page::show_block('Warrning','Error in sending your information to your email.your account was activated. you can now log in with your information','MODAL','warrning');
+						}
+						
+					}
+					
+					db\orm::store($user);
 			}
 			return $e;
 		}
@@ -293,6 +336,20 @@ class module extends view{
 			if($UserNum != 0){	return true;}
 			return false;
 			
+		}
+		
+		//this function show meesage
+		protected function module_show_msg($id){
+			if($id == 'register_successful'){
+				//show register successful message for registeration in sarkesh
+				$header = _('Registration completed!');
+				$body = _('Your registration was successful.now you can login to system with your login information that you entered');
+				$type = 'success';
+				
+				//create object from msg plugin
+				$msg = new plugin\msg;
+				return $msg->msg($header,$body,$type);
+			}
 		}
 }
 ?>

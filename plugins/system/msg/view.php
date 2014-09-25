@@ -2,6 +2,7 @@
 namespace core\plugin\msg;
 use \core\cls\template as template;
 use \core\cls\browser as browser;
+use \core\control as control;
 class view{
 	//if you want to work with templates you should use raintpl class
 	//for more information about raintpl see http://raintpl.com
