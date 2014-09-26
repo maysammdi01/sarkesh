@@ -59,7 +59,7 @@ class users extends users\module{
 		}
 		//first check for that username and password is filled
 		if(trim($e['txt_username']['VALUE']) == '' || trim($e['txt_password']['VALUE'])==''){
-			$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill in all of the required fields"'),'MODAL','type-warning');
+			$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill in all of the required fields'),'MODAL','type-warning');
 			return $e;
 		}
 		else{
@@ -179,6 +179,34 @@ class users extends users\module{
 			 $id = network\io::cin('id','get');
 			 return $this->module_show_msg($id);
 		 }
+		 
+		/*
+		 * This action is for that user can enter activation code in that
+		 */
+		
+		public function ActiveAcount(){
+			
+			if(isset($_GET['id'])){
+				//going to activate user
+				
+				# THIS PART IS NOT DEVELOPED YET.
+			}
+			else{
+				//show active acount page to user
+				return $this->module_ActiveAcount();
+			}
+		}
+		public function btn_active_account($e){
+			
+			if($e['txt_code']['VALUE'] == ''){
+				$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill in all of the required fields'),'MODAL','type-warning');
+				return $e;
+			}
+			else{
+				//check for activation code
+				return $this->module_btn_active_account($e);
+			}
+		}
 		 
 }
 ?>

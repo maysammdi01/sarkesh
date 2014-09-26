@@ -304,12 +304,35 @@ class module extends view{
 						
 						//send active code to email
 						//create random code
+						$user->code = core\general::random_string(10,'NC');
+						
+						$email_title = _('Active account');
+						$email_body = sprintf(_('Your activation code is:%s'),$user->code) . _('first go to link that comes below and enter your activation code.') . '</br>' . core\general::create_url(SiteDomain . '/?plugin=users&action=ActiveAccount',false);
+						
+						//save in database
+						$UserId = db\orm::store($user);
+						
+						if(!$mail->simple_send($e['txt_username']['VALUE'],$e['txt_email']['VALUE'],$email_title,$email_body)){
+							//user activated
+							$e['RV']['URL'] = core\general::create_url(array('plugin','users','action','show_msg','id','register_active'),true);
+						}
+						else{
+							//error in sending email
+							$e['RV']['MODAL'] = browser\page::show_block('Error','Error in sending activation code to your email.please tell administrator!','MODAL','danger');
+							
+							//remove user from database
+							$usr = db\orm::load('users',$UserId);
+							//db\orm::trash($usr);
+						}
 						
 						
 					}
 					else{
 						//user active now
 						$user->state = 'E';
+						
+						//save user in database
+						db\orm::store($user);
 						
 						//send register information to email
 						$email_title = _('Registration complete');
@@ -322,10 +345,11 @@ class module extends view{
 							//error in sending email
 							$e['RV']['MODAL'] = browser\page::show_block('Warrning','Error in sending your information to your email.your account was activated. you can now log in with your information','MODAL','warrning');
 						}
+						//save user
 						
 					}
 					
-					db\orm::store($user);
+					
 			}
 			return $e;
 		}
@@ -338,18 +362,57 @@ class module extends view{
 			
 		}
 		
+		/*
+		 * This function is for show active acount page to user
+		 */
+		protected function module_ActiveAcount(){
+			return $this->view_ActiveAcount();
+		}
+		
+		//this function is for check activation code and active user account
+		protected function module_btn_active_account($e){
+			//check for that code is exist
+			if( db\orm::count('users','code=?',[$e['txt_code']['VALUE']]	)	!= 0){
+					
+					//get user
+					$user = db\orm::findOne('users','code=?',[$e['txt_code']['VALUE']]);
+					// E => Enabled
+					$user->state = 'E';
+					db\orm::store($user);
+					$e['RV']['MODAL'] = browser\page::show_block('success','activated','MODAL','success');
+			}
+			else{
+				//active code not found
+				$e['RV']['MODAL'] = browser\page::show_block('danger','fail','MODAL','danger');
+			}
+			return $e;
+		}
+		
 		//this function show meesage
 		protected function module_show_msg($id){
+			
+			//create object from msg plugin
+			$msg = new plugin\msg;
+			
+			$header = '';
+			$body = '';
+			$type='';
+			
 			if($id == 'register_successful'){
 				//show register successful message for registeration in sarkesh
 				$header = _('Registration completed!');
 				$body = _('Your registration was successful.now you can login to system with your login information that you entered');
 				$type = 'success';
-				
-				//create object from msg plugin
-				$msg = new plugin\msg;
-				return $msg->msg($header,$body,$type);
 			}
+			elseif($id == 'register_active'){
+				//show register successful message for registeration in sarkesh
+				$header = _('Active account');
+				$body = _('We sent an email with an activation code to activate your account, go to your email.');
+				$type = 'info';
+			}
+			
+			//return back message
+			return $msg->msg($header,$body,$type);
 		}
 }
 ?>

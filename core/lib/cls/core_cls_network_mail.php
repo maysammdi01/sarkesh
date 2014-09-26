@@ -3355,11 +3355,14 @@ class mail
 		$this->addReplyTo($localize_data['email'], $localize_data['name']);
 		//Set who the message is to be sent to
 		$this->addAddress($to_email, $to_name);
+		
+		//set html format
+		$this->isHTML(true);
 		//Set the subject line
 		$this->Subject = $localize_data['name'] . ':' . $subject;
 		//Read an HTML message body from an external file, convert referenced images to embedded,
 		//convert HTML into a basic plain-text alternative body
-		$this->msgHTML($body);
+		$this->msgHTML($body . '</br>' . _('best regards') . '< /br>' .	$localize_data['name']);
 		//Replace the plain text body with one created manually
 		//$mail->AltBody = 'This is a plain-text message body';
 		//Attach an image file

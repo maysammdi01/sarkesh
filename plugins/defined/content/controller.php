@@ -6,11 +6,18 @@
  
 namespace addon\plugin;
 use addon\plugin\content as content;
+use core\cls\core as core;
 class content extends content\module{
 	
 	
-	public function test(){
-		return array(1,1);
+	public function show(){
+		if(isset($_GET['id'])	){
+			//going to search and show content
+		}
+		else{
+			//show 404 msg
+			core\router::jump_page(array('plugin','msg','action','msg_404')	);
+		}
 	}
 		
 }
