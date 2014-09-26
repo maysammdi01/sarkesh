@@ -215,8 +215,8 @@ class view{
 	  protected function view_ActiveAcount(){
 		
 		$txt_code = new control\textbox('txt_code');
-		$txt_code->configure('LABEL',_('Activation code'));
-		$txt_code->configure('ADDON',_('A'));
+		$txt_code->configure('LABEL', _('Activation code') );
+		$txt_code->configure('ADDON',_('*'));
 		$txt_code->configure('PLACE_HOLDER',_('Your code in here!'));
 		$txt_code->configure('HELP',_('Enter code that you got it in your email in box below for active your account.'));
 		$txt_code->configure('SIZE',6);
@@ -224,11 +224,11 @@ class view{
 		$btn_active = new control\button('btn_active');
 		$btn_active->configure('P_ONCLICK_PLUGIN','users');
 		$btn_active->configure('P_ONCLICK_FUNCTION','btn_active_account');
-		$btn_active->configure('LABEL',_('Active account'));
+		$btn_active->configure('LABEL', _('Send active code to email') );
 		
 		$form = new control\form('USERS_ACTIVE_ACCOUNT');
 		$form->add_array(array($txt_code,$btn_active));
-		return array(_('Active account'),$form->draw());
+		return array( _('Active account') ,$form->draw());
 	  }
 
 }

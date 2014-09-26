@@ -31,7 +31,13 @@ class module extends view{
 		$plugins = db\orm::find('plugins','enable=1');
 		foreach($plugins as $plugin){
 			//now get all menus from plugins
-			$PluginName = '\\core\\plugin\\' . $plugin->name;
+			if(file_exists('./plugins/system/' . $plugin['name'] . '/controller.php')){
+				$PluginName = '\\core\\plugin\\' . $plugin['name'];
+			}
+			else{
+				$PluginName = '\\addon\\plugin\\' . $plugin['name'];
+			}
+			
 			$PluginObject = new $PluginName;
 			if(method_exists($PluginObject,'core_menu')){
 	

@@ -167,8 +167,17 @@ class users extends users\module{
 		 * INPUT: string(username)
 		 * OUTPUT:boolean
 		 */
-		 public function is_exists($username){
-			 return $this->module_is_exists($username);
+		 public function is_exists_username($username){
+			 return $this->module_is_exists($username,'username');
+		 }
+		 
+		 /*
+		 * this function is for checking that username is exist or not
+		 * INPUT: string(username)
+		 * OUTPUT:boolean
+		 */
+		 public function is_exists_email($email){
+			 return $this->module_is_exists($email,'email');
 		 }
 		 
 		 /*
