@@ -53,7 +53,7 @@ function SystemGetFormString(obj){
 	 });
 	//create return element
 	options += "control";
-	options += "<!!>name<!>RV<!>VALUE<!>0<!>URL<!>0<!>MODAL<!>0";
+	options += "<!!>name<!>RV<!>VALUE<!>0<!>URL<!>0<!>MODAL<!>0<!>JUMP_AFTER_MODAL<!>0";
 	
 	//create clicked elements
 	window.ClickedButton = $("button#" + obj.id).val()
@@ -88,7 +88,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 		url = encodeURI(url);
 		$.get(url ,
 			function(data){
-				alert(data);
+				//alert(data);
 				//find deference and set that
 				window['Counter'] = 0;
 				$(form_elements).each(function(){
@@ -147,7 +147,8 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 				if($(data).find("RV").children("MODAL").html() != '0'){
 					
 					var modal = $(data).find("RV").children("MODAL").html();
-					SysShowModal(modal.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'));
+					var jump_after_modal = $(data).find("RV").children("JUMP_AFTER_MODAL").html();
+					SysShowModal(modal.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'),jump_after_modal);
 				}
 				
 				//control is afterclick input value

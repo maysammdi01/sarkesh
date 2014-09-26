@@ -17,7 +17,7 @@ function sys_jump_page(url){
 }
 
 //this function use for show message in modal
-function SysShowModal(data){
+function SysShowModal(data , jump_page){
 	xmlDoc = $.parseXML( data ),
 	$xml = $( xmlDoc ),
 	$header = $xml.find( "header" );
@@ -34,7 +34,14 @@ function SysShowModal(data){
 		},
 		buttons: [{
 				label: $btnok.text(),	       
-				action: function(dialogItself){dialogItself.close(); }		       
+				action: function(dialogItself){
+					
+					dialogItself.close(); 
+					if(jump_page != '0'){
+						//jump to page
+						window.location.assign(jump_page);
+					}
+					}		       
 		}]
 	});  
 }
