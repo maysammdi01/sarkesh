@@ -3361,6 +3361,7 @@ class mail
 		//Set the subject line
 		$this->Subject = $localize_data['name'] . ':' . $subject;
 		//Read an HTML message body from an external file, convert referenced images to embedded,
+		$this->isSendmail();
 		//convert HTML into a basic plain-text alternative body
 		$this->msgHTML($body . '</br>' . _('best regards') . '< /br>' .	$localize_data['name']);
 		//Replace the plain text body with one created manually

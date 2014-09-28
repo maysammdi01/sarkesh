@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 28, 2014 at 03:20 PM
+-- Generation Time: Sep 28, 2014 at 05:09 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `enable` tinyint(1) NOT NULL,
   `can_edite` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `plugins`
@@ -237,7 +237,8 @@ INSERT INTO `plugins` (`id`, `name`, `enable`, `can_edite`) VALUES
 (4, 'languages', 1, 0),
 (6, 'hello', 1, 1),
 (11, 'files', 1, 0),
-(12, 'msg', 1, 0);
+(12, 'msg', 1, 0),
+(13, 'log', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `validator`, `forget`, `last_login`, `login_key`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 55, '', NULL, 61);
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 55, '', NULL, 62);
 
 -- --------------------------------------------------------
 
@@ -312,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
 
 --
 -- Dumping data for table `validator`
@@ -337,7 +338,7 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (56, 'USERS_LOGIN', 'irbd4su8gv', '1408439000'),
 (58, 'USERS_LOGIN', 'ocn800irph', '1410600455'),
 (60, 'USERS_LOGIN', '0loll6eyus', '1410955410'),
-(61, 'USERS_LOGIN', 'd7zr92ixor', '1412008997');
+(62, 'USERS_LOGIN', 'qvx036mj7i', '1412015211');
 
 --
 -- Constraints for dumped tables

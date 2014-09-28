@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh\n"
-"POT-Creation-Date: 2014-09-27 00:36+0330\n"
-"PO-Revision-Date: 2014-09-27 00:36+0330\n"
-"Last-Translator: Babak Alizadeh <alizadeh.babak@live.com>\n"
+"POT-Creation-Date: 2014-09-28 15:40-0500\n"
+"PO-Revision-Date: 2014-09-28 15:40-0500\n"
+"Last-Translator: Babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -15,29 +15,22 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: themes/blog/index.php:50
-msgid "Copyright &copy; Sarkesh LTD 2013"
-msgstr "کپی رایت © سرکش 2013"
-
-#: themes/blog/info.php:4 themes/sarkesh/info.php:4 themes/simple/info.php:4
-#: plugins/system/hello/info.php:2
+#: plugins/system/hello/info.php:2 themes/simple/info.php:4
+#: themes/sarkesh/info.php:4 themes/blog/info.php:4
 msgid "Sarkesh Developers"
 msgstr "توسعه‌دهندگان سرکش"
 
-#: themes/blog/info.php:5
-msgid "Blog"
-msgstr "وبلاگ"
+#: plugins/system/hello/info.php:3
+msgid "Hello is a sample plugin for developers."
+msgstr "سلام افزونه ی نمونه اییست برای توسعه دهندگان."
 
-#: themes/sarkesh/info.php:5
-msgid "Sarkesh"
-msgstr "سرکش"
+#: plugins/system/hello/info.php:4 plugins/system/msg/info.php:4
+#: plugins/system/languages/info.php:4 plugins/system/administrator/info.php:4
+msgid "0.0.3"
+msgstr "۰.۰.۳"
 
-#: themes/simple/info.php:5
-msgid "simple"
-msgstr "ساده"
-
-#: plugins/system/msg/info.php:2 plugins/system/languages/info.php:2
-#: plugins/system/users/info.php:2 plugins/system/administrator/info.php:2
+#: plugins/system/msg/info.php:2 plugins/system/users/info.php:2
+#: plugins/system/languages/info.php:2 plugins/system/administrator/info.php:2
 msgid "Sarkesh Developers Team"
 msgstr "تیم توسعه دهندگان سرکش"
 
@@ -45,11 +38,6 @@ msgstr "تیم توسعه دهندگان سرکش"
 #: plugins/system/administrator/info.php:3
 msgid "With Core you can manage and controll base of system settings"
 msgstr "با هسته شما می توانید تنظیمات پایه ی سیتم را مدیریت و کنترل کنید"
-
-#: plugins/system/msg/info.php:4 plugins/system/languages/info.php:4
-#: plugins/system/administrator/info.php:4 plugins/system/hello/info.php:4
-msgid "0.0.3"
-msgstr "۰.۰.۳"
 
 #: plugins/system/msg/view.php:35
 msgid "Sorry</br>Page Not Found!"
@@ -67,25 +55,20 @@ msgstr "به صفحه خانه برو"
 msgid "Not Found!"
 msgstr "یافت نشد!"
 
-#: plugins/system/languages/module.php:28
-msgid "message"
-msgstr "پیام"
+#: plugins/system/users/info.php:3
+msgid "Users and permations controlled with this plugin."
+msgstr "کاربران و دسترسی ها کنترل می شوند به وسیله ی این افزونه."
 
-#: plugins/system/languages/module.php:28
-msgid "changing language has some problem! Please try again later."
-msgstr "فرایند تغییر زبان با مشکل مواجه شد! لطفا مجددا تلاش کنید."
-
-#: plugins/system/languages/view.php:29
-msgid "Languages"
-msgstr "زبان ها"
-
-#: plugins/system/users/module.php:93 plugins/system/users/module.php:244
-#: plugins/system/users/module.php:249 plugins/system/users/module.php:253
-#: plugins/system/users/module.php:258 plugins/system/users/module.php:265
-#: plugins/system/users/module.php:269 plugins/system/users/module.php:276
-#: plugins/system/users/module.php:285 plugins/system/users/controller.php:62
-#: plugins/system/users/controller.php:127
-#: plugins/system/users/controller.php:211
+#: plugins/system/users/module.php:93 plugins/system/users/module.php:217
+#: plugins/system/users/module.php:226 plugins/system/users/module.php:269
+#: plugins/system/users/module.php:274 plugins/system/users/module.php:278
+#: plugins/system/users/module.php:283 plugins/system/users/module.php:290
+#: plugins/system/users/module.php:294 plugins/system/users/module.php:301
+#: plugins/system/users/module.php:310 plugins/system/users/controller.php:62
+#: plugins/system/users/controller.php:111
+#: plugins/system/users/controller.php:134
+#: plugins/system/users/controller.php:218
+#: plugins/system/users/controller.php:233
 msgid "Message"
 msgstr "پیام"
 
@@ -93,58 +76,85 @@ msgstr "پیام"
 msgid "Username or Password is incerrect!"
 msgstr "نام کاربری و یا گذرواژه نادرست است!"
 
-#: plugins/system/users/module.php:244
+#: plugins/system/users/module.php:211 plugins/system/users/view.php:223
+#, fuzzy
+msgid "Reset password"
+msgstr "بازیابی گذرواژه"
+
+#: plugins/system/users/module.php:212
+#, fuzzy, php-format
+msgid "Your reset password code is:%s"
+msgstr "کد فعال‌سازی شما: %s"
+
+#: plugins/system/users/module.php:212
+msgid "first go to this link and enter your reset password code."
+msgstr "ابتدا پیوند زیر را باز کنید،سپس کد فعال‌سازی خود را وارد کنید."
+
+#: plugins/system/users/module.php:217
+msgid ""
+"We send an email to you.please go to your inbox for more information about "
+"reset your password."
+msgstr ""
+"ما یک پیام به رایانامه شما ارسال کردیم. برای دریافت اطلاعات بیشتر درباره "
+"بازیابی کلمه‌عبور خود به رایانامه خود مراجعه کنید."
+
+#: plugins/system/users/module.php:226
+#, fuzzy
+msgid "Your entered username/email not found."
+msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
+
+#: plugins/system/users/module.php:269
 msgid "Format of username is not cerrect."
 msgstr "نام‌کاربری معتبر نیست."
 
-#: plugins/system/users/module.php:249
+#: plugins/system/users/module.php:274
 msgid "The username you entered is already taken by another user."
 msgstr "نام‌کاربری وارد شده قبلا توسط فرد دیگری ثبت شده است."
 
-#: plugins/system/users/module.php:253
+#: plugins/system/users/module.php:278
 msgid "Email is already taken by another user."
 msgstr "ایمیل وارد شده قبلا ثبت شده است."
 
-#: plugins/system/users/module.php:258
+#: plugins/system/users/module.php:283
 msgid "Your usernameis too short."
 msgstr "نام‌کاربری کوتاه است."
 
-#: plugins/system/users/module.php:265
+#: plugins/system/users/module.php:290
 msgid "The new passwords you entered do not match."
 msgstr "کلمه‌های عبور وارد شده با هم مطابقت ندارند."
 
-#: plugins/system/users/module.php:269
+#: plugins/system/users/module.php:294
 msgid "Your password is to short."
 msgstr "طول کلمه‌عبور کوتاه است."
 
-#: plugins/system/users/module.php:276
+#: plugins/system/users/module.php:301
 msgid "Your email is not cerrect."
 msgstr "رایانامه وارد شده معتبر نیست."
 
-#: plugins/system/users/module.php:313 plugins/system/users/module.php:347
-#: plugins/system/users/module.php:424 plugins/system/users/view.php:231
+#: plugins/system/users/module.php:338 plugins/system/users/module.php:372
+#: plugins/system/users/module.php:449 plugins/system/users/view.php:256
 msgid "Active account"
 msgstr "فعال‌سازی حساب کاربری"
 
-#: plugins/system/users/module.php:314
+#: plugins/system/users/module.php:339
 #, php-format
 msgid "Your activation code is:%s"
 msgstr "کد فعال‌سازی شما: %s"
 
-#: plugins/system/users/module.php:314
+#: plugins/system/users/module.php:339
 msgid "first go to link that comes below and enter your activation code."
-msgstr ""
+msgstr "ابتدا به پیوند زیر مراجعه کرده،سپس کد فعال‌سازی خود را وارد کنید."
 
-#: plugins/system/users/module.php:342
+#: plugins/system/users/module.php:367
 msgid "Registration complete"
 msgstr "عضویت کامل شد"
 
-#: plugins/system/users/module.php:343
+#: plugins/system/users/module.php:368
 #, php-format
 msgid "Your registration in %s was completed."
 msgstr "عضویت شما در %s با موفقیت به پایان رسید."
 
-#: plugins/system/users/module.php:348 plugins/system/users/module.php:425
+#: plugins/system/users/module.php:373 plugins/system/users/module.php:450
 msgid ""
 "We sent an email with an activation code to activate your account, check "
 "your email for more information."
@@ -152,11 +162,11 @@ msgstr ""
 "ما یک نامه حاوی کد فعال‌سازی جهت تکمیل فرآیند عضویت به رایانامه شما ارسال "
 "کردیم.برای اطلاعات بیشتر صندوق ورودی خود را چک کنید."
 
-#: plugins/system/users/module.php:418
+#: plugins/system/users/module.php:443
 msgid "Registration completed!"
 msgstr "عضویت کامل شد!"
 
-#: plugins/system/users/module.php:419
+#: plugins/system/users/module.php:444
 msgid ""
 "Your registration was successful.now you can login to system with your login "
 "information that you entered"
@@ -164,12 +174,49 @@ msgstr ""
 "عضویت شما با موفقیت انجام شد.هم‌اکنون میتوانید با اطلاعاتی که در زمان ثبت‌نام "
 "وارد کرده‌اید وارد شوید."
 
-#: plugins/system/users/info.php:3
-msgid "Users and permations controlled with this plugin."
-msgstr "کاربران و دسترسی ها کنترل می شوند به وسیله ی این افزونه."
+#: plugins/system/users/module.php:473
+#, fuzzy
+msgid "New password"
+msgstr "ارسال گذرواژه جدید به پست الکترونیکی"
 
-#: plugins/system/users/view.php:18 plugins/system/users/view.php:194
-#: plugins/system/users/view.php:196
+#: plugins/system/users/module.php:474
+#, fuzzy, php-format
+msgid "Your new password is: %s"
+msgstr "طول کلمه‌عبور کوتاه است."
+
+#: plugins/system/users/module.php:474
+msgid "Please after login to portal change your password"
+msgstr "لطفا بعد از ورود به پورتال کلمه‌عبور خود را تغییر دهید."
+
+#: plugins/system/users/module.php:491
+msgid "Warning"
+msgstr "هشدار"
+
+#: plugins/system/users/module.php:491
+msgid ""
+"Code that you entered is invalid.please enter code that you got from your "
+"email."
+msgstr ""
+"کد وارد شده اشتباه است.لطفا کدی که از طریق صندوق پست الکترونیکی خود دریافت "
+"کرده‌اید را وارد کنید."
+
+#: plugins/system/users/controller.php:62
+#: plugins/system/users/controller.php:218
+#: plugins/system/users/controller.php:233
+msgid "Please fill in all of the required fields"
+msgstr "لطفا  تمام موارد مورد نیاز را پر کنید"
+
+#: plugins/system/users/controller.php:111
+#, fuzzy
+msgid "Please enter your username or email!"
+msgstr "نام کاربری یا رایانامه حساب خود در سرکش را وارد کنید."
+
+#: plugins/system/users/controller.php:134
+msgid "Please fill out all the field that are marked with an asterisk (*)."
+msgstr "لطفا تمام فیلد هایی را که با (*) علامت گذاری شده اند، پر کنید."
+
+#: plugins/system/users/view.php:18 plugins/system/users/view.php:195
+#: plugins/system/users/view.php:197
 msgid "Username or e-mail address"
 msgstr "نام کاربری یا رایانامه"
 
@@ -224,7 +271,8 @@ msgstr "نام کاربری:"
 
 #: plugins/system/users/view.php:129 plugins/system/users/view.php:137
 #: plugins/system/users/view.php:147 plugins/system/users/view.php:155
-#: plugins/system/users/view.php:197 plugins/system/users/view.php:219
+#: plugins/system/users/view.php:198 plugins/system/users/view.php:218
+#: plugins/system/users/view.php:244
 msgid "*"
 msgstr "*"
 
@@ -272,44 +320,59 @@ msgstr "ایجاد حساب جدید"
 msgid "Cancel"
 msgstr "انصراف"
 
-#: plugins/system/users/view.php:195
+#: plugins/system/users/view.php:190
+#, fuzzy
+msgid "Request reset password"
+msgstr "درخواست گذرواژه جدید"
+
+#: plugins/system/users/view.php:196
 msgid "Enter your Alternate Email Address or username"
 msgstr "نام کاربری یا رایانامه جایگزین خود را وارد کنید"
 
-#: plugins/system/users/view.php:202
-msgid "Email new password"
+#: plugins/system/users/view.php:203
+msgid "Send password reset code"
+msgstr "ارسال کد بازیابی کلمه‌عبور"
+
+#: plugins/system/users/view.php:211
+msgid "Enter reset code"
+msgstr "کد بازیابی کلمه‌عبور را وارد کنید."
+
+#: plugins/system/users/view.php:215
+#, fuzzy
+msgid "Reset code"
+msgstr "بازیابی گذرواژه"
+
+#: plugins/system/users/view.php:216
+#, fuzzy
+msgid "Enter your code that you get in your email"
+msgstr "نام کاربری یا رایانامه حساب خود در سرکش را وارد کنید."
+
+#: plugins/system/users/view.php:217
+msgid "Code"
+msgstr "کد"
+
+#: plugins/system/users/view.php:233
+#, fuzzy
+msgid "Change password"
 msgstr "ارسال گذرواژه جدید به پست الکترونیکی"
 
-#: plugins/system/users/view.php:208
-msgid "Request new password"
-msgstr "درخواست گذرواژه جدید"
-
-#: plugins/system/users/view.php:218
+#: plugins/system/users/view.php:243
 msgid "Activation code"
 msgstr "کد فعال‌سازی"
 
-#: plugins/system/users/view.php:220
+#: plugins/system/users/view.php:245
 msgid "Your code in here!"
 msgstr "کد فعال‌سازی شما"
 
-#: plugins/system/users/view.php:221
+#: plugins/system/users/view.php:246
 msgid ""
 "Enter code that you got it in your email in box below for active your "
 "account."
 msgstr "کد فعال‌سازی که از طریق رایانامه خود دریافت کرده‌اید را وارد کنید."
 
-#: plugins/system/users/view.php:227
+#: plugins/system/users/view.php:252
 msgid "Send active code to email"
 msgstr "ارسال کد فعال‌سازی به رایانامه"
-
-#: plugins/system/users/controller.php:62
-#: plugins/system/users/controller.php:211
-msgid "Please fill in all of the required fields"
-msgstr "لطفا  تمام موارد مورد نیاز را پر کنید"
-
-#: plugins/system/users/controller.php:127
-msgid "Please fill out all the field that are marked with an asterisk (*)."
-msgstr "لطفا تمام فیلد هایی را که با (*) علامت گذاری شده اند، پر کنید."
 
 #: plugins/system/files/controller.php:45
 #: plugins/system/files/controller.php:54
@@ -330,6 +393,18 @@ msgid "Upload file is not successful! refresh page and try again."
 msgstr ""
 "بارگزاری فایل موفقیت‌آمیر نبود.پس از بارگزاری مجدد صفحه دوباره تلاش کنید."
 
+#: plugins/system/languages/module.php:28
+msgid "message"
+msgstr "پیام"
+
+#: plugins/system/languages/module.php:28
+msgid "changing language has some problem! Please try again later."
+msgstr "فرایند تغییر زبان با مشکل مواجه شد! لطفا مجددا تلاش کنید."
+
+#: plugins/system/languages/view.php:29
+msgid "Languages"
+msgstr "زبان ها"
+
 #: plugins/system/administrator/module.php:71
 msgid "Administrator:"
 msgstr "مدیریت:"
@@ -341,6 +416,30 @@ msgstr "دسترسی غیرمجاز"
 #: plugins/system/administrator/module.php:86
 msgid "you have no permission"
 msgstr "شما دسترسی لازم را ندارید."
+
+#: plugins/system/administrator/controller.php:60
+#: plugins/system/administrator/view.php:135
+msgid "Dashboard"
+msgstr "داشبورد"
+
+#: plugins/system/administrator/controller.php:60
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: plugins/system/administrator/controller.php:60
+#: plugins/system/administrator/view.php:115
+#: plugins/system/administrator/view.php:123
+msgid "Appearance"
+msgstr "ظاهر"
+
+#: plugins/system/administrator/controller.php:60
+#: plugins/system/administrator/view.php:124
+msgid "Plugins"
+msgstr "افزونه‌ها"
+
+#: plugins/system/administrator/controller.php:60
+msgid "Localize"
+msgstr "محلی‌سازی"
 
 #: plugins/system/administrator/view.php:40
 msgid "Log Out"
@@ -391,12 +490,6 @@ msgstr "تنظیمات"
 msgid "Install"
 msgstr "نصب"
 
-#: plugins/system/administrator/view.php:115
-#: plugins/system/administrator/view.php:123
-#: plugins/system/administrator/controller.php:60
-msgid "Appearance"
-msgstr "ظاهر"
-
 #: plugins/system/administrator/view.php:121
 msgid "Basic Settings"
 msgstr "تنظیمات پایه"
@@ -404,11 +497,6 @@ msgstr "تنظیمات پایه"
 #: plugins/system/administrator/view.php:122
 msgid "Regional and Languages"
 msgstr "نواحی و زبان‌ها"
-
-#: plugins/system/administrator/view.php:124
-#: plugins/system/administrator/controller.php:60
-msgid "Plugins"
-msgstr "افزونه‌ها"
 
 #: plugins/system/administrator/view.php:125
 msgid "Blocks"
@@ -418,47 +506,21 @@ msgstr "بلوک‌ها"
 msgid "Users and permissions"
 msgstr "کاربران و سطوح دسترسی"
 
-#: plugins/system/administrator/view.php:135
-#: plugins/system/administrator/controller.php:60
-msgid "Dashboard"
-msgstr "داشبورد"
+#: themes/simple/info.php:5
+msgid "simple"
+msgstr "ساده"
 
-#: plugins/system/administrator/controller.php:60
-msgid "General Settings"
-msgstr "تنظیمات عمومی"
+#: themes/sarkesh/info.php:5
+msgid "Sarkesh"
+msgstr "سرکش"
 
-#: plugins/system/administrator/controller.php:60
-msgid "Localize"
-msgstr "محلی‌سازی"
+#: themes/blog/info.php:5
+msgid "Blog"
+msgstr "وبلاگ"
 
-#: plugins/system/hello/info.php:3
-msgid "Hello is a sample plugin for developers."
-msgstr "سلام افزونه ی نمونه اییست برای توسعه دهندگان."
-
-#: core/lib/cls/core_cls_network_mail.php:24
-msgid "Sorry, PHPMailer will only run on PHP version 5 or greater!\n"
-msgstr ""
-
-#: core/lib/cls/core_cls_network_mail.php:3365
-msgid "best regards"
-msgstr "با احترام"
-
-#: core/lib/cls/core_cls_core_router.php:130
-#: core/lib/cls/core_cls_core_router.php:137
-msgid "Warning:Your requested service not found!"
-msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
-
-#: core/lib/cls/core_cls_browser_page.php:210
-msgid "Ok"
-msgstr "باشه"
-
-#: core/lib/cls/core_cls_browser_page.php:213
-msgid "Back"
-msgstr "بازگشت"
-
-#: core/lib/cls/core_cls_archive_zip.php:9
-msgid "can not open zip archive files"
-msgstr "فایل های آرشیو زیپ باز نمی شوند"
+#: themes/blog/index.php:50
+msgid "Copyright &copy; Sarkesh LTD 2013"
+msgstr "کپی رایت © سرکش 2013"
 
 #: core/lib/controls/uploader/module.php:11
 msgid "Byte"
@@ -471,6 +533,14 @@ msgstr "کیلوبایت"
 #: core/lib/controls/uploader/module.php:19
 msgid "MByte"
 msgstr "مگابایت"
+
+#: core/lib/controls/uploader/controller.php:24
+msgid "File uploader"
+msgstr "بارگزار فایل"
+
+#: core/lib/controls/uploader/controller.php:27
+msgid "Select file and click on upload button."
+msgstr "ابتدا فایل را انتخاب سپس روی دکمه بارگزاری کلیک کنید."
 
 #: core/lib/controls/uploader/view.php:36
 msgid "File name"
@@ -492,17 +562,30 @@ msgstr "حدکثر حجم"
 msgid "Valid types"
 msgstr "فرمت های مجاز"
 
-#: core/lib/controls/uploader/controller.php:24
-msgid "File uploader"
-msgstr "بارگزار فایل"
+#: core/lib/cls/core_cls_browser_page.php:210
+msgid "Ok"
+msgstr "باشه"
 
-#: core/lib/controls/uploader/controller.php:27
-msgid "Select file and click on upload button."
-msgstr "ابتدا فایل را انتخاب سپس روی دکمه بارگزاری کلیک کنید."
+#: core/lib/cls/core_cls_browser_page.php:213
+msgid "Back"
+msgstr "بازگشت"
 
-#, fuzzy
-#~ msgid "Enter your username or email."
-#~ msgstr "نام کاربری یا رایانامه حساب خود در سرکش را وارد کنید."
+#: core/lib/cls/core_cls_core_router.php:130
+#: core/lib/cls/core_cls_core_router.php:137
+msgid "Warning:Your requested service not found!"
+msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
+
+#: core/lib/cls/core_cls_archive_zip.php:9
+msgid "can not open zip archive files"
+msgstr "فایل های آرشیو زیپ باز نمی شوند"
+
+#: core/lib/cls/core_cls_network_mail.php:24
+msgid "Sorry, PHPMailer will only run on PHP version 5 or greater!\n"
+msgstr ""
+
+#: core/lib/cls/core_cls_network_mail.php:3365
+msgid "best regards"
+msgstr "با احترام"
 
 #~ msgid "Enter the password that accompanies your username."
 #~ msgstr "گذرواژه ای که برای حساب خود انتخاب کرده اید را وارد کنید."

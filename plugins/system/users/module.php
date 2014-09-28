@@ -390,12 +390,12 @@ class module extends view{
 		//this function check for that username is exist before or not
 		protected function module_is_exists($parameter , $type){
 			if($type == 'username' || $type == 'USERNAME'){
-				$UserNum = db\orm::count('users','username=?',array($username));
+				$UserNum = db\orm::count('users','username=?',array($parameter));
 				if($UserNum != 0){	return true;}
 				return false;
 			}
 			elseif($type == 'email' || $type == 'EMAIL'){
-				$EmailNUM = db\orm::count('users','email=?',array($username));
+				$EmailNUM = db\orm::count('users','email=?',array($parameter));
 				if($EmailNUM != 0){	return true;}
 				return false;
 			}
