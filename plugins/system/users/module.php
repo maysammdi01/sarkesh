@@ -197,9 +197,34 @@ class module extends view{
 	    * This function run with botton that's in reset password form
 	    * OUTPUT:ELEMENTS
 	    */
-	    protected function module_btn_reset_password_onclick($e){
+	    protected function module_btn_reset_password_email_onclick($e){
 			
-			$e['RV']['MODAL'] = browser\page::show_block(1,1,'MODAL','type-warning');
+			if( db\orm::count('users','username=? or email=?',array($e['txt_email']['VALUE'],$e['txt_email']['VALUE'])	) != 0){
+				//going to send reset code
+				$user = db\orm::findOne('users','username=? or email=?',array($e['txt_email']['VALUE'],$e['txt_email']['VALUE'])	);
+				
+				//create random password
+				$user->forget = core\general::random_string(10,'NC');
+				db\orm::store($user);
+				
+				//send email to user
+				$header = _('Reset password');
+				$body = sprintf(_('Your reset password code is:%s'),$user->code) . _('first go to this link and enter your reset password code.') . '</br> ' . core\general::create_url(array('plugin','users','action','reset_password')) ;
+				
+				$mail = new network\mail;
+				if($mail->simple_send($user->username,$user->email,$header,$body)){
+					//show successfull message to user
+					$e['RV']['MODAL'] = browser\page::show_block(_('Message'), _('We send an email to you.please go to your inbox for more information about reset your password.'),'MODAL','type-success');
+				}
+				else{
+					//error in sending email
+					
+				}
+			}
+			else{
+				//email or username is not found
+				$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Your entered username/email not found.'),'MODAL','type-warning');
+			}
 			return $e;
 		}
 		
@@ -234,7 +259,7 @@ class module extends view{
 		
 		//this function is for do user registeration
 		//INPUT:ELEMENTS
-		public function module_btn_signup_onclick($e){
+		protected function module_btn_signup_onclick($e){
 			//this variable is for store errors
 			$error = array(null);
 			//first checking for input informations
@@ -363,7 +388,7 @@ class module extends view{
 		}
 		
 		//this function check for that username is exist before or not
-		public function module_is_exists($parameter , $type){
+		protected function module_is_exists($parameter , $type){
 			if($type == 'username' || $type == 'USERNAME'){
 				$UserNum = db\orm::count('users','username=?',array($username));
 				if($UserNum != 0){	return true;}
@@ -429,5 +454,43 @@ class module extends view{
 			//return back message
 			return $msg->msg($header,$body,$type);
 		}
+		
+		/*
+		 * Function for reset user password and send that to user
+		 */
+		 protected function module_btn_reset_password_onclick($e){
+			 
+			 //check for that count is cerrect
+			 if(db\orm::count('users','forget=?',array($e['txt_code']['VALUE'])) != 0){
+				 //code is cerrect
+				 $password = core\general::random_string(5,'NC');
+				 $user = db\orm::findOne('users','forget=?',array($e['txt_code']['VALUE']));
+				 $user->password = md5($password);
+				 $user->forget = '';
+				 db\orm::store($user);
+				 
+				 //now send password to user email
+				 $header = _('New password');
+				 $body = sprintf(_('Your new password is: %s'),$password) . _('Please after login to portal change your password');
+				 
+				 $mail = new network\mail;
+				 if($mail->simple_send($user->username,$user->email,$header, $body)	){
+					 //show successfull mesage to user
+					 $e['RV']['MODAL'] = browser\page::show_block('Password changed','Your new password was send to your email. check your email for get that.','MODAL','danger');
+
+				 }
+				 else{
+					 //error in sending email
+					 $e['RV']['MODAL'] = browser\page::show_block('Error','Error in sending new password to your email. please tell with administrator','MODAL','type-danger');
+				 }
+				 
+				 return $e;
+			 }
+			 else{
+				 //show message about invalid code
+				 $e['RV']['MODAL'] = browser\page::show_block(_('Warning'),_('Code that you entered is invalid.please enter code that you got from your email.'),'MODAL','type-warning');
+				 return $e;
+			 }
+		 }
 }
 ?>

@@ -186,26 +186,51 @@ class view{
 	  * OUTPUT: elements
 	  */
 	  protected function view_reset_password(){
-		  $form = new control\form('USERS_RESET_PASSWORD');
+		  $frm_reset_password_email = new control\form('USERS_EMAIL_RESET_PASSWORD');
+		  $frm_reset_password_email->configure('LABEL', _('Request reset password'));
 		  
 		  //create textbox for enter email or username
-		  $email = new control\textbox;
-		  $email->configure('NAME','txt_email');
-		  $email->configure('LABEL',_('Username or e-mail address'));
-		  $email->configure('HELP',_('Enter your Alternate Email Address or username'));
-		  $email->configure('PLACE_HOLDER',_('Username or e-mail address'));
-		  $email->configure('ADDON',_('*'));
-		  $email->configure('SIZE',8);
+		  $txt_email = new control\textbox;
+		  $txt_email->configure('NAME','txt_email');
+		  $txt_email->configure('LABEL',_('Username or e-mail address'));
+		  $txt_email->configure('HELP',_('Enter your Alternate Email Address or username'));
+		  $txt_email->configure('PLACE_HOLDER',_('Username or e-mail address'));
+		  $txt_email->configure('ADDON',_('*'));
+		  $txt_email->configure('SIZE',10);
 		  
-		  $reset = new control\button;
-		  $reset->configure('NAME','btn_reset');
-		  $reset->configure('LABEL',_('Email new password'));
-		  $reset->configure('P_ONCLICK_PLUGIN','users');
-		  $reset->configure('P_ONCLICK_FUNCTION','btn_reset_password_onclick');
-		  $reset->configure('TYPE','primary');		  
-		  $form->add_array(array($email, $reset));
+		  $btn_send_email = new control\button('btn_email_reset_password');
+		  $btn_send_email->configure('NAME','btn_send_email');
+		  $btn_send_email->configure('LABEL',_('Send password reset code'));
+		  $btn_send_email->configure('P_ONCLICK_PLUGIN','users');
+		  $btn_send_email->configure('P_ONCLICK_FUNCTION','btn_reset_password_email_onclick');
+		  $btn_send_email->configure('TYPE','primary');		  
+		  $frm_reset_password_email->add_array(array($txt_email, $btn_send_email));
 		  
-		  return array(_('Request new password'),$form->draw());
+		  //THIS PARD IS FOR DRAW ENTER RESET CODE
+		  $frm_reset_password = new control\form('USERS_RESET_CODE');
+		  $frm_reset_password->configure('LABEL', _('Enter reset code'));
+		  //create textbox for enter email or username
+		  $txt_code = new control\textbox;
+		  $txt_code->configure('NAME','txt_code');
+		  $txt_code->configure('LABEL',_('Reset code'));
+		  $txt_code->configure('HELP',_('Enter your code that you get in your email'));
+		  $txt_code->configure('PLACE_HOLDER',_('Code'));
+		  $txt_code->configure('ADDON',_('*'));
+		  $txt_code->configure('SIZE',8);
+		  
+		  $btn_reset_password = new control\button('USERS_BTN_RESET_PASSWORD');
+		  $btn_reset_password->configure('NAME','btn_reset_password');
+		  $btn_reset_password->configure('LABEL',_('Reset password'));
+		  $btn_reset_password->configure('P_ONCLICK_PLUGIN','users');
+		  $btn_reset_password->configure('P_ONCLICK_FUNCTION','btn_reset_password_onclick');
+		  $btn_reset_password->configure('TYPE','primary');		  
+		  
+		  $frm_reset_password->add_array(array($txt_code, $btn_reset_password));
+		  
+		  $tabbar = new control\tabbar;
+		  $tabbar->add($frm_reset_password_email);
+		  $tabbar->add($frm_reset_password);
+		  return array(_('Change password'),$tabbar->draw());
 		  
 	  }
 	  

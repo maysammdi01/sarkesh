@@ -8,7 +8,7 @@ define ("DatabaseType","mysql");
 define ("DatabaseUser","root");
 define ("DatabasePassword","136431");
 define ("DatabaseHost","localhost");
-define ("DatabaseName","sarkesh");
+define ("DatabaseName","test");
 
 #save  domain for load system
 define ("SiteDomain",'http://' . $_SERVER['SERVER_NAME'] );

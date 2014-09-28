@@ -102,12 +102,19 @@ class users extends users\module{
 	    * This function run with button that's in reset password form
 	    * OUTPUT:ELEMENTS
 	    */
-	    public function btn_reset_password_onclick($e){
+	    public function btn_reset_password_email_onclick($e){
 			//if this action requested by content mode i should reject that
 			if($e == 'content'){
 				core\router::jump_page(SiteDomain);
 			}
-			return $this->module_btn_reset_password_onclick($e);
+			if($e['txt_email']['VALUE'] == ''){
+				$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please enter your username or email!'),'MODAL','type-warning');
+				return $e;
+			}
+			else{
+				return $this->module_btn_reset_password_email_onclick($e);
+			}
+			
 		}
 		
 		/*
@@ -216,6 +223,20 @@ class users extends users\module{
 				return $this->module_btn_active_account($e);
 			}
 		}
+		
+		/*
+		 * Function for button that reset user password and send new password to email.
+		 */
+		 public function btn_reset_password_onclick($e){
+			 # check for that reset code is entered
+			 if($e['txt_code']['VALUE'] == ''){
+				 $e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill in all of the required fields'),'MODAL','type-warning');
+				 return $e;
+			 }
+			 else{
+				return $this-> module_btn_reset_password_onclick($e);
+			}
+		 }
 		 
 }
 ?>
