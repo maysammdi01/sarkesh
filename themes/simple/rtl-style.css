@@ -1,1 +1,16 @@
+@font-face {
+				font-family: 'Iranian Sans';
+				font-style: normal;
+				src: url(/themes/simple/fonts/irsans.eot);
+				src: local('Iranian Sans'), url(/themes/simple/fonts/irsans.eot) format('embedded-opentype'), url(/themes/simple/fonts/irsans.woff) format('woff');
+}
 
+body{
+	font-family: 'Iranian Sans' !important;
+}
+h1, h2, h3{
+	font-family: 'Iranian Sans' !important;
+}
+h4, h5, h6, p, blockquote, li{
+	font-family: 'Iranian Sans' !important;
+}

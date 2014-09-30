@@ -68,9 +68,14 @@ class router{
 				if(file_exists('./plugins/system/' . $this->plugin . '/controller.php')){
 					$PluginName = '\\core\\plugin\\' . $this->plugin;
 				}
-				else{
+				elseif(file_exists('./plugins/defined/' . $this->plugin . '/controller.php')){
 					$PluginName = '\\addon\\plugin\\' . $this->plugin;
 				}
+				else{
+					//plugin not found
+					exit('plugin not found');
+				}
+				
 	     		 $plugin = new $PluginName;
 	     		 //run action directly
 	     		 if(method_exists($plugin,$this->action)){
@@ -98,13 +103,13 @@ class router{
 		  }
 	      browser\page::set_page_tittle($content[0]);
           //show header in up of content or else
-          if(sizeof($content) == 3 && $content[2] == false){
+          if(sizeof($content) == 2){
             
-            $output_content = browser\page::show_block('',$content[1],'MAIN');
-          }
-          else{
- 
             $output_content = browser\page::show_block($content[0],$content[1],'MAIN');
+          }
+          elseif(sizeof($content) == 3 && $content[2] == true){
+ 
+            $output_content = browser\page::show_block($content[0],$content[1],'BLOCK','default');
           }
 		  
 		  //show content id show_content was set

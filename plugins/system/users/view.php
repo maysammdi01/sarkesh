@@ -3,6 +3,7 @@ namespace core\plugin\users;
 use \core\cls\template as template;
 use \core\cls\browser as browser;
 use \core\cls\core as core;
+use \core\plugin as plugin;
 
 use \core\control as control;
 class view{
@@ -254,6 +255,36 @@ class view{
 		$form = new control\form('USERS_ACTIVE_ACCOUNT');
 		$form->add_array(array($txt_code,$btn_active));
 		return array( _('Active account') ,$form->draw());
+	  }
+	  
+	  //this function is for return users profile
+	  protected function view_profile($user){
+		  $form = new control\form('USERS_VIEW_PROFILE');
+		  
+		  //USER PROFILE PICTURE
+		  //get file address
+		  $files = new plugin\files;
+		  $adr = $files->get_adr($user->photo);
+		  $photo = new control\image('USERS_PHOTO');
+		  $photo->configure('SRC',$adr);
+		  
+		  //show username
+		  $lbl_username = new control\label('users_lbl_username');
+		  $lbl_username->configure('LABEL', _('Username:') . $user->username);
+		  
+		  //show last login date
+		  $lbl_last_login = new control\label('users_lbl_last_login');
+		  $lbl_last_login->configure('LABEL', _('Last login:') . $user->last_login);
+		  
+		  //show register date
+		  $lbl_register_date = new control\label('users_lbl_register_date');
+		  $lbl_register_date->configure('LABEL', _('Register date:') . $user->register_date);
+		  
+		  
+		  $form->add_array([$photo,$lbl_username, $lbl_last_login, $lbl_register_date]);
+		  
+		  return [sprintf( _('%s\'s profile'),$user->username), $form->draw(),true];
+		  
 	  }
 
 }

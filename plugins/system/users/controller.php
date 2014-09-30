@@ -161,15 +161,6 @@ class users extends users\module{
 		}
 		
 		/*
-		 * This function is for show profile of user
-		 * INPUT: Nothing
-		 * OUTPUT:ELEMENTS
-		 */
-		 public function profile(){
-			 return array(1,1);
-		 }
-		
-		/*
 		 * this function is for checking that username is exist or not
 		 * INPUT: string(username)
 		 * OUTPUT:boolean
@@ -238,5 +229,13 @@ class users extends users\module{
 			}
 		 }
 		 
+		 /*
+		  * This function return user profile
+		  * INPUT:NULL
+		  * OUTPUT:ELEMENTS
+		  */
+		  public function profile(){
+			  return $this->module_profile();
+		  }
 }
 ?>

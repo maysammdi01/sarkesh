@@ -21,7 +21,7 @@ class view{
 		$lang->configure('SIZE',12);
 		$lang->configure('COLUMN_LABELS','language_name');
 		$lang->configure('COLUMN_VALUES','language');
-		$lang->configure('SCRIPT_SRC',"./plugins/languages/scripts/languages.js");
+
 		$lang->configure('J_AFTER_ONCHANGE','languages_check_change');
 		$lang->configure('P_ONCHANGE_PLUGIN','languages');
 		$lang->configure('P_ONCHANGE_FUNCTION','languages_onchange');

@@ -63,6 +63,14 @@ class files extends files\module{
 		  
 		  return cls_page::show_block(_('System message !'),_('Upload file is not successful! refresh page and try again.'), 'MODAL','type-warning');
 	  }
+	  
+	  
+	  /*
+	   * This function send back adress of file
+	   */
+	  public function get_adr($id){
+		  return $this->module_get_adr($id);
+	  } 
       
 	
 }

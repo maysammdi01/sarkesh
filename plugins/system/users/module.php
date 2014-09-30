@@ -7,9 +7,11 @@ use \core\cls\browser as browser;
 use \core\plugin as plugin;
 
 class module extends view{
+	
 	private $registry;
 	private $settings;
 	private $validator;
+	
 	function __construct(){
 		
 		$this->registry = new core\registry;
@@ -316,8 +318,10 @@ class module extends view{
 					$user->username = $e['txt_username']['VALUE'];
 					$user->password = md5($e['txt_password']['VALUE']);
 					$user->email = $e['txt_email']['VALUE'];
+					//save register date
+					$user->register_date = time();
 					//set default permation
-					$user->permation = $this->settings['default_permission'];
+					$user->permation = $this->settings['default_permation'];
 					
 					/*
 					 * check for that administrator want to validate users with email or not
@@ -491,6 +495,39 @@ class module extends view{
 				 $e['RV']['MODAL'] = browser\page::show_block(_('Warning'),_('Code that you entered is invalid.please enter code that you got from your email.'),'MODAL','type-warning');
 				 return $e;
 			 }
+		 }
+		 
+		 //this function is for show profile
+		 protected function module_profile(){
+			 //check for that cerrent user is owner or not
+			 if(!isset($_GET['id'])){
+				 //going to show profile to user
+				 $user_info = $this->module_get_info('');
+				 
+				 if($user_info != false){
+					 $user = db\orm::findOne('users','id = ?',array($user_info->id));
+					 return $this->view_profile($user);
+				 }
+				 else{
+					 //user is guest, show access denied message
+					 
+				 }
+					 
+				 
+			 }
+			 else{ 
+				//check for that profiles is public or not
+				if($this->settings['privecy'] == '1'){
+					//going to get user info and return profile
+					
+				}
+				else{
+					//show access denied message to user
+						
+				}
+			}
+				
+			 
 		 }
 }
 ?>

@@ -6,6 +6,10 @@ class module extends view{
 		parent::__construct();
 	}
 	
+	protected function module_uploader(){
+		return $this->view_uploader();
+	}
+	
 	protected function module_show(){
 		$db = new \db\mysql;
 		$db->do_query('SELECT * FROM rr');

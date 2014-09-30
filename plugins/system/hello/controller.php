@@ -12,6 +12,13 @@ class hello extends hello\module{
 		return $menu;
 	}
 	
+	/*
+	 * This function and function that defined in module and view is for showing for work with uploader in system
+	 */
+	public function uploader(){
+		return $this->module_uploader();
+	}
+	
 	public function test(){
 		$form = new \control\form('test');
 		

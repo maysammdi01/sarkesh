@@ -85,6 +85,7 @@ function ctr_uploader_upload(obj){
             processData: false, // Don't process the files
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             success: function(data, textStatus, jqXHR){
+				
                  if(data != '-1'){
                     //upload was successfull
                     //set number in input element
@@ -92,7 +93,7 @@ function ctr_uploader_upload(obj){
                     
                     //disable control
                     $('.body_ctr_uploader_' + obj).prop('disabled',true);
-                    alert(obj);
+                    
                     
                  }
                  else{

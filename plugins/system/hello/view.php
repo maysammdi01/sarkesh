@@ -2,12 +2,24 @@
 namespace core\plugin\hello;
 use \core\cls\template as template;
 use \core\cls\browser as browser;
+use \core\control as control;
 class view{
 	private $raintpl;
 	
 	function __construct(){
 		$this->raintpl = new template\raintpl;
 		$this->raintpl->configure("tpl_dir", "plugins/hello/tpl/" );
+	}
+	
+	protected function view_uploader(){
+		$form = new control\form('Form_name');
+		
+		$uploader = new control\uploader;
+		
+		$form->add($uploader);
+		
+		return array('uploader',$form->draw());
+		
 	}
 	protected function view_table(){
 		

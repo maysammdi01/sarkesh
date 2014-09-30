@@ -1,7 +1,13 @@
 <?php 
 namespace core\plugin\files;
+use \core\cls\db as db;
 class module extends view{
+	
+	private $service_adr;
+	
 	function __construct(){
+		
+		$this->service_adr = SiteDomain . '/?service=1&plugin=files&action=service&id=';//just add file id to access that
 		parent::__construct();	
 	}
 	
@@ -13,7 +19,7 @@ class module extends view{
 	 protected function module_do_upload(){
 	       
             //first get active stronge divices
-            $places = cls_orm::findOne('file_places','state=1');
+            $places = db\orm::findOne('file_places','state=1');
             
             //WARRNING : THIS PART WAS DEVELOPED ONLY FOR LOCAL STRONGE AND SOME OTHER LIKE FTP AND CLOUD NOT DEVELOPED.
             //I TRY TO DEVELOP THIS PARD IN BETA VERSION
@@ -32,7 +38,7 @@ class module extends view{
                 try{
                      move_uploaded_file($_FILES["uploads"]["tmp_name"],$places->options . $_FILES["uploads"]["name"]);
                     
-                    $file_info = cls_orm::dispense('files');
+                    $file_info = db\orm::dispense('files');
                     $file_info->name = $_FILES["uploads"]["name"];
                     $file_info->place = $places->id;
                     $file_info->address = SiteDomain . $places->options  . $_FILES["uploads"]["name"];
@@ -41,7 +47,7 @@ class module extends view{
                     $file_info->size = $_FILES["uploads"]["size"];
                     
                     //Save and return file id for proccess in javascript function
-                    return cls_orm::store($file_info);
+                    return db\orm::store($file_info);
                         
                 }
                 catch (Exception $e) {
@@ -52,6 +58,20 @@ class module extends view{
                
             }
 	 }
+	  /*
+	   * This function send back adress of file
+	   */
+	  protected function module_get_adr($id){
+		  
+		  if(db\orm::count('files','id=?',[$id]) != 0){
+			  $file = db\orm::findOne('files','id=?',[$id]);
+			  return $this->service_adr . $file->id;
+		  }
+		  else{
+			  //file not found
+			  return false;
+		  }
+	  } 
 	
 }
 ?>
