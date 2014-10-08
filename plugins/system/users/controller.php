@@ -191,7 +191,7 @@ class users extends users\module{
 		 * This action is for that user can enter activation code in that
 		 */
 		
-		public function ActiveAcount(){
+		public function ActiveAccount(){
 			
 			if(isset($_GET['id'])){
 				//going to activate user
@@ -200,7 +200,7 @@ class users extends users\module{
 			}
 			else{
 				//show active acount page to user
-				return $this->module_ActiveAcount();
+				return $this->module_ActiveAccount();
 			}
 		}
 		public function btn_active_account($e){

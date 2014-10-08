@@ -319,7 +319,8 @@ class module extends view{
 					$user->password = md5($e['txt_password']['VALUE']);
 					$user->email = $e['txt_email']['VALUE'];
 					//save register date
-					$user->register_date = time();
+					$ObjDateTime = new \DateTime;
+					$user->register_date = $ObjDateTime->getTimestamp();
 					//set default permation
 					$user->permation = $this->settings['default_permation'];
 					
@@ -340,14 +341,14 @@ class module extends view{
 						$user->code = core\general::random_string(10,'NC');
 						
 						$email_title = _('Active account');
-						$email_body = sprintf(_('Your activation code is:%s'),$user->code) . _('first go to link that comes below and enter your activation code.') . '</br>' . core\general::create_url(SiteDomain . '/?plugin=users&action=ActiveAccount',false);
+						$email_body = sprintf(_('Your activation code is:%s'),$user->code) . _(' first go to link that comes below and enter your activation code.') . '</br>' . core\general::create_url(SiteDomain . '/?plugin=users&action=ActiveAccount',false);
 						
 						//save in database
 						$UserId = db\orm::store($user);
 						
-						if(!$mail->simple_send($e['txt_username']['VALUE'],$e['txt_email']['VALUE'],$email_title,$email_body)){
+						if($mail->simple_send($e['txt_username']['VALUE'],$e['txt_email']['VALUE'],$email_title,$email_body)){
 							//user activated
-							$e['RV']['URL'] = core\general::create_url(array('plugin','users','action','show_msg','id','register_active'),true);
+							$e['RV']['URL'] = core\general::create_url(array('plugin','users','action','ActiveAccount','new','1'),true);
 						}
 						else{
 							//error in sending email
@@ -367,9 +368,13 @@ class module extends view{
 						//save user in database
 						db\orm::store($user);
 						
+						//get site name
+						$obj_localize = new core\localize;
+						$local = $obj_localize->get_localize();
+						
 						//send register information to email
 						$email_title = _('Registration complete');
-						$email_body = sprintf(_('Your registration in %s was completed.'),'sarkesh.org');
+						$email_body = sprintf(_('Your registration in %s was completed.'),[$local['name']]);
 						if(!$mail->simple_send($e['txt_username']['VALUE'],$e['txt_email']['VALUE'],$email_title,$email_body)){
 							//user activated
 							//show register successful message for registeration in sarkesh
@@ -409,8 +414,18 @@ class module extends view{
 		/*
 		 * This function is for show active acount page to user
 		 */
-		protected function module_ActiveAcount(){
-			return $this->view_ActiveAcount();
+		protected function module_ActiveAccount(){
+			//check for that user is loged in
+			if($this->module_is_logedin()){
+			 header("Location:" . SiteDomain);
+			 exit();
+			}
+			
+			$msg = '';
+			if(isset($_GET['new'])){
+				$msg = $this->module_show_msg('register_active',true);
+			}
+			return $this->view_ActiveAccount($msg);
 		}
 		
 		//this function is for check activation code and active user account
@@ -423,17 +438,18 @@ class module extends view{
 					// E => Enabled
 					$user->state = 'E';
 					db\orm::store($user);
-					$e['RV']['MODAL'] = browser\page::show_block('Registration completed','your account activated successfully. Now click on OK to jump to home page.','MODAL','success');
+					$e['RV']['MODAL'] = browser\page::show_block('Registration completed','your account activated successfully. Now click on OK to jump to home page.','MODAL','type-success');
+					$e['RV']['JUMP_AFTER_MODAL'] = SiteDomain;
 			}
 			else{
 				//active code not found
-				$e['RV']['MODAL'] = browser\page::show_block('Error','Activation Code Invalid','MODAL','danger');
+				$e['RV']['MODAL'] = browser\page::show_block('Error','Activation Code Invalid','MODAL','type-danger');
 			}
 			return $e;
 		}
 		
 		//this function show meesage
-		protected function module_show_msg($id){
+		protected function module_show_msg($id,$just_body = false){
 			
 			//create object from msg plugin
 			$msg = new plugin\msg;
@@ -451,12 +467,16 @@ class module extends view{
 			elseif($id == 'register_active'){
 				//show register successful message for registeration in sarkesh
 				$header = _('Active account');
-				$body = _('We sent an email with an activation code to activate your account, check your email for more information.');
+				$body = _('We sent an email with an activation code to activate your account, check your email for more information and enter your activation code in box below.');
 				$type = 'info';
 			}
 			
 			//return back message
-			return $msg->msg($header,$body,$type);
+			$result = $msg->msg($header,$body,$type);
+			if($just_body){
+				return $result[1];
+			}
+			return $result;
 		}
 		
 		/*

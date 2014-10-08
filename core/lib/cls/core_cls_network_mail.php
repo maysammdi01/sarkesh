@@ -187,7 +187,7 @@ class mail
      * @type string
      * @deprecated Should not be needed now there is an autoloader.
      */
-    public $PluginDir = '';
+    public $PluginDir = './core/lib/cls/';
 
     /**
      * The email address that a reading confirmation should be sent to.
@@ -3347,8 +3347,7 @@ class mail
 		//get site email and main site name
 		$localize = new core\localize;
 		$localize_data = $localize->get_localize();
-		// Set PHPMailer to use the sendmail transport
-		$this->isSendmail();
+		$this->isMail();
 		//Set who the message is to be sent from
 		$this->setFrom($localize_data['email'], $localize_data['name']);
 		//Set an alternative reply-to address
@@ -3361,7 +3360,7 @@ class mail
 		//Set the subject line
 		$this->Subject = $localize_data['name'] . ':' . $subject;
 		//Read an HTML message body from an external file, convert referenced images to embedded,
-		$this->isSendmail();
+		
 		//convert HTML into a basic plain-text alternative body
 		$this->msgHTML($body . '</br>' . _('best regards') . '< /br>' .	$localize_data['name']);
 		//Replace the plain text body with one created manually

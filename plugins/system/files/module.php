@@ -72,6 +72,61 @@ class module extends view{
 			  return false;
 		  }
 	  } 
+	  
+	  /*
+	   * This function return back requested files
+	   */
+	   public function module_service(){
+		   if(isset($_GET['id'])){
+			  $adr = $this->to_here($_GET['id']);
+			  if($adr != false){
+					//get file type for sending to header page
+					$extension=$ext = pathinfo($adr, PATHINFO_EXTENSION);
+					
+					//add header for read file
+					if($extension == 'jpg' || $extension == 'jpg'){
+						header( "Content-type: image/jpeg" );
+						
+					}
+					elseif($extension == 'png' || $extension == 'PNG'){
+						header( "Content-type: image/png" );
+					}
+					
+					//some other file types most add in here in future
+					
+					readfile($adr);
+					return '';
+			  }
+			  else{
+				  //file not found
+				 return _('File not found!');
+			  }
+			  
+		   }
+		   else{
+			   //id not set.show service error message
+		   }
+	   }
+	   
+	   //this function return back internal address in upload\files directore
+	   protected function to_here($id){
+		    if(db\orm::count('files','id=?',[$id]) != 0){
+				$file = db\orm::findOne('files','id=?',[$id]);
+				$place = db\orm::findOne('file_places','id=?',[$file->place]	);
+				
+				if($place->class_name == 'files_local'){
+					//file is exist on server return file address
+					return AppPath . $place->options . $file->name;
+					
+				}
+				//other options like dropbox,ftp and ... added in here
+				
+			}
+			else{
+				//file not found
+				return false;
+			}
+	   }
 	
 }
 ?>

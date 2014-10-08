@@ -70,7 +70,15 @@ class files extends files\module{
 	   */
 	  public function get_adr($id){
 		  return $this->module_get_adr($id);
-	  } 
+	  }
+	  
+	  /*
+	   * This function return back requested files
+	   */
+	   public function service(){
+		   return $this->module_service();
+		   
+	   }
       
 	
 }

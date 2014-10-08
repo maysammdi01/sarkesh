@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh\n"
-"POT-Creation-Date: 2014-09-28 15:40-0500\n"
-"PO-Revision-Date: 2014-09-28 15:40-0500\n"
+"POT-Creation-Date: 2014-10-08 17:10+0330\n"
+"PO-Revision-Date: 2014-10-08 17:13+0330\n"
 "Last-Translator: Babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
@@ -14,83 +14,98 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: /home/sarkesh/www\n"
 
-#: plugins/system/hello/info.php:2 themes/simple/info.php:4
-#: themes/sarkesh/info.php:4 themes/blog/info.php:4
+#: /home/sarkesh/www/plugins/system/hello/info.php:2
+#: /home/sarkesh/www/themes/simple/info.php:4
+#: /home/sarkesh/www/themes/sarkesh/info.php:4
+#: /home/sarkesh/www/themes/blog/info.php:4
 msgid "Sarkesh Developers"
 msgstr "توسعه‌دهندگان سرکش"
 
-#: plugins/system/hello/info.php:3
+#: /home/sarkesh/www/plugins/system/hello/info.php:3
 msgid "Hello is a sample plugin for developers."
 msgstr "سلام افزونه ی نمونه اییست برای توسعه دهندگان."
 
-#: plugins/system/hello/info.php:4 plugins/system/msg/info.php:4
-#: plugins/system/languages/info.php:4 plugins/system/administrator/info.php:4
+#: /home/sarkesh/www/plugins/system/hello/info.php:4
+#: /home/sarkesh/www/plugins/system/msg/info.php:4
+#: /home/sarkesh/www/plugins/system/languages/info.php:4
+#: /home/sarkesh/www/plugins/system/administrator/info.php:4
 msgid "0.0.3"
 msgstr "۰.۰.۳"
 
-#: plugins/system/msg/info.php:2 plugins/system/users/info.php:2
-#: plugins/system/languages/info.php:2 plugins/system/administrator/info.php:2
+#: /home/sarkesh/www/plugins/system/msg/info.php:2
+#: /home/sarkesh/www/plugins/system/users/info.php:2
+#: /home/sarkesh/www/plugins/system/languages/info.php:2
+#: /home/sarkesh/www/plugins/system/administrator/info.php:2
 msgid "Sarkesh Developers Team"
 msgstr "تیم توسعه دهندگان سرکش"
 
-#: plugins/system/msg/info.php:3 plugins/system/languages/info.php:3
-#: plugins/system/administrator/info.php:3
+#: /home/sarkesh/www/plugins/system/msg/info.php:3
+#: /home/sarkesh/www/plugins/system/languages/info.php:3
+#: /home/sarkesh/www/plugins/system/administrator/info.php:3
 msgid "With Core you can manage and controll base of system settings"
 msgstr "با هسته شما می توانید تنظیمات پایه ی سیتم را مدیریت و کنترل کنید"
 
-#: plugins/system/msg/view.php:35
+#: /home/sarkesh/www/plugins/system/msg/view.php:35
 msgid "Sorry</br>Page Not Found!"
 msgstr "صفحه یافت نشد!"
 
-#: plugins/system/msg/view.php:36
+#: /home/sarkesh/www/plugins/system/msg/view.php:36
 msgid "404 !"
 msgstr "404!"
 
-#: plugins/system/msg/view.php:37
+#: /home/sarkesh/www/plugins/system/msg/view.php:37
 msgid "Go to Home"
 msgstr "به صفحه خانه برو"
 
-#: plugins/system/msg/view.php:43
+#: /home/sarkesh/www/plugins/system/msg/view.php:43
 msgid "Not Found!"
 msgstr "یافت نشد!"
 
-#: plugins/system/users/info.php:3
+#: /home/sarkesh/www/plugins/system/users/info.php:3
 msgid "Users and permations controlled with this plugin."
 msgstr "کاربران و دسترسی ها کنترل می شوند به وسیله ی این افزونه."
 
-#: plugins/system/users/module.php:93 plugins/system/users/module.php:217
-#: plugins/system/users/module.php:226 plugins/system/users/module.php:269
-#: plugins/system/users/module.php:274 plugins/system/users/module.php:278
-#: plugins/system/users/module.php:283 plugins/system/users/module.php:290
-#: plugins/system/users/module.php:294 plugins/system/users/module.php:301
-#: plugins/system/users/module.php:310 plugins/system/users/controller.php:62
-#: plugins/system/users/controller.php:111
-#: plugins/system/users/controller.php:134
-#: plugins/system/users/controller.php:218
-#: plugins/system/users/controller.php:233
+#: /home/sarkesh/www/plugins/system/users/module.php:95
+#: /home/sarkesh/www/plugins/system/users/module.php:219
+#: /home/sarkesh/www/plugins/system/users/module.php:228
+#: /home/sarkesh/www/plugins/system/users/module.php:271
+#: /home/sarkesh/www/plugins/system/users/module.php:276
+#: /home/sarkesh/www/plugins/system/users/module.php:280
+#: /home/sarkesh/www/plugins/system/users/module.php:285
+#: /home/sarkesh/www/plugins/system/users/module.php:292
+#: /home/sarkesh/www/plugins/system/users/module.php:296
+#: /home/sarkesh/www/plugins/system/users/module.php:303
+#: /home/sarkesh/www/plugins/system/users/module.php:312
+#: /home/sarkesh/www/plugins/system/users/controller.php:62
+#: /home/sarkesh/www/plugins/system/users/controller.php:111
+#: /home/sarkesh/www/plugins/system/users/controller.php:134
+#: /home/sarkesh/www/plugins/system/users/controller.php:209
+#: /home/sarkesh/www/plugins/system/users/controller.php:224
 msgid "Message"
 msgstr "پیام"
 
-#: plugins/system/users/module.php:93
+#: /home/sarkesh/www/plugins/system/users/module.php:95
 msgid "Username or Password is incerrect!"
 msgstr "نام کاربری و یا گذرواژه نادرست است!"
 
-#: plugins/system/users/module.php:211 plugins/system/users/view.php:223
+#: /home/sarkesh/www/plugins/system/users/module.php:213
+#: /home/sarkesh/www/plugins/system/users/view.php:224
 #, fuzzy
 msgid "Reset password"
 msgstr "بازیابی گذرواژه"
 
-#: plugins/system/users/module.php:212
+#: /home/sarkesh/www/plugins/system/users/module.php:214
 #, fuzzy, php-format
 msgid "Your reset password code is:%s"
 msgstr "کد فعال‌سازی شما: %s"
 
-#: plugins/system/users/module.php:212
+#: /home/sarkesh/www/plugins/system/users/module.php:214
 msgid "first go to this link and enter your reset password code."
 msgstr "ابتدا پیوند زیر را باز کنید،سپس کد فعال‌سازی خود را وارد کنید."
 
-#: plugins/system/users/module.php:217
+#: /home/sarkesh/www/plugins/system/users/module.php:219
 msgid ""
 "We send an email to you.please go to your inbox for more information about "
 "reset your password."
@@ -98,63 +113,66 @@ msgstr ""
 "ما یک پیام به رایانامه شما ارسال کردیم. برای دریافت اطلاعات بیشتر درباره "
 "بازیابی کلمه‌عبور خود به رایانامه خود مراجعه کنید."
 
-#: plugins/system/users/module.php:226
+#: /home/sarkesh/www/plugins/system/users/module.php:228
 #, fuzzy
 msgid "Your entered username/email not found."
 msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
 
-#: plugins/system/users/module.php:269
+#: /home/sarkesh/www/plugins/system/users/module.php:271
 msgid "Format of username is not cerrect."
 msgstr "نام‌کاربری معتبر نیست."
 
-#: plugins/system/users/module.php:274
+#: /home/sarkesh/www/plugins/system/users/module.php:276
 msgid "The username you entered is already taken by another user."
 msgstr "نام‌کاربری وارد شده قبلا توسط فرد دیگری ثبت شده است."
 
-#: plugins/system/users/module.php:278
+#: /home/sarkesh/www/plugins/system/users/module.php:280
 msgid "Email is already taken by another user."
 msgstr "ایمیل وارد شده قبلا ثبت شده است."
 
-#: plugins/system/users/module.php:283
+#: /home/sarkesh/www/plugins/system/users/module.php:285
 msgid "Your usernameis too short."
 msgstr "نام‌کاربری کوتاه است."
 
-#: plugins/system/users/module.php:290
+#: /home/sarkesh/www/plugins/system/users/module.php:292
 msgid "The new passwords you entered do not match."
 msgstr "کلمه‌های عبور وارد شده با هم مطابقت ندارند."
 
-#: plugins/system/users/module.php:294
+#: /home/sarkesh/www/plugins/system/users/module.php:296
 msgid "Your password is to short."
 msgstr "طول کلمه‌عبور کوتاه است."
 
-#: plugins/system/users/module.php:301
+#: /home/sarkesh/www/plugins/system/users/module.php:303
 msgid "Your email is not cerrect."
 msgstr "رایانامه وارد شده معتبر نیست."
 
-#: plugins/system/users/module.php:338 plugins/system/users/module.php:372
-#: plugins/system/users/module.php:449 plugins/system/users/view.php:256
+#: /home/sarkesh/www/plugins/system/users/module.php:343
+#: /home/sarkesh/www/plugins/system/users/module.php:377
+#: /home/sarkesh/www/plugins/system/users/module.php:454
+#: /home/sarkesh/www/plugins/system/users/view.php:257
 msgid "Active account"
 msgstr "فعال‌سازی حساب کاربری"
 
-#: plugins/system/users/module.php:339
+#: /home/sarkesh/www/plugins/system/users/module.php:344
 #, php-format
 msgid "Your activation code is:%s"
 msgstr "کد فعال‌سازی شما: %s"
 
-#: plugins/system/users/module.php:339
+#: /home/sarkesh/www/plugins/system/users/module.php:344
 msgid "first go to link that comes below and enter your activation code."
 msgstr "ابتدا به پیوند زیر مراجعه کرده،سپس کد فعال‌سازی خود را وارد کنید."
 
-#: plugins/system/users/module.php:367
+#: /home/sarkesh/www/plugins/system/users/module.php:372
 msgid "Registration complete"
 msgstr "عضویت کامل شد"
 
-#: plugins/system/users/module.php:368
+#: /home/sarkesh/www/plugins/system/users/module.php:373
 #, php-format
 msgid "Your registration in %s was completed."
 msgstr "عضویت شما در %s با موفقیت به پایان رسید."
 
-#: plugins/system/users/module.php:373 plugins/system/users/module.php:450
+#: /home/sarkesh/www/plugins/system/users/module.php:378
+#: /home/sarkesh/www/plugins/system/users/module.php:455
 msgid ""
 "We sent an email with an activation code to activate your account, check "
 "your email for more information."
@@ -162,11 +180,11 @@ msgstr ""
 "ما یک نامه حاوی کد فعال‌سازی جهت تکمیل فرآیند عضویت به رایانامه شما ارسال "
 "کردیم.برای اطلاعات بیشتر صندوق ورودی خود را چک کنید."
 
-#: plugins/system/users/module.php:443
+#: /home/sarkesh/www/plugins/system/users/module.php:448
 msgid "Registration completed!"
 msgstr "عضویت کامل شد!"
 
-#: plugins/system/users/module.php:444
+#: /home/sarkesh/www/plugins/system/users/module.php:449
 msgid ""
 "Your registration was successful.now you can login to system with your login "
 "information that you entered"
@@ -174,25 +192,25 @@ msgstr ""
 "عضویت شما با موفقیت انجام شد.هم‌اکنون میتوانید با اطلاعاتی که در زمان ثبت‌نام "
 "وارد کرده‌اید وارد شوید."
 
-#: plugins/system/users/module.php:473
+#: /home/sarkesh/www/plugins/system/users/module.php:478
 #, fuzzy
 msgid "New password"
 msgstr "ارسال گذرواژه جدید به پست الکترونیکی"
 
-#: plugins/system/users/module.php:474
+#: /home/sarkesh/www/plugins/system/users/module.php:479
 #, fuzzy, php-format
 msgid "Your new password is: %s"
 msgstr "طول کلمه‌عبور کوتاه است."
 
-#: plugins/system/users/module.php:474
+#: /home/sarkesh/www/plugins/system/users/module.php:479
 msgid "Please after login to portal change your password"
 msgstr "لطفا بعد از ورود به پورتال کلمه‌عبور خود را تغییر دهید."
 
-#: plugins/system/users/module.php:491
+#: /home/sarkesh/www/plugins/system/users/module.php:496
 msgid "Warning"
 msgstr "هشدار"
 
-#: plugins/system/users/module.php:491
+#: /home/sarkesh/www/plugins/system/users/module.php:496
 msgid ""
 "Code that you entered is invalid.please enter code that you got from your "
 "email."
@@ -200,87 +218,96 @@ msgstr ""
 "کد وارد شده اشتباه است.لطفا کدی که از طریق صندوق پست الکترونیکی خود دریافت "
 "کرده‌اید را وارد کنید."
 
-#: plugins/system/users/controller.php:62
-#: plugins/system/users/controller.php:218
-#: plugins/system/users/controller.php:233
+#: /home/sarkesh/www/plugins/system/users/controller.php:62
+#: /home/sarkesh/www/plugins/system/users/controller.php:209
+#: /home/sarkesh/www/plugins/system/users/controller.php:224
 msgid "Please fill in all of the required fields"
 msgstr "لطفا  تمام موارد مورد نیاز را پر کنید"
 
-#: plugins/system/users/controller.php:111
+#: /home/sarkesh/www/plugins/system/users/controller.php:111
 #, fuzzy
 msgid "Please enter your username or email!"
 msgstr "نام کاربری یا رایانامه حساب خود در سرکش را وارد کنید."
 
-#: plugins/system/users/controller.php:134
+#: /home/sarkesh/www/plugins/system/users/controller.php:134
 msgid "Please fill out all the field that are marked with an asterisk (*)."
 msgstr "لطفا تمام فیلد هایی را که با (*) علامت گذاری شده اند، پر کنید."
 
-#: plugins/system/users/view.php:18 plugins/system/users/view.php:195
-#: plugins/system/users/view.php:197
+#: /home/sarkesh/www/plugins/system/users/view.php:19
+#: /home/sarkesh/www/plugins/system/users/view.php:196
+#: /home/sarkesh/www/plugins/system/users/view.php:198
 msgid "Username or e-mail address"
 msgstr "نام کاربری یا رایانامه"
 
-#: plugins/system/users/view.php:24 plugins/system/users/view.php:146
+#: /home/sarkesh/www/plugins/system/users/view.php:25
+#: /home/sarkesh/www/plugins/system/users/view.php:147
 msgid "Password:"
 msgstr "گذرواژه:"
 
-#: plugins/system/users/view.php:26 plugins/system/users/view.php:148
-#: plugins/system/users/view.php:156
+#: /home/sarkesh/www/plugins/system/users/view.php:27
+#: /home/sarkesh/www/plugins/system/users/view.php:149
+#: /home/sarkesh/www/plugins/system/users/view.php:157
 msgid "Password"
 msgstr "کلمه عبور"
 
-#: plugins/system/users/view.php:32
+#: /home/sarkesh/www/plugins/system/users/view.php:33
 msgid "Remember me!"
 msgstr "مرا فراموش مکن!"
 
-#: plugins/system/users/view.php:36 plugins/system/users/view.php:76
+#: /home/sarkesh/www/plugins/system/users/view.php:37
+#: /home/sarkesh/www/plugins/system/users/view.php:77
 msgid "Sign in"
 msgstr "ورود"
 
-#: plugins/system/users/view.php:43
+#: /home/sarkesh/www/plugins/system/users/view.php:44
 msgid "Reset Password"
 msgstr "بازیابی گذرواژه"
 
-#: plugins/system/users/view.php:64
+#: /home/sarkesh/www/plugins/system/users/view.php:65
 msgid "Don't have account?"
 msgstr "حساب کاربری ندارید؟"
 
-#: plugins/system/users/view.php:67 plugins/system/users/view.php:181
+#: /home/sarkesh/www/plugins/system/users/view.php:68
+#: /home/sarkesh/www/plugins/system/users/view.php:182
 msgid "Sign up"
 msgstr "ثبت نام"
 
-#: plugins/system/users/view.php:94
+#: /home/sarkesh/www/plugins/system/users/view.php:95
 msgid "Hello"
 msgstr "سلام"
 
-#: plugins/system/users/view.php:109
+#: /home/sarkesh/www/plugins/system/users/view.php:110
 msgid "Admin panel"
 msgstr "محیط مدیریت"
 
-#: plugins/system/users/view.php:115
+#: /home/sarkesh/www/plugins/system/users/view.php:116
 msgid "User Profile"
 msgstr "نمایه کاربر"
 
-#: plugins/system/users/view.php:124
+#: /home/sarkesh/www/plugins/system/users/view.php:125
 msgid "Register"
 msgstr "ثبت نام"
 
-#: plugins/system/users/view.php:128
+#: /home/sarkesh/www/plugins/system/users/view.php:129
+#: /home/sarkesh/www/plugins/system/users/view.php:277
 msgid "Username:"
 msgstr "نام کاربری:"
 
-#: plugins/system/users/view.php:129 plugins/system/users/view.php:137
-#: plugins/system/users/view.php:147 plugins/system/users/view.php:155
-#: plugins/system/users/view.php:198 plugins/system/users/view.php:218
-#: plugins/system/users/view.php:244
+#: /home/sarkesh/www/plugins/system/users/view.php:130
+#: /home/sarkesh/www/plugins/system/users/view.php:138
+#: /home/sarkesh/www/plugins/system/users/view.php:148
+#: /home/sarkesh/www/plugins/system/users/view.php:156
+#: /home/sarkesh/www/plugins/system/users/view.php:199
+#: /home/sarkesh/www/plugins/system/users/view.php:219
+#: /home/sarkesh/www/plugins/system/users/view.php:245
 msgid "*"
 msgstr "*"
 
-#: plugins/system/users/view.php:130
+#: /home/sarkesh/www/plugins/system/users/view.php:131
 msgid "Username"
 msgstr "نام کاربری"
 
-#: plugins/system/users/view.php:131
+#: /home/sarkesh/www/plugins/system/users/view.php:132
 msgid ""
 "Spaces are allowed; punctuation is not allowed except for periods, hyphens, "
 "apostrophes, and underscores."
@@ -288,15 +315,15 @@ msgstr ""
 "شما مجاز به استفاده از فاصله هستید؛ ولی مجاز به استفاده از نشانه های سجاوندی "
 "به جز نقطه، خط تیره، آپاستروف و زیرخط (_) نیستید."
 
-#: plugins/system/users/view.php:136
+#: /home/sarkesh/www/plugins/system/users/view.php:137
 msgid "Email:"
 msgstr "رایانامه:"
 
-#: plugins/system/users/view.php:138
+#: /home/sarkesh/www/plugins/system/users/view.php:139
 msgid "Email"
 msgstr "رایانامه"
 
-#: plugins/system/users/view.php:139
+#: /home/sarkesh/www/plugins/system/users/view.php:140
 msgid ""
 "A valid e-mail address. All e-mails from the system will be sent to this "
 "address. The e-mail address is not made public and will only be used if you "
@@ -307,285 +334,300 @@ msgstr ""
 "خواهند شد. آدرس رایانامه شما منتشر نخواهد شد و فقط برای کار هایی مانند "
 "درخواست گذرواژه جدید یا درخواست دریافت اخبار و اطلاعیه استفاده خواهد شد."
 
-#: plugins/system/users/view.php:154
+#: /home/sarkesh/www/plugins/system/users/view.php:155
 msgid "Confirm password :"
 msgstr "تأیید گذرواژه: "
 
-#: plugins/system/users/view.php:163
+#: /home/sarkesh/www/plugins/system/users/view.php:164
 msgid "Create new account"
 msgstr "ایجاد حساب جدید"
 
-#: plugins/system/users/view.php:170
-#: core/lib/cls/core_cls_browser_page.php:216
+#: /home/sarkesh/www/plugins/system/users/view.php:171
+#: /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php:216
 msgid "Cancel"
 msgstr "انصراف"
 
-#: plugins/system/users/view.php:190
+#: /home/sarkesh/www/plugins/system/users/view.php:191
 #, fuzzy
 msgid "Request reset password"
 msgstr "درخواست گذرواژه جدید"
 
-#: plugins/system/users/view.php:196
+#: /home/sarkesh/www/plugins/system/users/view.php:197
 msgid "Enter your Alternate Email Address or username"
 msgstr "نام کاربری یا رایانامه جایگزین خود را وارد کنید"
 
-#: plugins/system/users/view.php:203
+#: /home/sarkesh/www/plugins/system/users/view.php:204
 msgid "Send password reset code"
 msgstr "ارسال کد بازیابی کلمه‌عبور"
 
-#: plugins/system/users/view.php:211
+#: /home/sarkesh/www/plugins/system/users/view.php:212
 msgid "Enter reset code"
 msgstr "کد بازیابی کلمه‌عبور را وارد کنید."
 
-#: plugins/system/users/view.php:215
+#: /home/sarkesh/www/plugins/system/users/view.php:216
 #, fuzzy
 msgid "Reset code"
 msgstr "بازیابی گذرواژه"
 
-#: plugins/system/users/view.php:216
+#: /home/sarkesh/www/plugins/system/users/view.php:217
 #, fuzzy
 msgid "Enter your code that you get in your email"
 msgstr "نام کاربری یا رایانامه حساب خود در سرکش را وارد کنید."
 
-#: plugins/system/users/view.php:217
+#: /home/sarkesh/www/plugins/system/users/view.php:218
 msgid "Code"
 msgstr "کد"
 
-#: plugins/system/users/view.php:233
+#: /home/sarkesh/www/plugins/system/users/view.php:234
 #, fuzzy
 msgid "Change password"
 msgstr "ارسال گذرواژه جدید به پست الکترونیکی"
 
-#: plugins/system/users/view.php:243
+#: /home/sarkesh/www/plugins/system/users/view.php:244
 msgid "Activation code"
 msgstr "کد فعال‌سازی"
 
-#: plugins/system/users/view.php:245
+#: /home/sarkesh/www/plugins/system/users/view.php:246
 msgid "Your code in here!"
 msgstr "کد فعال‌سازی شما"
 
-#: plugins/system/users/view.php:246
+#: /home/sarkesh/www/plugins/system/users/view.php:247
 msgid ""
 "Enter code that you got it in your email in box below for active your "
 "account."
 msgstr "کد فعال‌سازی که از طریق رایانامه خود دریافت کرده‌اید را وارد کنید."
 
-#: plugins/system/users/view.php:252
+#: /home/sarkesh/www/plugins/system/users/view.php:253
 msgid "Send active code to email"
 msgstr "ارسال کد فعال‌سازی به رایانامه"
 
-#: plugins/system/files/controller.php:45
-#: plugins/system/files/controller.php:54
-#: plugins/system/files/controller.php:64
+#: /home/sarkesh/www/plugins/system/users/view.php:281
+msgid "Last login:"
+msgstr "آخرین ورود:"
+
+#: /home/sarkesh/www/plugins/system/users/view.php:287
+#, fuzzy
+msgid "Register date:"
+msgstr "ثبت نام"
+
+#: /home/sarkesh/www/plugins/system/users/view.php:292
+#, fuzzy, php-format
+msgid "%s's profile"
+msgstr "نمایه کاربر"
+
+#: /home/sarkesh/www/plugins/system/files/controller.php:45
+#: /home/sarkesh/www/plugins/system/files/controller.php:54
+#: /home/sarkesh/www/plugins/system/files/controller.php:64
 msgid "System message !"
 msgstr "پیام سیستم !"
 
-#: plugins/system/files/controller.php:45
+#: /home/sarkesh/www/plugins/system/files/controller.php:45
 msgid "Type of selected file is invalid.please select another."
 msgstr "نوع فایل انتخاب شده قابل قبول نیست. لطفا مورد دیگری را انتخاب کنید."
 
-#: plugins/system/files/controller.php:54
+#: /home/sarkesh/www/plugins/system/files/controller.php:54
 msgid "Size of selected file is too big. select another."
 msgstr "حجم فایل انتخاب شده بیش از حد بزرگ است. مورد دیگری را انتخاب کنید."
 
-#: plugins/system/files/controller.php:64
+#: /home/sarkesh/www/plugins/system/files/controller.php:64
 msgid "Upload file is not successful! refresh page and try again."
 msgstr ""
 "بارگزاری فایل موفقیت‌آمیر نبود.پس از بارگزاری مجدد صفحه دوباره تلاش کنید."
 
-#: plugins/system/languages/module.php:28
+#: /home/sarkesh/www/plugins/system/log/controller.php:10
+msgid "Syatem log"
+msgstr ""
+
+#: /home/sarkesh/www/plugins/system/languages/module.php:28
 msgid "message"
 msgstr "پیام"
 
-#: plugins/system/languages/module.php:28
+#: /home/sarkesh/www/plugins/system/languages/module.php:28
 msgid "changing language has some problem! Please try again later."
 msgstr "فرایند تغییر زبان با مشکل مواجه شد! لطفا مجددا تلاش کنید."
 
-#: plugins/system/languages/view.php:29
+#: /home/sarkesh/www/plugins/system/languages/view.php:29
 msgid "Languages"
 msgstr "زبان ها"
 
-#: plugins/system/administrator/module.php:71
+#: /home/sarkesh/www/plugins/system/administrator/module.php:71
 msgid "Administrator:"
 msgstr "مدیریت:"
 
-#: plugins/system/administrator/module.php:86
+#: /home/sarkesh/www/plugins/system/administrator/module.php:86
 msgid "no access"
 msgstr "دسترسی غیرمجاز"
 
-#: plugins/system/administrator/module.php:86
+#: /home/sarkesh/www/plugins/system/administrator/module.php:86
 msgid "you have no permission"
 msgstr "شما دسترسی لازم را ندارید."
 
-#: plugins/system/administrator/controller.php:60
-#: plugins/system/administrator/view.php:135
+#: /home/sarkesh/www/plugins/system/administrator/controller.php:60
+#: /home/sarkesh/www/plugins/system/administrator/view.php:135
 msgid "Dashboard"
 msgstr "داشبورد"
 
-#: plugins/system/administrator/controller.php:60
+#: /home/sarkesh/www/plugins/system/administrator/controller.php:60
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
-#: plugins/system/administrator/controller.php:60
-#: plugins/system/administrator/view.php:115
-#: plugins/system/administrator/view.php:123
+#: /home/sarkesh/www/plugins/system/administrator/controller.php:60
+#: /home/sarkesh/www/plugins/system/administrator/view.php:115
+#: /home/sarkesh/www/plugins/system/administrator/view.php:123
 msgid "Appearance"
 msgstr "ظاهر"
 
-#: plugins/system/administrator/controller.php:60
-#: plugins/system/administrator/view.php:124
+#: /home/sarkesh/www/plugins/system/administrator/controller.php:60
+#: /home/sarkesh/www/plugins/system/administrator/view.php:124
 msgid "Plugins"
 msgstr "افزونه‌ها"
 
-#: plugins/system/administrator/controller.php:60
+#: /home/sarkesh/www/plugins/system/administrator/controller.php:60
 msgid "Localize"
 msgstr "محلی‌سازی"
 
-#: plugins/system/administrator/view.php:40
+#: /home/sarkesh/www/plugins/system/administrator/view.php:40
 msgid "Log Out"
 msgstr "خروج"
 
-#: plugins/system/administrator/view.php:45
+#: /home/sarkesh/www/plugins/system/administrator/view.php:45
 msgid "Profile"
 msgstr "نمایه کاربر"
 
-#: plugins/system/administrator/view.php:48
+#: /home/sarkesh/www/plugins/system/administrator/view.php:48
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: plugins/system/administrator/view.php:51
+#: /home/sarkesh/www/plugins/system/administrator/view.php:51
 msgid "Sarkesh Administrator"
 msgstr "بخش مدیریت سرکش"
 
-#: plugins/system/administrator/view.php:69
+#: /home/sarkesh/www/plugins/system/administrator/view.php:69
 msgid "Themes"
 msgstr "پوسته‌ها"
 
-#: plugins/system/administrator/view.php:93
+#: /home/sarkesh/www/plugins/system/administrator/view.php:93
 msgid "Active this"
 msgstr "فعال کردن"
 
-#: plugins/system/administrator/view.php:104
+#: /home/sarkesh/www/plugins/system/administrator/view.php:104
 msgid "ID"
 msgstr "ردیف"
 
-#: plugins/system/administrator/view.php:104
+#: /home/sarkesh/www/plugins/system/administrator/view.php:104
 msgid "Name"
 msgstr "نام"
 
-#: plugins/system/administrator/view.php:104
-#: plugins/system/administrator/view.php:127
-#: plugins/system/administrator/view.php:129
-#: plugins/system/administrator/view.php:130
-#: plugins/system/administrator/view.php:131
-#: plugins/system/administrator/view.php:132
+#: /home/sarkesh/www/plugins/system/administrator/view.php:104
+#: /home/sarkesh/www/plugins/system/administrator/view.php:127
+#: /home/sarkesh/www/plugins/system/administrator/view.php:129
+#: /home/sarkesh/www/plugins/system/administrator/view.php:130
+#: /home/sarkesh/www/plugins/system/administrator/view.php:131
+#: /home/sarkesh/www/plugins/system/administrator/view.php:132
 msgid "Author"
 msgstr "نویسنده"
 
-#: plugins/system/administrator/view.php:104
+#: /home/sarkesh/www/plugins/system/administrator/view.php:104
 msgid "Options"
 msgstr "تنظیمات"
 
-#: plugins/system/administrator/view.php:112
+#: /home/sarkesh/www/plugins/system/administrator/view.php:112
 msgid "Install"
 msgstr "نصب"
 
-#: plugins/system/administrator/view.php:121
+#: /home/sarkesh/www/plugins/system/administrator/view.php:121
 msgid "Basic Settings"
 msgstr "تنظیمات پایه"
 
-#: plugins/system/administrator/view.php:122
+#: /home/sarkesh/www/plugins/system/administrator/view.php:122
 msgid "Regional and Languages"
 msgstr "نواحی و زبان‌ها"
 
-#: plugins/system/administrator/view.php:125
+#: /home/sarkesh/www/plugins/system/administrator/view.php:125
 msgid "Blocks"
 msgstr "بلوک‌ها"
 
-#: plugins/system/administrator/view.php:126
+#: /home/sarkesh/www/plugins/system/administrator/view.php:126
 msgid "Users and permissions"
 msgstr "کاربران و سطوح دسترسی"
 
-#: themes/simple/info.php:5
+#: /home/sarkesh/www/themes/simple/info.php:5
 msgid "simple"
 msgstr "ساده"
 
-#: themes/sarkesh/info.php:5
+#: /home/sarkesh/www/themes/sarkesh/info.php:5
 msgid "Sarkesh"
 msgstr "سرکش"
 
-#: themes/blog/info.php:5
+#: /home/sarkesh/www/themes/blog/info.php:5
 msgid "Blog"
 msgstr "وبلاگ"
 
-#: themes/blog/index.php:50
+#: /home/sarkesh/www/themes/blog/index.php:50
 msgid "Copyright &copy; Sarkesh LTD 2013"
 msgstr "کپی رایت © سرکش 2013"
 
-#: core/lib/controls/uploader/module.php:11
+#: /home/sarkesh/www/core/lib/controls/uploader/module.php:11
 msgid "Byte"
 msgstr "بایت"
 
-#: core/lib/controls/uploader/module.php:15
+#: /home/sarkesh/www/core/lib/controls/uploader/module.php:15
 msgid "KByte"
 msgstr "کیلوبایت"
 
-#: core/lib/controls/uploader/module.php:19
+#: /home/sarkesh/www/core/lib/controls/uploader/module.php:19
 msgid "MByte"
 msgstr "مگابایت"
 
-#: core/lib/controls/uploader/controller.php:24
+#: /home/sarkesh/www/core/lib/controls/uploader/controller.php:24
 msgid "File uploader"
 msgstr "بارگزار فایل"
 
-#: core/lib/controls/uploader/controller.php:27
+#: /home/sarkesh/www/core/lib/controls/uploader/controller.php:27
 msgid "Select file and click on upload button."
 msgstr "ابتدا فایل را انتخاب سپس روی دکمه بارگزاری کلیک کنید."
 
-#: core/lib/controls/uploader/view.php:36
+#: /home/sarkesh/www/core/lib/controls/uploader/view.php:36
 msgid "File name"
 msgstr "نام فایل"
 
-#: core/lib/controls/uploader/view.php:37
+#: /home/sarkesh/www/core/lib/controls/uploader/view.php:37
 msgid "Upload"
 msgstr "بارگزاری"
 
-#: core/lib/controls/uploader/view.php:38
+#: /home/sarkesh/www/core/lib/controls/uploader/view.php:38
 msgid "Select"
 msgstr "انتخاب"
 
-#: core/lib/controls/uploader/view.php:39
+#: /home/sarkesh/www/core/lib/controls/uploader/view.php:39
 msgid "Max Size"
 msgstr "حدکثر حجم"
 
-#: core/lib/controls/uploader/view.php:43
+#: /home/sarkesh/www/core/lib/controls/uploader/view.php:43
 msgid "Valid types"
 msgstr "فرمت های مجاز"
 
-#: core/lib/cls/core_cls_browser_page.php:210
+#: /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php:210
 msgid "Ok"
 msgstr "باشه"
 
-#: core/lib/cls/core_cls_browser_page.php:213
+#: /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php:213
 msgid "Back"
 msgstr "بازگشت"
 
-#: core/lib/cls/core_cls_core_router.php:130
-#: core/lib/cls/core_cls_core_router.php:137
+#: /home/sarkesh/www/core/lib/cls/core_cls_core_router.php:135
+#: /home/sarkesh/www/core/lib/cls/core_cls_core_router.php:142
 msgid "Warning:Your requested service not found!"
 msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
 
-#: core/lib/cls/core_cls_archive_zip.php:9
+#: /home/sarkesh/www/core/lib/cls/core_cls_archive_zip.php:9
 msgid "can not open zip archive files"
 msgstr "فایل های آرشیو زیپ باز نمی شوند"
 
-#: core/lib/cls/core_cls_network_mail.php:24
+#: /home/sarkesh/www/core/lib/cls/core_cls_network_mail.php:24
 msgid "Sorry, PHPMailer will only run on PHP version 5 or greater!\n"
 msgstr ""
 
-#: core/lib/cls/core_cls_network_mail.php:3365
+#: /home/sarkesh/www/core/lib/cls/core_cls_network_mail.php:3366
 msgid "best regards"
 msgstr "با احترام"
-
-#~ msgid "Enter the password that accompanies your username."
-#~ msgstr "گذرواژه ای که برای حساب خود انتخاب کرده اید را وارد کنید."

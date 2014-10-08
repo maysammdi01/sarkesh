@@ -4,7 +4,7 @@ use \core\cls\template as template;
 use \core\cls\browser as browser;
 use \core\cls\core as core;
 use \core\plugin as plugin;
-
+use \core\cls\calendar as calendar;
 use \core\control as control;
 class view{
 	private $settings;
@@ -90,10 +90,16 @@ class view{
 		 $form = new control\form('USERS_PROFILE_BLOCK');
 		 $row = new control\row;
 		 $avatar = new control\image;
-		 $avatar->configure('SRC','./plugins/system/users/images/def_avatar_64.png');
-		 $avatar->configure('TYPE','img-thumbnail');
-		 $avatar->configure('LABEL',_('Hello') . ' ' . $user->username);
-		 $row->add($avatar,12);
+		 if($user->photo != 0){
+			  $files = new plugin\files;
+			  $adr = $files->get_adr($user->photo);
+			  $photo = new control\image('USERS_PHOTO');
+			  $photo->configure('SIZE',4);
+			  $photo->configure('SRC',$adr);
+			  $photo->configure('LABEL',_('Hello') . ' ' . $user->username);
+		 }
+		 
+		 $row->add($photo,12);
 		 
 		 $row1 = new control\row;
 		 $btn_logout = new control\button;
@@ -238,7 +244,11 @@ class view{
 	  /*
 	   * This function is for show active acount page to user
 	   */
-	  protected function view_ActiveAcount(){
+	  protected function view_ActiveAccount($msg){
+		$tile = new control\tile;
+		if($msg != ''){
+			$tile->add($msg);
+		}
 		
 		$txt_code = new control\textbox('txt_code');
 		$txt_code->configure('LABEL', _('Activation code') );
@@ -250,11 +260,12 @@ class view{
 		$btn_active = new control\button('btn_active');
 		$btn_active->configure('P_ONCLICK_PLUGIN','users');
 		$btn_active->configure('P_ONCLICK_FUNCTION','btn_active_account');
-		$btn_active->configure('LABEL', _('Send active code to email') );
+		$btn_active->configure('LABEL', _('Active account') );
 		
 		$form = new control\form('USERS_ACTIVE_ACCOUNT');
 		$form->add_array(array($txt_code,$btn_active));
-		return array( _('Active account') ,$form->draw());
+		$tile->add($form->draw());
+		return array( _('Active account') ,$tile->draw());
 	  }
 	  
 	  //this function is for return users profile
@@ -263,22 +274,30 @@ class view{
 		  
 		  //USER PROFILE PICTURE
 		  //get file address
-		  $files = new plugin\files;
-		  $adr = $files->get_adr($user->photo);
-		  $photo = new control\image('USERS_PHOTO');
-		  $photo->configure('SRC',$adr);
+		  if($user->photo != 0){
+			  $files = new plugin\files;
+			  $adr = $files->get_adr($user->photo);
+			  $photo = new control\image('USERS_PHOTO');
+			  $photo->configure('SIZE',2);
+			  $photo->configure('SRC',$adr);
+		  }
+		 
 		  
 		  //show username
 		  $lbl_username = new control\label('users_lbl_username');
 		  $lbl_username->configure('LABEL', _('Username:') . $user->username);
 		  
 		  //show last login date
+		  $calendar = new calendar\calendar;
+		  
 		  $lbl_last_login = new control\label('users_lbl_last_login');
-		  $lbl_last_login->configure('LABEL', _('Last login:') . $user->last_login);
+		  $lbl_last_login->configure('LABEL', _('Last login:') .  'NOT DEVELOPED YET');
 		  
 		  //show register date
 		  $lbl_register_date = new control\label('users_lbl_register_date');
-		  $lbl_register_date->configure('LABEL', _('Register date:') . $user->register_date);
+		  
+		  
+		  $lbl_register_date->configure('LABEL', _('Register date:') . $calendar->cdate($this->settings['register_date_format'],$user->register_date ) );
 		  
 		  
 		  $form->add_array([$photo,$lbl_username, $lbl_last_login, $lbl_register_date]);
