@@ -259,6 +259,17 @@ class module extends view{
 			}
 		}
 		
+		//this function get user id and send back user information in bean format
+		protected function module_get_info_with_id($id){
+			if(db\orm::count('users','id=?',[$id]) != 0){
+				return db\orm::findOne('users','id=?',[$id]);
+			}
+			else{
+				//user not found
+				return false;
+			}
+			
+		}
 		//this function is for do user registeration
 		//INPUT:ELEMENTS
 		protected function module_btn_signup_onclick($e){

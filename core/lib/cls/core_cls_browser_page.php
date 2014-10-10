@@ -161,12 +161,10 @@ class page{
 		}
 		elseif($view == 'MAIN'){
 			$content .=  '<div class="">';
-				$content .=  '<div class="panel-heading">';
-					$content .=  '<h2 class="panel-title">';
+					$content .=  '<h3>';
 					      //block header show in here
 					      $content .=  $header;
-					$content .=  '</h2>';
-				$content .=  '</div>';
+					$content .=  '</h3>';
 				$content .=  '<div class="panel-body">';
 				      //block content show in here
 				      $content .=  $body;

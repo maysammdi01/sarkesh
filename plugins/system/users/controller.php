@@ -161,6 +161,15 @@ class users extends users\module{
 		}
 		
 		/*
+		 * This function get id of user and send back user information in redbean format
+		 * INPUT:integer(USER ID)
+		 * OUTPUT:bean(USER INFO)
+		 */
+		public function get_info_with_id($id){
+			return $this->module_get_info_with_id($id);
+			
+		}
+		/*
 		 * this function is for checking that username is exist or not
 		 * INPUT: string(username)
 		 * OUTPUT:boolean

@@ -18,7 +18,7 @@ class view{
 		//add headers to page//
 		browser\page::add_header('<script src="./core/ect/scripts/events/functions.js"></script>');		
 		if($config['SCRIPT_SRC'] != ''){browser\page::add_header('<script src="' . $config['SCRIPT_SRC'] . '"></script>'); }		
-		if($config['CSS_FILE'] != ''){ browser\page::add_header('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}
+		if($config['CSS_FILE'] != ''){ browser\page::add_header('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE'] . '" />');}
 		
 		//Assign variables
 		$this->raintpl->assign( "id", $config['NAME']);

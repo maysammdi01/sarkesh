@@ -6,8 +6,8 @@ class module extends view{
 		parent::__construct();
 	}
 	
-	public function module_draw($items){
-		return $this->view_draw($items);
+	public function module_draw($items,$config,$places){
+		return $this->view_draw($items,$config,$places);
 	}
 	
 }
