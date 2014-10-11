@@ -7,6 +7,8 @@
 namespace addon\plugin;
 use addon\plugin\content as content;
 use core\cls\core as core;
+use core\cls\browser as browser;
+
 class content extends content\module{
 	
 	
@@ -25,6 +27,25 @@ class content extends content\module{
 	public function insert_cat(){
 		
 		return $this->module_insert_cat();
+	}
+	
+	//this function is event handeler for insert catalogue button
+	public function onclick_btn_insert_cat($e){
+		if($e['txt_name']['VALUE'] != ''){
+			return $this->onclick_btn_insert_cat($e);
+		}
+		else{
+			//show fill catalogue name message
+			$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill in all of the required fields'),'MODAL','type-warning');
+			return $e;
+		}
+	}
+	
+	
+	//this function return thable of catalogues with edit and delete button
+	public function list_cats(){
+		
+		return $this->module_list_cats();
 	}
 		
 }

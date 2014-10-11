@@ -148,13 +148,20 @@ class router{
 	public function run_control(){
 		//first create object from form elements
 		$elements = new core\uiobjects($_GET['options']);
-		//run control
-		$ctr_name = '\\core\\plugin\\' . $this->plugin;
-		$ctr = new $ctr_name;
-		
+
+		if(file_exists('./plugins/system/' . $this->plugin . '/controller.php')){
+					$PluginName = '\\core\\plugin\\' . $this->plugin;
+		}
+		elseif(file_exists('./plugins/defined/' . $this->plugin . '/controller.php')){
+			$PluginName = '\\addon\\plugin\\' . $this->plugin;
+		}
+		else{
+			//plugin not found
+			exit('plugin not found');
+		}
+				
 		//run event
 		//going to run function
-		$PluginName = '\\core\\plugin\\' . $this->plugin;
 		$plugin = new $PluginName;
 		$result = call_user_func(array($plugin, $this->action),$elements->get_elements());
 		//now show result in xml for use in javascript

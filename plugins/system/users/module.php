@@ -33,7 +33,7 @@ class module extends view{
 			//show user profile
 			//get user information
 			$user=$this->module_get_info();
-			return $this->view_profile_block($user, $this->module_has_permission('core_admin_panel'));
+			return $this->view_profile_block($user, $this->module_has_permission('administrator_admin_panel'));
 		}
 		else{
 			//show login form in block mode

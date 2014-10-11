@@ -10,10 +10,8 @@ class row extends control\row\module{
 		$this->e = [];
 		$this->controls = [];
 		$this->config = [];
-		$this->config['STYLE'] = '';
 		$this->config['FORM'] = 'DEFAULT';
-		$this->config['CLASS'] = '';
-		$this->config['CSS_FILE'] = '';
+
 	}
 	
 	public function draw(){

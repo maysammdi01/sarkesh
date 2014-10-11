@@ -72,15 +72,40 @@ class module extends view{
 	protected function module_insert_cat(){
 		//check for that user has permission for insert catalogues
 		$users = new plugin\users;
-		if($users->has_permission('')){
+		if($users->has_permission('content_cat_insert')){
 			//show page
-			
+			//check for that user can edite cats
+			if($users->has_permission('content_cat_edit')){
+				
+				//get table of cats
+				$tbl_cats = $this->module_list_cats();
+				return $this->view_insert_cat(true,$tbl_cats);
+			}
+			else{
+				//don't has permission
+				return $this->view_insert_cat(false);
+			}
 		}
 		else{
 			//show access denied message
+			return [1,1];
+		}
+	}
+	
+	//this function return table of catalogue with edit and delete buttons
+	protected function module_list_cats(){
+		//check for that user has permission for insert catalogues
+		$users = new plugin\users;
+		if($users->has_permission('content_cat_edit')){
+			$cats = db\orm::findAll('content_catalogue');
+			return $this->view_list_cats($cats);
+		}
+		else{
+			//return access denied message
 			
 		}
 	}
+	
 }
 
 ?>

@@ -23,7 +23,7 @@ class administrator extends administrator\module{
 	//it's service
 	public function main(){
 		//first check for permission
-		if($this->users->is_logedin() && $this->users->has_permission('core_admin_panel')	){
+		if($this->users->is_logedin() && $this->users->has_permission('administrator_admin_panel')	){
 			
 			//check for that user come from login process
 			if($_GET['p'] == 'users' && $_GET['a'] == 'login'){
@@ -48,7 +48,7 @@ class administrator extends administrator\module{
 			
 		}
 		//show no permission message
-		elseif($this->users->has_permission('core_admin_panel') != true){
+		elseif($this->users->has_permission('administrator_admin_panel') != true){
 			return $this->module_no_permission();
 		}
 		

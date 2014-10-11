@@ -6,22 +6,30 @@ class table extends control\table\module{
 	private $config;
 	
 	function __construct(){
-		parent::__construct();
+		parent::__construct($form='');
 		
 		$this->config = [];
 		$this->config['NAME'] = 'TABLE';
+		if($form == ''){
+			$this->config['FORM'] = $form;
+		}
+		else{
+			$this->config['FORM'] = 'FORM';
+		}
+		
 		// valid : NORMAL | SOURCE
 		$this->config['TYPE'] = 'NORMAL';
 		$this->config['ROWS'] = [];
 		$this->config['HEADERS'] = [];
 		$this->config['SIZE'] = 12;
-		$this->config['BS_CONTROL'] = false;
+		$this->config['BS_CONTROL'] = TRUE;
 		$this->config['BORDER'] = FALSE;
 		$this->config['HOVER'] = FALSE;
 		$this->config['STRIPED'] = FALSE;
 		$this->config['CSS_FILE'] = '';
 		$this->config['CLASS'] = '';
 		$this->config['HEADERS_WIDTH'] = (array) null;
+		$this->config['ALIGN_CENTER'] = (array) null;
 		
 	}
 	//this function designed for add rows

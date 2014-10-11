@@ -24,6 +24,7 @@ class view{
 		$this->raintpl->assign('hover',$config['HOVER']);
 		$this->raintpl->assign('striped',$config['STRIPED']);
 		$this->raintpl->assign('class',$config['CLASS']);
+		$this->raintpl->assign('align_center',$config['ALIGN_CENTER']);
 		
 		if($config['TYPE'] == 'NORMAL'){
 			return $this->raintpl->draw("ctr_table_normal",true);
