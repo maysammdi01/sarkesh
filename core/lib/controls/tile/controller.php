@@ -52,6 +52,11 @@ class tile extends control\tile\module{
 		die('Index is out of range form');
 	}
 	
+	//this function add space bettween tile parts
+	public function add_spc(){
+		$this->add('<br>');
+		
+	}
 	
 }
 ?>

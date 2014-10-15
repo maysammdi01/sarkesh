@@ -32,7 +32,7 @@ class content extends content\module{
 	//this function is event handeler for insert catalogue button
 	public function onclick_btn_insert_cat($e){
 		if($e['txt_name']['VALUE'] != ''){
-			return $this->onclick_btn_insert_cat($e);
+			return $this->module_onclick_btn_insert_cat($e);
 		}
 		else{
 			//show fill catalogue name message
@@ -47,6 +47,25 @@ class content extends content\module{
 		
 		return $this->module_list_cats();
 	}
+	
+	//this action is for jump to edit catalogue
+	public function btn_cat_go_edite($e){
+		$e['RV']['URL'] = core\general::create_url(['plugin','content','action','cat_edit','id',$e['CLICK']['VALUE']],true);
+		return $e;
+	}
+	
+	//function for edit catalogue id send by url
+	public function cat_edit(){
+		
+		return $this->module_cat_edit();
+	}
+	
+	//FUNCTION FOR BTN EDIT CATALOGUE ONCLICK EVENT
+	public function onclick_btn_edit_cat($e){
+		return $this->module_onclick_btn_edit_cat($e);
+	}
+	
+	
 		
 }
 

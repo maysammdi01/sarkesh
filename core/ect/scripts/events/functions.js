@@ -56,7 +56,7 @@ function SystemGetFormString(obj){
 	options += "<!!>name<!>RV<!>VALUE<!>0<!>URL<!>0<!>MODAL<!>0<!>JUMP_AFTER_MODAL<!>0";
 	
 	//create clicked elements
-	window.ClickedButton = $("button#" + obj.id).val()
+	window.ClickedButton = $(obj).val();
 	options += "<!!>control";
 	options += "<!!>name<!>CLICK<!>VALUE<!>" + window.ClickedButton + "<!>";
 	//alert(options);

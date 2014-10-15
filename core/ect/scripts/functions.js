@@ -9,12 +9,6 @@ var Counter=0;
 //this variable store value that return from events from server
 var ReturnValue;
 
-//this function jump page to input address
-function sys_jump_page(url){
-  if(url){
-  	window.location = url;
-  }
-}
 
 //this function use for show message in modal
 function SysShowModal(data , jump_page){
@@ -37,11 +31,14 @@ function SysShowModal(data , jump_page){
 				action: function(dialogItself){
 					
 					dialogItself.close(); 
-					if(jump_page != '0'){
+					if(jump_page == 'R'){
+						window.location.reload(true);
+					}
+					else if(jump_page != '0'){
 						//jump to page
 						window.location.assign(jump_page);
 					}
-					}		       
+				}		       
 		}]
 	});  
 }

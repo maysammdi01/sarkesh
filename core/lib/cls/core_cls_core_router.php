@@ -205,7 +205,7 @@ class router{
 	#this function jump page that set by function set_last_visited_page
 	
 	public function jump_last_page(){
-		$obj_io = new sys_io;
+		$obj_io = new network\io;
 		if(isset($_COOKIE['SYS_LAST_PAGE'])){
 			header('Location: '. $obj_io->cin('SYS_LAST_PAGE','cookie'));
 		}
@@ -213,6 +213,17 @@ class router{
 			header('Location: ' . SiteDomain );
 		}
 	}	
+	//this function return last page that viewed
+	public static function get_last_page(){
+		$obj_io = new network\io;
+		if(isset($_COOKIE['SYS_LAST_PAGE'])){
+			return  $obj_io->cin('SYS_LAST_PAGE','cookie');
+		}
+		else{ 
+			return SiteDomain ;
+		}
+		
+	}
 	#this function return cerrent address of page(cerent url)
 	
 	public function this_url(){

@@ -11,12 +11,15 @@ class row extends control\row\module{
 		$this->controls = [];
 		$this->config = [];
 		$this->config['FORM'] = 'DEFAULT';
-
+		$this->config['IN_TABLE'] = true;
 	}
 	
 	public function draw(){
 		foreach($this->controls as $c){
-			call_user_func(array($c['object'],"configure"),'FORM',$this->config['FORM']);
+			//set form name of controls that added
+			if(method_exists($c['object'],"configure")){
+				call_user_func(array($c['object'],"configure"),'FORM',$this->config['FORM']);
+			}
 			$e['width'] = $c['width'];
 			$e['offset'] = $c['offset'];
 			$e['body'] = call_user_func(array($c['object'],"draw"));
@@ -50,5 +53,22 @@ class row extends control\row\module{
 			return $this->config[$key];
 		}
 		die('Index is out of range row');
+	}
+	
+	public function add_array($items){
+		
+		foreach($items as $key=>$item){
+			echo 1;
+			if(is_array($item)){
+				return false;
+			}
+			elseif(max(array_keys($item)) == 1){
+				$this->add($item[0],$item[1]);
+			}
+			else{
+				$this->add($item[0],$item[1],$item[2]);
+			}
+		}
+		
 	}
 }

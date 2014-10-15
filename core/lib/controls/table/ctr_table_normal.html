@@ -12,7 +12,7 @@
 			{loop="$rows"}
 				<tr>
 					{loop="$value"}
-						<td class="{if="$align_center[$key1]"}text-center{/if}">{$value}</td>
+						<td class="{if="$align_center[$key2] == true"}text-center{/if}">{$value}</td>
 					{/loop}
 				</tr>
 			{/loop}

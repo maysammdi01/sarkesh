@@ -5,18 +5,19 @@ use \core\cls\db as db;
 use \core\cls\core as core;
 use \core\cls\calendar as calendar;
 use \core\plugin as plugin;
+use \core\cls\browser as browser;
 class module extends view{
 	
 	
 	//This function is for show content
 	protected function module_show(){
 		//check for that content is exist
-		if(db\orm::count('content_content','id=?',[$_GET['id']]	) != 0){
-			$content = db\orm::findOne('content_content','id=?',[$_GET['id']] );
+		if(db\orm::count('contentcontent','id=?',[$_GET['id']]	) != 0){
+			$content = db\orm::findOne('contentcontent','id=?',[$_GET['id']] );
 			//content is exist
 			//check permasion for see this
 			if(1==1){
-				$parts = db\orm::find('content_parts','content=? ORDER BY rank',[$content->id]	);
+				$parts = db\orm::find('contentparts','content=? ORDER BY rank',[$content->id]	);
 				$page = array();
 				foreach($parts as $key=>$part){
 					array_push($page, $this->module_compile_part($part) );
@@ -97,13 +98,75 @@ class module extends view{
 		//check for that user has permission for insert catalogues
 		$users = new plugin\users;
 		if($users->has_permission('content_cat_edit')){
-			$cats = db\orm::findAll('content_catalogue');
+			$cats = db\orm::findAll('contentcatalogue');
 			return $this->view_list_cats($cats);
 		}
 		else{
 			//return access denied message
 			
 		}
+	}
+	
+	//this function insert new catalogue button event
+	protected function module_onclick_btn_insert_cat($e){
+		//check for that catalogue is exist before
+		if(db\orm::count('contentcatalogue','name=?',[$e['txt_name']['VALUE']]) != 0){
+			//IS EXIST BEFORE
+			$e['RV']['MODAL'] = browser\page::show_block('Message','Entered catalogue is exists before.please enter another one and try again.','MODAL','type-warning');
+			$e['txt_name']['VALUE'] = '';
+			return $e;
+		}
+		else{
+			//going to save catalogue
+			$cat = db\orm::dispense('contentcatalogue');
+			$cat->name = $e['txt_name']['VALUE'];
+			$cat->access_name = $e['txt_name']['VALUE'];
+			db\orm::store($cat);
+			$e['RV']['MODAL'] = browser\page::show_block('Success','Successfully saved.','MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
+		}
+		
+	}
+	
+	//function for edit catalogue id send by url
+	public function module_cat_edit(){
+		//check for that id is set
+		if(isset($_REQUEST['id'])){
+			
+			//check for that id is exist
+			if(db\orm::count('contentcatalogue','id=?',[$_REQUEST['id']]) != 0){
+				$cat = db\orm::findOne('contentcatalogue','id=?',[$_REQUEST['id']]);
+				return $this->view_cat_edit($cat);
+			}
+			else{
+				//Show not found message
+				echo 404;
+			}
+		}
+		else{
+			//id not set .going to jump to catalogue list.
+			
+		}
+	}
+	
+	//FUNCTION FOR BTN EDIT CATALOGUE ONCLICK EVENT
+	public function module_onclick_btn_edit_cat($e){
+		if(db\orm::count('contentcatalogue','id=?',[$e['hid_id']['VALUE']]) != 0	){
+			$cat = db\orm::load('contentcatalogue',$e['hid_id']['VALUE']);
+			$cat->name = $e['txt_name']['VALUE'];
+			$cat->access_name = $e['txt_name']['VALUE'];
+			db\orm::store($cat);
+			$e['RV']['MODAL'] = browser\page::show_block('Message','Update successful','MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = '?plugin=users';
+		
+		}
+		else{
+			//show system error message
+			$e['RV']['MODAL'] = browser\page::show_block('Error','An Error Has Occurred.','MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+		}
+		return $e;
 	}
 	
 }
