@@ -13,9 +13,10 @@ class module extends view{
 		$log = db\orm::dispense('log');
 		$log->plugin = $plugin;
 		$log->key = $key;
+		$log->date = time();
 		$log->options = $UserID;
 		
 		db\orm::store($log);
-			
+		return true;
 	}
 }

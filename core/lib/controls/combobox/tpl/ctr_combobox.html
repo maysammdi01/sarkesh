@@ -1,8 +1,9 @@
+{if="!$inline"}
 <div class="form-group">
 	<div class="row">
 		<div class="col-sm-{$size}">
 			<label class="{if="$inline"} sr-only {/if}" for="{$id}"> {if="$label != ''"}{$label}{/if} </label>
-			
+{/if}			
 			<select
 			type="text"
 			name="{$id}" 
@@ -15,7 +16,9 @@
 			>
 			{loop="source"}<option value="{$value.value}">{$value.label}</option>{/loop}
 			</select>
+{if="!$inline"}
 			{if="$help!=''"}<span class="help-block">{$help}</span>{/if}
 		</div>
 	</div>
 </div>
+{/if}

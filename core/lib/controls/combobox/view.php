@@ -32,8 +32,14 @@ class view{
 			//WANT TO SHOW SIMPLE ARRAY
 			$indexes = array_keys($config['SOURCE']);
 			foreach($config['SOURCE'] as $keys => $source){
-				$elements[$keys]['label'] = $source;
-				$elements[$keys]['value'] = $source;
+				if(is_array($source)){
+					$elements[$keys]['label'] = $source[0];
+					$elements[$keys]['value'] = $source[1];
+				}
+				else{
+					$elements[$keys]['label'] = $source;
+					$elements[$keys]['value'] = $source;
+				}
 			}
 		}
 		else{

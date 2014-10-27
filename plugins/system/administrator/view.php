@@ -75,7 +75,7 @@ class view{
 			
 			//add id to table for count rows
 			$lbl_id = new control\label($key+1);
-			$row->add($lbl_id,1,1);
+			$row->add($lbl_id,1);
 			
 			//add theme name
 			$lbl_theme_name = new control\label($themes_info[$key]['name']);
@@ -92,7 +92,8 @@ class view{
 				$btn_active = new control\button;
 				$btn_active->configure('LABEL',_('Active this'));
 				$btn_active->configure('TYPE','success');
-				$btn_active->configure('P_ONCLICK_PLUGIN','core');
+				$btn_active->configure('VALUE',$theme);
+				$btn_active->configure('P_ONCLICK_PLUGIN','administrator');
 				$btn_active->configure('P_ONCLICK_FUNCTION','btn_change_theme');
 				$row->add($btn_active,1);
 			}
@@ -102,7 +103,9 @@ class view{
 		
 		//add headers to table
 		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Author'),_('Options')));
-		$table->configure('HEADERS_WIDTH',array(1,2,3,4));
+		$table->configure('HEADERS_WIDTH',[1,5,3,3]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,FALSE,TRUE]);
+		$table->configure('BORDER',true);
 		$form->add($table);
 		
 		$tab->add($form);
@@ -126,13 +129,76 @@ class view{
 		$this->raintpl->assign( "Usersandpermissions", _('Users and permissions'));
 		$this->raintpl->assign( "url_regional", _('Author'));
 		$this->raintpl->assign( "url_appearance", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','themes')	));
-		$this->raintpl->assign( "url_plugins", _('Author'));
+		$this->raintpl->assign( "url_plugins", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','plugins')	));
+		
 		$this->raintpl->assign( "url_blocks", _('Author'));
 		$this->raintpl->assign( "url_uap", _('Author'));
 		$this->raintpl->assign( "url_basic", _('Author'));
 		
 		//draw and return back content
 		return array(_('Dashboard'),$this->raintpl->draw('core_dashboard', true )	);
+	}
+	
+	//function for show plugins and options for manage thats
+	protected function view_plugins($plugins){
+		
+		$form = new control\form("core_manage_plugins");
+		$form->configure('LABEL',_('Plugins'));
+		$tab = new control\tabbar;
+		$table = new control\table;
+		$counter = 0;
+		foreach($plugins as $key=>$plugin){
+			$counter ++ ;
+			$row = new control\row;
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($counter);
+			$row->add($lbl_id,1);
+			
+			//add plugin name
+			$lbl_plugin_name = new control\label($plugin->name);
+			$row->add($lbl_plugin_name,2);
+					
+			//add plugin state			
+			if($plugin->enable != 1){
+				$btn_active = new control\button;
+				$btn_active->configure('LABEL',_('Disactive'));
+				$btn_active->configure('TYPE','danger');
+				$btn_active->configure('VALUE',$plugin->id);
+				$btn_active->configure('P_ONCLICK_PLUGIN','administrator');
+				$btn_active->configure('P_ONCLICK_FUNCTION','btn_change_plugin');
+				
+			}
+			else{
+				$btn_active = new control\button;
+				$btn_active = new control\button;
+				$btn_active->configure('LABEL',_('Active'));
+				$btn_active->configure('TYPE','success');
+				$btn_active->configure('VALUE',$plugin->id);
+				$btn_active->configure('P_ONCLICK_PLUGIN','administrator');
+				$btn_active->configure('P_ONCLICK_FUNCTION','btn_change_plugin');
+				
+			}
+			$row->add($btn_active,1);
+			$table->add_row($row);
+			
+		}
+		
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,5,3,3]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+		
+		$tab->add($form);
+		
+		//create install form
+		$ins_form = new control\form('core_install_plugin');
+		$ins_form->configure('LABEL',_('Install'));
+		
+		$tab->add($ins_form);
+		return array(_('Plugins'),$tab->draw());
 	}
 }
 ?>

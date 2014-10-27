@@ -34,7 +34,12 @@ function SysShowModal(data , jump_page){
 					if(jump_page == 'R'){
 						window.location.reload(true);
 					}
+					else if(jump_page == ''){
+						//nothing to do
+					}
 					else if(jump_page != '0'){
+						//chaange special chars to original
+						  jump_page = jump_page.replace(/&amp;/g, "&");
 						//jump to page
 						window.location.assign(jump_page);
 					}

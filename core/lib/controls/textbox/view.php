@@ -36,7 +36,7 @@ class view{
 		$this->raintpl->assign( "styles", $config['STYLE']);
 		$this->raintpl->assign( "class", $config['CLASS']);
 		$this->raintpl->assign( "addon", $config['ADDON']);
-		
+		$this->raintpl->assign( "in_table", $config['IN_TABLE']);
 		$this->raintpl->assign( "j_onclick", $config['J_ONCLICK']);
 		$this->raintpl->assign( "p_onclick_f", $config['P_ONCLICK_FUNCTION']);
 		$this->raintpl->assign( "p_onclick_p", $config['P_ONCLICK_PLUGIN']);

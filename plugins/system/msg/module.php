@@ -7,7 +7,12 @@ class module extends view{
 	}
 	
 	protected function module_404(){
-		return $this->view_404();
+		
+		$msg=$this->view_404();
+		if(isset($_GET['service'])){
+			return $msg[1];
+		}
+		return $msg;
 	}
 	
 	/*

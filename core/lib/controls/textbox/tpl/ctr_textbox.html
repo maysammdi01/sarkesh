@@ -1,3 +1,4 @@
+{if="!$in_table"}
 <div class="form-group sm {if="$type != 'default'"}has-{$type}{/if}">
 	<div class="row">
 		<div class="col-sm-{$size}">
@@ -5,6 +6,7 @@
 			<div class="input-group">
 				
 				{if="$addon != ''"}<span class="input-group-addon">{$addon}</span>{/if}
+{/if}
 				<input 
 				type="{if="$password"}password{else}text{/if}"
 				name="{$id}" 
@@ -20,9 +22,11 @@
 				{if="$j_onclick != '0' || $p_onclick_p != '0' || $j_after_onclick !='0'"}onclick="ctr_system_event(this,'ctr_button','{$j_onclick}','{$p_onclick_p}','{$p_onclick_f}','{$j_after_onclick}');"{/if}
 				>
 				</input>
+{if="$in_table"}
 			</div>
 			
 		</div>
 	</div>
 	{if="$help!=''"}<span class="help-block">{$help}</span>{/if}
 </div>
+{/if}

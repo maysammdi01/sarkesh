@@ -34,10 +34,28 @@ class msg extends msg\module{
 	 /*
 	  * This function use for show 404 message in service mode
 	  */
-	  public function msg404(){
+	  public function msg404($type = 'ELSE'){
 		  $msg = $this->msg_404();
-		  return $msg[1];
-	  }
+		  if($type == 'BLOCK'){
+			  return $msg[1];
+		  }
+		  else{
+			return $msg;
+		  }
+	  } 
+	  
+	  // this function return access denied message
+	   public function access_denied($type='ELSE'){
+		   $msg = $this->msg(_('Access Denied!'),_('You have no permission to access this page.'),'danger');
+		   if($type == 'BLOCK'){
+			   return $msg[1];
+			   
+		   }
+		   else{
+			   return $msg;
+		   }
+		   
+	   }
 
 	
 

@@ -36,8 +36,8 @@ class general{
 			$url .= '=';
 			$url .= $parameters[$i];
 		}
-		return $url;
-	
+
+		return $url;	
 	}
 	
 

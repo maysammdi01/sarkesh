@@ -165,7 +165,7 @@ class page{
 					      //block header show in here
 					      $content .=  $header;
 					$content .=  '</h3>';
-				$content .=  '<div class="panel-body">';
+				$content .=  '<div class="">';
 				      //block content show in here
 				      $content .=  $body;
 				$content .=  '</div>';

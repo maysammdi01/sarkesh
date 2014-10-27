@@ -17,9 +17,9 @@ class module extends view{
 			//content is exist
 			//check permasion for see this
 			if(1==1){
-				$parts = db\orm::find('contentparts','content=? ORDER BY rank',[$content->id]	);
+				$patterns = db\orm::find('contentpatterns','content=? ORDER BY rank',[$content->id]	);
 				$page = array();
-				foreach($parts as $key=>$part){
+				foreach($patterns as $key=>$part){
 					array_push($page, $this->module_compile_part($part) );
 				}
 				
@@ -61,7 +61,7 @@ class module extends view{
 	}
 	
 	
-	//this function get row of parts table and return an array
+	//this function get row of patterns table and return an array
 	//first index is html element and second index in position of element on page
 	protected function module_compile_part($part){
 		if($part->type == 'textarea'){
@@ -89,7 +89,8 @@ class module extends view{
 		}
 		else{
 			//show access denied message
-			return [1,1];
+			$msg = new plugin\msg;
+			return $msg->access_denied();
 		}
 	}
 	
@@ -103,7 +104,9 @@ class module extends view{
 		}
 		else{
 			//return access denied message
-			
+			$msg = new plugin\msg;
+			return $msg->access_denied();
+	
 		}
 	}
 	
@@ -141,25 +144,32 @@ class module extends view{
 			}
 			else{
 				//Show not found message
-				echo 404;
+				core\router::jump_page(['plugin','msg','action','msg404']);
 			}
 		}
 		else{
 			//id not set .going to jump to catalogue list.
-			
+			core\router::jump_page(['service','1','plugin','administrator','action','main','p','content','a','list_cats']);
 		}
 	}
 	
 	//FUNCTION FOR BTN EDIT CATALOGUE ONCLICK EVENT
 	public function module_onclick_btn_edit_cat($e){
 		if(db\orm::count('contentcatalogue','id=?',[$e['hid_id']['VALUE']]) != 0	){
-			$cat = db\orm::load('contentcatalogue',$e['hid_id']['VALUE']);
-			$cat->name = $e['txt_name']['VALUE'];
-			$cat->access_name = $e['txt_name']['VALUE'];
-			db\orm::store($cat);
-			$e['RV']['MODAL'] = browser\page::show_block('Message','Update successful','MODAL','type-success');
-			$e['RV']['JUMP_AFTER_MODAL'] = '?plugin=users';
-		
+			if(db\orm::count('contentcatalogue','name=? and id!=?',[$e['txt_name']['VALUE'],$e['hid_id']['VALUE']]) != 0){
+				//message to user this catalog is exist before
+				$e['RV']['MODAL'] = browser\page::show_block('Message','Your entered catalog is exists before.try another one.','MODAL','type-warning');
+				$e['txt_name']['VALUE'] = '';
+			}
+			else{
+				$cat = db\orm::load('contentcatalogue',$e['hid_id']['VALUE']);
+				$cat->name = $e['txt_name']['VALUE'];
+				$cat->access_name = $e['txt_name']['VALUE'];
+				db\orm::store($cat);
+				$e['RV']['MODAL'] = browser\page::show_block('Message','Update successful','MODAL','type-success');
+				$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));	
+			}
+			
 		}
 		else{
 			//show system error message
@@ -167,6 +177,72 @@ class module extends view{
 			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
 		}
 		return $e;
+	}
+	
+	protected function module_show_cats_insert(){
+		//check for permission
+		$user = new plugin\users;
+		if($user->has_permission('content_insert_general')){
+			
+			
+		}
+		else{
+			//show access denied message
+			
+		}
+		
+	}
+	
+	protected function module_sure_page($id){
+		if($id != ''){
+			//search for find catalogue
+			if(db\orm::count('contentcatalogue','id=?',[$id]) != 0){
+				//show sure page for delete
+				$catalogue = db\orm::findOne('contentcatalogue','id=?',[$id]);
+				return $this->view_sure_page($catalogue);
+			}
+			else{
+				//show not found page
+				$msg = plugin\msg;
+				return $msg->msg404();
+				
+			}
+			
+		}
+		else{
+			//show not found page
+			$msg = plugin\msg;
+			return $msg->msg404();
+			
+		}
+		
+	}
+	
+	protected function module_onclick_btn_delete_cat($e){
+		
+		$cat = db\orm::findOne('contentcatalogue','id=?',[$e['hid_id']['VALUE']]);
+		db\orm::trash($cat);
+		$e['RV']['MODAL'] = browser\page::show_block('Success','Catalogue deleted successfuly','MODAL','type-success');
+		$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
+		
+		return $e;
+	}
+	
+	//function for show patterns of contents
+	protected function module_list_patterns($id){
+		//check for that id of catalogue is exists
+		if(db\orm::count('contentcatalogue','id=?',[$id]) != 0){
+			//catalog exists
+			$cat = db\orm::findOne('contentcatalogue','id=?',[$id]);
+			$patterns = db\orm::find('contentpatterns','catalogue=?',[$cat->id]);
+			return $this->view_list_patterns($cat,$patterns);
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return ['',''];
+		}
+		
 	}
 	
 }

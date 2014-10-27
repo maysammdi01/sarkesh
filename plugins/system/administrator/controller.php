@@ -11,6 +11,21 @@ class administrator extends administrator\module{
 		$this->msg = new msg;
 		$this->users = new users;
 	}
+	
+	//this function return back menus for use in admin area
+	public static function core_menu(){
+		$menu = array();
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']);
+		array_push($menu,[$url, _('Dashboard')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','plugins']);
+		array_push($menu,[$url, _('Plugins')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','themes']);
+		array_push($menu,[$url, _('Apperance')]);
+		$ret = array();
+		array_push($ret,_('Administrator'));
+		array_push($ret,$menu);
+		return $ret;
+	}
 	//this service load basic of html page of admin panel.
 	//it's service and just return html elements of basic page
 	//$content is an array [title of page,content of page]
@@ -55,12 +70,7 @@ class administrator extends administrator\module{
 		
 	}
 	
-	//this function return url of core menus to admin area
-	public static function core_menu(){
-		$menus = [[core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')	),_('Dashboard')],[\core\cls\core\general::create_url(array('service','1','plugin','core','action','main','p','core','a','settings')	),_('General Settings')],[\core\cls\core\general::create_url(array('service','1','plugin','core','action','main','p','core','a','themes')	), _('Appearance')],[\core\cls\core\general::create_url(array('service','1','plugin','core','action','main','p','core','a','plugins')	),_('Plugins')],[\core\cls\core\general::create_url(array('service','1','plugin','core','action','main','p','core','a','settings')	),_('Localize')]];
-		
-		return $menus;
-	}
+	
 	
 	//This function show themes panel for manage and select
 	public function themes(){
@@ -76,8 +86,8 @@ class administrator extends administrator\module{
 	
 	//with this function change selected theme
 	public function btn_change_theme($e){
-	
 		
+		return $this->mudule_btn_change_theme($e);
 	}
 	
 	//this function start installing system
@@ -86,7 +96,39 @@ class administrator extends administrator\module{
 		
 	}
 	
+	//function for manage plugins of system
+	public function plugins(){
+		//first check for permission
+		if($this->users->is_logedin() && $this->users->has_permission('administrator_admin_panel')	){
+			return $this->module_plugins();
+		}
+		else{
+			//access denied
+			return $this->module_no_permission();
+		}
+		
+	}
 	
+	//function for event holder for button that change plugin state
+	public function btn_change_plugin($e){
+		//first check for permission
+		if($this->users->is_logedin() && $this->users->has_permission('administrator_admin_panel')	){
+			return $this->mudule_btn_change_plugin($e);
+		}
+		else{
+			//access denied
+			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
+		}
+		
+	}
+	
+	//this function return boolean value
+	//if user has permission to admin panel return false and else return false
+	public function has_admin_panel(){
+		return $this->module_has_admin_panel();
+	}
 }
 	
 	

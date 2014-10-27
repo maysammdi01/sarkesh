@@ -12,11 +12,13 @@ class module extends view{
 	private $users;
 	private $msg;
 	private $io;
+	private $user;
 	function __construct(){
 		parent::__construct();
 		$this->users = new plugin\users;
 		$this->msg = new plugin\msg;
 		$this->io = new network\io;
+		$user = new plugin\users;
 	}
 	
 	protected function module_load($content,$single_page=false){
@@ -40,12 +42,7 @@ class module extends view{
 			
 			$PluginObject = new $PluginName;
 			if(method_exists($PluginObject,'core_menu')){
-	
-				$plugin_menu = call_user_func(array($PluginObject,'core_menu'));
-				foreach($plugin_menu as $mnu){
-					array_push($menu,$mnu);
-				}
-				
+				array_push($menu,call_user_func(array($PluginObject,'core_menu')));
 			}
 		}
 		
@@ -67,7 +64,6 @@ class module extends view{
 		
 		$obj_users = new plugin\users;
 		$user_info = $obj_users->get_info();
-		
 		$content=$this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$user_info)));
 		return $content;
 		
@@ -88,32 +84,105 @@ class module extends view{
 	}
 	
 	protected function module_themes(){
-		//Get all themes that exists
-		$directory = scandir(AppPath. '/themes/');
-		$themes = (array) null;
-		foreach($directory as $files){
-			if(is_dir(AppPath . 'themes/' . $files) && $files != '.' && $files != '..'){	
-				array_push($themes,$files);
+		//check for permission
+		if($this->users->has_permission('administrator_admin_panel')){
+			//Get all themes that exists
+			$directory = scandir(AppPath. '/themes/');
+			$themes = (array) null;
+			foreach($directory as $files){
+				if(is_dir(AppPath . 'themes/' . $files) && $files != '.' && $files != '..'){	
+					array_push($themes,$files);
+				}
 			}
+			//get current active theme
+			$registry = new core\registry;
+			$active_theme = $registry->get('administrator','active_theme');
+			
+			//get themes info
+			$themes_info = (array) null;
+			foreach($themes as $theme_file){
+				include_once(AppPath . '/themes/' . $theme_file . '/info.php');
+				array_push($themes_info,$theme);
+			}
+			//send to view for show themes
+			return $this->view_themes($themes,$themes_info,$active_theme);
 		}
-		//get current active theme
-		$registry = new core\registry;
-		$active_theme = $registry->get('core','active_theme');
-		
-		//get themes info
-		$themes_info = (array) null;
-		foreach($themes as $theme_file){
-			include_once(AppPath . '/themes/' . $theme_file . '/info.php');
-			array_push($themes_info,$theme);
+		else{
+			
+			//no permission to access this page
+			return $this->msg->access_denied('BLOCK');
 		}
-		//send to view for show themes
-		return $this->view_themes($themes,$themes_info,$active_theme);
 	}
 	
 	//this function return dashboard of administrator area
 	protected function module_dashboard(){
 	
 		return $this->view_dashboard();
+	}
+	
+	//thid function handle btn change theme onclick event
+	protected function mudule_btn_change_theme($e){
+		
+		//first check for permission
+		if($this->users->has_permission('administrator_admin_panel')){
+			$selected_theme = $e['CLICK']['VALUE'];
+			//save new theme in registry
+			$registry = new core\registry;
+			$registry->set('administrator','active_theme',$selected_theme);
+			//successfully changed going to refresh page
+			$e['RV']['MODAL'] = browser\page::show_block(_('Change Theme'),_('Successfuly changed!'),'MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+		}
+		else{
+			//show access denied message
+			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			
+		}
+		return $e;
+	}
+	
+	//function for manage plugins
+	protected function module_plugins(){
+		
+		//get all plugins from database
+		$plugins = db\orm::find('plugins','can_edite != 0');
+		return $this->view_plugins($plugins);
+		
+	}
+	
+	//function for event holder for change plugin state
+	protected function mudule_btn_change_plugin($e){
+		
+			$selected_plugin = $e['CLICK']['VALUE'];
+			$plugin = db\orm::load('plugins',$selected_plugin);
+			if($plugin->enable == '1'){
+				$plugin->enable = 0;
+			}
+			else{
+				$plugin->enable = 1;
+			}
+			db\orm::store($plugin);
+			//successfully changed going to refresh page
+			$e['RV']['MODAL'] = browser\page::show_block(_('Change Plugin state'),_('Successfuly changed!'),'MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
+	}
+	
+	//this function return boolean value
+	//if user has permission to admin panel return false and else return false
+	public function has_admin_panel(){
+		if($this->users->has_permission('administrator_admin_panel')){
+			if(isset($_GET['plugin']) && isset($_GET['action']) ){
+				if($_GET['plugin'] == 'administrator' && $_GET['action'] == 'main' ){
+					return true;
+				}
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
 	}
 }	
 ?>

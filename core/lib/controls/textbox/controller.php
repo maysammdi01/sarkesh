@@ -66,6 +66,8 @@ class textbox extends control\textbox\module{
 		//this config add inline css style to html element
 		$this->config['STYLE'] = '';
 		
+		//If you want to use textbox in table should this config set to true
+		$this->config['IN_TABLE'] = FALSE;
 		//------------------------------------------------------
 		//this configs set php plugin and function that should run with onclick event//
 		

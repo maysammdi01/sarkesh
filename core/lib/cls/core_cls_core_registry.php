@@ -32,7 +32,16 @@
 			 return $result;
 		}
 		public function set($plugin, $key, $value){
-			$this->db->do_query('UPDATE registry SET value=? WHERE plugin=? and a_key=?;', array($value, $plugin, $key)); 
+			if(db\orm::count('plugins','name=?',[$plugin])	){
+				$plugin = db\orm::findOne('plugins','name=?',[$plugin]);
+				$item = db\orm::findOne('registry','plugin=? && a_key=?',[$plugin->id,$key]);
+				$item->value = $value;
+				db\orm::store($item);
+				return true;
+			}
+
+			//plugin not found 
+			return false;
 		}
 		
 		public function delete_plugin($plugin){

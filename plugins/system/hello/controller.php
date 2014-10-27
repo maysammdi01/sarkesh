@@ -7,10 +7,7 @@ class hello extends hello\module{
 		parent::__construct();
 	}
 	
-	public static function core_menu(){
-		$menu = [['#','Say Hello']];
-		return $menu;
-	}
+
 	
 	/*
 	 * This function and function that defined in module and view is for showing for work with uploader in system

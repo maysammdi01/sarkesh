@@ -176,6 +176,11 @@ class router{
 		header("Refresh: $time ; url=$url");
 	}
 	public static function jump_page($url,$inner_url=true){
+		//check for show 404 not found message
+		if($url == '404'){
+			$url = ['service','1','plugin','msg','action','msg_404'];
+		}
+		
 		if(!$inner_url && $url != SiteDomain){ $url= SiteDomain . $url;}
 		elseif($url==SiteDomain){ $url= SiteDomain;}
 		elseif(is_array($url)){
