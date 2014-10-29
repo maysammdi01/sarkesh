@@ -1,3 +1,11 @@
-{loop="$e"}
-{$value.body}
-{/loop}
+<div class="row">
+	<div class="col-xs-{$size}">
+		<div class="row-pad">
+			{loop="$e"}
+				<div class="col-xs-{$value.width}">
+					{$value.body}
+				</div>
+			{/loop}
+		</div>
+	</div>
+</div>

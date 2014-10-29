@@ -19,9 +19,9 @@
 		{else}
 		<form name="{$name}" class="{if="$inline"}form-inline{/if}">
 				{loop="$e"}
-					{if="$inline"}<div Class="row">{/if}
+					{if="!$inline"}<div Class="row">{/if}
 						<div class="col-xs-12">{$value.body}</div>
-					{if="$inline"}</div>{/if}
+					{if="!$inline"}</div>{/if}
 				{/loop}
 			</form>
 		{/if}

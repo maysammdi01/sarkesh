@@ -12,6 +12,7 @@ class view{
 	}
 	public function view_draw($e,$config){
 		$this->raintpl->assign("in_table",$config['IN_TABLE']);
+		$this->raintpl->assign("size",$config['SIZE']);
 		$this->raintpl->assign("e",$e);
 		
 		if($config['IN_TABLE']){

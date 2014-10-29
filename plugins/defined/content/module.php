@@ -115,7 +115,7 @@ class module extends view{
 		//check for that catalogue is exist before
 		if(db\orm::count('contentcatalogue','name=?',[$e['txt_name']['VALUE']]) != 0){
 			//IS EXIST BEFORE
-			$e['RV']['MODAL'] = browser\page::show_block('Message','Entered catalogue is exists before.please enter another one and try again.','MODAL','type-warning');
+			$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Entered catalogue is exists before.please enter another one and try again.'),'MODAL','type-warning');
 			$e['txt_name']['VALUE'] = '';
 			return $e;
 		}
@@ -125,7 +125,7 @@ class module extends view{
 			$cat->name = $e['txt_name']['VALUE'];
 			$cat->access_name = $e['txt_name']['VALUE'];
 			db\orm::store($cat);
-			$e['RV']['MODAL'] = browser\page::show_block('Success','Successfully saved.','MODAL','type-success');
+			$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Successfully saved.'),'MODAL','type-success');
 			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
 			return $e;
 		}
@@ -166,7 +166,7 @@ class module extends view{
 				$cat->name = $e['txt_name']['VALUE'];
 				$cat->access_name = $e['txt_name']['VALUE'];
 				db\orm::store($cat);
-				$e['RV']['MODAL'] = browser\page::show_block('Message','Update successful','MODAL','type-success');
+				$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Update successful'),'MODAL','type-success');
 				$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));	
 			}
 			
@@ -222,7 +222,7 @@ class module extends view{
 		
 		$cat = db\orm::findOne('contentcatalogue','id=?',[$e['hid_id']['VALUE']]);
 		db\orm::trash($cat);
-		$e['RV']['MODAL'] = browser\page::show_block('Success','Catalogue deleted successfuly','MODAL','type-success');
+		$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Catalogue deleted successfuly.'),'MODAL','type-success');
 		$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
 		
 		return $e;
@@ -243,6 +243,91 @@ class module extends view{
 			return ['',''];
 		}
 		
+	}
+	
+	//this function is for sure page for delete pattern
+	protected function module_sure_delete_pattern(){
+		//check for that pattern is exist
+		if(db\orm::count('contentpatterns','id=?',[$_GET['id']]) != 0){
+			$pattern = db\orm::findOne('contentpatterns','id=?',[$_GET['id']]);
+			return $this->view_sure_delete_pattern($pattern);
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return ['',''];
+		}
+	}
+	
+	//function for handle event for delete pattern
+	protected function mudule_btn_delete_pattern($e){
+		//check for that pattern is exist
+		if(db\orm::count('contentpatterns','id=?',[$e['hid_id']['VALUE']]) != 0){
+			$pattern = db\orm::findOne('contentpatterns','id=?',[$e['hid_id']['VALUE']]);
+			$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Pattern deleted successfuly.'),'MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$pattern->catalogue]));
+			db\orm::trash($pattern);
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return ['',''];
+		}
+		return $e;
+	}
+	
+	//function for show page for edite patterns
+	protected function module_edite_pattern(){
+		//check for that pattern is exists
+		//check for that pattern is exist
+		if(db\orm::count('contentpatterns','id=?',[$_GET['id']]) != 0){
+			$pattern = db\orm::findOne('contentpatterns','id=?',[$_GET['id']]);
+			return $this->view_edite_pattern($pattern);
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return ['',''];
+		}
+		return $e;
+		
+	}
+	
+	//function for edite pattern that type is textarea
+	protected function pt_edite_textarea($e,$pattern){
+	
+		$pattern->label = $e['txt_label']['VALUE'];
+		$pattern->rank = $e['txt_rank']['VALUE'];
+		if($e['ckb_editor']['CHECKED'] == 1){
+			$pattern->options = 'editor:1';
+		}
+		else{
+			$pattern->options = 'editor:0';
+		}
+		db\orm::store($pattern);
+		$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Pattern updated successfuly.'),'MODAL','type-success');
+		$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$pattern->catalogue]));
+			
+		return $e;
+		
+	}
+	
+	//function for handle edite pattern 
+	protected function module_onclick_btn_edite_pattern($e){
+		//check for that pattern is exists
+		if(db\orm::count('contentpatterns','id=?',[$e['hid_id']['VALUE']]) != 0 ){
+			$pattern = db\orm::findOne('contentpatterns','id=?',[$e['hid_id']['VALUE']]);
+			
+			//check for pattern type
+			if($pattern->type == 'textarea'){
+				return $this->pt_edite_textarea($e,$pattern);
+			}
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return $e;
+		}
 	}
 	
 }

@@ -8,9 +8,15 @@ namespace addon\plugin;
 use addon\plugin\content as content;
 use core\cls\core as core;
 use core\cls\browser as browser;
+use core\plugin as plugin;
 
 class content extends content\module{
-	
+	private $admin;
+	private $msg;
+	public function __construct(){
+		$this->msg = new plugin\msg;
+		$this->admin = new plugin\administrator;
+	}
 	//this function return back menus for admin area
 	public function core_menu(){
 		
@@ -118,6 +124,40 @@ class content extends content\module{
 		}
 		
 	}
+	
+	//this function is for sure page for delete patterns
+	public function sure_delete_pattern(){
+			if($this->admin->has_admin_panel()){
+				
+				return $this->module_sure_delete_pattern();
+			}
+			//access denied
+			return $this->msg->access_denied();
+		
+	}
+	
+	//function for handle event for delete pattern
+	public function onclick_btn_delete_pattern($e){
+		return $this->mudule_btn_delete_pattern($e);
+	}
+	
+	//function for edit pattern
+	public function edite_pattern(){
+		return $this->module_edite_pattern();
+		
+	}
+	
+	//function for edite pattern with onclick button
+	public function onclick_btn_edite_pattern($e){
+		return $this->module_onclick_btn_edite_pattern($e);
+	}
+	
+	//FUNCTION FOR JUMP TO INSERT NEW PATTERN
+	public function onclick_btn_add_new($e){
+		$e['RV']['URL'] = core\general::create_url();
+		return $e;
+	}
+	
 	
 	
 	

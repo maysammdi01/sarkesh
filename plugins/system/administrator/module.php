@@ -171,7 +171,7 @@ class module extends view{
 	
 	//this function return boolean value
 	//if user has permission to admin panel return false and else return false
-	public function has_admin_panel(){
+	public function module_has_admin_panel(){
 		if($this->users->has_permission('administrator_admin_panel')){
 			if(isset($_GET['plugin']) && isset($_GET['action']) ){
 				if($_GET['plugin'] == 'administrator' && $_GET['action'] == 'main' ){

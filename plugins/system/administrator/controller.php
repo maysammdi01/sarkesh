@@ -129,6 +129,8 @@ class administrator extends administrator\module{
 	public function has_admin_panel(){
 		return $this->module_has_admin_panel();
 	}
+	
+	
 }
 	
 	

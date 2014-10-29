@@ -12,6 +12,7 @@ class row extends control\row\module{
 		$this->config = [];
 		$this->config['FORM'] = 'DEFAULT';
 		$this->config['IN_TABLE'] = true;
+		$this->config['SIZE'] = 12;
 	}
 	
 	public function draw(){

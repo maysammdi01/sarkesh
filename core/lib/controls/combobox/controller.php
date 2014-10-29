@@ -11,10 +11,14 @@ class combobox extends control\combobox\module{
 	
 	private $config;
 		
-	function __construct(){
+	function __construct($name=''){
 		parent::__construct();
-		$this->config['NAME'] = 'ctr_combobox';
-		
+		if($name!=''){
+			$this->config['NAME'] = $name;
+		}
+		else{
+			$this->config['NAME'] = 'ctr_combobox';
+		}
 		//this config show abow of element
 		$this->config['LABEL'] = 'combobox';
 		

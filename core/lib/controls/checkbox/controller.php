@@ -9,9 +9,14 @@ class checkbox extends checkbox\module{
 	
 	private $config;
 		
-	function __construct(){
+	function __construct($name=''){
 		parent::__construct();
-		$this->config['NAME'] = 'ctr_combobox';
+		if($name != ''){
+			$this->config['NAME'] = $name;
+		}
+		else{
+			$this->config['NAME'] = 'ctr_checkbox';
+		}
 		
 		//this config show abow of element
 		$this->config['LABEL'] = 'checkbox';
@@ -26,7 +31,7 @@ class checkbox extends checkbox\module{
 		//this config is for set value for element
 		
 		//THIS CONFIG IS FOR SET STATE OF CHECKBOX
-		$this->config['CHECKED'] = TRUE;
+		$this->config['CHECKED'] = FALSE;
 		
 
 		//this config is for set value for element
