@@ -8,9 +8,11 @@ namespace core\data\type;
  */
 
 class obj{
+    public type;
     
-    
-    
+    public function __construct(){
+		$this->type = '';
+	}
 }
 
 

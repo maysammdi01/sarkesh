@@ -70,6 +70,13 @@ class view{
 			$lbl_cat->configure('LABEL',$cat->name);
 			$row->add($lbl_cat,1);
 			
+			$btn_add_content = new control\button('btn_content_insert_content');
+			$btn_add_content->configure('LABEL',_('Add Content'));
+			$btn_add_content->configure('VALUE',$cat->id);
+			$btn_add_content->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','insert_content','id',$cat->id]));
+
+			$row->add($btn_add_content,2);
+			
 			$btn_edite = new control\button('btn_content_cats_edite');
 			$btn_edite->configure('LABEL',_('Edit'));
 			$btn_edite->configure('VALUE',$cat->id);
@@ -90,9 +97,9 @@ class view{
 			$row->add($btn_patterns,2);
 			
 			$table->add_row($row);
-			$table->configure('HEADERS',[_('ID'),_('Name'),_('Edit'),_('Delete'),_('patterns')]);
-			$table->configure('HEADERS_WIDTH',[1,8,1,1,1]);
-			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
+			$table->configure('HEADERS',[_('ID'),_('Name'),_('ADD'),_('Edit'),_('Delete'),_('patterns')]);
+			$table->configure('HEADERS_WIDTH',[1,7,1,1,1,1]);
+			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE,TRUE]);
 			$table->configure('BORDER',true);
 		}
 		
@@ -178,9 +185,9 @@ class view{
 		$form->add($lbl_cat_info);
 		
 		$hid_id = new control\hidden('hid_id');
-		$hid_id->configure('VALUE',$patterns[0]->catalogue);
-		$form->add($hid_id);
+		$hid_id->configure('VALUE',$cat->id);
 		
+		$form->add($hid_id);
 		//draw table
 		$table = new control\table;
 		$table->configure('HEADERS',[_('ID'),_('Name'),_('Type'),_('Rank'),_('Edit'),_('Delete')]);
@@ -242,7 +249,7 @@ class view{
 		$btn_new = new control\button('btn_new');
 		$btn_new->configure('LABEL',_('Add new'));
 		$btn_new->configure('P_ONCLICK_PLUGIN','content');
-		$btn_new->configure('P_ONCLICK_FUNCTION','onclick_btn_add_new');
+		$btn_new->configure('P_ONCLICK_FUNCTION','onclick_btn_add_new_pattern');
 		$btn_new->configure('TYPE','primary');
 		$row_new_pattern->add($btn_new,1);
 				
@@ -312,8 +319,11 @@ class view{
 		return $options;
 	}
 	//this function return textarea pattern for insert and edite
-	protected function pt_textarea($pattern){
-		if($pattern != ''){
+	protected function pt_textarea($pattern=''){
+		
+		
+		
+		if(is_object($pattern) ){
 			//return in edite mode
 			$options = $this->get_options($pattern->options);
 			$form = new control\form('CONTENT_EDITE_PATTERN');
@@ -359,20 +369,92 @@ class view{
 			
 			$form->add($row);
 			
-			return [1,$form->draw()];
+			return [_('Edite pattern'),$form->draw()];
 		}
 		else{
-			//return in edite mode
+			//return in INSERT mode
+			$form = new control\form('CONTENT_INSERT_PATTERN');
 			
+			$hid_type = new control\hidden('hid_type');
+			$hid_type->configure('VALUE',$_GET['type']);
+			$form->add($hid_type);
+			
+			$hid_id = new control\hidden('hid_id');
+			$hid_id->configure('VALUE',$_GET['id']);
+			$form->add($hid_id);
+		
+			$txt_label = new control\textbox('txt_label');
+			$txt_label->configure('LABEL',_('Lable'));
+			$txt_label->configure('HELP',_('Lable show to user in insert new content page'));
+			$form->add($txt_label);
+			
+			$txt_rank = new control\textbox('txt_rank');
+			$txt_rank->configure('LABEL',_('Rank'));
+			$txt_rank->configure('HELP',_('When set rank you can set position of pattern in content.ranks show from DEC values'));
+			$form->add($txt_rank);
+			
+			$ckb_editor = new control\checkbox('ckb_editor');
+			$ckb_editor->configure('LABEL',_('Editor') );
+			$ckb_editor->configure('HELP',_('With this option you can enable or disable editor when user want to insert new content.'));
+			$form->add($ckb_editor);
+			
+			$row = new control\row;
+			$row->configure('IN_TABLE',false);
+			
+			$btn_edite = new control\button('btn_insert');
+			$btn_edite->configure('LABEL',_('Insert'));
+			$btn_edite->configure('P_ONCLICK_PLUGIN','content');
+			$btn_edite->configure('P_ONCLICK_FUNCTION','onclick_btn_insert_pattern');
+			$btn_edite->configure('TYPE','primary');
+			$row->add($btn_edite);
+
+			$btn_cancel = new control\button('btn_cancel');
+			$btn_cancel->configure('LABEL',_('Cancel'));
+			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$_GET['id']]));
+			$row->add($btn_cancel);
+			
+			$form->add($row);
+			return [_('Insert new pattern'),$form->draw()];
 		}
 		
 	}
 	//function for edite pattern
-	protected function view_edite_pattern($pattern){
-		
-		if($pattern->type == 'textarea'){
-			return $this->pt_textarea($pattern);
+	protected function view_iu_pattern($pattern=''){
+		if(is_object($pattern)){
+			if($pattern->type == 'textarea'){
+				return $this->pt_textarea($pattern);
+			}
 		}
+		else{
+			return $this->pt_textarea();
+		}
+	}
+	
+	//this function get pattern and return back a textarea
+	protected function get_textarea($pattern){
+		$text = new control\textarea($pattern->label);
+		
+		
+		
+	}
+	
+	//function for show insert content page
+	protected function view_insert_content($cat,$patterns){
+		
+		$form = new control\form('CONTENT_INSERT_CONTENT');
+		
+		//ADD TEXTBOX FOR SHOW HEADER
+		$txt_header = new control\textbox('txt_header');
+		$txt_header->configure('LABEL',_('Header'));
+		$form->add($txt_header);
+		
+		//add patterns
+		foreach($pattern as $pat){
+			if($pat->type == 'Textarea'){
+				$form->add($this->get_textarea($pattern)	);
+			}
+		}
+		return [sprintf(_('Insert new content:%s'),$cat->label),$form->draw()];
 	}
 	
 }

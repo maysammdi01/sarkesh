@@ -64,7 +64,7 @@ class module extends view{
 		
 		$obj_users = new plugin\users;
 		$user_info = $obj_users->get_info();
-		$content=$this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$user_info)));
+		$content=$this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$plugin_content[0],$user_info)));
 		return $content;
 		
 	}

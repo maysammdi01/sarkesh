@@ -37,7 +37,7 @@ class general{
 			$url .= $parameters[$i];
 		}
 
-		return $url;	
+		return SiteDomain . '/' . $url;	
 	}
 	
 

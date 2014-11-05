@@ -30,12 +30,13 @@ class view{
 	
 	//this function show main part of core plug
 	//$menu is plugins special menu
-	protected function view_main($menu,$content,$user){
+	protected function view_main($menu,$content,$title,$user){
 		
 		browser\page::add_header('<link href="./plugins/system/administrator/style/core_content.css" rel="stylesheet">');
 		//Assign variables
 		$this->raintpl->assign( "menu", $menu);	
 		$this->raintpl->assign( "content", $content);
+		$this->raintpl->assign( "title", $title);
 		
 		$this->raintpl->assign( "user_logout", _('Log Out')	);
 		$this->raintpl->assign( "user_logout_url", core\general::create_url(array('plugin','users','action','btn_logout_onclick')	)	);

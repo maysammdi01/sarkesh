@@ -153,9 +153,34 @@ class content extends content\module{
 	}
 	
 	//FUNCTION FOR JUMP TO INSERT NEW PATTERN
-	public function onclick_btn_add_new($e){
-		$e['RV']['URL'] = core\general::create_url();
+	public function onclick_btn_add_new_pattern($e){
+		
+
+		$e['RV']['URL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','add_new_pattern','type',$e['cob_item']['SELECTED'],'id',$e['hid_id']['VALUE']],true);
 		return $e;
+	}
+	
+	//this function is for add new pattern
+	public function add_new_pattern(){
+			if($this->admin->has_admin_panel()){
+				
+				return $this->module_add_new_pattern();
+			}
+			//access denied
+			return $this->msg->access_denied();
+	}
+	
+	//this function is for insert new patterns
+	public function onclick_btn_insert_pattern($e){
+			return $this->module_onclick_btn_insert_pattern($e);		
+	}
+	
+	//this function is for add content
+	public function insert_content(){
+		
+		if(isset($_GET['id'])){
+			return $this->module_insert_content();
+		}
 	}
 	
 	

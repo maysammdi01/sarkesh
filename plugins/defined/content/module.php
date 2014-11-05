@@ -3,6 +3,7 @@
 namespace addon\plugin\content;
 use \core\cls\db as db;
 use \core\cls\core as core;
+use \core\data\type as type;
 use \core\cls\calendar as calendar;
 use \core\plugin as plugin;
 use \core\cls\browser as browser;
@@ -282,7 +283,7 @@ class module extends view{
 		//check for that pattern is exist
 		if(db\orm::count('contentpatterns','id=?',[$_GET['id']]) != 0){
 			$pattern = db\orm::findOne('contentpatterns','id=?',[$_GET['id']]);
-			return $this->view_edite_pattern($pattern);
+			return $this->view_iu_pattern($pattern);
 		}
 		else{
 			//show 404 message
@@ -294,7 +295,7 @@ class module extends view{
 	}
 	
 	//function for edite pattern that type is textarea
-	protected function pt_edite_textarea($e,$pattern){
+	protected function pt_edite_textarea($e='',$pattern=''){
 	
 		$pattern->label = $e['txt_label']['VALUE'];
 		$pattern->rank = $e['txt_rank']['VALUE'];
@@ -327,6 +328,61 @@ class module extends view{
 			//show 404 message
 			core\router::jump_page(404);
 			return $e;
+		}
+	}
+	
+	//function for add new pattern
+	protected function module_add_new_pattern(){
+		if(isset($_GET['type'])){
+			if($_GET['type'] == 'Textarea'){
+				return $this->view_iu_pattern();
+				
+			}
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return ['',''];
+		}
+	}
+	
+	//function for insert new pattern
+	protected function module_onclick_btn_insert_pattern($e){
+		//check for type
+		
+		$pattern = db\orm::dispense('contentpatterns');
+		if($e['hid_type']['VALUE'] == 'Textarea'){
+			$pattern->label = $e['txt_label']['VALUE'];
+			$pattern->catalogue = $e['hid_id']['VALUE'];
+			$pattern->type = $e['hid_type']['VALUE'];
+			$pattern->rank = $e['txt_rank']['VALUE'];
+			if($e['ckb_editor']['CHECKED'] == 1){
+				$pattern->options = 'editor:1;';
+			}
+			else{
+				$pattern->options = 'editor:0;';
+			}
+			db\orm::store($pattern);
+			$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Pattern added successfuly.'),'MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$pattern->catalogue]));
+			return $e;
+		}
+		
+	}
+	
+	//function for insert content
+	protected function module_insert_content(){
+		
+		//check for that catalogue is exists
+		if(db\orm::count('contentcatalogue','id=?',[$_GET['id']]) != 0){
+			$cat = db\orm::findOne('contentcatalogue','id=?',[$_GET['id']]);
+			$pattern = db\orm::find('contentpatterns','catalogue=?',[$_GET['id']]);
+			return $this->view_insert_content($cat,$pattern);
+		}
+		else{
+			//show 404 message
+			core\router::jump_page(404);
+			return ['',''];
 		}
 	}
 	
