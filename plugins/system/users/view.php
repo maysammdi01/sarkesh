@@ -305,6 +305,67 @@ class view{
 		  return [sprintf( _('%s\'s profile'),$user->username), $form->draw(),true];
 		  
 	  }
+      
+      //this function show list of users
+      protected function view_list_people($users,$groups){
+        
+        $form = new control\form("users_list_people");
+		$form->configure('LABEL',_('People'));
+		
+		$table = new control\table;
+		
+		foreach($users as $key=>$user){
+			$row = new control\row;
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($key+1);
+			$row->add($lbl_id,1);
+			
+			//add user name
+			$lbl_user_name = new control\label($user->username);
+			$row->add($lbl_user_name,2);
+            
+            //add user group
+            foreach($groups as $group){
+                if($group->id == $user->permission){
+                    $lbl_user_group = new control\label($group->name);
+                }
+            }
+			
+			$row->add($lbl_user_group,2);
+			
+			//add register date
+            //show last login date
+            $calendar = new calendar\calendar;
+		   	$lbl_register = new control\label($calendar->cdate($this->settings['register_date_format'],$user->register_date ));
+			$row->add($lbl_register,2);
+			
+			
+			
+			//add active theme button
+
+            $btn_active = new control\button;
+            $btn_active->configure('LABEL',_('Edite'));
+            $btn_active->configure('TYPE','success');
+            $btn_active->configure('VALUE',$user->id);
+			$btn_active->configure('P_ONCLICK_PLUGIN','users');
+			$btn_active->configure('P_ONCLICK_FUNCTION','btn_edite_user');
+			$row->add($btn_active,1);
+			
+            
+			$table->add_row($row);
+			
+		}
+		
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Username'),_('Group'),_('Register Date'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,5,2,2,2]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,FALSE,TRUE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+		
+		return array(_('People'),$form->draw());
+      }
 
 }
 ?>

@@ -138,7 +138,7 @@ class administrator extends administrator\module{
         }
         else{
             //access denied
-            
+           	return $this->module_no_permission();
         }
     }
     
@@ -146,6 +146,30 @@ class administrator extends administrator\module{
     public function onclick_btn_update_basic_settings($e){
         if($this->has_admin_panel()){
             return $this->module_onclick_btn_update_basic_settings($e);
+        }
+        else{
+            //access denied
+			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
+        }
+    }
+    
+    //this function show regional and languages page
+    public function regandlang(){
+        if($this->has_admin_panel()){
+            return $this->module_regandlang();
+        }
+        else{
+            //access denied
+            return $this->module_no_permission();
+        }
+    }
+    
+    //this function handle event and save regional and language settings
+    public function onclick_btn_update_regandlang($e){
+        if($this->has_admin_panel()){
+            return $this->module_onclick_btn_update_regandlang($e);
         }
         else{
             //access denied

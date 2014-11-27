@@ -2,12 +2,27 @@
 namespace core\plugin;
 use \core\plugin\users as users;
 use \core\cls\browser as browser;
+use \core\cls\core as core;
 use \core\cls\network as network;
 class users extends users\module{
 	function __construct(){
 		parent::__construct();
 	}
 	
+    
+    	//this function return back menus for use in admin area
+	public static function core_menu(){
+		$menu = array();
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','list_people']);
+		array_push($menu,[$url, _('People')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','list_groups']);
+		array_push($menu,[$url, _('Groups')]);
+		$ret = array();
+		array_push($ret,_('Users'));
+		array_push($ret,$menu);
+		return $ret;
+	}
+    
 	/*
 	 * INPUT:string: position name in theme file
 	 * this function return login form in blocks else content area
@@ -246,5 +261,10 @@ class users extends users\module{
 		  public function profile(){
 			  return $this->module_profile();
 		  }
+          
+          //this function show list of users in admin panel
+          public function list_people(){
+            return $this->module_list_people();
+          }
 }
 ?>

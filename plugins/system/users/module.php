@@ -560,5 +560,22 @@ class module extends view{
 				
 			 
 		 }
+         protected function module_no_permission(){
+    		core\router::jump_page(404);
+            return [0,0];
+    	}
+         //this function show list of users in admin panel
+          protected function module_list_people(){
+            //check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+                //get list of users
+                $users = db\orm::find('users');
+                $groups = db\orm::find('permissions');
+                return $this->view_list_people($users,$groups);
+            }
+            //show access denied message
+            return $this->module_no_permission();
+            
+          }
 }
 ?>

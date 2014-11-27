@@ -98,6 +98,7 @@ class view{
 				$btn_active->configure('P_ONCLICK_FUNCTION','btn_change_theme');
 				$row->add($btn_active,1);
 			}
+            
 			$table->add_row($row);
 			
 		}
@@ -128,12 +129,14 @@ class view{
 		$this->raintpl->assign( "Plugins",_('Plugins'));
 		$this->raintpl->assign( "Blocks", _('Blocks'));
 		$this->raintpl->assign( "Usersandpermissions", _('Users and permissions'));
-		$this->raintpl->assign( "url_regional", _('Author'));
+		$this->raintpl->assign( "url_regional", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','regandlang')	));
+		
 		$this->raintpl->assign( "url_appearance", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','themes')	));
 		$this->raintpl->assign( "url_plugins", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','plugins')	));
 		
 		$this->raintpl->assign( "url_blocks", _('Author'));
-		$this->raintpl->assign( "url_uap", _('Author'));
+		$this->raintpl->assign( "url_uap",core\general::create_url(array('service','1','plugin','administrator','action','main','p','users','a','list_people')	));
+		
 		$this->raintpl->assign( "url_basic", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','basic_settings')	));
 		
 		//draw and return back content
@@ -272,6 +275,50 @@ class view{
         
         
         return [_('General Settings'),$form->draw()];
+    }
+    
+    //this function show regional and languages setttings
+    protected function view_regandlang($countries,$timezones){
+        
+        $form = new control\form('administrator_regandlang_settings');
+        
+        //show default countries
+        $cob_countries = new control\combobox('cob_contries');
+        $cob_countries->configure('LABEL',_('Default country'));
+        $cob_countries->configure('TABLE',$countries);
+        $cob_countries->configure('COLUMN_VALUES','country_name');
+        $cob_countries->configure('COLUMN_LABELS','country_name');
+        $cob_countries->configure('SIZE',3);
+        $form->add($cob_countries);
+        
+        //show default timezones
+        $cob_timezone = new control\combobox('cob_timezones');
+        $cob_timezone->configure('LABEL',_('Default Timezone'));
+        $cob_timezone->configure('TABLE',$timezones);
+        $cob_timezone->configure('COLUMN_VALUES','timezone_name');
+        $cob_timezone->configure('COLUMN_LABELS','timezone_name');
+        $cob_timezone->configure('SIZE',3);
+        $form->add($cob_timezone);
+        
+        //add update and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_regandlang');
+		$btn_update->configure('TYPE','primary');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_update,3);
+		$row->add($btn_cancel,3);
+		$form->add($row);   
+        
+        return[_('Regional and languages'),$form->draw()];
     }
 }
 ?>

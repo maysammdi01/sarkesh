@@ -212,7 +212,36 @@ class module extends view{
         
         //save successfull
         $e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('All changes saved successfuly.'),'MODAL','type-success');
-			return $e;
+		return $e;
+    }
+    
+    //this function show regional and languages setttings
+    protected function module_regandlang(){
+        //get all countneries
+        //get default country
+        $registry = new core\registry;
+        $admin_settings = $registry->get_plugin('administrator');
+        echo $admin_settings['default_country'];
+        $countries = db\orm::find('countries',"ORDER BY country_name=? DESC",[$admin_settings['default_country']]);
+        
+        //load default timezone
+        $timezones = db\orm::find('timezones',"ORDER BY timezone_name=? DESC",[$admin_settings['default_timezone']]);
+        return $this->view_regandlang($countries,$timezones);
+    }
+    
+    //function for save regional and language settings
+    protected function module_onclick_btn_update_regandlang($e){
+        
+        //save default country
+        $registry = new core\registry;
+        $registry->set('administrator','default_country',$e['cob_contries']['SELECTED']);
+        //SAVE DEFAULT TIMEZONE
+        $registry->set('administrator','default_timezone',$e['cob_timezones']['SELECTED']);
+        
+        //show successfull message
+        $e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('All changes saved successfuly.'),'MODAL','type-success');
+		return $e;
+        
     }
 }	
 ?>
