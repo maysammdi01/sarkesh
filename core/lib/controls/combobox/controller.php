@@ -7,7 +7,7 @@ use \core\control as control;
 */
 class combobox extends control\combobox\module{
 	
-	#$name use to access this class on the page#
+	#$name use to access this class on the page
 	
 	private $config;
 		

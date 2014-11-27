@@ -6,9 +6,9 @@ define ("DatabaseType","mysql");
 
 #mysql connect information
 define ("DatabaseUser","root");
-define ("DatabasePassword","136431");
+define ("DatabasePassword","");
 define ("DatabaseHost","localhost");
-define ("DatabaseName","test");
+define ("DatabaseName","sarkeshMVC");
 
 #save  domain for load system
 define ("SiteDomain",'http://' . $_SERVER['SERVER_NAME'] );

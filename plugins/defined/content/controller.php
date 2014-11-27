@@ -21,7 +21,7 @@ class content extends content\module{
 	public function core_menu(){
 		
 		$menu = array();
-		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','insert_cat']);
+		$url = core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','insert_cat'));
 		array_push($menu,[$url, _('New catalogue')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']);
 		array_push($menu,[$url, _('Manage catalogues')]);

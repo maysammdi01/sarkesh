@@ -2,6 +2,7 @@
 namespace core\plugin;
 use \core\plugin\administrator as administrator;
 use \core\cls\core as core;
+use \core\cls\browser as browser;
 class administrator extends administrator\module{
 
 	private $msg;
@@ -129,6 +130,30 @@ class administrator extends administrator\module{
 	public function has_admin_panel(){
 		return $this->module_has_admin_panel();
 	}
+    
+    //this function show basic settings in admin panel
+    public function basic_settings(){
+        if($this->has_admin_panel()){
+            return $this->module_basic_settings();
+        }
+        else{
+            //access denied
+            
+        }
+    }
+    
+    //this function is for handle onclick event and store basic settings
+    public function onclick_btn_update_basic_settings($e){
+        if($this->has_admin_panel()){
+            return $this->module_onclick_btn_update_basic_settings($e);
+        }
+        else{
+            //access denied
+			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
+        }
+    }
 	
 	
 }

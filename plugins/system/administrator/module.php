@@ -173,16 +173,46 @@ class module extends view{
 	//if user has permission to admin panel return false and else return false
 	public function module_has_admin_panel(){
 		if($this->users->has_permission('administrator_admin_panel')){
-			if(isset($_GET['plugin']) && isset($_GET['action']) ){
-				if($_GET['plugin'] == 'administrator' && $_GET['action'] == 'main' ){
-					return true;
-				}
-				return false;
-			}
+			return true;
 		}
 		else{
 			return false;
 		}
 	}
+    
+    //this function show general settings
+    protected function module_basic_settings(){
+        //get default site name
+        $default_locale = db\orm::findOne('localize','main=1');
+        $locales = db\orm::find('localize');
+        return $this->view_basic_settings($default_locale,$locales);
+    }
+    
+    //THIS FUNCTION STORE BASIC SETTINGS
+    protected function module_onclick_btn_update_basic_settings($e){
+        //check for that one of parameters is blank
+        if($e['txt_sitename']['VALUE'] == '' || $e['txt_email']['VALUE'] == '' || $e['txt_frontpage']['VALUE'] == ''){
+            //FILL BLANK FIELDS
+			$e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('Please fill all fields that marked with * .'),'MODAL','type-warning');
+			return $e;
+        }
+        
+        //going to save settings
+        
+        //save default language
+        db\orm::exec( 'UPDATE localize SET main=0 WHERE main=1' );
+        db\orm::exec( 'UPDATE localize SET main=1 WHERE language_name=?',[$e['cob_language']['SELECTED']] );
+        //save settings
+        $main_locale = db\orm::findOne('localize','main=1');
+        $main_locale->name = $e['txt_sitename']['VALUE'];
+        $main_locale->slogan = $e['txt_slogan']['VALUE'];
+        $main_locale->home = $e['txt_frontpage']['VALUE'];
+        $main_locale->email = $e['txt_email']['VALUE'];
+        db\orm::store($main_locale);
+        
+        //save successfull
+        $e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('All changes saved successfuly.'),'MODAL','type-success');
+			return $e;
+    }
 }	
 ?>

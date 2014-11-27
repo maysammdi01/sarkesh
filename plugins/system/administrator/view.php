@@ -134,7 +134,7 @@ class view{
 		
 		$this->raintpl->assign( "url_blocks", _('Author'));
 		$this->raintpl->assign( "url_uap", _('Author'));
-		$this->raintpl->assign( "url_basic", _('Author'));
+		$this->raintpl->assign( "url_basic", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','basic_settings')	));
 		
 		//draw and return back content
 		return array(_('Dashboard'),$this->raintpl->draw('core_dashboard', true )	);
@@ -201,5 +201,77 @@ class view{
 		$tab->add($ins_form);
 		return array(_('Plugins'),$tab->draw());
 	}
+    
+    //this function show general settings
+    protected function view_basic_settings($localize,$locales){
+        $form = new control\form('administrator_basic_settings');
+        
+        $hid_id = new control\hidden('hid_id');
+        $hid_id->configure('VALUE',$localize->id);
+        $form->add($hid_id);
+        
+        $txt_sitename = new control\textbox('txt_sitename');
+        $txt_sitename->configure('LABEL',_('Site name'));
+        $txt_sitename->configure('VALUE',$localize->name);
+        $txt_sitename->configure('ADDON','*');
+        $txt_sitename->configure('SIZE',3);
+        $form->add($txt_sitename);
+        
+        $txt_slogan = new control\textbox('txt_slogan');
+        $txt_slogan->configure('LABEL',_('Slogan'));
+        $txt_slogan->configure('VALUE',$localize->slogan);
+        $txt_slogan->configure('HELP',_("How this is used depends on your site's theme."));
+        $txt_slogan->configure('ADDON','O'); //O -> OPTIONAL
+        $txt_slogan->configure('SIZE',3);
+        $form->add($txt_slogan);
+        
+        $txt_email = new control\textbox('txt_email');
+        $txt_email->configure('LABEL',_('Email address'));
+        $txt_email->configure('VALUE',$localize->email);
+        $txt_email->configure('ADDON','*');
+        $txt_email->configure('SIZE',5);
+        $txt_email->configure('HELP',_("The From address in automated e-mails sent during registration and new password requests, and other notifications. (Use an address ending in your site's domain to help prevent this e-mail being flagged as spam.)"));
+        $form->add($txt_email);
+        
+        $txt_frontpage = new control\textbox('txt_frontpage');
+        $txt_frontpage->configure('LABEL',_('Front page'));
+        $txt_frontpage->configure('VALUE',$localize->home);
+        $txt_frontpage->configure('ADDON',SiteDomain . '/');
+        $txt_frontpage->configure('SIZE',5);
+        $txt_frontpage->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
+        $form->add($txt_frontpage);
+        
+        $cob_language = new control\combobox('cob_language');
+        $cob_language->configure('LABEL',_('Default language'));
+         $cob_language->configure('HELP',_('Site show to user with this language for first time that viewed.after that user can change localize.'));        
+        //save locales names in array
+        $languages = array();
+        foreach($locales as $locale){
+           array_push($languages,$locale->language_name);
+        }
+        $cob_language->configure('SOURCE',$languages);        
+        $form->add($cob_language);
+        
+        //add update and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_basic_settings');
+		$btn_update->configure('TYPE','primary');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_update,3);
+		$row->add($btn_cancel,3);
+		$form->add($row);                
+        
+        
+        return [_('General Settings'),$form->draw()];
+    }
 }
 ?>
