@@ -283,7 +283,7 @@ class module extends view{
 		//check for that pattern is exist
 		if(db\orm::count('contentpatterns','id=?',[$_GET['id']]) != 0){
 			$pattern = db\orm::findOne('contentpatterns','id=?',[$_GET['id']]);
-			return $this->view_iu_pattern($pattern);
+			return $this->view_iu_pattern_textarea($pattern);
 		}
 		else{
 			//show 404 message
@@ -300,10 +300,10 @@ class module extends view{
 		$pattern->label = $e['txt_label']['VALUE'];
 		$pattern->rank = $e['txt_rank']['VALUE'];
 		if($e['ckb_editor']['CHECKED'] == 1){
-			$pattern->options = 'editor:1';
+			$pattern->options = 'editor:1;';
 		}
 		else{
-			$pattern->options = 'editor:0';
+			$pattern->options = 'editor:0;';
 		}
 		db\orm::store($pattern);
 		$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Pattern updated successfuly.'),'MODAL','type-success');
@@ -335,7 +335,7 @@ class module extends view{
 	protected function module_add_new_pattern(){
 		if(isset($_GET['type'])){
 			if($_GET['type'] == 'Textarea'){
-				return $this->view_iu_pattern();
+				return $this->view_iu_pattern_textarea();
 				
 			}
 		}
@@ -384,6 +384,55 @@ class module extends view{
 			core\router::jump_page(404);
 			return ['',''];
 		}
+	}
+	
+	//function for insert content with onclick event
+	protected function module_onclick_btn_insert_content($e){
+		
+		//load catalogue
+		if(db\orm::count('contentcatalogue','id=?',[$e['hid_id']['VALUE']])	!=0){
+			//START INSERT CONTENT PROCCESS
+			
+			//load catalog
+			$cat = db\orm::findOne('contentcatalogue','id=?',[$e['hid_id']['VALUE']]);
+			
+			//load patterns of catalog
+			$patterns = db\orm::find('contentpatterns','id=?',[$cat->id]);
+			
+			//now going to insert content
+			$content = db\orm::dispense('contentcontent');
+			$content->header = $e['txt_header']['VALUE'];
+			$content->date = time();
+			//get information of user
+			$user = new plugin\users;
+			$user_info = $user->get_info();
+			$content->user = $user_info['id'];
+			$content->show_author = '1';
+			$content->show_date = '1';
+			$content->can_comment = '1';
+			$id = db\orm::store($content);
+			
+			// now going to save parts
+			
+			foreach($patterns as $pattern){
+				if($pattern->type == 'Textarea'){
+					$this->ins_textarea($id,$e,$pattern);
+				}
+				
+			}
+			
+			
+			
+		}
+		return $e;
+	}
+	
+	//this function insert part textarea in database
+	protected function ins_textarea($id,$e,$pattern){
+		
+		$part = db\orm::dispense('contentparts');
+		$part->content = $id;
+		$part->options = $e[$pattern->label]['VALUE'];
 	}
 	
 }

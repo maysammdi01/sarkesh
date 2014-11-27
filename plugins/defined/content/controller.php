@@ -154,8 +154,6 @@ class content extends content\module{
 	
 	//FUNCTION FOR JUMP TO INSERT NEW PATTERN
 	public function onclick_btn_add_new_pattern($e){
-		
-
 		$e['RV']['URL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','add_new_pattern','type',$e['cob_item']['SELECTED'],'id',$e['hid_id']['VALUE']],true);
 		return $e;
 	}
@@ -181,6 +179,11 @@ class content extends content\module{
 		if(isset($_GET['id'])){
 			return $this->module_insert_content();
 		}
+	}
+	
+	//this function do onclick function 
+	public function onclick_btn_insert_content($e){
+		return $this->module_onclick_btn_insert_content($e);
 	}
 	
 	

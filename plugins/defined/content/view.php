@@ -419,9 +419,9 @@ class view{
 		
 	}
 	//function for edite pattern
-	protected function view_iu_pattern($pattern=''){
+	protected function view_iu_pattern_textarea($pattern=''){
 		if(is_object($pattern)){
-			if($pattern->type == 'textarea'){
+			if($pattern->type == 'Textarea'){
 				return $this->pt_textarea($pattern);
 			}
 		}
@@ -433,9 +433,16 @@ class view{
 	//this function get pattern and return back a textarea
 	protected function get_textarea($pattern){
 		$text = new control\textarea($pattern->label);
-		
-		
-		
+		$text->configure('LABEL',$pattern->label);
+		//get options
+		$options = $this->get_options($pattern->options);
+		if($options['editor'] == 0 ){
+			$text->configure('EDITOR',FALSE);
+		}
+		else{
+			$text->configure('EDITOR',TRUE);
+		}
+		return $text;
 	}
 	
 	//function for show insert content page
@@ -449,12 +456,34 @@ class view{
 		$form->add($txt_header);
 		
 		//add patterns
-		foreach($pattern as $pat){
+		foreach($patterns as $pat){
 			if($pat->type == 'Textarea'){
-				$form->add($this->get_textarea($pattern)	);
+				$form->add($this->get_textarea($pat)	);
 			}
 		}
-		return [sprintf(_('Insert new content:%s'),$cat->label),$form->draw()];
+		//add id of catalogue
+		$hid_id = new control\hidden('hid_id');
+		$hid_id->configure('VALUE',$cat->id);
+		
+		//add insert and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','content');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_insert_content');
+		$btn_update->configure('TYPE','primary');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_update,3);
+		$row->add($btn_cancel,3);
+		$form->add_array([$row,$hid_id]);
+		
+		return [sprintf(_('Insert new content:%s'),$cat->name),$form->draw()];
 	}
 	
 }
