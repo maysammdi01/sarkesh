@@ -14,7 +14,7 @@ if(file_exists("./config.php")) {
 	
 	//set error reporting
 	// ERROR_REPORTING defined in config file
-	error_reporting(ERROR_REPORTING);
+	ini_set('error_log',S_Error_Log_Place);
 	
 	//include core difines
 	require_once( AppPath . 'core/defines.php');

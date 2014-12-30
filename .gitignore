@@ -14,3 +14,6 @@ nbproject
 .buildpath
 .project
 .settings
+
+#ignore error logs
+error_log.txt

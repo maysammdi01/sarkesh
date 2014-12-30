@@ -22,4 +22,6 @@ define('PluginsCenter','http://plugins.sarkesh.org/');
 #error reporting state. for more info about this variable see php documents
 define('ERROR_REPORTING',E_ALL | E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
+#With this config you can set where php error logs will be stored
+define('S_Error_Log_Place',AppPath . 'error_log.txt');
 ?>
