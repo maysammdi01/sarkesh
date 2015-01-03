@@ -530,44 +530,20 @@ class module extends view{
 		 
 		 //this function is for show profile
 		 protected function module_profile(){
-			 //check for that cerrent user is owner or not
-			 if($this->module_is_logedin()){
-				  if(!isset($_GET['id'])){
-					 //going to show profile to user
-					 $user_info = $this->module_get_info('');
+
+			//going to show profile to user
+			$user_info = $this->module_get_info('');
 					 
-					 if($user_info != false){
-						 $user = db\orm::findOne('users','id = ?',array($user_info->id));
-						 return $this->view_profile($user);
-					 }
-					 else{
-						 //user is guest, show access denied message
-						 
-					 }
-						 
-					 
-				 }
-				 else{ 
-					//check for that profiles is public or not
-					if($this->settings['privecy'] == '1'){
-						//going to get user info and return profile
-						
-					}
-					else{
-						//show access denied message to user
-							
-					}
-				}
-			 
-			 }
-			 else{
-				//show acces denied message
-				core\router::jump_page(array('plugin','users','action','login'));
+			if($user_info != false){
+				$user = db\orm::findOne('users','id = ?',array($user_info->id));
+				return $this->view_profile($user);
 			}
-			 
-			
-				
-			 
+			else{
+				//user is guest, jump to login page
+				return core\router::jump_page(array('plugin','users','action','login'));
+						 
+			}
+ 
 		 }
          protected function module_no_permission(){
     		core\router::jump_page(404);

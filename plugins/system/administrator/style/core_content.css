@@ -1,13 +1,13 @@
 /* Light Way Admin Bootstrap Theme by PrepBootstrap - http://www.prepbootstrap.com */
 body {
-  margin-top: 70px;
+  
 }
 #wrapper {
   padding-left: 0;
 }
 #page-wrapper {
   width: 100%;
-  padding: 5px 15px;
+  padding: 15px 5px;
 }
 
 .sui-cell {

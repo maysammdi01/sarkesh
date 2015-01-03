@@ -270,6 +270,7 @@ class view{
 	  
 	  //this function is for return users profile
 	  protected function view_profile($user){
+		  
 		  $form = new control\form('USERS_VIEW_PROFILE');
 		  
 		  //USER PROFILE PICTURE
@@ -295,12 +296,15 @@ class view{
 		  
 		  //show register date
 		  $lbl_register_date = new control\label('users_lbl_register_date');
-		  
-		  
 		  $lbl_register_date->configure('LABEL', _('Register date:') . $calendar->cdate($this->settings['register_date_format'],$user->register_date ) );
 		  
+		  //add edite button
+		  $btn_edite = new control\button('btn_edite');
+		  $btn_edite->configure('LABEL',_('Edite Profile'));
+		  $btn_edite->configure('HREF',core\general::create_url(array('plugin','users','action','edite_profile','id',$user->id) ) );
+		
 		  
-		  $form->add_array([$photo,$lbl_username, $lbl_last_login, $lbl_register_date]);
+		  $form->add_array([$photo,$lbl_username, $lbl_last_login, $lbl_register_date,$btn_edite]);
 		  
 		  return [sprintf( _('%s\'s profile'),$user->username), $form->draw(),true];
 		  
