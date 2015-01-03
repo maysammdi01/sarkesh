@@ -190,6 +190,7 @@ class module extends view{
     
     //THIS FUNCTION STORE BASIC SETTINGS
     protected function module_onclick_btn_update_basic_settings($e){
+		var_dump($e);
         //check for that one of parameters is blank
         if($e['txt_sitename']['VALUE'] == '' || $e['txt_email']['VALUE'] == '' || $e['txt_frontpage']['VALUE'] == ''){
             //FILL BLANK FIELDS
@@ -199,9 +200,7 @@ class module extends view{
         
         //going to save settings
         
-        //save default language
-        db\orm::exec( 'UPDATE localize SET main=0 WHERE main=1' );
-        db\orm::exec( 'UPDATE localize SET main=1 WHERE language_name=?',[$e['cob_language']['SELECTED']] );
+       
         //save settings
         $main_locale = db\orm::findOne('localize','main=1');
         $main_locale->name = $e['txt_sitename']['VALUE'];
@@ -243,5 +242,24 @@ class module extends view{
 		return $e;
         
     }
+    
+    //this function show blocks
+    protected function module_blocks(){
+		
+		//get all blocks from database 
+		$blocks = db\orm::find('blocks',"position != 'content'");
+		
+		//get placess from active theme
+		$registry = new core\registry;
+		$theme = $registry->get('administrator','active_theme');
+		
+		//get places from theme file
+		$theme_adr = '\\theme\\' . $theme;
+		$obj_theme = new $theme_adr;
+		$places = $obj_theme->get_places();
+		
+		//send to view to show
+		return $this->view_blocks($blocks,$places);
+	}
 }	
 ?>

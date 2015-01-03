@@ -24,4 +24,8 @@ define('ERROR_REPORTING',E_ALL | E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 #With this config you can set where php error logs will be stored
 define('S_Error_Log_Place',AppPath . 'error_log.txt');
+
+#define static variable for devalopers mode
+define('S_DEV_MODE',TRUE);
+
 ?>

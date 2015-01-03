@@ -24,9 +24,8 @@ class localize{
 		if($dif){
 			return $this->localize;
 		}
-
-		$this->db->do_query("select * from localize where language = ?;" , array($this->get_language()) );
-		return $this->db->get_first_row_array();
+		$local = db\orm::findOne('localize','language=?',[$this->get_language()]);
+		return $local;
 	}
 
 	//this function set cms language on cookie

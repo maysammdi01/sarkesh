@@ -33,6 +33,11 @@ function __autoload($class_name){
 		}
 		
 	}
+	
+	//add theme classes
+	if($Seperated[0] == 'theme'){
+		include_once(AppPath . 'themes/'  . $Seperated[1] . '/info.php');
+	}
 	else{
 		//going to include some other
 		$class_name = str_replace('\\','_',$class_name);

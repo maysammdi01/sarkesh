@@ -20,6 +20,7 @@
 		//this function return all elements in array type that send by javascript
 		
 		public function get_elements(){
+			
 			return $this->elements;
 		}
 		

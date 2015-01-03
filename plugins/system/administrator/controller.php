@@ -22,6 +22,8 @@ class administrator extends administrator\module{
 		array_push($menu,[$url, _('Plugins')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','themes']);
 		array_push($menu,[$url, _('Apperance')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']);
+		array_push($menu,[$url, _('Blocks')]);
 		$ret = array();
 		array_push($ret,_('Administrator'));
 		array_push($ret,$menu);
@@ -178,6 +180,17 @@ class administrator extends administrator\module{
 			return $e;
         }
     }
+    
+    //this function show blocks for manage in theme
+    public function blocks(){
+		if($this->has_admin_panel()){
+            return $this->module_blocks();
+        }
+        else{
+            //access denied
+            return $this->module_no_permission();
+        }
+	}
 	
 	
 }

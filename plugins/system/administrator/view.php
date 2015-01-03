@@ -4,6 +4,7 @@ use \core\cls\template as template;
 use \core\cls\browser as browser;
 use \core\cls\core as core;
 use \core\control as control;
+
 class view{
 	private $raintpl;
 	
@@ -134,7 +135,7 @@ class view{
 		$this->raintpl->assign( "url_appearance", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','themes')	));
 		$this->raintpl->assign( "url_plugins", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','plugins')	));
 		
-		$this->raintpl->assign( "url_blocks", _('Author'));
+		$this->raintpl->assign( "url_blocks", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','blocks')) );
 		$this->raintpl->assign( "url_uap",core\general::create_url(array('service','1','plugin','administrator','action','main','p','users','a','list_people')	));
 		
 		$this->raintpl->assign( "url_basic", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','basic_settings')	));
@@ -166,18 +167,18 @@ class view{
 			//add plugin state			
 			if($plugin->enable != 1){
 				$btn_active = new control\button;
-				$btn_active->configure('LABEL',_('Disactive'));
-				$btn_active->configure('TYPE','danger');
+				$btn_active->configure('LABEL',_('Active'));
+				$btn_active->configure('TYPE','success');
 				$btn_active->configure('VALUE',$plugin->id);
 				$btn_active->configure('P_ONCLICK_PLUGIN','administrator');
 				$btn_active->configure('P_ONCLICK_FUNCTION','btn_change_plugin');
 				
 			}
 			else{
+				
 				$btn_active = new control\button;
-				$btn_active = new control\button;
-				$btn_active->configure('LABEL',_('Active'));
-				$btn_active->configure('TYPE','success');
+				$btn_active->configure('LABEL',_('Disactive'));
+				$btn_active->configure('TYPE','danger');
 				$btn_active->configure('VALUE',$plugin->id);
 				$btn_active->configure('P_ONCLICK_PLUGIN','administrator');
 				$btn_active->configure('P_ONCLICK_FUNCTION','btn_change_plugin');
@@ -201,6 +202,27 @@ class view{
 		$ins_form = new control\form('core_install_plugin');
 		$ins_form->configure('LABEL',_('Install'));
 		
+		$upload_plugin = new control\uploader('upload_plugin');
+		$ins_form->add($upload_plugin);
+		
+		//install and cancel buttons
+		//add update and cancel buttons
+		$btn_update = new control\button('btn_install');
+		$btn_update->configure('LABEL',_('Install'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_install_plugin');
+		$btn_update->configure('TYPE','primary');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_update,3);
+		$row->add($btn_cancel,3);
+		$ins_form->add($row); 
 		$tab->add($ins_form);
 		return array(_('Plugins'),$tab->draw());
 	}
@@ -243,17 +265,6 @@ class view{
         $txt_frontpage->configure('SIZE',5);
         $txt_frontpage->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
         $form->add($txt_frontpage);
-        
-        $cob_language = new control\combobox('cob_language');
-        $cob_language->configure('LABEL',_('Default language'));
-         $cob_language->configure('HELP',_('Site show to user with this language for first time that viewed.after that user can change localize.'));        
-        //save locales names in array
-        $languages = array();
-        foreach($locales as $locale){
-           array_push($languages,$locale->language_name);
-        }
-        $cob_language->configure('SOURCE',$languages);        
-        $form->add($cob_language);
         
         //add update and cancel buttons
 		$btn_update = new control\button('btn_update');
@@ -320,5 +331,77 @@ class view{
         
         return[_('Regional and languages'),$form->draw()];
     }
+    
+    //this function show blocks for that user can manage widgets
+    public function view_blocks($blocks,$places){
+		
+		$form = new control\form("core_manage_blocks");
+		$form->configure('LABEL',_('Blocks'));
+		$table = new control\table;
+		$counter = 0;
+		foreach($blocks as $key=>$block){
+			$counter ++ ;
+			$row = new control\row;
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($counter);
+			$row->add($lbl_id,1);
+			
+			//add block name
+			$lbl_block_name = new control\label($block->name);
+			$row->add($lbl_block_name,2);
+					
+			//add plugin state			
+			if($block->position == 'off'){
+				//block is disabled
+				$lbl_block_state = new control\label(_('Off'));
+
+			}
+			else{
+				//show position
+				$lbl_block_state = new control\label($block->position);
+	
+			}
+			$row->add($lbl_block_state,1);
+			
+			//add rank of block
+			$lbl_block_rank = new control\label($block->rank);
+			$row->add($lbl_block_rank,2);
+			
+			
+			//ADD EDITE BUTTON
+			//add update and cancel buttons
+			$btn_edite = new control\button('btn_edite');
+			$btn_edite->configure('LABEL',_('Edite'));
+			$btn_edite->configure('HREF','administrator');
+			$btn_edite->configure('TYPE','primary');
+			$row->add($btn_edite);
+			
+			//ADD ROW TO TABLE
+			$table->add_row($row);
+		}
+		
+		
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Place'),_('Rank'),_('Edite')));
+		$table->configure('HEADERS_WIDTH',[1,3,2,1,2]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+	
+		
+		//add cancel buttons
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_cancel,1);
+		$form->add($row); 
+		
+		return array(_('Manage Blocks'),$form->draw());
+	}
 }
 ?>
