@@ -52,8 +52,8 @@ body {
   border-bottom-color: transparent;
 }
 .navbar-inverse {
-  background-color: #e7e7e7;
-  border-color: #e7e7e7;
+  background-color: rgba(18, 18, 18, 1);
+  border-color: rgba(18, 18, 18, 1);
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
