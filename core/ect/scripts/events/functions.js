@@ -26,10 +26,19 @@ function SystemGetFormString(obj){
 		options += "<!!>NAME<!>";
 		options += this.name;
 		//seperate controls
-
 		if(this.type == 'select-one'){
 			options += "<!>SELECTED<!>";
 			options += this.value;
+			options += "<!!>";
+		}
+		else if(this.type == 'radio'){
+			options += "<!>CHECKED<!>";
+			if(this.checked){
+				options += '1';
+			}
+			else{
+				options += '0';
+			}
 			options += "<!!>";
 		}
 		else if(this.type == 'checkbox'){
@@ -59,7 +68,7 @@ function SystemGetFormString(obj){
 	window.ClickedButton = $(obj).val();
 	options += "<!!>control";
 	options += "<!!>name<!>CLICK<!>VALUE<!>" + window.ClickedButton + "<!>";
-	//alert(options);
+	alert(options);
 	return options;
 }
 

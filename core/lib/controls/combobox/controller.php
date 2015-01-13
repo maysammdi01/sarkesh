@@ -77,6 +77,8 @@ class combobox extends control\combobox\module{
 		//it's can get all data from returned from php Argoman $arg['RV']['value']
 		$this->config['J_AFTER_ONCHANGE'] = '0';
 		
+		//with this config you can select index by default in combobox
+		$this->config['SELECTED_INDEX'] = 0;
 	}
 	
 	//this function configure control//

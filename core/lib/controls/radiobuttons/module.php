@@ -1,5 +1,5 @@
 <?php
-namespace core\control\radiobutton;
+namespace core\control\radiobuttons;
 class module extends view{
 	
 	private $body;

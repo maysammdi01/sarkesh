@@ -5,10 +5,15 @@ use \core\control as control;
 class radioitem extends control\radioitem\module{
 
 	private $config;
-	function __construct(){
-		parent::__construct();
+		
+	function __construct($name = ''){
 		$this->config = [];
-		$this->config['NAME'] = 'radiobutton';
+		parent::__construct();
+		$this->config['NAME'] = 'radio';
+		if($name != ''){
+			$this->config['NAME'] = $name;
+		}
+
 		$this->config['ID'] = 'radiobutton';
 		$this->config['FORM'] = 'R_FORM';
 		$this->config['STYLE'] = '';

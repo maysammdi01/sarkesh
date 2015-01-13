@@ -22,6 +22,7 @@ class view{
 		
 		//Assign variables
 		$this->raintpl->assign( "id", $config['NAME']);
+		$this->raintpl->assign( "", $config['SELECTED_INDEX']);
 		$this->raintpl->assign( "form", $config['FORM']);
 		$this->raintpl->assign( "value", $config['VALUE']);
 		$this->raintpl->assign( "label", $config['LABEL']);

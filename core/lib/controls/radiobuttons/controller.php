@@ -1,7 +1,7 @@
 <?php
 namespace core\control;
 use \core\control as control;
-class radiobuttons extends control\radiobutton\module{
+class radiobuttons extends control\radiobuttons\module{
 	private $e;
 	private $config;
 	function __construct(){
@@ -10,8 +10,10 @@ class radiobuttons extends control\radiobutton\module{
 		$this->config = [];
 		$this->config['NAME'] = 'radiobutton';
 		$this->config['SIZE'] = 12;
+		$this->config['HELP'] = '';
 		$this->config['LABEL'] = 'Form Label';
 		$this->config['INLINE'] = FALSE;
+		$this->config['FORM'] = 12;
 	}
 	
 	public function draw(){
@@ -36,7 +38,7 @@ class radiobuttons extends control\radiobutton\module{
 	public function add($element){
 		
 		//change form name of element
-		call_user_func(array($element,"configure"),'NAME',$this->config['NAME']);
+		call_user_func(array($element,"configure"),'FORM',$this->config['FORM']);
 		array_push($this->e, $element);
 
 	}

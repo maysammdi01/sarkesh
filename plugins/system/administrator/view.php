@@ -373,7 +373,7 @@ class view{
 			//add update and cancel buttons
 			$btn_edite = new control\button('btn_edite');
 			$btn_edite->configure('LABEL',_('Edite'));
-			$btn_edite->configure('HREF','administrator');
+			$btn_edite->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','edite_block','id',$block->id]));
 			$btn_edite->configure('TYPE','primary');
 			$row->add($btn_edite);
 			
@@ -402,6 +402,75 @@ class view{
 		$form->add($row); 
 		
 		return array(_('Manage Blocks'),$form->draw());
+	}
+	
+	public function view_edite_block($block){
+		$form = new control\form("core_edite_block");
+		
+		//Create hidden id of block
+		$hid_id = new control\hidden('hid_id');
+        $hid_id->configure('VALUE',$block->id);
+        $form->add($hid_id);
+        
+		//create combobox for ranking
+		$cob_rank = new control\combobox('cob_rank');
+        $cob_rank->configure('LABEL',_('Rank'));
+        $cob_rank->configure('SELECTED_INDEX',$block->rank);
+        $cob_rank->configure('SOURCE',[0,1,2,3,4,5,6,7,8,9]);
+        $cob_rank->configure('SIZE',3);
+		$form->add($cob_rank);
+		
+		//create textarea for pages
+		$txt_pages = new control\textarea('txt_pages');
+		$txt_pages->configure('EDITOR',FALSE);
+		$txt_pages->configure('VALUE',$block->pages);
+		$txt_pages->configure('LABEL',_('Pages'));
+		$txt_pages->configure('HELP',_('Use \',\' for seperate page urls.'));
+		$txt_pages->configure('ROWS',5);
+		$txt_pages->configure('SIZE',7);
+		$form->add($txt_pages);
+		
+		//ADD RADIO BUTTON FOR SELECT PAGES
+		$rad_bot = new control\radiobuttons;
+		$rad_bot->configure('LABEL',_('With this option you can select pages for show.'));
+		$radit_al_pages = new control\radioitem('rad_it_allow');
+		$radit_al_pages->configure('LABEL',_('All pages espect that comes above.'));
+		if($block->pages_ad == '1'){
+			$radit_al_pages->configure('CHECKED',TRUE);
+		}
+		$rad_bot->add($radit_al_pages);
+		
+		$radit_ex_pages = new control\radioitem('rad_it_deny');
+		$radit_ex_pages->configure('LABEL',_('show in pages that comes above.'));
+		if($block->pages_ad == '0'){
+			$radit_ex_pages->configure('CHECKED',TRUE);
+		}
+		$rad_bot->add($radit_ex_pages);
+		
+		$form->add($rad_bot);
+		
+		
+		//add update and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_block');
+		$btn_update->configure('TYPE','primary');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_update,3);
+		$row->add($btn_cancel,3);
+		$form->add($row);   
+		
+		
+		return [_('Edite Block:').$block->name,$form->draw()];
+		
 	}
 }
 ?>

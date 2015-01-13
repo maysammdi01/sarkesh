@@ -259,5 +259,40 @@ class module extends view{
 		//send to view to show
 		return $this->view_blocks($blocks,$places);
 	}
+	
+	//function for edite blocks
+	protected function module_edite_block($id){
+		
+		//check for that is id cerrect
+		if(db\orm::count('blocks','id=?',[$id]) != 0){
+			//id is cerrect
+			$block = db\orm::findOne('blocks','id=?',[$id]);
+			return $this->view_edite_block($block);
+		}
+		else{
+			//show not found message
+			core\router::jump_page(404);
+		} 
+	}
+	
+	//function for handel edite blocks
+	protected function module_onclick_btn_update_block($e){
+		if(db\orm::count('blocks','id=?',[$e['hid_id']['VALUE']]) != 0){
+			$block = db\orm::findOne('blocks','id=?',[$e['hid_id']['VALUE']]);
+			$block->rank = $e['cob_rank']['SELECTED'];
+			$block->pages = $e['txt_pages']['VALUE'];
+			if($e['rad_it_allow']['SELECTED'] = '1'){
+				$block->pages_ad = '1';
+			}
+			else{
+				$block->pages_ad = '0';
+			}
+			//save changes
+			db\orm::store($block);
+			$e['RV']['MODAL'] = browser\page::show_block(_('Update Block'),_('Successfuly Updated.!'),'MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = urlencode(core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+			return $e;
+		}
+	}
 }	
 ?>

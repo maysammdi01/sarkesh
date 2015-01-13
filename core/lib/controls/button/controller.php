@@ -43,7 +43,7 @@ class button extends control\button\module{
 		
 		//this config is for set size of element
 		//Valid : lg sm xs
-		$this->config['SIZE'] = 'sm';
+		$this->config['SIZE'] = 'xs';
 		
 		//this config use for attech javascript(js) file to header of page
 		$this->config['SCRIPT_SRC'] = '';

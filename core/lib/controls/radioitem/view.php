@@ -2,12 +2,12 @@
 namespace core\control\radioitem;
 use \core\cls\template as template;
 use \core\cls\browser as browser;
-class ctr_radioitem_view{
+class view{
 	
 	private $raintpl;
 	
 	function __construct(){
-		$this->raintpl = new cls_raintpl;
+		$this->raintpl = new template\raintpl;
 		$this->raintpl->configure("tpl_dir","./core/lib/controls/radioitem/");
 	}
 	public function view_draw($config){

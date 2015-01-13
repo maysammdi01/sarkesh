@@ -192,6 +192,33 @@ class administrator extends administrator\module{
         }
 	}
 	
+	//this function is for edite block
+	//id of block get with $GET
+	public function edite_block(){
+		if(isset($_GET['id'])){
+			return $this->module_edite_block($_GET['id']);
+		}
+		else{
+			//jump to not found page
+			core\router::jump_page(404);
+
+		}
+	}
+	
+	
+	//this function is button event handel for edite block
+	public function onclick_btn_update_block($e){
+		if($this->has_admin_panel()){
+            return $this->module_onclick_btn_update_block($e);
+        }
+        else{
+            //access denied
+			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
+        }
+	}
+	
 	
 }
 	

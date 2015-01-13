@@ -4,10 +4,14 @@ use \core\control as control;
 class textarea extends control\textarea\module{
 	private $config;
 	
-	function __construct(){
+	function __construct($name=''){
+		
 		parent::__construct();
 		$this->config = [];
 		$this->config['NAME'] = 'TEXTAREA';
+		if($name != ''){
+			$this->config['NAME'] = $name;
+		}
 		$this->config['LABEL'] = '';
 		$this->config['HELP'] = '';
 		$this->config['EDITOR'] = true;

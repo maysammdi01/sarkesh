@@ -39,7 +39,7 @@ function SysShowModal(data , jump_page){
 					}
 					else if(jump_page != '0'){
 						//chaange special chars to original
-						  jump_page = jump_page.replace(/&amp;/g, "&");
+						  jump_page = decodeURIComponent(jump_page);
 						//jump to page
 						window.location.assign(jump_page);
 					}
