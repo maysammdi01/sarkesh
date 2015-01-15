@@ -10,7 +10,7 @@
 			id="{$id}"
 			value="3" 
 			form="{$form}" 
-			class="{if="$bs_control"}form-control{/if} {$class} ca_{$form}" 
+			class="{if="$bs_control"}form-control{/if} input-sm {$class} ca_{$form}" 
 			style="{$styles}" 
 			{if="$disabled == 'disabled'"} disabled="disabled"{/if} 
 			{if="$j_onchange != '0' || $p_onchange_p != '0' || $j_after_onchange !='0'"} onchange="ctr_system_event(this,'ctr_combobox','{$j_onchange}','{$p_onchange_p}','{$p_onchange_f}','{$j_after_onchange}');"{/if} 
@@ -23,3 +23,7 @@
 	</div>
 </div>
 {/if}
+<script>
+	$("#{$id}.ca_{$form}").val("{$index}");
+</script>
+

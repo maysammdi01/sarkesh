@@ -404,7 +404,7 @@ class view{
 		return array(_('Manage Blocks'),$form->draw());
 	}
 	
-	public function view_edite_block($block){
+	public function view_edite_block($block,$places){
 		$form = new control\form("core_edite_block");
 		
 		//Create hidden id of block
@@ -446,8 +446,16 @@ class view{
 			$radit_ex_pages->configure('CHECKED',TRUE);
 		}
 		$rad_bot->add($radit_ex_pages);
-		
 		$form->add($rad_bot);
+		
+		//create combobox for positions
+		$cob_position = new control\combobox('cob_position');
+        $cob_position->configure('LABEL',_('Position'));
+        $cob_position->configure('VALUE',$block->position);
+        $cob_position->configure('SELECTED_INDEX',$block->position);
+        $cob_position->configure('SOURCE',$places);
+        $cob_position->configure('SIZE',3);
+		$form->add($cob_position);
 		
 		
 		//add update and cancel buttons

@@ -26,7 +26,7 @@ class view{
 		$this->raintpl->assign( "form", $config['FORM']);
 		$this->raintpl->assign( "value", $config['VALUE']);
 		$this->raintpl->assign( "label", $config['LABEL']);
-		
+		$this->raintpl->assign( "index", $config['SELECTED_INDEX']);
 		$elements = [];
 		
 		if($config['COLUMN_LABELS'] == ''){

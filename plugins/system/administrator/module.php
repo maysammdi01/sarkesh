@@ -95,8 +95,7 @@ class module extends view{
 				}
 			}
 			//get current active theme
-			$registry = new core\registry;
-			$active_theme = $registry->get('administrator','active_theme');
+			$active_theme = $this->active_theme();
 			
 			//get themes info
 			$themes_info = (array) null;
@@ -248,8 +247,7 @@ class module extends view{
 		$blocks = db\orm::find('blocks',"position != 'content'");
 		
 		//get placess from active theme
-		$registry = new core\registry;
-		$theme = $registry->get('administrator','active_theme');
+		$theme = $this->active_theme();
 		
 		//get places from theme file
 		$theme_adr = '\\theme\\' . $theme;
@@ -265,9 +263,18 @@ class module extends view{
 		
 		//check for that is id cerrect
 		if(db\orm::count('blocks','id=?',[$id]) != 0){
+			
+			//get locations from theme file
+			$active_theme = $this->active_theme();
+			$places = array();
+			if(method_exists('\\theme\\' . $active_theme,'get_places')){
+				$places = call_user_func(array('\\theme\\' . $active_theme,'get_places'),'content');
+			} 
+			array_push($places,'Off');
+			
 			//id is cerrect
 			$block = db\orm::findOne('blocks','id=?',[$id]);
-			return $this->view_edite_block($block);
+			return $this->view_edite_block($block,$places);
 		}
 		else{
 			//show not found message
@@ -280,6 +287,7 @@ class module extends view{
 		if(db\orm::count('blocks','id=?',[$e['hid_id']['VALUE']]) != 0){
 			$block = db\orm::findOne('blocks','id=?',[$e['hid_id']['VALUE']]);
 			$block->rank = $e['cob_rank']['SELECTED'];
+			$block->position = $e['cob_position']['SELECTED'];
 			$block->pages = $e['txt_pages']['VALUE'];
 			if($e['rad_it_allow']['SELECTED'] = '1'){
 				$block->pages_ad = '1';
@@ -293,6 +301,13 @@ class module extends view{
 			$e['RV']['JUMP_AFTER_MODAL'] = urlencode(core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
 			return $e;
 		}
+	}
+	
+	//this function return cerrect active theme of system
+	protected function active_theme(){
+		//get current active theme
+		$registry = new core\registry;
+		return $registry->get('administrator','active_theme');
 	}
 }	
 ?>
