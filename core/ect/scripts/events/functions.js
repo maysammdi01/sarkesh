@@ -68,6 +68,8 @@ function SystemGetFormString(obj){
 	window.ClickedButton = $(obj).val();
 	options += "<!!>control";
 	options += "<!!>name<!>CLICK<!>VALUE<!>" + window.ClickedButton + "<!>";
+	
+	options = options.replace(/&/g,'_a_n_d_')
 	alert(options);
 	return options;
 }
@@ -94,10 +96,11 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 
 	if(p_event_p != '0'){
 		url = "?control=1&plugin=" + p_event_p + "&action=" + p_event_f + "&options=" + options;
-		url = encodeURI(url);
 		$.get(url ,
 			function(data){
 				//alert(data);
+				//data = decodeURI(data);
+				data = data.replace(/_a_n_d_/g,"&");
 				//find deference and set that
 				window['Counter'] = 0;
 				$(form_elements).each(function(){
@@ -121,7 +124,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 						}
 						else if(this.tagName.toLowerCase() == "value"){
 							if(form_elements[window['Counter']][this.tagName.toLowerCase()].toLowerCase().trim() != $(this).html().toLowerCase().trim()){	
-									$(form_elements[window['Counter']]).val($(this).html());
+									$(form_elements[window['Counter']]).val($(this).html().replace(/amp;/g,""));
 		
 							}
 							

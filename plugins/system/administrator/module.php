@@ -184,7 +184,10 @@ class module extends view{
         //get default site name
         $default_locale = db\orm::findOne('localize','main=1');
         $locales = db\orm::find('localize');
-        return $this->view_basic_settings($default_locale,$locales);
+        //get description value from registry
+        $registry = new core\registry;
+        
+        return $this->view_basic_settings($default_locale,$locales,$registry->get('administrator','header_tags'));
     }
     
     //THIS FUNCTION STORE BASIC SETTINGS
@@ -206,6 +209,10 @@ class module extends view{
         $main_locale->email = $e['txt_email']['VALUE'];
         db\orm::store($main_locale);
         
+        //save description
+        $registry = new core\registry;
+        $registry->set('administrator','header_tags',$e['txt_des']['VALUE']);
+        
         //save successfull
         $e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('All changes saved successfuly.'),'MODAL','type-success');
 		return $e;
@@ -217,12 +224,18 @@ class module extends view{
         //get default country
         $registry = new core\registry;
         $admin_settings = $registry->get_plugin('administrator');
-        echo $admin_settings['default_country'];
         $countries = db\orm::find('countries',"ORDER BY country_name=? DESC",[$admin_settings['default_country']]);
         
         //load default timezone
         $timezones = db\orm::find('timezones',"ORDER BY timezone_name=? DESC",[$admin_settings['default_timezone']]);
-        return $this->view_regandlang($countries,$timezones);
+        
+        //get localize
+        $localize = new core\localize;
+        $locals = $localize->get_all();
+        
+        //get default language
+        $default_language = $localize->get_default_language();
+        return $this->view_regandlang($countries,$timezones,$locals,$default_language);
     }
     
     //function for save regional and language settings
@@ -233,6 +246,17 @@ class module extends view{
         $registry->set('administrator','default_country',$e['cob_contries']['SELECTED']);
         //SAVE DEFAULT TIMEZONE
         $registry->set('administrator','default_timezone',$e['cob_timezones']['SELECTED']);
+        
+        //save default localize
+        //disactive old localize
+        $localize = db\orm::findOne('localize','main=\'1\'');
+        $localize->main = 0;
+        db\orm::store($localize);
+        //active new localize
+        $localize = db\orm::findOne('localize','id=?',[$e['cob_language']['SELECTED']]);
+        $localize->main = 1;
+        db\orm::store($localize);
+        
         
         //show successfull message
         $e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('All changes saved successfuly.'),'MODAL','type-success');

@@ -46,6 +46,10 @@ class page{
 		#LOAD HEEFAL GENERATOR META TAG
 		array_push($default_headers, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 		array_push($default_headers, '<meta name="generator" content=" Sarkesh CMF! - Open Source Content Management Framework" />');
+		//add default header tags
+		if(self::$settings['header_tags'] != ''){
+			array_push($default_headers, '<meta name="description" content="' . self::$settings['header_tags'] . '" />');
+		}
 		//cache control
 		array_push($default_headers, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
 		#load jquery

@@ -8,7 +8,7 @@
 			type="text"
 			name="{$id}" 
 			id="{$id}"
-			value="3" 
+			value="{$value}" 
 			form="{$form}" 
 			class="{if="$bs_control"}form-control{/if} input-sm {$class} ca_{$form}" 
 			style="{$styles}" 
@@ -23,7 +23,9 @@
 	</div>
 </div>
 {/if}
-<script>
-	$("#{$id}.ca_{$form}").val("{$index}");
-</script>
+{if="$index != '0'"}
+	<script>
+		$("#{$id}.ca_{$form}").val("{$index}");
+	</script>
+{/if}
 

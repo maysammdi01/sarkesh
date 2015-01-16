@@ -228,7 +228,7 @@ class view{
 	}
     
     //this function show general settings
-    protected function view_basic_settings($localize,$locales){
+    protected function view_basic_settings($localize,$locales,$description){
         $form = new control\form('administrator_basic_settings');
         
         $hid_id = new control\hidden('hid_id');
@@ -266,6 +266,17 @@ class view{
         $txt_frontpage->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
         $form->add($txt_frontpage);
         
+        //add description to head of page
+        $txt_des = new control\textarea('txt_des');
+        $txt_des->configure('EDITOR',FALSE);
+        $txt_des->configure('VALUE',$description);
+        $txt_des->configure('LABEL',_('Description'));
+        $txt_des->configure('HELP',_('your text show in header of page for use in search engines.'));
+        $txt_des->configure('EDITOR',FALSE);
+        $txt_des->configure('ROWS',5);
+		$txt_des->configure('SIZE',7);
+        $form->add($txt_des);
+        
         //add update and cancel buttons
 		$btn_update = new control\button('btn_update');
 		$btn_update->configure('LABEL',_('Update'));
@@ -289,7 +300,7 @@ class view{
     }
     
     //this function show regional and languages setttings
-    protected function view_regandlang($countries,$timezones){
+    protected function view_regandlang($countries,$timezones,$locals,$default_language){
         
         $form = new control\form('administrator_regandlang_settings');
         
@@ -302,6 +313,16 @@ class view{
         $cob_countries->configure('SIZE',3);
         $form->add($cob_countries);
         
+        //default language
+        $cob_language = new control\combobox('cob_language');
+        $cob_language->configure('LABEL',_('Default Localize'));
+        $cob_language->configure('TABLE',$locals);
+        $cob_language->configure('SELECTED_INDEX',$default_language->id);
+        $cob_language->configure('COLUMN_VALUES','id');
+        $cob_language->configure('COLUMN_LABELS','language_name');
+        $cob_language->configure('SIZE',3);
+        $form->add($cob_language);
+         
         //show default timezones
         $cob_timezone = new control\combobox('cob_timezones');
         $cob_timezone->configure('LABEL',_('Default Timezone'));
@@ -451,7 +472,6 @@ class view{
 		//create combobox for positions
 		$cob_position = new control\combobox('cob_position');
         $cob_position->configure('LABEL',_('Position'));
-        $cob_position->configure('VALUE',$block->position);
         $cob_position->configure('SELECTED_INDEX',$block->position);
         $cob_position->configure('SOURCE',$places);
         $cob_position->configure('SIZE',3);

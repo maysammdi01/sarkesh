@@ -69,6 +69,15 @@ class localize{
 	
 	}
 
+	//this function return all localize that exists in system
+	public function get_all(){
+		return db\orm::findAll('localize');
+	}
+	
+	//this function return default language of system
+	public function get_default_language(){
+		return db\orm::findOne('localize','main=1');
+	}
 //END CLASS
 }
 ?>

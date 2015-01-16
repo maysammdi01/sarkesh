@@ -147,8 +147,8 @@ class router{
 	//this function is for runing services from controls
 	public function run_control(){
 		//first create object from form elements
-		$elements = new core\uiobjects($_GET['options']);
-
+		$options = str_replace('_a_n_d_','&',$_GET['options']);
+		$elements = new core\uiobjects($options);
 		if(file_exists('./plugins/system/' . $this->plugin . '/controller.php')){
 					$PluginName = '\\core\\plugin\\' . $this->plugin;
 		}
@@ -160,10 +160,17 @@ class router{
 			exit('plugin not found');
 		}
 				
+		
 		//run event
 		//going to run function
 		$plugin = new $PluginName;
 		$result = call_user_func(array($plugin, $this->action),$elements->get_elements());
+		
+		foreach($result as $r=>$row){
+			foreach($row as $c=>$col){
+				$result[$r][$c] = str_replace('&','_a_n_d_',$result[$r][$c]);
+			}
+		}
 		//now show result in xml for use in javascript
 		$xml = new db\xml($result);
 		echo $xml->simple_array_to_xml($result, "root");
