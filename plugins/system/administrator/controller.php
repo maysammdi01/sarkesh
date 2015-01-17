@@ -20,6 +20,10 @@ class administrator extends administrator\module{
 		array_push($menu,[$url, _('Dashboard')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','plugins']);
 		array_push($menu,[$url, _('Plugins')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','regandlang']);
+		array_push($menu,[$url, _('Regional and Languages')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','basic_settings']);
+		array_push($menu,[$url, _('Basic Settings')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','themes']);
 		array_push($menu,[$url, _('Apperance')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']);
