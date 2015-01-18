@@ -16,7 +16,7 @@ class view{
 		
 		$this->raintpl->assign("name",$config['NAME']);
 		$this->raintpl->assign("label",$config['LABEL']);
-		$this->raintpl->assign("id",$config['NAME']);
+		$this->raintpl->assign("id",$config['ID']);
 		$this->raintpl->assign("style",$config['STYLE']);
 		$this->raintpl->assign("class",$config['CLASS']);
 		$this->raintpl->assign("disabled",$config['DISABLED']);

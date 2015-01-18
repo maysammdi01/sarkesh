@@ -23,8 +23,14 @@ function SystemGetFormString(obj){
 	 $('.ca_' + form).each(function(){
 		 //start control tag
 		options += "control";
-		options += "<!!>NAME<!>";
-		options += this.name;
+		if(this.type == 'radio'){
+			options += "<!!>NAME<!>";
+			options += this.id;
+		}
+		else{
+			options += "<!!>NAME<!>";
+			options += this.name;
+		}
 		//seperate controls
 		if(this.type == 'select-one'){
 			options += "<!>SELECTED<!>";
@@ -70,7 +76,7 @@ function SystemGetFormString(obj){
 	options += "<!!>name<!>CLICK<!>VALUE<!>" + window.ClickedButton + "<!>";
 	
 	options = options.replace(/&/g,'_a_n_d_')
-	alert(options);
+	//alert(options);
 	return options;
 }
 

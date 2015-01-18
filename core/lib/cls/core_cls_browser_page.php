@@ -15,7 +15,8 @@ class page{
 	static private $header_tags;
 	
 	function __construct(){
-		
+		$obj_localize = new core\localize;
+		self::$localize_settings = $obj_localize->get_localize();
 	}
 	
 	#if active language is RTL this function return true else return false
@@ -225,6 +226,8 @@ class page{
 	}
 	//this function set and show blocks
 	static public function set_position($position){
+		$obj_localize = new core\localize;
+		self::$localize_settings = $obj_localize->get_localize();
 		if(self::$blocks == null){
 			//load all blocks data from database
 			$db = new db\mysql;
@@ -242,6 +245,9 @@ class page{
 		//if add 'MAIN' to cls_router::show_content that's show like main content that come with url
 		//and if add 'BLOCK' tag , sarkesh show that content like block
 		//and if Send 'NONE' sarkesh do not show that(just run without view
+		
+		//get showing permissions from block settings from localize
+		
 		foreach( self::$blocks as $block){
 		
 			if($block['b.position'] == $position){
@@ -252,15 +258,18 @@ class page{
 					$obj_router->show_content();
 				}
 				else{
-					//checking that plugin is enabled
-					if(self::$plugin->is_enabled($block['p.name'])){
-						$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
-						$plugin = new $ClassName;
-						//run action method for show block
-						//all blocks name should be like  'blk_blockname'
-						
-						$content = call_user_func(array($plugin, $block['b.name']),$position);
-						echo self::show_block($content[0], $content[1], 'BLOCK');
+					//block is widget
+					if(self::show_has_allow($block['b.name'])){
+						//checking that plugin is enabled
+						if(self::$plugin->is_enabled($block['p.name'])){
+							$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
+							$plugin = new $ClassName;
+							//run action method for show block
+							//all blocks name should be like  'blk_blockname'
+							
+							$content = call_user_func(array($plugin, $block['b.name']),$position);
+							echo self::show_block($content[0], $content[1], 'BLOCK');
+						}
 					}
 				}
 			
@@ -277,7 +286,55 @@ class page{
 	}
 	static public function show_message($header, $content, $type = 'warning', $result = '0'){
 		self::show_block(true, $header,$content,'MSG', $type, $result);
+	}
 	
+	static public function show_has_allow($block_name){
+		
+		//get block options
+		if(db\orm::count('blocks','name=?',[$block_name]) != 0){
+			$block_info = db\orm::findOne('blocks','name=?',[$block_name]);
+			if($block_info->pages != ''){
+				$pages = explode(',',$block_info->pages);
+				//check for show or not
+				if($block_info->pages_ad == '1'){
+					//check for allowed pages
+					foreach($pages as $page){
+						if($page == $_SERVER['REQUEST_URI']){
+							return false;
+							break;
+						}
+						elseif($page == 'frontpage'){
+							if($_SERVER['REQUEST_URI'] == '/' . self::$localize_settings['home']){
+								return false;
+								break;
+							}
+						}
+					}
+				}
+				else{
+					
+					//check for denied pages
+					//check for allowed pages
+					foreach($pages as $page){
+						
+						if($page == $_SERVER['REQUEST_URI']){
+							return true;
+							break;
+						}
+						elseif($page == 'frontpage'){
+							if($_SERVER['REQUEST_URI'] == '/' . self::$localize_settings['home']){
+								return true;
+								break;
+							}
+						}
+					}
+					return false;
+				}
+			}	
+		}
+		//somethig happen that we can not controll that
+		return true;
+		
 	}
 	
 }

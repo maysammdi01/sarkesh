@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2014 at 07:51 PM
+-- Generation Time: Jan 18, 2015 at 11:13 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `plugin` int(11) NOT NULL,
   `position` varchar(45) NOT NULL,
   `permissions` varchar(45) DEFAULT NULL,
-  `pages` varchar(45) DEFAULT NULL,
+  `pages` text,
+  `pages_ad` varchar(2) NOT NULL DEFAULT '1',
   `show_header` tinyint(1) DEFAULT NULL,
   `rank` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -44,30 +45,10 @@ CREATE TABLE IF NOT EXISTS `blocks` (
 -- Dumping data for table `blocks`
 --
 
-INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`, `pages`, `show_header`, `rank`) VALUES
-(6, 'content', '0', 3, 'content', NULL, '', 0, 0),
-(7, 'login_block', '0', 2, 'sidebar1', NULL, NULL, 1, 3),
-(12, 'select_lang', '0', 4, 'sidebar1', NULL, NULL, NULL, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `card`
---
-
-CREATE TABLE IF NOT EXISTS `card` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cardname` int(11) unsigned DEFAULT NULL,
-  `price` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `card`
---
-
-INSERT INTO `card` (`id`, `cardname`, `price`) VALUES
-(1, 43434, 3434);
+INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`, `pages`, `pages_ad`, `show_header`, `rank`) VALUES
+(6, 'content', '0', 3, 'content', NULL, '', '0', 0, 0),
+(7, 'login_block', '0', 2, 'sidebar1', NULL, '', '1', 1, 1),
+(12, 'select_lang', '0', 4, 'Off', NULL, '', '1', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -129,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `contentparts` (
   `options` text NOT NULL,
   `position` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -146,14 +127,15 @@ CREATE TABLE IF NOT EXISTS `contentpatterns` (
   `options` varchar(500) NOT NULL,
   `position` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `contentpatterns`
 --
 
 INSERT INTO `contentpatterns` (`id`, `label`, `catalogue`, `rank`, `type`, `options`, `position`) VALUES
-(11, 'body', 16, 0, 'Textarea', 'editor:1;', '');
+(11, 'body', 16, 0, 'Textarea', 'editor:1;', ''),
+(12, 'morid', 16, 3, 'Textarea', 'editor:0;', '');
 
 -- --------------------------------------------------------
 
@@ -431,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `user` int(11) NOT NULL,
   `size` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `files`
@@ -441,7 +423,9 @@ INSERT INTO `files` (`id`, `name`, `place`, `address`, `date`, `user`, `size`) V
 (5, 'sorkhpost.jpg', 1, 'http://localhostupload/files/sorkhpost.jpg', '1412063025', 0, 173942),
 (6, '84825656190514sorkhpost.jpg', 1, 'http://localhostupload/files/84825656190514sorkhpost.jpg', '1412063103', 0, 173942),
 (7, '1713023707270sorkhpost.jpg', 1, 'http://localhostupload/files/1713023707270sorkhpost.jpg', '1412063110', 0, 173942),
-(8, '90723523637279sorkhpost.jpg', 1, 'http://localhostupload/files/90723523637279sorkhpost.jpg', '1412754683', 0, 173942);
+(8, '90723523637279sorkhpost.jpg', 1, 'http://localhostupload/files/90723523637279sorkhpost.jpg', '1412754683', 0, 173942),
+(9, 'libcairo-2.dll', 1, 'http://localhostupload/files/libcairo-2.dll', '1420189744', 0, 921369),
+(10, '149241685libcairo-2.dll', 1, 'http://localhostupload/files/149241685libcairo-2.dll', '1420189744', 0, 921369);
 
 -- --------------------------------------------------------
 
@@ -511,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `localize` (
   `direction` varchar(4) NOT NULL DEFAULT 'LTR',
   `slogan` varchar(120) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `localize`
@@ -519,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `localize` (
 
 INSERT INTO `localize` (`id`, `main`, `name`, `language`, `language_name`, `home`, `email`, `calendar`, `direction`, `slogan`) VALUES
 (1, 1, 'Sarkesh', 'en_US', 'English - United States', '?plugin=users&action=profile', 'info@sarkesh.org', 'gregorian', 'LTR', 'Best PHP Framework for developers'),
-(2, 0, 'Sarkesh', 'fa_IR', 'فارسی - ایران', '?plugin=users&action=register', 'info@sarkesh.org', 'jallali', 'RTL', NULL);
+(3, 0, 'سرکش', 'fa_IR', 'فارسی - ایران', '?plugin=users&action=register', 'info@sarkesh.org', 'jallali', 'RTL', 'شرکت توسعه فناوری');
 
 -- --------------------------------------------------------
 
@@ -576,7 +560,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `enable` tinyint(1) NOT NULL,
   `can_edite` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `plugins`
@@ -605,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `registry` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `fk_plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `registry`
@@ -628,7 +612,8 @@ INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (17, 3, '1st_template', '0'),
 (18, 2, 'register_date_format', 'y/m/d'),
 (19, 14, 'date_format', 'y/m/d'),
-(20, 3, 'default_country', 'United States');
+(20, 3, 'default_country', 'United States'),
+(21, 3, 'header_tags', 'Sarkesh is best cms!');
 
 -- --------------------------------------------------------
 
@@ -673,14 +658,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `state` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `register_date`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `permation`, `state`, `code`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 93, 5, NULL, NULL, NULL),
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 115, 5, NULL, NULL, NULL),
 (6, 'morrning', '90deff4b32c134f32e3f0d7e8a2aad92', 'alizadeh.babak@gmail.com', 0, 1412786925, NULL, NULL, NULL, NULL, 0, 2, 'NA', '1d48txim52');
 
 -- --------------------------------------------------------
@@ -695,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
 
 --
 -- Dumping data for table `validator`
@@ -745,7 +730,22 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (89, 'USERS_LOGIN', '37zg1v0m7v', '1416890765'),
 (90, 'USERS_LOGIN', 'wbvgt5kmkk', '1417082946'),
 (91, 'USERS_LOGIN', 'mtylnofl1a', '1417836954'),
-(93, 'USERS_LOGIN', '68qpvijy79', '1417191271');
+(93, 'USERS_LOGIN', '68qpvijy79', '1417191271'),
+(96, 'USERS_LOGIN', '8zq2pbjrou', '1420004782'),
+(97, 'USERS_LOGIN', '4vgfyn4dvx', '1420227931'),
+(98, 'USERS_LOGIN', '8aiungskoc', '1420228699'),
+(99, 'USERS_LOGIN', 'csklawex3f', '1420231122'),
+(100, 'USERS_LOGIN', '5kl1hjaekf', '1420309614'),
+(101, 'USERS_LOGIN', 'jhijqvwd0k', '1420392452'),
+(102, 'USERS_LOGIN', 'ky9mdx83d7', '1420491043'),
+(103, 'USERS_LOGIN', 'dd5ocgshlf', '1420575780'),
+(104, 'USERS_LOGIN', 'm38y8dytdz', '1420659796'),
+(105, 'USERS_LOGIN', '4aau64t08q', '1420870559'),
+(106, 'USERS_LOGIN', 'rpthh1g6z5', '1421002994'),
+(107, 'USERS_LOGIN', 'bxinc2kx39', '1421233422'),
+(109, 'USERS_LOGIN', 't30fgdrjxl', '1421403714'),
+(111, 'USERS_LOGIN', '6b0feff7dy', '1421510708'),
+(115, 'USERS_LOGIN', 't723i8xqu7', '1421644880');
 
 --
 -- Constraints for dumped tables

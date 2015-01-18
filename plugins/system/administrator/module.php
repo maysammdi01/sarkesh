@@ -313,7 +313,7 @@ class module extends view{
 			$block->rank = $e['cob_rank']['SELECTED'];
 			$block->position = $e['cob_position']['SELECTED'];
 			$block->pages = $e['txt_pages']['VALUE'];
-			if($e['rad_it_allow']['SELECTED'] = '1'){
+			if($e['rad_it_allow']['CHECKED'] == '1'){
 				$block->pages_ad = '1';
 			}
 			else{
@@ -321,7 +321,7 @@ class module extends view{
 			}
 			//save changes
 			db\orm::store($block);
-			$e['RV']['MODAL'] = browser\page::show_block(_('Update Block'),_('Successfuly Updated.!'),'MODAL','type-success');
+			$e['RV']['MODAL'] = browser\page::show_block(_('Update Block'),_('Successfuly Updated.'),'MODAL','type-success');
 			$e['RV']['JUMP_AFTER_MODAL'] = urlencode(core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
 			return $e;
 		}

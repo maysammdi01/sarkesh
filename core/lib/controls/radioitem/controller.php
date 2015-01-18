@@ -1,21 +1,20 @@
 <?php
 namespace core\control;
 use \core\control as control;
-
+use \core\cls\core as core;
 class radioitem extends control\radioitem\module{
 
 	private $config;
 		
-	function __construct($name = ''){
+	function __construct($id = ''){
 		$this->config = [];
 		parent::__construct();
-		$this->config['NAME'] = 'radio';
-		if($name != ''){
-			$this->config['NAME'] = $name;
-		}
-
+		$this->config['NAME'] = core\general::random_string(20);
 		$this->config['ID'] = 'radiobutton';
-		$this->config['FORM'] = 'R_FORM';
+		if($id != ''){
+			$this->config['ID'] = $id;
+		}
+		$this->config['FORM'] = 'FORM';
 		$this->config['STYLE'] = '';
 		$this->config['CLASS'] = '';
 		$this->config['CSS_FILE'] = '';

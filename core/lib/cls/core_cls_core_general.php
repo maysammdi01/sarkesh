@@ -23,14 +23,11 @@ class general{
 	}
 	
 	//this function return internal url. you should just send to that parameters
-	static function create_url($parameters,$for_event=false){
+	static function create_url($parameters){
 		$url = '?';
 		for($i = 1; $i<= (max(array_keys($parameters))+1) ; $i +=2){
-			if($i != 0){
-				//in javascript event controller all % converted to & automaticly
-				if($for_event){	$url .= '%';	}
-				else{$url .= '&';	 }
-				
+			if($i != 1){
+				$url .= '&';
 			}
 			$url .= $parameters[$i -1];
 			$url .= '=';

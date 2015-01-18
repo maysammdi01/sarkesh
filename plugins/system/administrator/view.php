@@ -452,7 +452,7 @@ class view{
 		$form->add($txt_pages);
 		
 		//ADD RADIO BUTTON FOR SELECT PAGES
-		$rad_bot = new control\radiobuttons;
+		$rad_bot = new control\radiobuttons('rad_show_option');
 		$rad_bot->configure('LABEL',_('With this option you can select pages for show.'));
 		$radit_al_pages = new control\radioitem('rad_it_allow');
 		$radit_al_pages->configure('LABEL',_('All pages espect that comes above.'));
