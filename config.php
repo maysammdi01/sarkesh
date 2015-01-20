@@ -1,15 +1,9 @@
 <?php
 #This file is Sarkesh web framework main configration file
 
-#database type. now only mysql supported
-define ("DatabaseType","mysql");
-
-#mysql connect information
-define ("DatabaseUser","root");
-define ("DatabasePassword","");
-define ("DatabaseHost","localhost");
-define ("DatabaseName","sarkeshMVC");
-
+if(file_exists('db-config.php')){
+	require_once("db-config.php");
+}
 #save  domain for load system
 define ("SiteDomain",'http://' . $_SERVER['SERVER_NAME'] );
 #config file system
