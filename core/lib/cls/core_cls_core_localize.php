@@ -24,7 +24,7 @@ class localize{
 		if($dif){
 			return $this->localize;
 		}
-		$local = db\orm::findOne('localize','language=?',[$this->get_language()]);
+		$local = db\orm::findOne('localize','language=?',array($this->get_language()));
 		return $local;
 	}
 

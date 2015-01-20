@@ -26,7 +26,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -34,7 +34,7 @@ class view{
 		$row->add($btn_update,3);
 		$row->add($btn_cancel,3);
 		$form->add($row);                
-		return [_('PHP Error logs'),$form->draw()];
+		return  array(_('PHP Error logs'),$form->draw());
 	}
 	
 }

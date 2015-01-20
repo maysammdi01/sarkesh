@@ -7,8 +7,8 @@ class tabbar extends control\tabbar\module{
 	public $active_tab;
 	function __construct(){
 		parent::__construct();
-		$this->tabs = [];
-		$this->config = [];
+		$this->tabs = array();
+		$this->config = array();
 		$this->config['NAME'] = "TABBAR_";
 		$this->config['ACTIVE_TAB'] = "0";
 		$this->config['ACTIVE_INDEX'] = "0";

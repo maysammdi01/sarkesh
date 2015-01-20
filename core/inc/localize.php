@@ -6,6 +6,6 @@ $obj_localize = new \core\cls\core\localize;
 $sys_language = $obj_localize->get_language();
 putenv("LANG=" . $sys_language);
 setlocale(LC_ALL, $sys_language);
-bindtextdomain($sys_language, "./languages/");
+bindtextdomain($sys_language, AppPath . "languages/");
 textdomain($sys_language);
 ?>

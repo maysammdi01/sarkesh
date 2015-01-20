@@ -7,8 +7,8 @@ class radiobuttons extends control\radiobuttons\module{
 	function __construct($name){
 		parent::__construct();
 		
-		$this->e = [];
-		$this->config = [];
+		$this->e = array()];
+		$this->config = array()];
 		$this->config['NAME'] = $name;
 		$this->config['SIZE'] = 12;
 		$this->config['HELP'] = '';

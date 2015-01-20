@@ -19,7 +19,7 @@ class block{
 	}
 	
 	public function draw(){
-		return [$this->header,$this->body,$this->show_header];
+		return array($this->header,$this->body,$this->show_header);
 	}
     
 }

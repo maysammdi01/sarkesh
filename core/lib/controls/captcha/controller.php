@@ -7,7 +7,7 @@ class captcha extends control\captcha\module{
 	private $config;
 	function __construct(){
 		parent::__construct();
-		$this->config = [];
+		$this->config = array();
 		$this->config['LABEL'] = '';
 		$this->config['ALT'] = '';
 		$this->config['SRC'] = '';

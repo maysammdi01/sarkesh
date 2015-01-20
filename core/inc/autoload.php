@@ -41,7 +41,7 @@ function __autoload($class_name){
 	else{
 		//going to include some other
 		$class_name = str_replace('\\','_',$class_name);
-		@include_once('./core/lib/cls/' . $class_name . '.php');
+		@include_once(AppPath . 'core/lib/cls/' . $class_name . '.php');
 	}
 }
 

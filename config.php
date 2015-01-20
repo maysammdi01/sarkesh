@@ -21,5 +21,4 @@ define('S_Error_Log_Place',AppPath . 'error_log.txt');
 
 #define static variable for devalopers mode
 define('S_DEV_MODE',TRUE);
-
 ?>

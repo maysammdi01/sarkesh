@@ -6,5 +6,5 @@
  * 
  */
 require_once("config.php");
-require_once("./core/boot.php");
+require_once(AppPath . "core/boot.php");
 ?>

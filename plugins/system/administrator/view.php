@@ -106,8 +106,8 @@ class view{
 		
 		//add headers to table
 		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Author'),_('Options')));
-		$table->configure('HEADERS_WIDTH',[1,5,3,3]);
-		$table->configure('ALIGN_CENTER',[TRUE,FALSE,FALSE,TRUE]);
+		$table->configure('HEADERS_WIDTH', array(1,5,3,3));
+		$table->configure('ALIGN_CENTER', array(TRUE,FALSE,FALSE,TRUE));
 		$table->configure('BORDER',true);
 		$form->add($table);
 		
@@ -191,8 +191,8 @@ class view{
 		
 		//add headers to table
 		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Options')));
-		$table->configure('HEADERS_WIDTH',[1,5,3,3]);
-		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE]);
+		$table->configure('HEADERS_WIDTH', array(1,5,3,3));
+		$table->configure('ALIGN_CENTER', array(TRUE,FALSE,TRUE));
 		$table->configure('BORDER',true);
 		$form->add($table);
 		
@@ -215,7 +215,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -286,7 +286,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -296,7 +296,7 @@ class view{
 		$form->add($row);                
         
         
-        return [_('General Settings'),$form->draw()];
+        return array(_('General Settings'),$form->draw());
     }
     
     //this function show regional and languages setttings
@@ -341,7 +341,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -350,7 +350,7 @@ class view{
 		$row->add($btn_cancel,3);
 		$form->add($row);   
         
-        return[_('Regional and languages'),$form->draw()];
+        return array(_('Regional and languages'),$form->draw());
     }
     
     //this function show blocks for that user can manage widgets
@@ -394,7 +394,7 @@ class view{
 			//add update and cancel buttons
 			$btn_edite = new control\button('btn_edite');
 			$btn_edite->configure('LABEL',_('Edite'));
-			$btn_edite->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','edite_block','id',$block->id]));
+			$btn_edite->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','edite_block','id',$block->id)));
 			$btn_edite->configure('TYPE','primary');
 			$row->add($btn_edite);
 			
@@ -405,8 +405,8 @@ class view{
 		
 		//add headers to table
 		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Place'),_('Rank'),_('Edite')));
-		$table->configure('HEADERS_WIDTH',[1,3,2,1,2]);
-		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
+		$table->configure('HEADERS_WIDTH', array(1,3,2,1,2));
+		$table->configure('ALIGN_CENTER', array(TRUE,FALSE,TRUE,TRUE,TRUE));
 		$table->configure('BORDER',true);
 		$form->add($table);
 	
@@ -414,7 +414,7 @@ class view{
 		//add cancel buttons
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -437,7 +437,7 @@ class view{
 		$cob_rank = new control\combobox('cob_rank');
         $cob_rank->configure('LABEL',_('Rank'));
         $cob_rank->configure('SELECTED_INDEX',$block->rank);
-        $cob_rank->configure('SOURCE',[0,1,2,3,4,5,6,7,8,9]);
+        $cob_rank->configure('SOURCE', array(0,1,2,3,4,5,6,7,8,9));
         $cob_rank->configure('SIZE',3);
 		$form->add($cob_rank);
 		
@@ -487,7 +487,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','administrator','a','blocks')));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -497,7 +497,7 @@ class view{
 		$form->add($row);   
 		
 		
-		return [_('Edite Block:').$block->name,$form->draw()];
+		return array(_('Edite Block:').$block->name,$form->draw());
 		
 	}
 }

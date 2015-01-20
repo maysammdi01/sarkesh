@@ -9,7 +9,6 @@ if(empty($sess_id)){ session_start();}
 
 if(file_exists(AppPath . "db-config.php")) {
 	//going to run sarkesh!
-	include_once(AppPath . "config.php");
 	//LOAD INC Files
 	
 	//set error reporting

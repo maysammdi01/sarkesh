@@ -29,7 +29,7 @@ class combobox extends control\combobox\module{
 		$this->config['SIZE'] = '6';
 		
 		//this config use for show 1d array
-		$this->config['SOURCE'] = [];
+		$this->config['SOURCE'] = array();
 		
 		//this config for set table for show
 		//table is 2d array

@@ -8,7 +8,7 @@ class table extends control\table\module{
 	function __construct(){
 		parent::__construct($form='');
 		
-		$this->config = [];
+		$this->config = array();
 		$this->config['NAME'] = 'TABLE';
 		if($form == ''){
 			$this->config['FORM'] = $form;
@@ -19,8 +19,8 @@ class table extends control\table\module{
 		
 		// valid : NORMAL | SOURCE
 		$this->config['TYPE'] = 'NORMAL';
-		$this->config['ROWS'] = [];
-		$this->config['HEADERS'] = [];
+		$this->config['ROWS'] = array();
+		$this->config['HEADERS'] = array();
 		$this->config['SIZE'] = 12;
 		$this->config['BS_CONTROL'] = TRUE;
 		$this->config['BORDER'] = FALSE;
