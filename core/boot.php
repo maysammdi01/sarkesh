@@ -1,5 +1,9 @@
 <?php
-
+//error reporting
+if(!isset($_REQUEST['service']) && !isset($_REQUEST['control'])){
+		//ENABLE OR DISABLE SHOW ERRORS AND DEVELOPERS MODE
+		require_once(AppPath . 'core/functions/debug.php');
+}
 //this include file has autoload function
 require_once(AppPath . 'core/inc/autoload.php');
 
@@ -12,11 +16,8 @@ if(file_exists(AppPath . "db-config.php")) {
 	include_once(AppPath . "config.php");
 	//LOAD INC Files
 	
-	//set error reporting
-	// ERROR_REPORTING defined in config file
-	ini_set('error_log',S_Error_Log_Place);
 	
-	//include core difines
+	//include core defines
 	require_once( AppPath . 'core/defines.php');
 	require_once(AppPath . 'core/inc/localize.php');
 	
@@ -39,13 +40,10 @@ if(file_exists(AppPath . "db-config.php")) {
 		$obj_router->run_control();
 	}
 	else{
-		//ENABLE OR DISABLE SHOW ERRORS AND DEVELOPERS MODE
 		if(S_DEV_MODE){
-			ini_set('display_errors','On');
 			core\cls\browser\page::show_dev_panel();
-		}
-		else{
-			ini_set('display_errors','Off');
+			//ADD Error handeler
+			require_once(AppPath . 'core/functions/debug.php');
 		}
 		#load system in gui normal mode
 		require_once(AppPath . "core/inc/load.php");

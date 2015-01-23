@@ -9,7 +9,7 @@ class module extends view{
 		parent::__construct();
 		
 		$this->obj_localize = new core\localize;
-		$this->db = new db\mysql;
+		$this->db = db\mysql::singleton();
 	}
 	protected function module_get_languages(){
 		$this->db->do_query("SELECT language,language_name FROM localize ORDER BY language=? DESC;", array($this->obj_localize->get_language()));

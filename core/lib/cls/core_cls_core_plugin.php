@@ -8,7 +8,7 @@
 		
 		function __construct(){
 		
-			$this->db = new db\mysql;
+			$this->db = db\mysql::singleton();
 		}
 		
 		// if plugin enabled this function return true and else return false

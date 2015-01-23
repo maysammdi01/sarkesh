@@ -4,20 +4,22 @@
  * you can use this class in your design with inherte from this class
  * for create an object from your class use this pattern  $object = your_class::singleton();
  */
+namespace core\cls\patterns;
 
-class Singleton {
+trait Singleton
+{
     protected static $instance;
- 
-    private function __clone() { }
-    private function __construct() { }
-    private function __wakeup() { }
- 
-    final public static function singleton() {
-        if ( !isset( static::$instance ) ) {
-            static::$instance = new static();
-        }
- 
-        return static::$instance;
+    final public static function singleton()
+    {
+        return isset(static::$instance)
+            ? static::$instance
+            : static::$instance = new static;
     }
+    final private function __construct() {
+        $this->init();
+    }
+    protected function init() {}
+    final private function __wakeup() {}
+    final private function __clone() {}    
 }
 ?>

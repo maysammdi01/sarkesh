@@ -13,8 +13,7 @@ class localize{
 	function __construct(){
 		$this->obj_cookie = new network\cookie;
 		$this->obj_session = new network\session;
-		
-		$this->db = new db\mysql;
+		$this->db = db\mysql::singleton();
 		$this->db->do_query("select * from localize where main ='1';");
 		$this->localize = $this->db->get_first_row_array();
 		$this->get_language();

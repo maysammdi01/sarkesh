@@ -11,7 +11,7 @@ class module extends view{
 	}
 	
 	protected function module_show(){
-		$db = new \db\mysql;
+		$db = db\mysql::singleton();
 		$db->do_query('SELECT * FROM rr');
 		$res = $db->get_array();
 		return $this->view_show($res);

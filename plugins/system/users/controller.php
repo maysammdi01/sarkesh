@@ -8,7 +8,6 @@ class users extends users\module{
 	function __construct(){
 		parent::__construct();
 	}
-	
     
     	//this function return back menus for use in admin area
 	public static function core_menu(){

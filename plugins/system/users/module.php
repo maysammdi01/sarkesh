@@ -27,7 +27,6 @@ class module extends view{
 	 * form
 	 */
 	protected function module_login_block($pos){
-
 		//checking for that is logedin before
 		if($this->module_is_logedin()){
 			//show user profile
@@ -152,6 +151,7 @@ class module extends view{
 	   * OUTPUT:boolean
 	   */
 	   protected function module_has_permission($permission,$username=''){
+		   
 			 if($username == ''){
 				//get cerrent user info
 				$user = $this->module_get_info();
@@ -530,7 +530,6 @@ class module extends view{
 		 
 		 //this function is for show profile
 		 protected function module_profile(){
-
 			//going to show profile to user
 			$user_info = $this->module_get_info('');
 					 

@@ -21,7 +21,7 @@ private $obj_registry;
 		$this->obj_general = new core\general;
 		$this->obj_session = new network\session;
 		$this->obj_cookie = new network\cookie;
-		$this->db = new db\mysql;
+		$this->db = db\mysql::singleton();
 		$this->obj_registry = new core\registry;
 		$this->settings = $this->obj_registry->get_plugin('administrator');
 		$last_check_refresh = $this->settings['validator_max_time'] + $this->settings['validator_last_check'];

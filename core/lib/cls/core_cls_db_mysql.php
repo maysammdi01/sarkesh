@@ -2,8 +2,9 @@
 #this class work with database
 #this class use pdo extention for work with mysql database
 namespace core\cls\db;
-
-class mysql{
+use core\cls\patterns as patterns;
+class mysql {
+	use patterns\singleton;
 	private $pdo_obj;
 	private $Query;
 	private $Result;
@@ -12,9 +13,9 @@ class mysql{
 
 function __construct(){
 # connect to the database server and select database to work with that
-
 		try{
 			$this->connect();
+			
 		}
  		catch(PDOException $e) {
 			echo "Error In query from database! <br> reason: " , $e->getMessage();
