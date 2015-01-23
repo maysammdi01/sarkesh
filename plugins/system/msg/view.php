@@ -53,7 +53,7 @@ class view{
 		$form->configure('PANEL',TRUE);
 		$form->configure('LABEL',$header);
 		$form->configure('TYPE',$type);
-		return  array('',$form->draw());
+		return ['',$form->draw()];
 	}
 
 }

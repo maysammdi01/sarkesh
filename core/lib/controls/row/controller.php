@@ -7,9 +7,9 @@ class row extends control\row\module{
 	private $config;
 	function __construct(){
 		parent::__construct();
-		$this->e = array();
-		$this->controls = array();
-		$this->config = array();
+		$this->e = [];
+		$this->controls = [];
+		$this->config = [];
 		$this->config['FORM'] = 'DEFAULT';
 		$this->config['IN_TABLE'] = true;
 		$this->config['SIZE'] = 12;

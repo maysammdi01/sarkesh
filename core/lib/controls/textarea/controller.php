@@ -7,7 +7,7 @@ class textarea extends control\textarea\module{
 	function __construct($name=''){
 		
 		parent::__construct();
-		$this->config = array();
+		$this->config = [];
 		$this->config['NAME'] = 'TEXTAREA';
 		if($name != ''){
 			$this->config['NAME'] = $name;

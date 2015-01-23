@@ -7,8 +7,8 @@ class image extends control\image\module{
 	private $config;
 	function __construct(){
 		parent::__construct();
-		$this->e = array();
-		$this->config = array();
+		$this->e = [];
+		$this->config = [];
 		$this->config['LABEL'] = '';
 		$this->config['ALT'] = '';
 		$this->config['SRC'] = '';

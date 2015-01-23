@@ -304,9 +304,9 @@ class view{
 		  $btn_edite->configure('HREF',core\general::create_url(array('plugin','users','action','edite_profile','id',$user->id) ) );
 		
 		  
-		  $form->add_array( array($photo,$lbl_username, $lbl_last_login, $lbl_register_date,$btn_edite));
+		  $form->add_array([$photo,$lbl_username, $lbl_last_login, $lbl_register_date,$btn_edite]);
 		  
-		  return  array(sprintf( _('%s\'s profile'),$user->username), $form->draw(),true);
+		  return [sprintf( _('%s\'s profile'),$user->username), $form->draw(),true];
 		  
 	  }
       
@@ -363,8 +363,8 @@ class view{
 		
 		//add headers to table
 		$table->configure('HEADERS',array(_('ID'),_('Username'),_('Group'),_('Register Date'),_('Options')));
-		$table->configure('HEADERS_WIDTH', array(1,5,2,2,2));
-		$table->configure('ALIGN_CENTER', array(TRUE,FALSE,FALSE,TRUE,TRUE));
+		$table->configure('HEADERS_WIDTH',[1,5,2,2,2]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,FALSE,TRUE,TRUE]);
 		$table->configure('BORDER',true);
 		$form->add($table);
 		

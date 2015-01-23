@@ -288,6 +288,18 @@ class page{
 		self::show_block(true, $header,$content,'MSG', $type, $result);
 	}
 	
+	//this function show developers options
+	public static function show_dev_panel(){
+		echo _('Memory usage by system:') . memory_get_peak_usage() . '</br>';
+		echo _('CPU usage by system:');
+		if( php_uname('s') == 'Windows NT'){
+			echo 'Not supported in windows';
+		}
+		else{
+			$load = sys_getloadavg();
+			echo $load[0];
+		}
+	}
 	static public function show_has_allow($block_name){
 		
 		//get block options

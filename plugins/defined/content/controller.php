@@ -22,9 +22,9 @@ class content extends content\module{
 		
 		$menu = array();
 		$url = core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','insert_cat'));
-		array_push($menu,array($url, _('New catalogue')));
-		$url = core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','list_cats'));
-		array_push($menu,array($url, _('Manage catalogues')));
+		array_push($menu,[$url, _('New catalogue')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']);
+		array_push($menu,[$url, _('Manage catalogues')]);
 		$ret = array();
 		array_push($ret,_('Content'));
 		array_push($ret,$menu);
@@ -70,7 +70,7 @@ class content extends content\module{
 	
 	//this action is for jump to edit catalogue
 	public function btn_cat_go_edite($e){
-		$e['RV']['URL'] = core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','cat_edit','id',$e['CLICK']['VALUE']),true);
+		$e['RV']['URL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','cat_edit','id',$e['CLICK']['VALUE']],true);
 		return $e;
 	}
 	
@@ -120,7 +120,7 @@ class content extends content\module{
 		else{
 			//show not found message
 			core\router::jump_page('404');
-			return array('','');
+			return ['',''];
 		}
 		
 	}
@@ -154,7 +154,7 @@ class content extends content\module{
 	
 	//FUNCTION FOR JUMP TO INSERT NEW PATTERN
 	public function onclick_btn_add_new_pattern($e){
-		$e['RV']['URL'] = core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','add_new_pattern','type',$e['cob_item']['SELECTED'],'id',$e['hid_id']['VALUE']),true);
+		$e['RV']['URL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','add_new_pattern','type',$e['cob_item']['SELECTED'],'id',$e['hid_id']['VALUE']],true);
 		return $e;
 	}
 	

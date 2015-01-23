@@ -27,7 +27,7 @@ class view{
 		$this->raintpl->assign( "value", $config['VALUE']);
 		$this->raintpl->assign( "label", $config['LABEL']);
 		$this->raintpl->assign( "index", $config['SELECTED_INDEX']);
-		$elements = array();
+		$elements = [];
 		
 		if($config['COLUMN_LABELS'] == ''){
 			//WANT TO SHOW SIMPLE ARRAY

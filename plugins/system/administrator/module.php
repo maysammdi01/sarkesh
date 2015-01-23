@@ -8,17 +8,12 @@ use \core\cls\core as core;
 use \core\cls\browser as browser;
 
 class module extends view{
-
-	private $users;
 	private $msg;
 	private $io;
-	private $user;
 	function __construct(){
 		parent::__construct();
-		$this->users = new plugin\users;
 		$this->msg = new plugin\msg;
 		$this->io = new network\io;
-		$user = new plugin\users;
 	}
 	
 	protected function module_load($content,$single_page=false){
@@ -73,7 +68,9 @@ class module extends view{
 	// this function show login page and get an input variable that set next page that after login you want to jump
 	protected function module_login_page(){
 		//get login panel
-		$login_panel = $this->users->login();
+		$users = new plugin\users;
+		$login_panel = $users->login();
+		$user = null;
 		$login_panel[1] = browser\page::show_block($login_panel[0],$login_panel[1],'BLOCK');
 		return $this->module_load($login_panel,true);
 	}
@@ -85,7 +82,8 @@ class module extends view{
 	
 	protected function module_themes(){
 		//check for permission
-		if($this->users->has_permission('administrator_admin_panel')){
+		$users = new plugin\users;
+		if($users->has_permission('administrator_admin_panel')){
 			//Get all themes that exists
 			$directory = scandir(AppPath. '/themes/');
 			$themes = (array) null;
@@ -111,6 +109,7 @@ class module extends view{
 			//no permission to access this page
 			return $this->msg->access_denied('BLOCK');
 		}
+		$users = null;
 	}
 	
 	//this function return dashboard of administrator area
@@ -123,7 +122,8 @@ class module extends view{
 	protected function mudule_btn_change_theme($e){
 		
 		//first check for permission
-		if($this->users->has_permission('administrator_admin_panel')){
+		$users = new plugin\users;
+		if($users->has_permission('administrator_admin_panel')){
 			$selected_theme = $e['CLICK']['VALUE'];
 			//save new theme in registry
 			$registry = new core\registry;
@@ -138,6 +138,7 @@ class module extends view{
 			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
 			
 		}
+		$users = null;
 		return $e;
 	}
 	
@@ -171,12 +172,14 @@ class module extends view{
 	//this function return boolean value
 	//if user has permission to admin panel return false and else return false
 	public function module_has_admin_panel(){
-		if($this->users->has_permission('administrator_admin_panel')){
+		$users = new plugin\users;
+		if($users->has_permission('administrator_admin_panel')){
 			return true;
 		}
 		else{
 			return false;
 		}
+		$users=null;
 	}
     
     //this function show general settings

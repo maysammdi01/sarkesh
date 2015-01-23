@@ -7,8 +7,7 @@
 		private $db;
 		function __construct(){
 			$this->db = new db\mysql;
-		}
-		
+		}		
 		public function get($plugin, $key){
 			$this->db->do_query('SELECT r.a_key, r.value, p.name FROM registry r INNER JOIN plugins p ON p.id = r.plugin  WHERE p.name = ? and r.a_key = ?;', array($plugin, $key));
 			if($this->db->rows_count() != 0){

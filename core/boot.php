@@ -9,6 +9,7 @@ if(empty($sess_id)){ session_start();}
 
 if(file_exists(AppPath . "db-config.php")) {
 	//going to run sarkesh!
+	include_once(AppPath . "config.php");
 	//LOAD INC Files
 	
 	//set error reporting
@@ -17,6 +18,7 @@ if(file_exists(AppPath . "db-config.php")) {
 	//ENABLE OR DISABLE SHOW ERRORS AND DEVELOPERS MODE
 	if(S_DEV_MODE){
 		ini_set('display_errors','On');
+		core\cls\browser\page::show_dev_panel();
 	}
 	else{
 		ini_set('display_errors','Off');

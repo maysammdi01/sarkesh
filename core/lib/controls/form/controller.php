@@ -6,8 +6,8 @@ class form extends control\form\module{
 	private $config;
 	function __construct($form_name="form"){
 		parent::__construct();
-		$this->e = array();
-		$this->config = array();
+		$this->e = [];
+		$this->config = [];
 		$this->config['NAME'] = $form_name;
 		$this->config['SIZE'] = 12;
 		$this->config['LABEL'] = 'Form Label';

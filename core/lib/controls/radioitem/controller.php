@@ -7,7 +7,7 @@ class radioitem extends control\radioitem\module{
 	private $config;
 		
 	function __construct($id = ''){
-		$this->config = array();
+		$this->config = [];
 		parent::__construct();
 		$this->config['NAME'] = core\general::random_string(20);
 		$this->config['ID'] = 'radiobutton';

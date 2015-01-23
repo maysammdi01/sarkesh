@@ -39,7 +39,7 @@ class view{
 		$btn_insert->configure('P_ONCLICK_PLUGIN','content');
 		$btn_insert->configure('P_ONCLICK_FUNCTION','onclick_btn_insert_cat');
 		
-		$form->add_array( array($txt_name,$btn_insert));
+		$form->add_array([$txt_name,$btn_insert]);
 		
 		$tile->add($form->draw());
 		if($with_list){
@@ -47,7 +47,7 @@ class view{
 			$tile->add($cats[1]);
 		}
 		
-		return  array(_('New catalogue'),$tile->draw(),true);
+		return [_('New catalogue'),$tile->draw(),true];
 		
 	}
 	
@@ -73,7 +73,7 @@ class view{
 			$btn_add_content = new control\button('btn_content_insert_content');
 			$btn_add_content->configure('LABEL',_('Add Content'));
 			$btn_add_content->configure('VALUE',$cat->id);
-			$btn_add_content->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','content','a','insert_content','id',$cat->id)));
+			$btn_add_content->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','insert_content','id',$cat->id]));
 
 			$row->add($btn_add_content,2);
 			
@@ -86,26 +86,26 @@ class view{
 			
 			$btn_delete = new control\button('btn_content_cats_delete');
 			$btn_delete->configure('LABEL',_('Delete'));
-			$btn_delete->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','content','a','sure_delete','id',$cat->id)));
+			$btn_delete->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','sure_delete','id',$cat->id]));
 			$btn_delete->configure('TYPE','warning');
 			$row->add($btn_delete,2);
 			
 			$btn_patterns = new control\button('btn_content_cats_patterns');
 			$btn_patterns->configure('LABEL',_('Manage patterns'));
-			$btn_patterns->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$cat->id)));
+			$btn_patterns->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$cat->id]));
 			$btn_patterns->configure('TYPE','primary');
 			$row->add($btn_patterns,2);
 			
 			$table->add_row($row);
-			$table->configure('HEADERS', array(_('ID'),_('Name'),_('ADD'),_('Edit'),_('Delete'),_('patterns')));
-			$table->configure('HEADERS_WIDTH', array(1,7,1,1,1,1));
-			$table->configure('ALIGN_CENTER', array(TRUE,FALSE,TRUE,TRUE,TRUE,TRUE));
+			$table->configure('HEADERS',[_('ID'),_('Name'),_('ADD'),_('Edit'),_('Delete'),_('patterns')]);
+			$table->configure('HEADERS_WIDTH',[1,7,1,1,1,1]);
+			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE,TRUE]);
 			$table->configure('BORDER',true);
 		}
 		
 		$form->add($table);
 		
-		return  array(_('Catalogues'),$form->draw());
+		return [_('Catalogues'),$form->draw()];
 	}
 	
 	//show eit page
@@ -130,16 +130,16 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','content','a','list_cats')));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
 		$row->add($btn_update,3);
 		$row->add($btn_cancel,3);
-		$form->add_array( array($txt_name,$row,$hid_id));
+		$form->add_array([$txt_name,$row,$hid_id]);
 		
-		return  array(_('Update catalogue:') . $cat->name,$form->draw(),true);
+		return [_('Update catalogue:') . $cat->name,$form->draw(),true];
 		
 		
 	}
@@ -162,7 +162,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url( array('service','1','plugin','administrator','action','main','p','content','a','list_cats')));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -170,9 +170,9 @@ class view{
 		$row->add($btn,1);
 		$row->add($btn_cancel,3);
 		
-		$form->add_array( array($hid_id,$label,$row));
+		$form->add_array([$hid_id,$label,$row]);
 		
-		return  array(_('Delete catalogue'),$form->draw());
+		return [_('Delete catalogue'),$form->draw()];
 	}
 	
 	//function for show patterns and manage that
@@ -190,9 +190,9 @@ class view{
 		$form->add($hid_id);
 		//draw table
 		$table = new control\table;
-		$table->configure('HEADERS', array(_('ID'),_('Name'),_('Type'),_('Rank'),_('Edit'),_('Delete')));
-		$table->configure('HEADERS_WIDTH', array(1,6,2,1,1,1));
-		$table->configure('ALIGN_CENTER', array(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE));
+		$table->configure('HEADERS',[_('ID'),_('Name'),_('Type'),_('Rank'),_('Edit'),_('Delete')]);
+		$table->configure('HEADERS_WIDTH',[1,6,2,1,1,1]);
+		$table->configure('ALIGN_CENTER',[TRUE,TRUE,TRUE,TRUE,TRUE,TRUE]);
 		$table->configure('BORDER',true);
 		$table->configure('SIZE',5);
 		
@@ -219,14 +219,14 @@ class view{
 			$row->add($txt_rank);
 			
 			$btn_edite = new control\button('btn_edite');
-			$btn_edite->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','edite_pattern','id',$pattern->id)));
+			$btn_edite->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','edite_pattern','id',$pattern->id]));
 
 			$btn_edite->configure('LABEL',_('Edite'));
 			$btn_edite->configure('TYPE','default');			
 			$row->add($btn_edite);
 			
 			$btn_delete = new control\button('btn_delete');
-			$btn_delete->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','sure_delete_pattern','id',$pattern->id)));
+			$btn_delete->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','sure_delete_pattern','id',$pattern->id]));
 			$btn_delete->configure('LABEL',_('Delete'));
 			$btn_delete->configure('TYPE','warning');			
 			$row->add($btn_delete);
@@ -243,7 +243,7 @@ class view{
 		$combo_items = new control\combobox('cob_item');
 		$combo_items->configure('SIZE',2);
 		$combo_items->configure('INLINE',TRUE);
-		$combo_items->configure('SOURCE',array(array('Textarea',_('Textarea'))));
+		$combo_items->configure('SOURCE',[['Textarea',_('Textarea')]]);
 		$row_new_pattern->add($combo_items,4);
 		
 		$btn_new = new control\button('btn_new');
@@ -265,13 +265,13 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','list_cats')));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
 		$btn_cancel->configure('TYPE','default');
 		$row_buttons->add($btn_cancel,1);
 		
 		$form->add($row_buttons);
 		
-		return array($lbl_cat_info->get('LABEL'), $form->draw());
+		return [$lbl_cat_info->get('LABEL'), $form->draw()];
 		
 	}
 	
@@ -294,7 +294,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','list_cats')));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -302,9 +302,9 @@ class view{
 		$row->add($btn,1);
 		$row->add($btn_cancel,1);
 		
-		$form->add_array(array($hid_id,$label,$row));
+		$form->add_array([$hid_id,$label,$row]);
 		
-		return array(_('Delete pattern'),$form->draw());
+		return [_('Delete pattern'),$form->draw()];
 	}
 	
 	//this function get options of patterns and return array of this options
@@ -364,12 +364,12 @@ class view{
 
 			$btn_cancel = new control\button('btn_cancel');
 			$btn_cancel->configure('LABEL',_('Cancel'));
-			$btn_cancel->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$pattern->catalogue)));
+			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$pattern->catalogue]));
 			$row->add($btn_cancel);
 			
 			$form->add($row);
 			
-			return array(_('Edite pattern'),$form->draw());
+			return [_('Edite pattern'),$form->draw()];
 		}
 		else{
 			//return in INSERT mode
@@ -410,11 +410,11 @@ class view{
 
 			$btn_cancel = new control\button('btn_cancel');
 			$btn_cancel->configure('LABEL',_('Cancel'));
-			$btn_cancel->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$_GET['id'])));
+			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$_GET['id']]));
 			$row->add($btn_cancel);
 			
 			$form->add($row);
-			return array(_('Insert new pattern'),$form->draw());
+			return [_('Insert new pattern'),$form->draw()];
 		}
 		
 	}
@@ -474,16 +474,16 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(array('service','1','plugin','administrator','action','main','p','content','a','list_cats')));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
 		$row->add($btn_update,3);
 		$row->add($btn_cancel,3);
-		$form->add_array(array($row,$hid_id));
+		$form->add_array([$row,$hid_id]);
 		
-		return array(sprintf(_('Insert new content:%s'),$cat->name),$form->draw());
+		return [sprintf(_('Insert new content:%s'),$cat->name),$form->draw()];
 	}
 	
 }
