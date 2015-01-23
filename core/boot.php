@@ -15,14 +15,6 @@ if(file_exists(AppPath . "db-config.php")) {
 	//set error reporting
 	// ERROR_REPORTING defined in config file
 	ini_set('error_log',S_Error_Log_Place);
-	//ENABLE OR DISABLE SHOW ERRORS AND DEVELOPERS MODE
-	if(S_DEV_MODE){
-		ini_set('display_errors','On');
-		core\cls\browser\page::show_dev_panel();
-	}
-	else{
-		ini_set('display_errors','Off');
-	}
 	
 	//include core difines
 	require_once( AppPath . 'core/defines.php');
@@ -47,6 +39,14 @@ if(file_exists(AppPath . "db-config.php")) {
 		$obj_router->run_control();
 	}
 	else{
+		//ENABLE OR DISABLE SHOW ERRORS AND DEVELOPERS MODE
+		if(S_DEV_MODE){
+			ini_set('display_errors','On');
+			core\cls\browser\page::show_dev_panel();
+		}
+		else{
+			ini_set('display_errors','Off');
+		}
 		#load system in gui normal mode
 		require_once(AppPath . "core/inc/load.php");
 	}
