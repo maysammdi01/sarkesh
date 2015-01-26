@@ -53,12 +53,12 @@ class page{
 		}
 		//cache control
 		array_push($default_headers, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
+		array_push($default_headers, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
 		#load jquery
 		if(self::$settings['jquery'] == '1'){
 			array_push($default_headers, '<script src="./core/ect/scripts/jquery.js"></script>');
 			array_push($default_headers, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
 			array_push($default_headers, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
-			array_push($default_headers, '<script src="./core/ect/scripts/pace.min.js"></script>');
 			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
 			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/default.css" />');
 			#load rtl bootstrap
@@ -66,14 +66,6 @@ class page{
 				array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
 			}
 			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
-			//for more information about normalize project see http://necolas.github.io/normalize.css/
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/normalize.css" />');
-			//get pace(loading in ajax theme
-			if(self::$settings['pace_theme'] != '0'){
-				array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/pace/' . self::$settings['pace_theme'] . '.css" />');
-			}
-			
-			array_push($default_headers, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
 		}
 		#load style sheet pages (css)
 		$theme_name = self::$settings['active_theme'];

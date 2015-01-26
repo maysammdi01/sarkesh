@@ -428,8 +428,122 @@ class view{
       }
 
        //This function show settings for control user register/login/view and ...
-		  public function view_settings(){
-		  	return [1,1];
+		  public function view_settings($settings){
+		  	$tab = new control\tabbar;
+
+		  	//---------------------- FORM FOR CONTROL REGISTER AND ECT ----------------------
+		  	$frm_reg_settings = new control\form('frm_reg_settings');
+		  	$frm_reg_settings->configure('LABEL',_('Registration and cancellation'));
+
+		  	$rad_bot = new control\radiobuttons('rad_show_option');
+			$rad_bot->configure('LABEL',_('Who can register accounts? '));
+			$radit_admin_only = new control\radioitem('rad_it_adminonly');
+			$radit_admin_only->configure('LABEL',_('Administrators only'));
+			if($settings['register'] == 0){
+				$radit_admin_only->configure('CHECKED',TRUE);
+			}
+			$rad_bot->add($radit_admin_only);
+			
+			$radit_visitors  = new control\radioitem('rad_it_visitors');
+			$radit_visitors->configure('LABEL',_('Visitors'));
+			if($settings['register'] == 1){
+				$radit_visitors->configure('CHECKED',TRUE);
+			}
+			$rad_bot->add($radit_visitors);
+
+			$radit_admin_req  = new control\radioitem('rad_it_visitors_req_admin');
+			$radit_admin_req->configure('LABEL',_('Visitors, but administrator approval is required'));
+			if($settings['register'] == 2){
+				$radit_admin_req->configure('CHECKED',TRUE);
+			}
+			$rad_bot->add($radit_admin_req);
+
+			$frm_reg_settings->add($rad_bot);
+
+			//veriflication settings
+			$ckb_verification = new control\checkbox('ckb_verification');
+			$ckb_verification->configure('LABEL',_('Require e-mail verification when a visitor creates an account.') );
+			$ckb_verification->configure('HELP',_('New users will be required to validate their e-mail address prior to logging into the site, and will be assigned a system-generated password. With this setting disabled, users will be logged in immediately upon registering, and may select their own passwords during registration.'));
+			if($settings['active_from_email'] == 1){
+				$ckb_verification->configure('CHECKED',TRUE);
+			}
+			$frm_reg_settings->add($ckb_verification);
+
+		  	//update and cancel buttons
+			$btn_update = new control\button('btn_update');
+			$btn_update->configure('LABEL',_('Update'));
+			$btn_update->configure('P_ONCLICK_PLUGIN','users');
+			$btn_update->configure('P_ONCLICK_FUNCTION','btn_onclick_register_settings');
+			$btn_update->configure('TYPE','primary');
+			
+			$btn_cancel = new control\button('btn_cancel');
+			$btn_cancel->configure('LABEL',_('Cancel'));
+			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+			
+			$row = new control\row;
+			$row->configure('IN_TABLE',false);
+			$row->add($btn_update,3);
+			$row->add($btn_cancel,3);
+			$frm_reg_settings->add($row);
+
+			$tab->add($frm_reg_settings);
+		  	//-------------------------------------------------------------------------------
+		  	$frm_personal_settings = new control\form('frm_personal_settings');
+		  	$frm_personal_settings->configure('LABEL',_('Personalization'));
+
+		  	//enable sign
+			$ckb_signatures = new control\checkbox('ckb_signatures');
+			$ckb_signatures->configure('LABEL',_('Enable signatures.') );
+			$ckb_signatures->configure('HELP',_('With enable this option user signature show in content that published by user.'));
+			$frm_personal_settings->add($ckb_signatures);
+
+			//enable sign
+			$ckb_user_pic = new control\checkbox('ckb_user_pic');
+			$ckb_user_pic->configure('LABEL',_('Enable user pictures. ') );
+			$ckb_user_pic->configure('HELP',_('With this option,site users can upload personal avatars.'));
+			$frm_personal_settings->add($ckb_user_pic);
+		  	
+		  	//max_file_size
+		  	$txt_max_file_size = new control\textbox('txt_max_file_size');
+		  	$txt_max_file_size->configure('LABEL',_('Picture upload max file size'));
+		  	$txt_max_file_size->configure('ADDON',_('KiloByte'));
+		  	$txt_max_file_size->configure('SIZE',3);
+			$txt_max_file_size->configure('HELP',_('Maximum allowed file size for uploaded pictures. Upload size is normally limited only by the PHP maximum post and file upload settings, and images are automatically scaled down to the dimensions specified above.'));
+			$frm_personal_settings->add($txt_max_file_size);
+
+			//avatar Picture guidelines
+			$txt_picture_guidlines = new control\textarea('txt_picture_guidlines');
+			$txt_picture_guidlines->configure('LABEL',_('Picture guidelines'));
+			$txt_picture_guidlines->configure('EDITOR',FALSE);
+			$txt_picture_guidlines->configure('ROWS',5);
+			$txt_picture_guidlines->configure('HELP',_("This text is displayed at the picture upload form in addition to the default guidelines. It's useful for helping or instructing your users."));
+			$frm_personal_settings->add($txt_picture_guidlines);
+
+		  	//update and cancel buttons
+			$btn_update = new control\button('btn_update');
+			$btn_update->configure('LABEL',_('Update'));
+			$btn_update->configure('P_ONCLICK_PLUGIN','');
+			$btn_update->configure('P_ONCLICK_FUNCTION','');
+			$btn_update->configure('TYPE','primary');
+			
+			$btn_cancel = new control\button('btn_cancel');
+			$btn_cancel->configure('LABEL',_('Cancel'));
+			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+			
+			$row = new control\row;
+			$row->configure('IN_TABLE',false);
+			$row->add($btn_update,3);
+			$row->add($btn_cancel,3);
+			$frm_personal_settings->add($row);
+		  	$tab->add($frm_personal_settings);
+		  	//-------------------------------------------------------------------------------
+		  	$frm_email_settings = new control\form('frm_email_settings');
+		  	$frm_email_settings->configure('LABEL',_('Emails'));
+
+		  	$txt  = new control\textbox('ff');
+		  	$frm_email_settings->add($txt);
+		  	$tab->add($frm_email_settings);
+		  	return [_('Account settings'),$tab->draw()];
 		  }
 
 }

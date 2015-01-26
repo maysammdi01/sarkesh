@@ -1,9 +1,13 @@
-//setting of pace loading bar
-//for more information about this options lock at pace documents on github
-paceOptions = {
-  restartOnRequestAfter: false,
-  minTime: 500
-}
+
+$( document ).ajaxStart(function() {
+	//this function fire when ajax request start
+});
+
+$( document ).ajaxStop(function() {
+	
+	//this function fire when ajax request complete
+});
+
 //This variable is for use in circles
 var Counter=0;
 //this variable store value that return from events from server
@@ -47,3 +51,4 @@ function SysShowModal(data , jump_page){
 		}]
 	});  
 }
+

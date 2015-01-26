@@ -4,8 +4,10 @@
 //step 2 create LC_MESSAGES folder on it and put your mo and po files inside it
 $obj_localize = new \core\cls\core\localize;
 $sys_language = $obj_localize->get_language();
-putenv("LANG=" . $sys_language);
-setlocale(LC_ALL, $sys_language);
-bindtextdomain($sys_language, "./languages/");
+$codeset = 'UTF8';
+putenv("LANG=" . $sys_language . '.' . $codeset);
+putenv("LANGUAGE=" . $sys_language . '.' . $codeset);
+setlocale(LC_ALL, $sys_language . '.' . $codeset);
+bindtextdomain($sys_language, AppPath . "languages/");
 textdomain($sys_language);
 ?>

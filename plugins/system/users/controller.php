@@ -279,5 +279,11 @@ class users extends users\module{
 		  public function settings(){
 		  	return $this->module_settings();
 		  }
+
+		  //this function handle onclick btn_register_settings
+		  public function btn_onclick_register_settings($e){
+		  	return $this->module_btn_onclick_register_settings($e);
+		  }
+
 }
 ?>

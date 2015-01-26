@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2015 at 11:13 AM
+-- Generation Time: Jan 26, 2015 at 02:30 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `blocks` (
 INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`, `pages`, `pages_ad`, `show_header`, `rank`) VALUES
 (6, 'content', '0', 3, 'content', NULL, '', '0', 0, 0),
 (7, 'login_block', '0', 2, 'sidebar1', NULL, '', '1', 1, 1),
-(12, 'select_lang', '0', 4, 'Off', NULL, '', '1', NULL, 0);
+(12, 'select_lang', '0', 4, 'sidebar1', NULL, '', '1', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -560,7 +560,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `enable` tinyint(1) NOT NULL,
   `can_edite` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `plugins`
@@ -574,7 +574,9 @@ INSERT INTO `plugins` (`id`, `name`, `enable`, `can_edite`) VALUES
 (11, 'files', 1, 0),
 (12, 'msg', 1, 0),
 (13, 'log', 1, 0),
-(14, 'content', 1, 1);
+(14, 'content', 1, 1),
+(15, 'menus', 1, 0),
+(16, 'blog', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -589,7 +591,7 @@ CREATE TABLE IF NOT EXISTS `registry` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `fk_plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `registry`
@@ -598,14 +600,12 @@ CREATE TABLE IF NOT EXISTS `registry` (
 INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (1, 3, 'validator_last_check', '1387753577'),
 (2, 3, 'validator_max_time', '77000'),
-(3, 3, 'cookie_max_time', '77000'),
 (4, 3, 'jquery', '1'),
 (5, 3, 'editor', '0'),
-(6, 2, 'register', '1'),
+(6, 2, 'register', '0'),
 (7, 3, 'bootstrap', '1'),
-(8, 2, 'active_from_email', '1'),
+(8, 2, 'active_from_email', '0'),
 (9, 2, 'default_permation', '2'),
-(12, 3, 'pace_theme', 'pace-theme-center-simple'),
 (13, 2, 'register_captcha', '1'),
 (15, 3, 'default_timezone', '0.00 - UTC'),
 (16, 3, 'active_theme', 'simple'),
@@ -665,8 +665,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `register_date`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `permation`, `state`, `code`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 115, 5, NULL, NULL, NULL),
-(6, 'morrning', '90deff4b32c134f32e3f0d7e8a2aad92', 'alizadeh.babak@gmail.com', 0, 1412786925, NULL, NULL, NULL, NULL, 0, 2, 'NA', '1d48txim52');
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 136, 5, NULL, NULL, NULL),
+(6, 'morrning', '90deff4b32c134f32e3f0d7e8a2aad92', 'alizadeh.babak@gmail.com', 1, 1412786925, NULL, NULL, NULL, NULL, 0, 2, 'NA', '1d48txim52');
 
 -- --------------------------------------------------------
 
@@ -680,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
 
 --
 -- Dumping data for table `validator`
@@ -745,7 +745,20 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (107, 'USERS_LOGIN', 'bxinc2kx39', '1421233422'),
 (109, 'USERS_LOGIN', 't30fgdrjxl', '1421403714'),
 (111, 'USERS_LOGIN', '6b0feff7dy', '1421510708'),
-(115, 'USERS_LOGIN', 't723i8xqu7', '1421644880');
+(115, 'USERS_LOGIN', 't723i8xqu7', '1421644880'),
+(118, 'USERS_LOGIN', 'yswai0s85h', '1421759351'),
+(119, 'USERS_LOGIN', '6a99svbijl', '1421812713'),
+(120, 'USERS_LOGIN', '4azj543ybe', '1421904702'),
+(121, 'USERS_LOGIN', 'ppfebeom9j', '1422104861'),
+(122, 'USERS_LOGIN', 'b5127btty0', '1422125935'),
+(123, 'USERS_LOGIN', 'js1593mhf2', '1422180042'),
+(124, 'USERS_LOGIN', 'lbkl4ck02s', '1422183392'),
+(125, 'USERS_LOGIN', 'zup5lmdc65', '1422208490'),
+(126, 'USERS_LOGIN', 'v0y46blefg', '1422241887'),
+(127, 'USERS_LOGIN', 'm02pe878b1', '1422260623'),
+(128, 'USERS_LOGIN', 'k5mbimykf4', '1422298334'),
+(129, 'USERS_LOGIN', 'ieyoxf11uw', '1422307869'),
+(136, 'USERS_LOGIN', 'tywhfdbj9f', '1422344441');
 
 --
 -- Constraints for dumped tables

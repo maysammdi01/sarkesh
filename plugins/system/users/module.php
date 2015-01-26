@@ -511,12 +511,12 @@ class module extends view{
 				 $mail = new network\mail;
 				 if($mail->simple_send($user->username,$user->email,$header, $body)	){
 					 //show successfull mesage to user
-					 $e['RV']['MODAL'] = browser\page::show_block('Password changed','Your new password was send to your email. check your email for get that.','MODAL','danger');
+					 $e['RV']['MODAL'] = browser\page::show_block(_('Password changed'),_('Your new password was send to your email. check your email for get that.'),'MODAL','danger');
 
 				 }
 				 else{
 					 //error in sending email
-					 $e['RV']['MODAL'] = browser\page::show_block('Error','Error in sending new password to your email. please tell with administrator','MODAL','type-danger');
+					 $e['RV']['MODAL'] = browser\page::show_block(_('Error'),_('Error in sending new password to your email. please tell with administrator'),'MODAL','type-danger');
 				 }
 				 
 				 return $e;
@@ -576,8 +576,49 @@ class module extends view{
           }
 
            //This function show settings for control user register/login/view and ...
-		  public function module_settings(){
-		  	return $this->view_settings();
+		  protected function module_settings(){
+		  	
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+                return $this->view_settings($this->settings);
+            }
+            //show access denied message
+            return $this->module_no_permission();
 		  }
+
+		  //this function handle onclick btn_register_settings
+		  protected function module_btn_onclick_register_settings($e){
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+            	//save register type
+            	$register_type = 0;
+                if($e['rad_it_visitors']['CHECKED'] == '1'){
+                	$register_type = 1;
+                }
+                elseif($e['rad_it_visitors_req_admin']['CHECKED'] == '1'){
+                	$register_type = 2;
+                }
+               	$this->registry->set('users','register',$register_type);
+            	
+            	//save email verification setting
+            	$verification_type = 0;
+                if($e['ckb_verification']['CHECKED'] == '1'){
+                	$verification_type = 1;
+                }
+                $this->registry->set('users','active_from_email',$verification_type);
+
+               	$e['RV']['MODAL'] = browser\page::show_block(_('successfully updated'),_("Settings was successfully updated."),'MODAL','type-success');
+               	return $e;
+            }
+            //show access denied message
+            return $this->no_permission_modal($e);
+		  }
+
+		  protected function no_permission_modal($e){
+		  	$e['RV']['MODAL'] = browser\page::show_block(_('Permission denied'),_("You do't have permission to do this action."),'MODAL','type-danger');
+			$e['RV']['JUMP_AFTER_MODAL'] = SiteDomain;
+			return $e;
+		  }
+
 }
 ?>
