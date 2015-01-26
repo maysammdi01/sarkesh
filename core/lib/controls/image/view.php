@@ -23,7 +23,6 @@ class view{
 		$this->raintpl->assign("size",$e['SIZE']);
 		$this->raintpl->assign("src",$e['SRC']);
 		$this->raintpl->assign("border",$e['BORDER']);
-
 		return $this->raintpl->draw("ctr_image",true);
 	}
 }

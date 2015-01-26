@@ -52,6 +52,11 @@ class checkbox extends checkbox\module{
 		//this config add inline css style to html element
 		$this->config['STYLE'] = '';
 		
+		//this config show checkbox like switch button
+		$this->config['SWITCH'] = FALSE;
+		$this->config['SWITCH_ONTEXT'] = _('ON');
+		$this->config['SWITCH_OFFTEXT'] = _('OFF');
+		
 		//------------------------------------------------------
 		//this configs set php plugin and function that should run with onclick event//
 		

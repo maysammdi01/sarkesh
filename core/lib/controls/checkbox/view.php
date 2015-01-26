@@ -19,6 +19,10 @@ class view{
 		browser\page::add_header('<script src="./core/ect/scripts/events/functions.js"></script>');		
 		if($config['SCRIPT_SRC'] != ''){browser\page::add_header('<script src="' . $config['SCRIPT_SRC'] . '"></script>'); }		
 		if($config['CSS_FILE'] != ''){ browser\page::add_header('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}
+		if($config['SWITCH']){
+			browser\page::add_header('<script src="' . SiteDomain . '/core/lib/controls/checkbox/ect/bootstrap-switch.min.js"></script>');
+			browser\page::add_header('<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/lib/controls/checkbox/ect/bootstrap-switch.min.css" />');
+		}
 		
 		//Assign variables
 		$this->raintpl->assign( "id", $config['NAME']);
@@ -30,6 +34,9 @@ class view{
 		$this->raintpl->assign( "checked", $config['CHECKED']);
 		$this->raintpl->assign( "styles", $config['STYLE']);
 		$this->raintpl->assign( "class", $config['CLASS']);
+		$this->raintpl->assign( "switch", $config['SWITCH']);
+		$this->raintpl->assign( "ontext", $config['SWITCH_ONTEXT']);
+		$this->raintpl->assign( "offtext", $config['SWITCH_OFFTEXT']);
 		$this->raintpl->assign( "j_onclick", $config['J_ONCLICK']);
 		$this->raintpl->assign( "p_onclick_f", $config['P_ONCLICK_FUNCTION']);
 		$this->raintpl->assign( "p_onclick_p", $config['P_ONCLICK_PLUGIN']);

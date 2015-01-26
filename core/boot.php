@@ -41,9 +41,7 @@ if(file_exists(AppPath . "db-config.php")) {
 	}
 	else{
 		if(S_DEV_MODE){
-			core\cls\browser\page::show_dev_panel();
-			//ADD Error handeler
-			require_once(AppPath . 'core/functions/debug.php');
+			//core\cls\browser\page::show_dev_panel();
 		}
 		#load system in gui normal mode
 		require_once(AppPath . "core/inc/load.php");

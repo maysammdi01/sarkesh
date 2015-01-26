@@ -16,6 +16,10 @@ class users extends users\module{
 		array_push($menu,[$url, _('People')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','list_groups']);
 		array_push($menu,[$url, _('Groups')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','settings']);
+		array_push($menu,[$url, _('Account settings')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','ip_block']);
+		array_push($menu,[$url, _('IP address blocking')]);
 		$ret = array();
 		array_push($ret,_('Users'));
 		array_push($ret,$menu);
@@ -265,5 +269,15 @@ class users extends users\module{
           public function list_people(){
             return $this->module_list_people();
           }
+          
+          //this function show list of groups in administartor area
+          public function list_groups(){
+			  return $this->module_list_groups();
+		  }
+
+		  //This function show settings for control user register/login/view and ...
+		  public function settings(){
+		  	return $this->module_settings();
+		  }
 }
 ?>

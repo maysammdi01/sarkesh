@@ -23,6 +23,9 @@ class log extends log\module{
 		array_push($menu,[$url, _('System Reports')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','log','a','php_error_logs']);
 		array_push($menu,[$url, _('PHP errors')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','log','a','updates']);
+		array_push($menu,[$url, _('Available updates')]);
+		
 
 		$ret = array();
 		array_push($ret,_('Reports'));

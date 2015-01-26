@@ -2,19 +2,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh\n"
 "POT-Creation-Date: 2014-10-08 17:10+0330\n"
-"PO-Revision-Date: 2014-10-08 17:13+0330\n"
-"Last-Translator: Babak alizadeh <alizadeh.babak@live.com>\n"
+"PO-Revision-Date: 2015-01-24 12:59-0800\n"
+"Last-Translator: babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.1\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: /home/sarkesh/www\n"
+"X-Poedit-SearchPath-1: ..\n"
 
 #: /home/sarkesh/www/plugins/system/hello/info.php:2
 #: /home/sarkesh/www/themes/simple/info.php:4
@@ -174,8 +174,8 @@ msgstr "عضویت شما در %s با موفقیت به پایان رسید."
 #: /home/sarkesh/www/plugins/system/users/module.php:378
 #: /home/sarkesh/www/plugins/system/users/module.php:455
 msgid ""
-"We sent an email with an activation code to activate your account, check "
-"your email for more information."
+"We sent an email with an activation code to activate your account, check your "
+"email for more information."
 msgstr ""
 "ما یک نامه حاوی کد فعال‌سازی جهت تکمیل فرآیند عضویت به رایانامه شما ارسال "
 "کردیم.برای اطلاعات بیشتر صندوق ورودی خود را چک کنید."
@@ -393,8 +393,7 @@ msgstr "کد فعال‌سازی شما"
 
 #: /home/sarkesh/www/plugins/system/users/view.php:247
 msgid ""
-"Enter code that you got it in your email in box below for active your "
-"account."
+"Enter code that you got it in your email in box below for active your account."
 msgstr "کد فعال‌سازی که از طریق رایانامه خود دریافت کرده‌اید را وارد کنید."
 
 #: /home/sarkesh/www/plugins/system/users/view.php:253

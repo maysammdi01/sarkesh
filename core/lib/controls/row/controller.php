@@ -13,6 +13,8 @@ class row extends control\row\module{
 		$this->config['FORM'] = 'DEFAULT';
 		$this->config['IN_TABLE'] = true;
 		$this->config['SIZE'] = 12;
+		$this->config['VERTICAL_ALIGN'] = true;
+		$this->config['PADDING_UP'] = FALSE;
 	}
 	
 	public function draw(){

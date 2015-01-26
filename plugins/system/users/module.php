@@ -561,5 +561,23 @@ class module extends view{
             return $this->module_no_permission();
             
           }
+          
+          //this function show list of users in admin panel
+          protected function module_list_groups(){
+            //check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+                //get list of permissions
+                $groups = db\orm::find('permissions',"name !='Guest'");
+                return $this->view_list_groups($groups);
+            }
+            //show access denied message
+            return $this->module_no_permission();
+            
+          }
+
+           //This function show settings for control user register/login/view and ...
+		  public function module_settings(){
+		  	return $this->view_settings();
+		  }
 }
 ?>

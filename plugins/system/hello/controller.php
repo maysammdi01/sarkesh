@@ -1,6 +1,7 @@
 <?php
 namespace core\plugin;
 use \core\plugin\hello as hello;
+use \core\control as control;
 class hello extends hello\module{
 	
 	function __construct(){
@@ -40,6 +41,13 @@ class hello extends hello\module{
 		$e['RV']['MODAL'] = cls_page::show_block('title',$a,'MODAL','type-danger');
 		return $e;
 		
+	}
+	public function sw(){
+		$form = new control\form('frmmm');
+		$ch = new control\checkbox('chk');
+		$ch->configure('SWITCH',TRUE);
+		$form->add($ch);
+		return [1,$form->draw()];
 	}
 	
 }

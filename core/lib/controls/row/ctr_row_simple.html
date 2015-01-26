@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row {if="$pad_up"}row_pad{/if}">
 	<div class="col-xs-{$size}">
-		<div class="row-pad">
+		<div class="row {if="$VERTICAL_ALIGN"}vertical-align{/if}">
 			{loop="$e"}
-				<div class="col-xs-{$value.width}">
+				<div class="col-xs-{$value.width} col-centered">
 					{$value.body}
 				</div>
 			{/loop}

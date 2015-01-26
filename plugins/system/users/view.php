@@ -6,6 +6,7 @@ use \core\cls\core as core;
 use \core\plugin as plugin;
 use \core\cls\calendar as calendar;
 use \core\control as control;
+use \core\cls\db as db;
 class view{
 	private $settings;
 	function __construct($settings){
@@ -89,6 +90,7 @@ class view{
 	 protected function view_profile_block($user,$admin){
 		 $form = new control\form('USERS_PROFILE_BLOCK');
 		 $row = new control\row;
+		 $row->configure('IN_TABLE',FALSE);
 		 $avatar = new control\image;
 		 if($user->photo != 0){
 			  $files = new plugin\files;
@@ -96,10 +98,9 @@ class view{
 			  $photo = new control\image('USERS_PHOTO');
 			  $photo->configure('SIZE',4);
 			  $photo->configure('SRC',$adr);
-			  $photo->configure('LABEL',_('Hello') . ' ' . $user->username);
+			 $photo->configure('LABEL',_('Hello') . ' ' . $user->username);
 		 }
-		 
-		 $row->add($photo,12);
+		 $row->add($photo,6);
 		 
 		 $row1 = new control\row;
 		 $btn_logout = new control\button;
@@ -175,7 +176,7 @@ class view{
 		 $cancel->configure('NAME','btn_cancel');
 		 $cancel->configure('TYPE','warning');
 		 $cancel->configure('LABEL',_('Cancel'));
-		  $cancel->configure('HREF','?');
+		 $cancel->configure('HREF','?');
 		 
 		 $row = new control\row();
 		 $row->add($signup,3);
@@ -344,10 +345,7 @@ class view{
 		   	$lbl_register = new control\label($calendar->cdate($this->settings['register_date_format'],$user->register_date ));
 			$row->add($lbl_register,2);
 			
-			
-			
-			//add active theme button
-
+			//add edite button
             $btn_active = new control\button;
             $btn_active->configure('LABEL',_('Edite'));
             $btn_active->configure('TYPE','success');
@@ -356,7 +354,6 @@ class view{
 			$btn_active->configure('P_ONCLICK_FUNCTION','btn_edite_user');
 			$row->add($btn_active,1);
 			
-            
 			$table->add_row($row);
 			
 		}
@@ -370,6 +367,70 @@ class view{
 		
 		return array(_('People'),$form->draw());
       }
+      
+      //this function show list of froups
+      protected function view_list_groups($groups){
+        
+        $form = new control\form("users_list_people");
+		$form->configure('LABEL',_('User Groups'));
+		
+		$table = new control\table;
+		
+		foreach($groups as $key=>$group){
+			$row = new control\row;
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($key+1);
+			$row->add($lbl_id,1);
+			
+			//add group name
+			$lbl_group_name = new control\label($group->name);
+			$row->add($lbl_group_name,2);
+            
+            $user_number = new control\label(db\orm::count('users','permission=?',[$group->id]));
+			
+			$row->add($user_number,2);
+			
+			
+			//add edite button
+            $btn_active = new control\button;
+            $btn_active->configure('LABEL',_('Edite'));
+            $btn_active->configure('TYPE','success');
+			$btn_active->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','edite_group','id',$group->id]));
+			$row->add($btn_active,1);
+			$table->add_row($row);
+			
+		}
+		
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Count'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,7,2,2]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+		
+		$btn_insert_group = new control\button('btn_insert_group');
+		$btn_insert_group->configure('LABEL',_('New Group'));
+		$btn_insert_group->configure('TYPE','primary');
+		$btn_insert_group->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','new_group']));
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_insert_group,3);
+		$row->add($btn_cancel,3);
+		$form->add($row);
+		return array(_('Groups'),$form->draw());
+      }
+
+       //This function show settings for control user register/login/view and ...
+		  public function view_settings(){
+		  	return [1,1];
+		  }
 
 }
 ?>
