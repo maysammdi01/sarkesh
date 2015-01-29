@@ -133,7 +133,7 @@ class module extends view{
 		  $this->validator->delete('USERS_LOGIN');
 		  //if this action requested by content mode jump user to home page
 		  if($e == 'content'){
-				core\router::jump_page(SiteDomain);
+				return core\router::jump_page(SiteDomain);
 				
 		  }
 		  else{
@@ -614,11 +614,94 @@ class module extends view{
             return $this->no_permission_modal($e);
 		  }
 
+
+
+		  //this function handel personal settings in users plugin settings
+		  protected function module_btn_onclick_register_personal($e){
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+            	//save register type
+            	$signatures = 0;
+                if($e['ckb_signatures']['CHECKED'] == '1'){
+                	$signatures = 1;
+                }
+               	$this->registry->set('users','signatures',$signatures);
+            	
+            	//save email verification setting
+            	$user_can_upload = 0;
+                if($e['ckb_user_pic']['CHECKED'] == '1'){
+                	$user_can_upload = 1;
+                }
+                $this->registry->set('users','user_can_upload_avatar',$user_can_upload);
+                $this->registry->set('users','avatar_guidline',$e['txt_picture_guidlines']['VALUE']);
+                $this->registry->set('users','max_file_size',$e['txt_max_file_size']['VALUE']);
+
+               	$e['RV']['MODAL'] = browser\page::show_block(_('successfully updated'),_("Settings was successfully updated."),'MODAL','type-success');
+               	return $e;
+            }
+            //show access denied message
+            return $this->no_permission_modal($e);
+		  }
+
 		  protected function no_permission_modal($e){
 		  	$e['RV']['MODAL'] = browser\page::show_block(_('Permission denied'),_("You do't have permission to do this action."),'MODAL','type-danger');
 			$e['RV']['JUMP_AFTER_MODAL'] = SiteDomain;
 			return $e;
 		  }
 
+		  //this function show ipblock list in system
+		  public function module_ip_block(){
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+                //get list of ip that blocked
+                $ips = db\orm::findAll('ipblock');
+                return $this->view_ip_block($ips);
+            }
+            //show access denied message
+            return $this->module_no_permission();
+		  }
+
+		  //this function is for add new ip to block list
+		  protected function module_ip_block_new(){
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+                return $this->view_ip_block_new();
+            }
+            //show access denied message
+            return $this->module_no_permission();
+		  }
+
+		  //this function remove ip from block list
+		  protected function module_btn_onclick_ip_block_delete($e){
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+            	if($e['CLICK']['VALUE'] != ''){
+			  		$ip = db\orm::load('ipblock',$e['CLICK']['VALUE']);
+			  		db\orm::trash($ip);
+			  		$e['RV']['MODAL'] = browser\page::show_block(_('Delete IP'),_("Requested IP successfully deleted."),'MODAL','type-success');
+					$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+					return $e;
+		  		}
+            }
+            //show access denied message
+            return $this->no_permission_modal($e);
+		  }
+
+		  //this function is for event handel for add new ip to block list
+		  protected function module_btn_onclick_add_new_ip_blocklist($e){
+		  	//check for permission to admin area
+            if($this->module_has_permission('users_admin')){
+            	$ip = db\orm::dispense('ipblock');
+            	$ip->ip = ip2long(trim($e['txt_ip']['VALUE']));
+            	db\orm::store($ip);
+            	$e['RV']['MODAL'] = browser\page::show_block(_('Add IP'),_('IP Added to block list successfully.'),'MODAL','type-success');
+				$e['RV']['JUMP_AFTER_MODAL'] = core\general::create_url(array('plugin','administrator','action','main','p','users','a','ip_block'),true);
+				return $e;
+
+		  	}
+		  	else{
+		  		return $this->no_permission_modal($e);
+		  	}
+		  }
 }
 ?>

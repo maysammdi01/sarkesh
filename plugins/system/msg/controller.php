@@ -1,6 +1,7 @@
 <?php
 namespace core\plugin;
 use \core\plugin\msg as msg;
+use \core\cls\browser as browser;
 //this plugins show system messages on page .
 //messages like 404 not found and access denied msg
 class msg extends msg\module{
@@ -55,6 +56,33 @@ class msg extends msg\module{
 			   return $msg;
 		   }
 		   
+	   }
+
+	   public function successfull_modal($e,$page=''){
+		   	$e['RV']['MODAL'] = browser\page::show_block(_('Completed'),_('Your request successfully completed.'),'MODAL','type-success');
+		   	if($page == ''){
+				$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			}
+			else{
+				$e['RV']['JUMP_AFTER_MODAL'] = urlencode(\core\cls\core\general::create_url($page));
+			}
+			return $e;
+	   }
+
+	   //this function is use for show message for complete blank places
+	   public function not_complete_modal($e){
+		   	$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill all necessary places'),'MODAL','type-warning');
+			return $e;
+	   }
+
+	   //this function return message with this mean some error was ecured
+	   public function error($modal = false,$e=''){
+	   		if($modal){
+	   			//show in modal mode
+	   			$e['RV']['MODAL'] = browser\page::show_block(_('Message'),_('Please fill all necessary places'),'MODAL','type-warning');
+				return $e;
+	   		}
+	   		return $this->msg(_('Error!'),_('Some error was happen!'),'danger');
 	   }
 
 	

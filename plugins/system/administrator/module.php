@@ -189,8 +189,7 @@ class module extends view{
         $locales = db\orm::find('localize');
         //get description value from registry
         $registry = new core\registry;
-        
-        return $this->view_basic_settings($default_locale,$locales,$registry->get('administrator','header_tags'));
+        return $this->view_basic_settings($default_locale,$locales,$registry->get_plugin('administrator'));
     }
     
     //THIS FUNCTION STORE BASIC SETTINGS

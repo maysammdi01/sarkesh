@@ -14,7 +14,7 @@ namespace theme;
 	class simple{
 		
 		public function get_places(){
-			return ['sidebar1'];
+			return ['sidebar1','main_menu'];
 		}
 	}
 ?>

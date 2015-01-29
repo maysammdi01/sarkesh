@@ -68,19 +68,25 @@ class page{
 			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
 		}
 		#load style sheet pages (css)
-		$theme_name = self::$settings['active_theme'];
-		array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/style.css" />');
-		#load rtl stylesheets
-		if (self::is_rtl()){ 
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/rtl-style.css" />');
-		}
+		//if(isset($_REQUEST['plugin'])){
+			if($_REQUEST['plugin'] != 'administrator'){
+				$theme_name = self::$settings['active_theme'];
+				array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/style.css" />');
+				#load rtl stylesheets
+				if (self::is_rtl()){ 
+					array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/rtl-style.css" />');
+				}
 
-		#load favicon
-		if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
-			array_push($default_headers, '<link rel="shortcut icon" href="./themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
-			array_push($default_headers, '<link rel="icon" href="./themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
-		}
+				#load favicon
+				if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
+					array_push($default_headers, '<link rel="shortcut icon" href="./themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
+					array_push($default_headers, '<link rel="icon" href="./themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
+				}
 		
+			}
+		//}
+		
+
 		//load first bootstrap skin
 		if(self::$settings['1st_template'] != '0'){
 			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/' . self::$settings['1st_template'] . '.min.css" />');
@@ -224,7 +230,7 @@ class page{
 			//load all blocks data from database
 			$db = new db\mysql;
 			$query_string = "SELECT b.name AS 'b.name',";
-			$query_string .= "b.position AS 'b.position', b.permissions AS 'b.permissions', ";
+			$query_string .= "b.position AS 'b.position', b.permissions AS 'b.permissions', b.visual AS 'b.visual', b.handel AS 'b.handel', b.value AS 'b.value',";
 			$query_string .= "b.pages AS 'b.pages', b.show_header AS 'b.show_header', b.plugin AS 'b.plugin', p.id AS 'p.id', p.name AS 'p.name', b.rank FROM blocks b INNER JOIN plugins p ON b.plugin = p.id ORDER BY b.rank DESC;";
 			$db->do_query($query_string);
 			self::$blocks = $db->get_array();
@@ -258,9 +264,21 @@ class page{
 							$plugin = new $ClassName;
 							//run action method for show block
 							//all blocks name should be like  'blk_blockname'
+							$content = array();
+							if($block['b.visual'] == '0'){
+								$content = call_user_func(array($plugin, $block['b.name']),$position);
+							}
+							else{
+								//plugin is visual
+								$content = call_user_func(array($plugin, $block['b.handel']),$position,$block['b.value']);
+							}
+							if($block['b.show_header'] == 1){
+								echo self::show_block($content[0], $content[1], 'BLOCK');
+							}
+							else{
+								echo $content;
+							}
 							
-							$content = call_user_func(array($plugin, $block['b.name']),$position);
-							echo self::show_block($content[0], $content[1], 'BLOCK');
 						}
 					}
 				}

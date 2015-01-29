@@ -16,7 +16,8 @@
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
            </button>
-           <a class="navbar-brand" href="/">Sarkesh</a>
+           <a class="navbar-brand" href="/"></#SITE_NAME#/></a>
+           <?php browser\page::set_position('main_menu'); ?>
     	</div>
        </div>
     </div>

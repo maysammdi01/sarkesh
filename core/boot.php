@@ -6,7 +6,6 @@ if(!isset($_REQUEST['service']) && !isset($_REQUEST['control'])){
 }
 //this include file has autoload function
 require_once(AppPath . 'core/inc/autoload.php');
-
 //start session system
 $sess_id = session_id();
 if(empty($sess_id)){ session_start();}
@@ -14,19 +13,27 @@ if(empty($sess_id)){ session_start();}
 if(file_exists(AppPath . "db-config.php")) {
 	//going to run sarkesh!
 	include_once(AppPath . "config.php");
+	// config and setup cls_orm // RedBeanphp
+	\core\cls\db\orm::run();
 	//LOAD INC Files
-	
-	
+	//check for blocked ips
+	if(!empty($_SERVER['REMOTE_ADDR'])){
+		if( \core\cls\db\orm::count('ipblock',"ip=?",[ip2long($_SERVER['REMOTE_ADDR'])]) != 0){
+			//show access denied message
+			header("HTTP/1.1 403 Unauthorized" );
+			$body = _("403! You are blocked by SarkeshMVC internal firewall.");
+			$title = _('SarkeshMVC Firewall!');
+			$message = '<!DOCTYPE html><html><head><title>' . $title . '</title></head><body>' . $body . '</body></html>';
+			exit($message);
+		}
+	}
 	//include core defines
 	require_once( AppPath . 'core/defines.php');
 	require_once(AppPath . 'core/inc/localize.php');
 	
 	#include functions
-	require_once("./core/functions/render.php");  
-	
-	// config and setup cls_orm // RedBeanphp
-	\core\cls\db\orm::run();
-	
+	require_once("./core/functions/render.php"); 
+
 	//check for that want work with services or normal use
 	if(isset($_REQUEST['service'])){
 		#run system in service mode

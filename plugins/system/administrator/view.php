@@ -220,15 +220,15 @@ class view{
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,3);
-		$row->add($btn_cancel,3);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
 		$ins_form->add($row); 
 		$tab->add($ins_form);
 		return array(_('Plugins'),$tab->draw());
 	}
     
     //this function show general settings
-    protected function view_basic_settings($localize,$locales,$description){
+    protected function view_basic_settings($localize,$locales,$settings){
         $form = new control\form('administrator_basic_settings');
         
         $hid_id = new control\hidden('hid_id');
@@ -265,11 +265,20 @@ class view{
         $txt_frontpage->configure('SIZE',5);
         $txt_frontpage->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
         $form->add($txt_frontpage);
-        
+
+        //enable clean url
+		$ckb_clean_url = new control\checkbox('ckb_clean_url');
+		$ckb_clean_url->configure('LABEL',_('Enable clean url') );
+		$ckb_clean_url->configure('HELP',_('With this option,pages with parameters will be replaced with clean address.'));
+		if($settings['clean_url'] == 1){
+			$ckb_clean_url->configure('CHECKED',TRUE);
+		}
+		$form->add($ckb_clean_url);
+
         //add description to head of page
         $txt_des = new control\textarea('txt_des');
         $txt_des->configure('EDITOR',FALSE);
-        $txt_des->configure('VALUE',$description);
+        $txt_des->configure('VALUE',$settings['header_tags']);
         $txt_des->configure('LABEL',_('Description'));
         $txt_des->configure('HELP',_('your text show in header of page for use in search engines.'));
         $txt_des->configure('EDITOR',FALSE);
@@ -283,7 +292,7 @@ class view{
 		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
 		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_basic_settings');
 		$btn_update->configure('TYPE','primary');
-		
+
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
 		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
@@ -291,8 +300,8 @@ class view{
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,3);
-		$row->add($btn_cancel,3);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
 		$form->add($row);                
         
         
@@ -346,8 +355,8 @@ class view{
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,3);
-		$row->add($btn_cancel,3);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
 		$form->add($row);   
         
         return[_('Regional and languages'),$form->draw()];
@@ -492,8 +501,8 @@ class view{
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,3);
-		$row->add($btn_cancel,3);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
 		$form->add($row);   
 		
 		

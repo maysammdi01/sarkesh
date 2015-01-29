@@ -105,7 +105,7 @@ class view{
 		 $row1 = new control\row;
 		 $btn_logout = new control\button;
 		 $btn_logout->configure('NAME','btn_logout');
-		 $btn_logout->configure('LABEL','Sign Out!');
+		 $btn_logout->configure('LABEL',_('Sign Out!');
 		 $btn_logout->configure('TYPE','info');
 		 $btn_logout->configure('P_ONCLICK_PLUGIN','users');
 		 $btn_logout->configure('P_ONCLICK_FUNCTION','btn_logout_onclick');
@@ -493,20 +493,27 @@ class view{
 
 		  	//enable sign
 			$ckb_signatures = new control\checkbox('ckb_signatures');
-			$ckb_signatures->configure('LABEL',_('Enable signatures.') );
+			$ckb_signatures->configure('LABEL',_('Enable signatures.'));
 			$ckb_signatures->configure('HELP',_('With enable this option user signature show in content that published by user.'));
+			if($settings['signatures'] == 1){
+				$ckb_signatures->configure('CHECKED',TRUE);
+			}
 			$frm_personal_settings->add($ckb_signatures);
 
-			//enable sign
+			//enable user picture
 			$ckb_user_pic = new control\checkbox('ckb_user_pic');
 			$ckb_user_pic->configure('LABEL',_('Enable user pictures. ') );
 			$ckb_user_pic->configure('HELP',_('With this option,site users can upload personal avatars.'));
+			if($settings['user_can_upload_avatar'] == 1){
+				$ckb_user_pic->configure('CHECKED',TRUE);
+			}
 			$frm_personal_settings->add($ckb_user_pic);
 		  	
 		  	//max_file_size
 		  	$txt_max_file_size = new control\textbox('txt_max_file_size');
 		  	$txt_max_file_size->configure('LABEL',_('Picture upload max file size'));
 		  	$txt_max_file_size->configure('ADDON',_('KiloByte'));
+		  	$txt_max_file_size->configure('VALUE',$settings['max_file_size']);
 		  	$txt_max_file_size->configure('SIZE',3);
 			$txt_max_file_size->configure('HELP',_('Maximum allowed file size for uploaded pictures. Upload size is normally limited only by the PHP maximum post and file upload settings, and images are automatically scaled down to the dimensions specified above.'));
 			$frm_personal_settings->add($txt_max_file_size);
@@ -514,6 +521,7 @@ class view{
 			//avatar Picture guidelines
 			$txt_picture_guidlines = new control\textarea('txt_picture_guidlines');
 			$txt_picture_guidlines->configure('LABEL',_('Picture guidelines'));
+			$txt_picture_guidlines->configure('VALUE',$settings['avatar_guidline']);
 			$txt_picture_guidlines->configure('EDITOR',FALSE);
 			$txt_picture_guidlines->configure('ROWS',5);
 			$txt_picture_guidlines->configure('HELP',_("This text is displayed at the picture upload form in addition to the default guidelines. It's useful for helping or instructing your users."));
@@ -522,8 +530,8 @@ class view{
 		  	//update and cancel buttons
 			$btn_update = new control\button('btn_update');
 			$btn_update->configure('LABEL',_('Update'));
-			$btn_update->configure('P_ONCLICK_PLUGIN','');
-			$btn_update->configure('P_ONCLICK_FUNCTION','');
+			$btn_update->configure('P_ONCLICK_PLUGIN','users');
+			$btn_update->configure('P_ONCLICK_FUNCTION','btn_onclick_register_personal');
 			$btn_update->configure('TYPE','primary');
 			
 			$btn_cancel = new control\button('btn_cancel');
@@ -546,5 +554,90 @@ class view{
 		  	return [_('Account settings'),$tab->draw()];
 		  }
 
+		  //rhis function show blocked ip list
+		  protected function view_ip_block($ips){
+		  	 	$form = new control\form("users_list_ip_blocked");
+				$form->configure('LABEL',_('Blocked IPs'));
+				
+				$table = new control\table;
+				$key=1;
+				foreach($ips as $key=>$ip){
+					$row = new control\row;
+					
+					//add id to table for count rows
+					$lbl_id = new control\label($key);
+					$key++;
+					$row->add($lbl_id,1);
+					
+					//add ip
+					$lbl_ip = new control\label(long2ip($ip->ip));
+					$row->add($lbl_ip,2);
+		            
+
+					//add edite button
+		            $btn_remove = new control\button;
+		            $btn_remove->configure('LABEL',_('Delete'));
+		            $btn_remove->configure('TYPE','info');
+		            $btn_remove->configure('VALUE',$ip->id);
+					$btn_remove->configure('P_ONCLICK_PLUGIN','users');
+					$btn_remove->configure('P_ONCLICK_FUNCTION','btn_onclick_ip_block_delete');
+					$row->add($btn_remove,1);
+					$table->add_row($row);
+					
+				}
+				
+				//add headers to table
+				$table->configure('HEADERS',array(_('ID'),_('IP number'),_('Options')));
+				$table->configure('HEADERS_WIDTH',[1,5,2]);
+				$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE]);
+				$table->configure('BORDER',true);
+				$form->add($table);
+
+				//update and cancel buttons
+				$btn_update = new control\button('btn_add_new');
+				$btn_update->configure('LABEL',_('Add IP'));
+				$btn_update->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','ip_block_new']));
+				$btn_update->configure('TYPE','primary');
+				
+				$btn_cancel = new control\button('btn_cancel');
+				$btn_cancel->configure('LABEL',_('Cancel'));
+				$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+				
+				$row = new control\row;
+				$row->configure('IN_TABLE',false);
+				$row->add($btn_update,1);
+				$row->add($btn_cancel,11);
+				$form->add($row);
+				return [_('Blocked IPs'),$form->draw()];
+		  }
+
+		  //this function is for add new ip to block list
+		  protected function view_ip_block_new(){
+
+		  	$form = new control\form('frm_new_ip_block');
+		  	$txt_ip = new control\textbox('txt_ip');
+		  	$txt_ip->configure('LABEL',_('IP Address'));
+		  	$txt_ip->configure('ADDON',_('*'));
+		  	$txt_ip->configure('SIZE',4);
+			$txt_ip->configure('HELP',_('Enter ip that you want will be blocked by system. '));
+			$form->add($txt_ip);
+			//update and cancel buttons
+			$btn_update = new control\button('btn_add');
+			$btn_update->configure('LABEL',_('Add'));
+			$btn_update->configure('P_ONCLICK_PLUGIN','users');
+			$btn_update->configure('P_ONCLICK_FUNCTION','btn_onclick_add_new_ip_blocklist');
+			$btn_update->configure('TYPE','primary');
+			
+			$btn_cancel = new control\button('btn_cancel');
+			$btn_cancel->configure('LABEL',_('Cancel'));
+			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','ip_block']));
+			
+			$row = new control\row;
+			$row->configure('IN_TABLE',false);
+			$row->add($btn_update,1);
+			$row->add($btn_cancel,11);
+			$form->add($row);
+		  	return [_('Block new ip'),$form->draw()];
+		  }
 }
 ?>

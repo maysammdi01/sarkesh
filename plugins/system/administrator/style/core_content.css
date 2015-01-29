@@ -41,6 +41,7 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
+  padding-top: 51px;  
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,

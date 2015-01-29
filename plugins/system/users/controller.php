@@ -285,5 +285,30 @@ class users extends users\module{
 		  	return $this->module_btn_onclick_register_settings($e);
 		  }
 
+		  //this function handel personal settings in users plugin settings
+		  public function btn_onclick_register_personal($e){
+		  	return $this->module_btn_onclick_register_personal($e);
+		  }
+
+		   //this function show ip_block list in system
+		  public function ip_block(){
+		  		return $this->module_ip_block();
+		  }
+
+		  //this function is for add new ip to block list
+		  public function ip_block_new(){
+		  	return $this->module_ip_block_new();
+		  }
+
+		 //this function is event handel for delete ip from block list
+		  public function btn_onclick_ip_block_delete($e){
+		  	return $this->module_btn_onclick_ip_block_delete($e);
+		  }
+
+		  //this function is for event handel for add new ip to block list
+		  public function btn_onclick_add_new_ip_blocklist($e){
+		  	return $this->module_btn_onclick_add_new_ip_blocklist($e);
+		  }
+
 }
 ?>

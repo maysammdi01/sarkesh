@@ -9,7 +9,7 @@ function sys_render($buffer)
 	
 	//LOAD HEADERS
 	$buffer = str_replace("</#HEADERS#/>",  \core\cls\browser\page::load_headers(false), $buffer);
-	
+	$buffer = str_replace("</#SITE_NAME#/>", \core\cls\browser\page::get_page_tittle(), $buffer);
 	return $buffer;
 }
 
