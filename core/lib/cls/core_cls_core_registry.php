@@ -1,9 +1,10 @@
 <?php
 	namespace core\cls\core;
 	use \core\cls\db as db;
+	use core\cls\patterns as patterns;
 	//this classs for using registry table in database
 	class registry{
-		
+		use patterns\singleton;
 		private $db;
 		function __construct(){
 			$this->db = db\mysql::singleton();

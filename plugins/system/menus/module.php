@@ -213,5 +213,24 @@ class module extends view{
 		return '';
 		
 	}
+
+	protected function module_onclick_btn_delete_menu($e){
+		if($this->users->has_permission('administrator_admin_panel')){
+			//first delete block
+			$plugin = db\orm::findOne('plugins',"name='menus'");
+			
+			db\orm::exec("DELETE FROM blocks WHERE plugin=? and handel='draw_menu' and value=?;",[$plugin->id,$e['hid_id']['VALUE']]);
+			//DELETE LINKS
+			db\orm::exec("DELETE FROM links WHERE ref_id=?;",[$e['hid_id']['VALUE']]);
+			//DELETE MENU
+			db\orm::exec("DELETE FROM menus WHERE id=?;",[$e['hid_id']['VALUE']]);
+			return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','menus','a','list_menus']);
+			
+		}
+		else{
+			//no permission to access this page
+			return $this->modal_no_permission($e);
+		}
+	}
 }
 

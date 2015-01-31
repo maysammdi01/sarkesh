@@ -56,9 +56,12 @@ class module extends view{
 		$router = new core\router($_GET['p'], $_GET['a']);
 		$plugin_content = $router->show_content(false);
 		
+		//get administrator settings from registry
+		$registry = core\registry::singleton();
+		$registry = $registry->get_plugin('administrator');
 		$obj_users = new plugin\users;
 		$user_info = $obj_users->get_info();
-		return $this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$plugin_content[0],$user_info)));
+		return $this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$plugin_content[0],$user_info,$registry)));
 	}
 	
 	

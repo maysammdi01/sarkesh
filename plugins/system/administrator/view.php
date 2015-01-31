@@ -31,7 +31,7 @@ class view{
 	
 	//this function show main part of core plug
 	//$menu is plugins special menu
-	protected function view_main($menu,$content,$title,$user){
+	protected function view_main($menu,$content,$title,$user,$registry){
 		
 		browser\page::add_header('<link href="./plugins/system/administrator/style/core_content.css" rel="stylesheet">');
 		$localize = new core\localize;
@@ -46,13 +46,14 @@ class view{
 		
 		$this->raintpl->assign( "user_logout", _('Log Out')	);
 		$this->raintpl->assign( "user_logout_url", core\general::create_url(array('plugin','users','action','btn_logout_onclick')	)	);
-		
 		$this->raintpl->assign( "user_name", $user['username']	);
-
+		$this->raintpl->assign( "powered_by", _('Powered by SarkeshMVC')	);
 		$this->raintpl->assign( "view_site", _('View website')	);
 		$this->raintpl->assign( "view_site_url",SiteDomain);
 		$this->raintpl->assign( "dashboard", _('Dashboard')	);
-		$this->raintpl->assign( "user_profile", _('Profile')	);
+		$this->raintpl->assign( "user_profile", _('Profile'));
+		$this->raintpl->assign( "core_version", sprintf(_('Version:%s'),$registry['core_version']));
+		$this->raintpl->assign( "build_num", sprintf(_('Build Number:%s'),$registry['build_num']));
 		$this->raintpl->assign( "user_profile_url", core\general::create_url(array('plugin','users','action','profile')	)	);
 	
 		$this->raintpl->assign( "sarkesh_admin", _('Sarkesh Administrator')	);
@@ -429,12 +430,7 @@ class view{
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
 		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
-		
-		$row = new control\row;
-		$row->configure('IN_TABLE',false);
-		
-		$row->add($btn_cancel,1);
-		$form->add($row); 
+		$form->add($btn_cancel); 
 		
 		return array(_('Manage Blocks'),$form->draw());
 	}

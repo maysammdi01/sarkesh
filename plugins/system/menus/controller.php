@@ -55,6 +55,11 @@ class menus extends menus\module{
 	public function draw_menu($position,$value){
 		return $this->module_draw_menu($value);
 	}
+
+	//function for delete menu
+	public function onclick_btn_delete_menu($e){
+		return $this->module_onclick_btn_delete_menu($e);
+	}
 	
 }
 

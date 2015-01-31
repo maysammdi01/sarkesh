@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2015 at 12:20 AM
+-- Generation Time: Jan 31, 2015 at 11:37 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `show_header` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `blocks`
@@ -52,7 +52,7 @@ INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`
 (7, 'login_block', '0', 2, 'sidebar1', NULL, '', '1', 1, 0, NULL, 1),
 (12, 'select_lang', '0', 4, 'sidebar1', NULL, '', '1', 0, 0, NULL, 1),
 (16, 'mian_menu', '15', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0),
-(17, 'fa_main_menu', '16', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0);
+(18, 'fa_main_menu', '17', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0);
 
 -- --------------------------------------------------------
 
@@ -486,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `links` (
   `enable` tinyint(4) NOT NULL DEFAULT '1',
   `rank` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `links`
@@ -494,7 +494,8 @@ CREATE TABLE IF NOT EXISTS `links` (
 
 INSERT INTO `links` (`id`, `ref_id`, `label`, `url`, `enable`, `rank`) VALUES
 (1, 15, 'Download', '/plugin=users&aaa', 1, 0),
-(2, 16, 'دانلود', '?plugin=users', 1, 0);
+(4, 17, 'مستندات و مدارک', 'http://barnamenevis.org/showthread.php?411234-Sarkesh-فریمورک-PHP-ایرانی', 1, 0),
+(5, 17, 'دانلود', 'https://github.com/morrning/sarkesh', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -538,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `localize` varchar(10) NOT NULL DEFAULT 'en_US',
   `horiz` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `menus`
@@ -546,7 +547,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
 
 INSERT INTO `menus` (`id`, `name`, `header`, `show_header`, `localize`, `horiz`) VALUES
 (15, 'mian_menu', 'Main menu', 0, 'en_US', 1),
-(16, 'fa_main_menu', 'منو اصلی', 0, 'fa_IR', 1);
+(17, 'fa_main_menu', 'منو اصلی', 0, 'fa_IR', 1);
 
 -- --------------------------------------------------------
 
@@ -588,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `enable` tinyint(1) NOT NULL,
   `can_edite` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `plugins`
@@ -619,7 +620,7 @@ CREATE TABLE IF NOT EXISTS `registry` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `fk_plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `registry`
@@ -636,7 +637,7 @@ INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (9, 2, 'default_permation', '2'),
 (13, 2, 'register_captcha', '1'),
 (15, 3, 'default_timezone', '0.00 - UTC'),
-(16, 3, 'active_theme', 'basic'),
+(16, 3, 'active_theme', 'simple'),
 (17, 3, '1st_template', '0'),
 (18, 2, 'register_date_format', 'y/m/d'),
 (19, 14, 'date_format', 'y/m/d'),
@@ -646,7 +647,9 @@ INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (24, 2, 'user_can_upload_avatar', '0'),
 (25, 2, 'avatar_guidline', NULL),
 (26, 2, 'max_file_size', NULL),
-(27, 3, 'clean_url', '1');
+(27, 3, 'clean_url', '1'),
+(28, 3, 'core_version', '0.6.0'),
+(29, 3, 'build_num', '931112');
 
 -- --------------------------------------------------------
 
@@ -718,7 +721,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `register_date`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `permation`, `state`, `code`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 153, 5, NULL, NULL, NULL),
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 160, 5, NULL, NULL, NULL),
 (6, 'morrning', '90deff4b32c134f32e3f0d7e8a2aad92', 'alizadeh.babak@gmail.com', 1, 1412786925, NULL, NULL, NULL, NULL, 0, 2, 'NA', '1d48txim52');
 
 -- --------------------------------------------------------
@@ -733,7 +736,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=154 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
 
 --
 -- Dumping data for table `validator`
@@ -819,7 +822,13 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (145, 'USERS_LOGIN', 'pt4ydgtbpx', '1422504000'),
 (150, 'USERS_LOGIN', 'xk754lqj33', '1422607632'),
 (151, 'USERS_LOGIN', 'xoq2dc9o8a', '1422615058'),
-(153, 'USERS_LOGIN', '2otoya22up', '1422643664');
+(153, 'USERS_LOGIN', '2otoya22up', '1422643664'),
+(154, 'USERS_LOGIN', 'buetx8ochj', '1422681624'),
+(155, 'USERS_LOGIN', 'czk3dki2k0', '1422723214'),
+(156, 'USERS_LOGIN', 'x59chis7r8', '1422735546'),
+(158, 'USERS_LOGIN', 'lr6jijqqq1', '1422775724'),
+(159, 'USERS_LOGIN', 'x74473yy1j', '1422785219'),
+(160, 'USERS_LOGIN', 'tz2sw95u0t', '1422790979');
 
 --
 -- Constraints for dumped tables

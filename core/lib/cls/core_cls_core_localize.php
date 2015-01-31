@@ -2,9 +2,11 @@
 namespace core\cls\core;
 use \core\cls\network as network;
 use \core\cls\db as db;
+use core\cls\patterns as patterns;
 
 // this class is for translate parameters in theme and plugins
 class localize{
+	use patterns\singleton;
 	private $db;
 	private $localize;
 	private $obj_cookie;

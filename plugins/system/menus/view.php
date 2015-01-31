@@ -47,7 +47,7 @@ class view{
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','menus','a','list_menus']));
 		
 		if($edite){
 			$txt_menu_name->configure('VALUE',$menu->name);
@@ -139,6 +139,13 @@ class view{
 		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE]);
 		$table->configure('BORDER',true);
 		$form->add($table);
+
+		$btn_new_menu = new control\button;
+		$btn_new_menu->configure('LABEL',_('New menu'));
+		$btn_new_menu->configure('TYPE','success');
+		$btn_new_menu->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','menus','a','new_menu']));
+		$form->add($btn_new_menu,1);		
+
 		return [_('List of menus'),$form->draw()];
 	}
 
@@ -195,7 +202,7 @@ class view{
 			$txt_link_url->configure('VALUE',$link->url);
 			$hid_id = new control\hidden('hid_id');
 			$hid_id->configure('VALUE',$link->id);
-			$btn_do->configure('LABEL',_('Save Changes'));
+			$btn_do->configure('LABEL',_('Save'));
 			$cob_rank->configure('SELECTED_INDEX',$link->rank);
 			$form->add($hid_id);
 
@@ -246,6 +253,23 @@ class view{
 		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE]);
 		$table->configure('BORDER',true);
 		$form->add($table);
+
+		//add insert_link and cancel buttons
+		$btn_new_link = new control\button('btn_new_link');
+		$btn_new_link->configure('LABEL',_('New link'));
+		$btn_new_link->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','menus','a','add_link','menu',$_REQUEST['id']]));
+		$btn_new_link->configure('TYPE','success');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','menus','a','list_menus']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_new_link,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
 		return [_('List of links'),$form->draw()];
 	}
 
@@ -268,7 +292,34 @@ class view{
 	protected function view_sure_delete_menu($menu){
 		$form = new control\form('menus_sure_delete_menu');
 
+		$hid_id = new control\hidden('hid_id');
+		$hid_id->configure('VALUE',$menu->id);
+		$form->add($hid_id);
 
+		$lbl = new control\label;
+		$lbl->configure('LABEL',_('Are you sure for delete menu?'));
+		$lbl_menu_name = new control\label;
+		$lbl_menu_name->configure('LABEL',sprintf(_('Menu name: %s'),$menu->name));
+		$form->add($lbl);
+		$form->add($lbl_menu_name);
+
+		//add update and cancel buttons
+		$btn_delete = new control\button('btn_delete');
+		$btn_delete->configure('LABEL',_('Delete'));
+		$btn_delete->configure('P_ONCLICK_PLUGIN','menus');
+		$btn_delete->configure('P_ONCLICK_FUNCTION','onclick_btn_delete_menu');
+		$btn_delete->configure('TYPE','danger');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','menus','a','list_menus']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_delete,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
 		return [_('Delete menu'),$form->draw()];
 	}
 
