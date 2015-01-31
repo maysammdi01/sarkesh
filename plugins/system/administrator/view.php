@@ -34,6 +34,11 @@ class view{
 	protected function view_main($menu,$content,$title,$user){
 		
 		browser\page::add_header('<link href="./plugins/system/administrator/style/core_content.css" rel="stylesheet">');
+		$localize = new core\localize;
+		$local = $localize->get_localize();
+		if($local['direction'] = 'rtl'){
+			browser\page::add_header('<link href="./plugins/system/administrator/style/rtl_core_content.css" rel="stylesheet">');
+		}
 		//Assign variables
 		$this->raintpl->assign( "menu", $menu);	
 		$this->raintpl->assign( "content", $content);
@@ -43,13 +48,13 @@ class view{
 		$this->raintpl->assign( "user_logout_url", core\general::create_url(array('plugin','users','action','btn_logout_onclick')	)	);
 		
 		$this->raintpl->assign( "user_name", $user['username']	);
-		
+
+		$this->raintpl->assign( "view_site", _('View website')	);
+		$this->raintpl->assign( "view_site_url",SiteDomain);
+		$this->raintpl->assign( "dashboard", _('Dashboard')	);
 		$this->raintpl->assign( "user_profile", _('Profile')	);
 		$this->raintpl->assign( "user_profile_url", core\general::create_url(array('plugin','users','action','profile')	)	);
-		
-		$this->raintpl->assign( "user_settings", _('Settings')	);
-		$this->raintpl->assign( "user_settings_url", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','settings')	)	);
-
+	
 		$this->raintpl->assign( "sarkesh_admin", _('Sarkesh Administrator')	);
 		$this->raintpl->assign( "sarkesh_admin_url", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')	));
 		

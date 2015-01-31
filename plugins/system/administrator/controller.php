@@ -29,7 +29,7 @@ class administrator extends administrator\module{
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']);
 		array_push($menu,[$url, _('Blocks')]);
 		$ret = array();
-		array_push($ret,_('Administrator'));
+		array_push($ret, ['<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>' , _('Administrator')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

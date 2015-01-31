@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh persian language\n"
 "POT-Creation-Date: 2015-01-29 15:07-0800\n"
-"PO-Revision-Date: 2015-01-29 15:19-0800\n"
+"PO-Revision-Date: 2015-01-29 22:50-0800\n"
 "Last-Translator: babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: sarkesh dev <info@sarkesh.org>\n"
 "Language: fa_IR\n"
@@ -694,11 +694,11 @@ msgstr "پیدا نشد!"
 #: plugins/system/hello/info.php:2 themes/basic/info.php:8
 #: themes/simple/info.php:8
 msgid "Sarkesh Developers"
-msgstr ""
+msgstr "توسعه دهندگان سرکش"
 
 #: plugins/system/hello/info.php:3
 msgid "Hello is a sample plugin for developers."
-msgstr ""
+msgstr "پلاگین سلام یک پلاگین نمونه برای توسعه دهندگان است."
 
 #: plugins/system/languages/module.php:28
 msgid "message"
@@ -706,7 +706,7 @@ msgstr "پیام"
 
 #: plugins/system/languages/module.php:28
 msgid "changing language has some problem! Please try again later."
-msgstr ""
+msgstr "تغییر زبان با خطا مواجه شد.لطفا مجددا تلاش کنید."
 
 #: plugins/system/languages/view.php:29
 msgid "Languages"
@@ -762,7 +762,7 @@ msgstr "لیست منوها"
 
 #: plugins/system/menus/controller.php:15
 msgid "Menus"
-msgstr "فهرست ها"
+msgstr "فهرست"
 
 #: plugins/system/menus/view.php:13
 msgid "Menu name"
@@ -774,7 +774,7 @@ msgstr "برچسب سربرگ"
 
 #: plugins/system/menus/view.php:19
 msgid "This text show above of menu in template."
-msgstr ""
+msgstr "این متن در بالای منو در قالب وب سایت نمایش داده خواهد شد."
 
 #: plugins/system/menus/view.php:24
 msgid "Show header label"
@@ -782,7 +782,7 @@ msgstr "نمایش برچسب سربرگ"
 
 #: plugins/system/menus/view.php:25
 msgid "This option use for show or hide label of menu."
-msgstr ""
+msgstr "این گذینه قابلیت نمایش یا مخفی کردن برچسب فهرست را دارد."
 
 #: plugins/system/menus/view.php:30 plugins/system/menus/view.php:137
 msgid "Localize"
@@ -790,7 +790,7 @@ msgstr "محلی سازی"
 
 #: plugins/system/menus/view.php:31
 msgid "Created menu just will showed in selected localize."
-msgstr ""
+msgstr "فهرست ایجاد  شده فقط در ناحیه محلی انتخاب شده نمایش داده خواهد شد."
 
 #: plugins/system/menus/view.php:38
 msgid "Horizontal menu"
@@ -798,7 +798,7 @@ msgstr "فهرست افقی"
 
 #: plugins/system/menus/view.php:39
 msgid "if this option checked,menu show in horizontal mode."
-msgstr ""
+msgstr "اگر این گزینه را فعال کنید,فهرست به صورت افقی نمایش داده خواهد شد."
 
 #: plugins/system/menus/view.php:43 plugins/system/menus/view.php:177
 #: plugins/system/users/view.php:626
@@ -839,7 +839,7 @@ msgstr "آدرس اینترنتی"
 
 #: plugins/system/menus/view.php:160
 msgid "This option set address of link."
-msgstr ""
+msgstr "این گذینه آدرس پیوند را مشخص می کند."
 
 #: plugins/system/menus/view.php:165
 msgid "Enable link"
@@ -847,11 +847,11 @@ msgstr "فعالی سازی پیوند"
 
 #: plugins/system/menus/view.php:166
 msgid "With this, you can show or hide link in menu."
-msgstr ""
+msgstr "با این گذینه می توانید نمایش لینک در منو را فعال یا غیر فعال کنید."
 
 #: plugins/system/menus/view.php:172
 msgid "use for set position of link in menu."
-msgstr ""
+msgstr "برای تنظیم محل نمایش پیوند در فهرست از این گذینه استفاده کنید."
 
 #: plugins/system/menus/view.php:198
 msgid "Save Changes"

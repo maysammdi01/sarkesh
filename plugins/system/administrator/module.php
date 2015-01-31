@@ -40,7 +40,6 @@ class module extends view{
 				array_push($menu,call_user_func(array($PluginObject,'core_menu')));
 			}
 		}
-		
 		//now $menu is 2d array with plugins menu 
 		//show action
 		//check for that plugin is set
@@ -59,9 +58,7 @@ class module extends view{
 		
 		$obj_users = new plugin\users;
 		$user_info = $obj_users->get_info();
-		$content=$this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$plugin_content[0],$user_info)));
-		return $content;
-		
+		return $this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$plugin_content[0],$user_info)));
 	}
 	
 	

@@ -16,6 +16,9 @@ if(file_exists(AppPath . "db-config.php")) {
 	// config and setup cls_orm // RedBeanphp
 	\core\cls\db\orm::run();
 	//LOAD INC Files
+	require_once( AppPath . 'core/defines.php');
+	require_once(AppPath . 'core/inc/localize.php');
+	
 	//check for blocked ips
 	if(!empty($_SERVER['REMOTE_ADDR'])){
 		if( \core\cls\db\orm::count('ipblock',"ip=?",[ip2long($_SERVER['REMOTE_ADDR'])]) != 0){
@@ -27,10 +30,7 @@ if(file_exists(AppPath . "db-config.php")) {
 			exit($message);
 		}
 	}
-	//include core defines
-	require_once( AppPath . 'core/defines.php');
-	require_once(AppPath . 'core/inc/localize.php');
-	
+
 	#include functions
 	require_once("./core/functions/render.php"); 
 

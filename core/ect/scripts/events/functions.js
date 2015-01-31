@@ -105,7 +105,6 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 		$.get(url ,
 			function(data){
 				//alert(data);
-				//data = decodeURI(data);
 				data = data.replace(/_a_n_d_/g,"&");
 				//find deference and set that
 				window['Counter'] = 0;
@@ -155,9 +154,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 					window.location.reload(true);
 				}
 				else if($(data).find("RV").children("URL").html() != '0'){
-					var AdrNoneFilter = $(data).find("RV").children("URL").html();
-					var UrlJump = AdrNoneFilter.replace(/%/g,'&');
-					window.location.assign(UrlJump);
+					window.location.assign($(data).find("RV").children("URL").html().replace(/amp;/g,''));
 				}
 				
 				//SHOW MODAL MESSAGES

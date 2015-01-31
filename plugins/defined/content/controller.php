@@ -26,7 +26,7 @@ class content extends content\module{
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']);
 		array_push($menu,[$url, _('Manage catalogues')]);
 		$ret = array();
-		array_push($ret,_('Content'));
+		array_push($ret,['<span class="glyphicon glyphicon-book" aria-hidden="true"></span>' , _('Content')]);
 		array_push($ret,$menu);
 		return $ret;
 		

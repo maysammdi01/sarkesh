@@ -15,7 +15,7 @@ class blog extends blog\module{
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','settings']);
 		array_push($menu,[$url, _('Blog Settings')]);
 		$ret = array();
-		array_push($ret,_('Blog'));
+		array_push($ret,['<span class="glyphicon glyphicon-bold" aria-hidden="true"></span>' , _('Blog')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

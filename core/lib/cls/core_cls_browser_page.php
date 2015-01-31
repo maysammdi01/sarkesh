@@ -60,7 +60,6 @@ class page{
 			array_push($default_headers, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
 			array_push($default_headers, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
 			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/default.css" />');
 			#load rtl bootstrap
 			if (self::is_rtl()){ 
 				array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
@@ -84,6 +83,7 @@ class page{
 				}
 		
 			}
+			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/default.css" />');
 		//}
 		
 

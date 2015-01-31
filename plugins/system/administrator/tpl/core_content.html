@@ -1,79 +1,53 @@
-
-    <div id="wrapper">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">            
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{$sarkesh_admin_url}">{$sarkesh_admin}</a>
+<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar_admin_top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{$sarkesh_admin_url}">{$sarkesh_admin}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{$sarkesh_admin_url}">{$dashboard}</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{$view_site_url}">{$view_site}</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+              <li role="presentation" class="dropdown-header">{$user_name}</li>
+                <li>
+                <a href="{$user_profile_url}"><i class="fa fa-fw fa-user"></i>{$user_profile}</a>
+              </li>
+              <li>
+                <a href="{$user_logout_url}"><i class="fa fa-fw fa-power-off"></i>{$user_logout}</a>
+              </li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row content-page-admin">
+            <div class="col-xs-12 col-sm-4 col-lg-3">
+                {loop="menu"}
+                    <a href="#{$value1.0[1]}" class="list-group-item list-group-item-success active btn-lg" data-toggle="collapse" data-parent="#MainMenu">{$value.0[0]}  {$value.0[1]}</a>
+                    <div class="collapse" id="{$value1.0[1]}">
+                    {loop="value1.1"}
+                        <a href="{$value.0}" class="list-group-item list-group-item-success">{$value.1}</a>
+                    {/loop}
+                    </div>  
+                {/loop}
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-				<div id="MainMenu">	
-					 <div class="list-group panel">
-                    {loop="menu"}
-						
-						 
-							<a href="#{$value1.0}" class="list-group-item list-group-item-success active" data-toggle="collapse" data-parent="#MainMenu">{$value.0}</a>
-							<div class="collapse" id="{$value1.0}">
-								{loop="value1.1"}
-							  <a href="{$value.0}" class="list-group-item list-group-item-success">{$value.1}</a>
-								{/loop}
-							</div>
-						  
-						
-					{/loop} 
-					</div>
-				</div>               
-                </ul>
-                
-                <ul class="nav navbar-nav navbar-right navbar-user">
-                    <li class="dropdown messages-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">2</span> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">2 New Messages</li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <span class="avatar"><i class="fa fa-bell"></i></span>
-                                    <span class="message">Security alert</span>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <span class="avatar"><i class="fa fa-bell"></i></span>
-                                    <span class="message">Security alert</span>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Go to Inbox <span class="badge">2</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown user-dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {$user_name} <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="{$user_profile_url}"><i class="fa fa-fw fa-user"></i>{$user_profile}</a>
-							</li>
-							<li>
-								<a href="{$user_settings_url}"><i class="fa fa-fw fa-gear"></i> {$user_settings}</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="{$user_logout_url}"><i class="fa fa-fw fa-power-off"></i>{$user_logout}</a>
-							</li>
-						</ul>
-					</li>
-                    
-                </ul>
+            <div class="col-xs-12 col-sm-8 col-lg-9">
+                <h4>{$title}</h4>
+            <div class="col-xs-12">{$content}</div> 
             </div>
-        </nav>
-       
-		<div id="page-wrapper">
-			<h4>{$title}</h4>
-			<div class="col-xs-12">{$content}</div>	
-		</div>
-        
+        </div>
+                   
+    

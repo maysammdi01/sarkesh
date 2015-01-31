@@ -25,10 +25,8 @@ class log extends log\module{
 		array_push($menu,[$url, _('PHP errors')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','log','a','updates']);
 		array_push($menu,[$url, _('Available updates')]);
-		
-
 		$ret = array();
-		array_push($ret,_('Reports'));
+		array_push($ret,['<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>' , _('Reports')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

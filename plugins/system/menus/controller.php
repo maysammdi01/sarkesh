@@ -12,7 +12,7 @@ class menus extends menus\module{
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','menus','a','list_menus']);
 		array_push($menu,[$url, _('List Menus')]);
 		$ret = array();
-		array_push($ret,_('Menus'));
+		array_push($ret,['<span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>' ,_('Menus')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

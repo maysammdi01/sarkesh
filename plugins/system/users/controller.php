@@ -21,7 +21,7 @@ class users extends users\module{
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','users','a','ip_block']);
 		array_push($menu,[$url, _('IP address blocking')]);
 		$ret = array();
-		array_push($ret,_('Users'));
+		array_push($ret,['<span class="glyphicon glyphicon-user" aria-hidden="true"></span>' ,_('Users')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

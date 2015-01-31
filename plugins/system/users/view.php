@@ -105,7 +105,7 @@ class view{
 		 $row1 = new control\row;
 		 $btn_logout = new control\button;
 		 $btn_logout->configure('NAME','btn_logout');
-		 $btn_logout->configure('LABEL',_('Sign Out!');
+		 $btn_logout->configure('LABEL',_('Sign Out!'));
 		 $btn_logout->configure('TYPE','info');
 		 $btn_logout->configure('P_ONCLICK_PLUGIN','users');
 		 $btn_logout->configure('P_ONCLICK_FUNCTION','btn_logout_onclick');
