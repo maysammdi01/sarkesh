@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2015 at 11:37 PM
+-- Generation Time: Feb 03, 2015 at 02:58 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `show_header` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `blocks`
@@ -51,8 +51,28 @@ INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`
 (6, 'content', '0', 3, 'content', NULL, '', '0', 0, 0, NULL, 1),
 (7, 'login_block', '0', 2, 'sidebar1', NULL, '', '1', 1, 0, NULL, 1),
 (12, 'select_lang', '0', 4, 'sidebar1', NULL, '', '1', 0, 0, NULL, 1),
-(16, 'mian_menu', '15', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0),
-(18, 'fa_main_menu', '17', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0);
+(19, '12', '18', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogcats`
+--
+
+CREATE TABLE IF NOT EXISTS `blogcats` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `machin_name` varchar(60) NOT NULL,
+  `localize` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `blogcats`
+--
+
+INSERT INTO `blogcats` (`id`, `name`, `machin_name`, `localize`) VALUES
+(1, 'news', 'news', 'en_US');
 
 -- --------------------------------------------------------
 
@@ -65,14 +85,16 @@ CREATE TABLE IF NOT EXISTS `contentcatalogue` (
   `access_name` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `contentcatalogue`
 --
 
 INSERT INTO `contentcatalogue` (`id`, `access_name`, `name`) VALUES
-(16, 'news', 'news');
+(16, 'blog', 'blog'),
+(17, 'uncatalogue', 'uncatalogue'),
+(18, 'forum', 'forum');
 
 -- --------------------------------------------------------
 
@@ -131,15 +153,14 @@ CREATE TABLE IF NOT EXISTS `contentpatterns` (
   `options` varchar(500) NOT NULL,
   `position` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `contentpatterns`
 --
 
 INSERT INTO `contentpatterns` (`id`, `label`, `catalogue`, `rank`, `type`, `options`, `position`) VALUES
-(11, 'body', 16, 0, 'Textarea', 'editor:1;', ''),
-(12, 'morid', 16, 3, 'Textarea', 'editor:0;', '');
+(11, 'body', 16, 0, 'Textarea', 'editor:1;', '');
 
 -- --------------------------------------------------------
 
@@ -486,16 +507,14 @@ CREATE TABLE IF NOT EXISTS `links` (
   `enable` tinyint(4) NOT NULL DEFAULT '1',
   `rank` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `links`
 --
 
 INSERT INTO `links` (`id`, `ref_id`, `label`, `url`, `enable`, `rank`) VALUES
-(1, 15, 'Download', '/plugin=users&aaa', 1, 0),
-(4, 17, 'مستندات و مدارک', 'http://barnamenevis.org/showthread.php?411234-Sarkesh-فریمورک-PHP-ایرانی', 1, 0),
-(5, 17, 'دانلود', 'https://github.com/morrning/sarkesh', 1, 1);
+(6, 18, 'dsfdsfsd', 'fdsfds', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -514,6 +533,8 @@ CREATE TABLE IF NOT EXISTS `localize` (
   `calendar` varchar(20) NOT NULL DEFAULT 'gregorian',
   `direction` varchar(4) NOT NULL DEFAULT 'LTR',
   `slogan` varchar(120) DEFAULT NULL,
+  `header_tags` text,
+  `can_delete` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
@@ -521,9 +542,9 @@ CREATE TABLE IF NOT EXISTS `localize` (
 -- Dumping data for table `localize`
 --
 
-INSERT INTO `localize` (`id`, `main`, `name`, `language`, `language_name`, `home`, `email`, `calendar`, `direction`, `slogan`) VALUES
-(1, 1, 'Sarkesh', 'en_US', 'English - United States', '?plugin=users&action=profile', 'info@sarkesh.org', 'gregorian', 'LTR', 'Best PHP Framework for developers'),
-(3, 0, 'سرکش', 'fa_IR', 'فارسی - ایران', '?plugin=users&action=register', 'info@sarkesh.org', 'jallali', 'RTL', 'شرکت توسعه فناوری');
+INSERT INTO `localize` (`id`, `main`, `name`, `language`, `language_name`, `home`, `email`, `calendar`, `direction`, `slogan`, `header_tags`, `can_delete`) VALUES
+(1, 1, 'Sarkesh', 'en_US', 'English - United States', '?plugin=users&action=register', 'info@sarkesh.org', 'gregorian', 'LTR', 'Sarkesh CMF', 'SarkeshMVC is best cms in the world.', 0),
+(3, 0, 'سرکش', 'fa_IR', 'فارسی - ایران', '?plugin=users&action=register', 'info@sarkesh.org', 'jallali', 'RTL', 'شرکت توسعه فناوری', 'سرکش بهترین فریم ورک مدیریت محتوا در جهان است.', 1);
 
 -- --------------------------------------------------------
 
@@ -539,15 +560,14 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `localize` varchar(10) NOT NULL DEFAULT 'en_US',
   `horiz` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `menus`
 --
 
 INSERT INTO `menus` (`id`, `name`, `header`, `show_header`, `localize`, `horiz`) VALUES
-(15, 'mian_menu', 'Main menu', 0, 'en_US', 1),
-(17, 'fa_main_menu', 'منو اصلی', 0, 'fa_IR', 1);
+(18, '12', '12', 0, 'en_US', 1);
 
 -- --------------------------------------------------------
 
@@ -589,7 +609,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `enable` tinyint(1) NOT NULL,
   `can_edite` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `plugins`
@@ -620,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `registry` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `fk_plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `registry`
@@ -647,9 +667,10 @@ INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (24, 2, 'user_can_upload_avatar', '0'),
 (25, 2, 'avatar_guidline', NULL),
 (26, 2, 'max_file_size', NULL),
-(27, 3, 'clean_url', '1'),
+(27, 3, 'clean_url', '0'),
 (28, 3, 'core_version', '0.6.0'),
-(29, 3, 'build_num', '931112');
+(29, 3, 'build_num', '931112'),
+(30, 16, 'content_type', '16');
 
 -- --------------------------------------------------------
 
@@ -721,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `register_date`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `permation`, `state`, `code`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 160, 5, NULL, NULL, NULL),
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 166, 5, NULL, NULL, NULL),
 (6, 'morrning', '90deff4b32c134f32e3f0d7e8a2aad92', 'alizadeh.babak@gmail.com', 1, 1412786925, NULL, NULL, NULL, NULL, 0, 2, 'NA', '1d48txim52');
 
 -- --------------------------------------------------------
@@ -736,7 +757,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=167 ;
 
 --
 -- Dumping data for table `validator`
@@ -828,7 +849,12 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (156, 'USERS_LOGIN', 'x59chis7r8', '1422735546'),
 (158, 'USERS_LOGIN', 'lr6jijqqq1', '1422775724'),
 (159, 'USERS_LOGIN', 'x74473yy1j', '1422785219'),
-(160, 'USERS_LOGIN', 'tz2sw95u0t', '1422790979');
+(160, 'USERS_LOGIN', 'tz2sw95u0t', '1422790979'),
+(161, 'USERS_LOGIN', 'j7xse1d30z', '1422852582'),
+(162, 'USERS_LOGIN', 'zk569fpg9k', '1422876431'),
+(164, 'USERS_LOGIN', 'w9r7bsumw9', '1422906412'),
+(165, 'USERS_LOGIN', 'i54y9jat5o', '1422937755'),
+(166, 'USERS_LOGIN', 'yvtl2pct6h', '1422994807');
 
 --
 -- Constraints for dumped tables

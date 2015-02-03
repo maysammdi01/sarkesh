@@ -12,6 +12,7 @@ class view{
 	function __construct($settings){
 		$this->settings = $settings;
 	}
+	
 	public function view_login_block($pos){
 		$username = new control\textbox();
 		$username->configure('NAME','txt_username');

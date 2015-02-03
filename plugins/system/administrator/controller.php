@@ -136,11 +136,20 @@ class administrator extends administrator\module{
 	public function has_admin_panel(){
 		return $this->module_has_admin_panel();
 	}
-    
-    //this function show basic settings in admin panel
+    //show list of localize for edite basic settings
     public function basic_settings(){
-        if($this->has_admin_panel()){
+    	if($this->has_admin_panel()){
             return $this->module_basic_settings();
+        }
+        else{
+            //access denied
+           	return $this->module_no_permission();
+        }
+    }
+    //this function show basic settings edite in admin panel
+    public function basic_settings_edite(){
+        if($this->has_admin_panel()){
+            return $this->module_basic_settings_edite();
         }
         else{
             //access denied
@@ -149,9 +158,9 @@ class administrator extends administrator\module{
     }
     
     //this function is for handle onclick event and store basic settings
-    public function onclick_btn_update_basic_settings($e){
+    public function onclick_btn_update_basic_settings_edite($e){
         if($this->has_admin_panel()){
-            return $this->module_onclick_btn_update_basic_settings($e);
+            return $this->module_onclick_btn_update_basic_settings_edite($e);
         }
         else{
             //access denied
@@ -187,26 +196,19 @@ class administrator extends administrator\module{
     
     //this function show blocks for manage in theme
     public function blocks(){
-		if($this->has_admin_panel()){
-            return $this->module_blocks();
-        }
-        else{
-            //access denied
-            return $this->module_no_permission();
-        }
+		if($this->has_admin_panel()) return $this->module_blocks();
+        return $this->module_no_permission();
 	}
 	
 	//this function is for edite block
 	//id of block get with $GET
 	public function edite_block(){
-		if(isset($_GET['id'])){
-			return $this->module_edite_block($_GET['id']);
-		}
-		else{
-			//jump to not found page
-			core\router::jump_page(404);
-
-		}
+		if($this->has_admin_panel()){
+            if(isset($_GET['id'])) return $this->module_edite_block($_GET['id']);
+            //access denied
+            return $this->module_no_permission();
+        }
+		return core\router::jump_page(404);	
 	}
 	
 	
@@ -215,14 +217,40 @@ class administrator extends administrator\module{
 		if($this->has_admin_panel()){
             return $this->module_onclick_btn_update_block($e);
         }
-        else{
-            //access denied
-			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
-			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
-			return $e;
+        //access denied
+		$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+		$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+		return $e;
+	}
+
+	//this function show core settings page
+	public function core_settings(){
+		if($this->has_admin_panel()) return $this->module_core_settings();
+        return $this->module_no_permission();
+	}
+
+	//function for update core settings
+	public function onclick_btn_update_core_settings($e){
+		if($this->has_admin_panel()){
+            return $this->module_onclick_btn_update_core_settings($e);
         }
+        //access denied
+		$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+		$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+		return $e;
 	}
 	
+	//Fuction for show sure delete localize
+	public function sure_delete_local(){
+		if($this->has_admin_panel()) return $this->module_sure_delete_local();
+        return $this->module_no_permission();
+	}
+
+	//function for delete local
+	public function onclick_btn_delete_local($e){
+		if($this->has_admin_panel()) return $this->module_onclick_btn_delete_local($e);
+		return $this->msg->modal_no_permission($e);
+	}
 	
 }
 	

@@ -5,7 +5,6 @@ use \core\cls\core as core;
 use \core\cls\template as template;
 
 class view{
-
 	protected function view_new_menu($languages,$menu='',$edite=false){
 		$form = new control\form('frm_new_menu');
 
@@ -274,7 +273,7 @@ class view{
 	}
 
 	//this function draw menu
-	protected function view_draw_menu($menu,$links){
+	protected static function view_draw_menu($menu,$links){
 
 		//create an object from raintpl class//
 		$raintpl = new template\raintpl;

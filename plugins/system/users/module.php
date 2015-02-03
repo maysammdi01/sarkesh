@@ -14,10 +14,9 @@ class module extends view{
 	
 	function __construct(){
 		
-		$this->registry = new core\registry;
+		$this->registry = core\registry::singleton();
 		$this->settings = $this->registry->get_plugin('users');
 		$this->validator = new network\validator;
-		
 		parent::__construct($this->settings);
 
 	}

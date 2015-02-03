@@ -7,7 +7,7 @@ class view{
 	private $raintpl;
 	
 	function __construct(){
-		$this->raintpl = new template\raintpl;
+		$this->raintpl = template\raintpl::singleton();
 		$this->raintpl->configure("tpl_dir","./core/lib/controls/textarea/");
 	}
 	protected function view_draw($config){

@@ -5,7 +5,7 @@ use \core\cls\network as network;
 use \core\cls\browser as browser;
 use \core\plugin as plg;
 use \core\cls\db as db;
-
+use core\cls\patterns as patterns;
 //this class seperate url addrress
 // for doing process we have some parameters that send with GET 
 // 1- plugin parameter for finding what plugin do this process
@@ -14,6 +14,7 @@ use \core\cls\db as db;
 // if nothing send with action with GET class change that to 'default' and send that to plugin
 
 class router{
+	use patterns\singleton;
 	private $plugin;
 	private $action;
 	private $obj_io;

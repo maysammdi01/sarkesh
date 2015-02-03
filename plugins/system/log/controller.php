@@ -46,6 +46,11 @@ class log extends log\module{
 	public function show_reports_filters(){
 		return [1,1];
 	}
+
+	//this function check for new versions from sarkesh rep servers
+	public function updates(){
+		return $this->module_updates();
+	}
 	
 }
 

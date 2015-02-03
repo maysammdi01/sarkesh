@@ -132,13 +132,9 @@ class module extends view{
 			$e['RV']['MODAL'] = browser\page::show_block(_('Change Theme'),_('Successfuly changed!'),'MODAL','type-success');
 			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
 		}
-		else{
-			//show access denied message
-			$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
-			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
-			
-		}
-		$users = null;
+		//show access denied message
+		$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+		$e['RV']['JUMP_AFTER_MODAL'] = 'R';
 		return $e;
 	}
 	
@@ -181,19 +177,31 @@ class module extends view{
 		}
 		$users=null;
 	}
-    
-    //this function show general settings
+    //show list of localize for edite basic settings
     protected function module_basic_settings(){
+    	//get all localize from database
+    	$locals = db\orm::findAll('localize');
+    	return $this->view_basic_settings($locals);
+    }
+    //this function show general settings
+    protected function module_basic_settings_edite(){
+    	if(isset($_REQUEST['id'])){
+    		if(db\orm::count('localize','id=?',[$_REQUEST['id']])){
+    			//get all localize from database
+		    	$local = db\orm::load('localize',$_REQUEST['id']);
+		    	$default_locale = db\orm::findOne('localize','main=1');
+		    	return $this->view_basic_settings_edite($local,$default_locale);
+    		}
+    	}
         //get default site name
         $default_locale = db\orm::findOne('localize','main=1');
-        $locales = db\orm::find('localize');
         //get description value from registry
         $registry = new core\registry;
-        return $this->view_basic_settings($default_locale,$locales,$registry->get_plugin('administrator'));
+        return $this->view_basic_settings_edite($default_locale,$locales,$registry->get_plugin('administrator'));
     }
     
     //THIS FUNCTION STORE BASIC SETTINGS
-    protected function module_onclick_btn_update_basic_settings($e){
+    protected function module_onclick_btn_update_basic_settings_edite($e){
 
         //check for that one of parameters is blank
         if($e['txt_sitename']['VALUE'] == '' || $e['txt_email']['VALUE'] == '' || $e['txt_frontpage']['VALUE'] == ''){
@@ -204,16 +212,13 @@ class module extends view{
         
         //going to save settings
         //save settings
-        $main_locale = db\orm::findOne('localize','main=1');
+        $main_locale = db\orm::load('localize',$e['hid_id']['VALUE']);
         $main_locale->name = $e['txt_sitename']['VALUE'];
         $main_locale->slogan = $e['txt_slogan']['VALUE'];
         $main_locale->home = $e['txt_frontpage']['VALUE'];
         $main_locale->email = $e['txt_email']['VALUE'];
+        $main_locale->header_tags = $e['txt_des']['VALUE'];
         db\orm::store($main_locale);
-        
-        //save description
-        $registry = new core\registry;
-        $registry->set('administrator','header_tags',$e['txt_des']['VALUE']);
         
         //save successfull
         $e['RV']['MODAL'] = browser\page::show_block(_('System message'),_('All changes saved successfuly.'),'MODAL','type-success');
@@ -334,6 +339,45 @@ class module extends view{
 		//get current active theme
 		$registry = new core\registry;
 		return $registry->get('administrator','active_theme');
+	}
+
+	//function for control core settings
+	protected function module_core_settings(){
+		//get settings
+		$registry = core\registry::singleton();
+		$settings = $registry->get_plugin('administrator');
+		return $this->view_core_settings($settings);
+	}
+
+	//function for save core settings
+	protected function module_onclick_btn_update_core_settings($e){
+		if(array_key_exists('ckb_clean_url', $e)){
+			$registry = core\registry::singleton();
+			$registry->set('administrator','clean_url',$e['ckb_clean_url']['CHECKED']);
+			return $this->msg->successfull_modal($e,'N');
+		}
+		return $this->msg->error_modal($e);
+	}
+
+	//Fuction for show sure delete localize
+	public function module_sure_delete_local(){
+		if(isset($_REQUEST['id'])){
+			if(db\orm::count('localize','id=?',[$_REQUEST['id']])){
+				return $this->view_sure_delete_local(db\orm::load('localize',$_REQUEST['id']));
+			}
+		}
+		return $this->msg->access_denied();
+	}
+	//function for delete local
+	protected function module_onclick_btn_delete_local($e){
+		if(array_key_exists('hid_id', $e)){
+			$local = db\orm::load('localize',$e['hid_id']['VALUE']);
+			//delete local
+			if($local->can_delete != 0)
+				db\orm::exec('DELETE FROM localize WHERE id=?'[$e['hid_id']['VALUE']]);
+			return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','administrator','a','basic_settings']);
+		}
+		return $this->msg->error_modal($e);
 	}
 }	
 ?>

@@ -1,9 +1,10 @@
 <?php
 	namespace core\cls\core;
 	use \core\cls\db as db;
-	
+	use core\cls\patterns as patterns;
 	//this class controll plugins
 	class plugin{
+		use patterns\singleton;
 		private $db;
 		
 		function __construct(){

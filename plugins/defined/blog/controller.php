@@ -5,11 +5,17 @@ use addon\plugin\blog as blog;
 
 class blog extends blog\module{
 	 
+	 function __construct(){
+		parent::__construct();
+	}
+
 	//add menu to administrator area
 	public static function core_menu(){
 		$menu = array();
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','new_post']);
 		array_push($menu,[$url, _('New Post')]);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','posts']);
+		array_push($menu,[$url, _('Posts')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','list_cats']);
 		array_push($menu,[$url, _('Catalogues')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','settings']);
@@ -19,7 +25,56 @@ class blog extends blog\module{
 		array_push($ret,$menu);
 		return $ret;
 	}
+
+	//this function is for set basic settings of blog plugins
+	public function settings(){
+		return $this->module_settings();
+	}
+
+	//this function save blog settings
+	public function onclick_btn_save_settings($e){
+		return $this->module_onclick_btn_save_settings($e);
+	}
+
+	//this function show cats for manage
+	public function list_cats(){
+		return $this->module_list_cats();
+	}
+
+	//this function show blog add catalogue form
+	public function add_cat(){
+		return $this->module_add_cats();
+	}
+
+	//function for add catalogue
+	public function onclick_btn_add_cat($e){
+		return $this->module_onclick_btn_add_cat($e);
+	}
+
+	//function for show edite catalogue form 
+	public function edite_cat(){
+		return $this->module_edite_cat();
+	}
+
+	//function for edite catalogue
+	public function onclick_btn_edite_cat($e){
+		return $this->module_onclick_btn_edite_cat($e);
+	}
+
+	//show sure delete cat 
+	public function sure_delete_cat(){
+		return $this->module_sure_delete_cat();
+	}
+
+	//btn onclick event for delete catalogue
+	public function onclick_btn_delete_cat($e){
+		return $this->module_onclick_btn_delete_cat($e);
+	}
 	
+	//this function show catalogue list in widget block
+	public function block_show_catalog(){
+		return $this->module_block_show_catalog();
+	}
 	
 	
 }

@@ -4,6 +4,16 @@ use \core\control as control;
 class form extends control\form\module{
 	private $e;
 	private $config;
+	public function __destruct(){
+    	$this->cleanup();
+	}
+
+	public function cleanup() {
+	    //cleanup everything from attributes
+	    foreach (get_class_vars(__CLASS__) as $clsVar => $_) {
+	        unset($this->$clsVar);
+	    }
+	}
 	function __construct($form_name="form"){
 		parent::__construct();
 		$this->e = [];

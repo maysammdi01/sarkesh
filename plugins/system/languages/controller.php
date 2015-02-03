@@ -3,7 +3,7 @@ namespace core\plugin;
 use \core\plugin\languages as languages;
 use \core\cls\network as network;
 class languages extends languages\module{
-
+	use \core\cls\patterns\singleton;
 	private $obj_io;
 	
 	function __construct(){

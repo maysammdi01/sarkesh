@@ -12,7 +12,7 @@
 
 
 class raintpl{
-
+	use \core\cls\patterns\singleton;
 	// -------------------------
 	// 	CONFIGURATION
 	// -------------------------
@@ -108,7 +108,7 @@ class raintpl{
 	// -------------------------
 
 	function __construct(){
-		$this->localize = new core\localize;
+		$this->localize = core\localize::singleton();
 	}
 	// -------------------------
 	// 	RAINTPL VARIABLES
@@ -146,8 +146,10 @@ class raintpl{
 	function assign( $variable, $value = null ){
 		if( is_array( $variable ) )
 			$this->var = $variable + $this->var;
-		else
+		else{
 			$this->var[ $variable ] = $value;
+		}
+		unset($value);
 	}
 
 

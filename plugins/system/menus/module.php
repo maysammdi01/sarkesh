@@ -6,13 +6,16 @@ use \core\cls\db as db;
 use \core\cls\core as core;
 
 class module extends view{
+	protected function __distruct(){
+  		parent::__distruct();
+	}
 	private $users;
 	private $msg;
 	private $menu;
 
 	function __construct(){
-		$this->users= new plugin\users;
-		$this->msg= new plugin\msg;
+		$this->users = plugin\users::singleton();
+		$this->msg = plugin\msg::singleton();
 	}
 	//this function show page for add new menu
 	protected function module_new_menu(){
@@ -30,11 +33,8 @@ class module extends view{
 					$this->menu = db\orm::findOne('menus','id=?',[$_REQUEST['id']]);
 					return $this->view_new_menu($localize,$this->menu,true);
 				}
-				else{
-					//show error page
-					return $this->msg->error();
-				}
-				
+				//show error page
+				return $this->msg->error();		
 			}
 			
 		}
@@ -201,14 +201,14 @@ class module extends view{
 		return $this->msg->access_denied();
 	}
 
-	protected function module_draw_menu($value){
+	protected static function module_draw_menu($value){
 		//check for localize
-		$localize = new core\localize;
+		$localize = core\localize::singleton();
 		$this_localize = $localize->get_localize(); 
 		$menu = db\orm::load('menus',$value);
 		if($this_localize['language'] == $menu->localize){
 			$links = db\orm::find('links','ref_id=?',[$value]);
-			return $this->view_draw_menu($menu,$links);
+			return self::view_draw_menu($menu,$links);
 		}
 		return '';
 		

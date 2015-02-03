@@ -37,19 +37,20 @@ if(file_exists(AppPath . "db-config.php")) {
 	//check for that want work with services or normal use
 	if(isset($_REQUEST['service'])){
 		#run system in service mode
-		$obj_router = new \core\cls\core\router();
+		$obj_router = \core\cls\core\router::singleton();
 		$obj_router->run_service();
 	}
 	//check for that want work with controls
 	elseif(isset($_REQUEST['control'])){
 		#run system in service mode
-		$obj_router = new \core\cls\core\router;
+		$obj_router = \core\cls\core\router::singleton();
 		$obj_router->run_control();
 	}
 	else{
-		if(S_DEV_MODE){
-			//core\cls\browser\page::show_dev_panel();
+		if(S_MEM_USAGE){
+			echo core\cls\browser\page::show_dev_panel();
 		}
+		
 		#load system in gui normal mode
 		require_once(AppPath . "core/inc/load.php");
 	}

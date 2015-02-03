@@ -135,8 +135,8 @@ class view{
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,3);
-		$row->add($btn_cancel,3);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
 		$form->add_array([$txt_name,$row,$hid_id]);
 		
 		return [_('Update catalogue:') . $cat->name,$form->draw(),true];
@@ -168,7 +168,7 @@ class view{
 		$row->configure('IN_TABLE',false);
 		
 		$row->add($btn,1);
-		$row->add($btn_cancel,3);
+		$row->add($btn_cancel,11);
 		
 		$form->add_array([$hid_id,$label,$row]);
 		

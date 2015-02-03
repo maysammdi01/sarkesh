@@ -138,6 +138,12 @@ class view{
 		$this->raintpl->assign( "Usersandpermissions", _('Users and permissions'));
 		$this->raintpl->assign( "url_regional", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','regandlang')	));
 		
+		$this->raintpl->assign( "system_update", _('Update center'));
+		$this->raintpl->assign( "url_system_update", core\general::create_url(array('service','1','plugin','administrator','action','main','p','log','a','updates')	));
+
+		$this->raintpl->assign( "core_settings", _('Core settings'));
+		$this->raintpl->assign( "url_core_settings", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','core_settings')	));
+
 		$this->raintpl->assign( "url_appearance", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','themes')	));
 		$this->raintpl->assign( "url_plugins", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','plugins')	));
 		
@@ -233,24 +239,65 @@ class view{
 		return array(_('Plugins'),$tab->draw());
 	}
     
+    //show list of localize for edite basic settings
+    protected function view_basic_settings($locals){
+    	$form = new control\form('admin_list_basic_settings');
+		$table = new control\table('admin_list_basic_settings');
+		$counter = 0;
+		foreach($locals as $key=>$local){
+			$counter += 1;
+			$row = new control\row('content_catalogue_row');
+			
+			$lbl_id = new control\label('lbl');
+			$lbl_id->configure('LABEL',$counter);
+			$row->add($lbl_id,1);
+			
+			$lbl_cat = new control\label('lbl');
+			$lbl_cat->configure('LABEL',$local->language_name);
+			$row->add($lbl_cat,1);
+			
+			$btn_edite_local = new control\button('btn_edite_local');
+			$btn_edite_local->configure('LABEL',_('Edite'));
+			$btn_edite_local->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','basic_settings_edite','id',$local->id]));
+			$row->add($btn_edite_local,2);
+			if($local->can_delete != '0'){
+				$btn_delete = new control\button('btn_delete');
+				$btn_delete->configure('LABEL',_('Delete'));
+				$btn_delete->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','sure_delete_local','id',$local->id]));
+				$btn_delete->configure('TYPE','danger');
+				$row->add($btn_delete,2);
+			}
+			
+			
+			$table->add_row($row);
+			$table->configure('HEADERS',[_('ID'),_('Name'),_('Edit'),_('Delete')]);
+			$table->configure('HEADERS_WIDTH',[1,9,1,1]);
+			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE]);
+			$table->configure('BORDER',true);
+		}
+		
+		$form->add($table);
+		
+		return [_('Locals'),$form->draw()];
+    }
     //this function show general settings
-    protected function view_basic_settings($localize,$locales,$settings){
-        $form = new control\form('administrator_basic_settings');
+    protected function view_basic_settings_edite($local,$default_local){
+        $form = new control\form('administrator_basic_settings_edite');
         
         $hid_id = new control\hidden('hid_id');
-        $hid_id->configure('VALUE',$localize->id);
+        $hid_id->configure('VALUE',$local->id);
         $form->add($hid_id);
         
         $txt_sitename = new control\textbox('txt_sitename');
         $txt_sitename->configure('LABEL',_('Site name'));
-        $txt_sitename->configure('VALUE',$localize->name);
+        $txt_sitename->configure('VALUE',$local->name);
         $txt_sitename->configure('ADDON','*');
         $txt_sitename->configure('SIZE',3);
         $form->add($txt_sitename);
         
         $txt_slogan = new control\textbox('txt_slogan');
         $txt_slogan->configure('LABEL',_('Slogan'));
-        $txt_slogan->configure('VALUE',$localize->slogan);
+        $txt_slogan->configure('VALUE',$local->slogan);
         $txt_slogan->configure('HELP',_("How this is used depends on your site's theme."));
         $txt_slogan->configure('ADDON','O'); //O -> OPTIONAL
         $txt_slogan->configure('SIZE',3);
@@ -258,7 +305,7 @@ class view{
         
         $txt_email = new control\textbox('txt_email');
         $txt_email->configure('LABEL',_('Email address'));
-        $txt_email->configure('VALUE',$localize->email);
+        $txt_email->configure('VALUE',$local->email);
         $txt_email->configure('ADDON','*');
         $txt_email->configure('SIZE',5);
         $txt_email->configure('HELP',_("The From address in automated e-mails sent during registration and new password requests, and other notifications. (Use an address ending in your site's domain to help prevent this e-mail being flagged as spam.)"));
@@ -266,25 +313,16 @@ class view{
         
         $txt_frontpage = new control\textbox('txt_frontpage');
         $txt_frontpage->configure('LABEL',_('Front page'));
-        $txt_frontpage->configure('VALUE',$localize->home);
+        $txt_frontpage->configure('VALUE',$local->home);
         $txt_frontpage->configure('ADDON',SiteDomain . '/');
         $txt_frontpage->configure('SIZE',5);
         $txt_frontpage->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
         $form->add($txt_frontpage);
 
-        //enable clean url
-		$ckb_clean_url = new control\checkbox('ckb_clean_url');
-		$ckb_clean_url->configure('LABEL',_('Enable clean url') );
-		$ckb_clean_url->configure('HELP',_('With this option,pages with parameters will be replaced with clean address.'));
-		if($settings['clean_url'] == 1){
-			$ckb_clean_url->configure('CHECKED',TRUE);
-		}
-		$form->add($ckb_clean_url);
-
         //add description to head of page
         $txt_des = new control\textarea('txt_des');
         $txt_des->configure('EDITOR',FALSE);
-        $txt_des->configure('VALUE',$settings['header_tags']);
+        $txt_des->configure('VALUE',$local->header_tags);
         $txt_des->configure('LABEL',_('Description'));
         $txt_des->configure('HELP',_('your text show in header of page for use in search engines.'));
         $txt_des->configure('EDITOR',FALSE);
@@ -296,12 +334,12 @@ class view{
 		$btn_update = new control\button('btn_update');
 		$btn_update->configure('LABEL',_('Update'));
 		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
-		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_basic_settings');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_basic_settings_edite');
 		$btn_update->configure('TYPE','primary');
 
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','basic_settings']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -509,6 +547,69 @@ class view{
 		
 		return [_('Edite Block:').$block->name,$form->draw()];
 		
+	}
+	//function for show core_settings
+	protected function view_core_settings($settings){
+		$form = new control\form('administrator_core_settings');
+		//enable clean url
+		$ckb_clean_url = new control\checkbox('ckb_clean_url');
+		$ckb_clean_url->configure('LABEL',_('Enable clean url') );
+		$ckb_clean_url->configure('CHECKED', FALSE);
+		$ckb_clean_url->configure('HELP',_('With this option,pages with parameters will be replaced with clean address.'));
+		if($settings['clean_url'] == 1){
+			$ckb_clean_url->configure('CHECKED',TRUE);
+		}
+		$form->add($ckb_clean_url);
+		//add update and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_update->configure('P_ONCLICK_FUNCTION','onclick_btn_update_core_settings');
+		$btn_update->configure('TYPE','primary');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);  
+		return [_('Core settings'),$form->draw()];
+	}
+
+	//function for show sure delete local
+	protected function view_sure_delete_local($local){
+		$form = new control\form('administartor_sure_delete_local');
+
+		$hid_id = new control\hidden('hid_id');
+		$hid_id->configure('VALUE',$local->id);
+
+		$lbl_msg = new control\label;
+		$lbl_msg->configure('LABEL',sprintf(_('Are you sure for delete %s ?'),$local->language_name));
+		$lbl_des = new control\label;
+		$lbl_des->configure('LABEL',_('Be careful! after delete this local setting all content that has relation with this,will be removed.'));
+
+		$btn_delete = new control\button('btn_delete');
+		$btn_delete->configure('LABEL',_('Delete'));
+		$btn_delete->configure('TYPE','danger');
+		$btn_delete->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_delete->configure('P_ONCLICK_FUNCTION','onclick_btn_delete_local');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','basic_settings']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_delete,1);
+		$row->add($btn_cancel,11);
+
+		$form->add_array([$hid_id,$lbl_msg,$lbl_des,$row]);
+		return [_('Delete local'),$form->draw()];
 	}
 }
 ?>

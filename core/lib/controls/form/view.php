@@ -3,7 +3,6 @@ namespace core\control\form;
 use \core\cls\template as template;
 use \core\cls\browser as browser;
 class view{
-	
 	private $raintpl;
 	
 	function __construct(){

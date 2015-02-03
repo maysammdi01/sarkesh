@@ -4,6 +4,9 @@ use core\cls\core as core;
 use core\plugin\menus as menus;
 
 class menus extends menus\module{
+	public function __distruct(){
+  		parent::__distruct();
+	}
 	//add menu to administrator area
 	public static function core_menu(){
 		$menu = array();
@@ -52,8 +55,8 @@ class menus extends menus\module{
 
 	//this function show menu on page
 	//$position and $value send from core\cls\core\page
-	public function draw_menu($position,$value){
-		return $this->module_draw_menu($value);
+	public static function draw_menu($position,$value){
+		return self::module_draw_menu($value);
 	}
 
 	//function for delete menu

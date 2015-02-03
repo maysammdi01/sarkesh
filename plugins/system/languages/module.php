@@ -8,7 +8,7 @@ class module extends view{
 	function __construct(){
 		parent::__construct();
 		
-		$this->obj_localize = new core\localize;
+		$this->obj_localize = core\localize::singleton();
 		$this->db = db\mysql::singleton();
 	}
 	protected function module_get_languages(){

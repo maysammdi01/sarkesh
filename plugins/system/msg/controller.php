@@ -2,9 +2,11 @@
 namespace core\plugin;
 use \core\plugin\msg as msg;
 use \core\cls\browser as browser;
+use core\cls\patterns as patterns;
 //this plugins show system messages on page .
 //messages like 404 not found and access denied msg
 class msg extends msg\module{
+	use patterns\singleton;
 	//create view and module for working with MVC metode
 	private $view;
 	private $module;
@@ -63,9 +65,23 @@ class msg extends msg\module{
 		   	if($page == ''){
 				$e['RV']['JUMP_AFTER_MODAL'] = 'R';
 			}
-			else{
+			elseif($page != 'N'){
 				$e['RV']['JUMP_AFTER_MODAL'] = urlencode(\core\cls\core\general::create_url($page));
 			}
+			//FOR INPUT N NOTHING TO DO
+			return $e;
+	   }
+
+	   //this function show error message in modal mode
+	   public function error_modal($e,$page=''){
+		   	$e['RV']['MODAL'] = browser\page::show_block(_('Error'),_('An error has occurred in system.please try again.'),'MODAL','type-danger');
+		   	if($page == ''){
+				$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			}
+			elseif($page != 'N'){
+				$e['RV']['JUMP_AFTER_MODAL'] = urlencode(\core\cls\core\general::create_url($page));
+			}
+			//FOR INPUT N NOTHING TO DO
 			return $e;
 	   }
 
@@ -84,6 +100,13 @@ class msg extends msg\module{
 	   		}
 	   		return $this->msg(_('Error!'),_('Some error was happen!'),'danger');
 	   }
+
+	   PUBLIC function modal_no_permission($e){
+		//show access denied message
+		$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
+		$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+		return $e;
+	}
 
 	
 

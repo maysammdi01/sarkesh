@@ -7,8 +7,8 @@ class view{
 	private $raintpl;
 	private $page;
 	function __construct(){
-		$this->page = new browser\page;
-		$this->raintpl = new template\raintpl;
+		$this->page = browser\page::singleton();
+		$this->raintpl = template\raintpl::singleton();
 	}
 	
 	public function view_draw($config, $show){

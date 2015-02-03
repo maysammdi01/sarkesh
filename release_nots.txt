@@ -1,0 +1,15 @@
+Release note
+SarkeshMVC 0.6.0
+Buld number:931115
+
+bug fix:
+-bug fix on edite local languages and basic settings
+-bug fix on table control for change size of table
+-bug fix on atteche headers to page
+
+news:
+-add blog plugin for publish posts
+-add option for enable clean urls
+-add core settings option to administrator panel
+-add update center to administrator dashboard
+-add core settings to administrator plugin

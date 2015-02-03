@@ -3,7 +3,9 @@
 namespace core\cls\browser;
 use core\cls\db as db;
 use core\cls\core as core;
+use core\cls\patterns as patterns;
 class page{
+	use patterns\singleton;
 	//settings will be saved in this varible
 	private static $localize_settings;
 	private static $settings ;
@@ -15,7 +17,7 @@ class page{
 	static private $header_tags;
 	
 	function __construct(){
-		$obj_localize = new core\localize;
+		$obj_localize = core\localize::singleton();
 		self::$localize_settings = $obj_localize->get_localize();
 	}
 	
@@ -34,9 +36,9 @@ class page{
 	static function difault_headers () {
 		
 		if(is_null(self::$settings)){
-			$registry =new core\registry;
+			$registry = core\registry::singleton();
 			self::$settings = $registry->get_plugin('administrator');
-			$obj_localize = new core\localize;
+			$obj_localize = core\localize::singleton();
 			self::$localize_settings = $obj_localize->get_localize();
 			self::$page_tittle = self::$localize_settings['name'];
 		}
@@ -48,8 +50,8 @@ class page{
 		array_push($default_headers, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 		array_push($default_headers, '<meta name="generator" content=" Sarkesh CMF! - Open Source Content Management Framework" />');
 		//add default header tags
-		if(self::$settings['header_tags'] != ''){
-			array_push($default_headers, '<meta name="description" content="' . self::$settings['header_tags'] . '" />');
+		if(self::$localize_settings['header_tags'] != ''){
+			array_push($default_headers, '<meta name="description" content="' . self::$localize_settings['header_tags'] . '" />');
 		}
 		//cache control
 		array_push($default_headers, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
@@ -130,7 +132,7 @@ class page{
 	static public function set_page_tittle($tittle = ''){
 		//get site name in localize selected
 		if(is_null(self::$localize_settings)){
-			$obj_localize = new core\localize;
+			$obj_localize = core\localize::singleton();
 			self::$localize_settings = $obj_localize->get_localize();
 			self::$page_tittle = self::$localize_settings['name'];
 		}
@@ -224,17 +226,17 @@ class page{
 	}
 	//this function set and show blocks
 	static public function set_position($position){
-		$obj_localize = new core\localize;
+		$obj_localize = core\localize::singleton();
 		self::$localize_settings = $obj_localize->get_localize();
 		if(self::$blocks == null){
 			//load all blocks data from database
-			$db = new db\mysql;
+			$db = db\mysql::singleton();
 			$query_string = "SELECT b.name AS 'b.name',";
 			$query_string .= "b.position AS 'b.position', b.permissions AS 'b.permissions', b.visual AS 'b.visual', b.handel AS 'b.handel', b.value AS 'b.value',";
 			$query_string .= "b.pages AS 'b.pages', b.show_header AS 'b.show_header', b.plugin AS 'b.plugin', p.id AS 'p.id', p.name AS 'p.name', b.rank FROM blocks b INNER JOIN plugins p ON b.plugin = p.id ORDER BY b.rank DESC;";
 			$db->do_query($query_string);
 			self::$blocks = $db->get_array();
-			self::$plugin = new core\plugin;
+			self::$plugin = core\plugin::singleton();
 
 		}
 		
@@ -252,7 +254,7 @@ class page{
 				//going to process block
 				if($block['p.name'] == 'administrator'){
 					//going to show content;
-					$obj_router = new core\router;
+					$obj_router = core\router::singleton();
 					$obj_router->show_content();
 				}
 				else{
@@ -261,7 +263,7 @@ class page{
 						//checking that plugin is enabled
 						if(self::$plugin->is_enabled($block['p.name'])){
 							$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
-							$plugin = new $ClassName;
+							$plugin = new $ClassName; 
 							//run action method for show block
 							//all blocks name should be like  'blk_blockname'
 							$content = array();
@@ -278,7 +280,6 @@ class page{
 							else{
 								echo $content;
 							}
-							
 						}
 					}
 				}
@@ -301,6 +302,7 @@ class page{
 	//this function show developers options
 	public static function show_dev_panel(){
 		echo _('Memory usage by system:') . memory_get_peak_usage() . '</br>';
+		echo _('Real usage by system:') . memory_get_usage() . '</br>';
 		echo _('CPU usage by system:');
 		if( php_uname('s') == 'Windows NT'){
 			echo 'Not supported in windows';

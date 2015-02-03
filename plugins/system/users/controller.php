@@ -4,7 +4,11 @@ use \core\plugin\users as users;
 use \core\cls\browser as browser;
 use \core\cls\core as core;
 use \core\cls\network as network;
+use core\cls\patterns as patterns;
+
 class users extends users\module{
+	use patterns\singleton;
+	
 	function __construct(){
 		parent::__construct();
 	}
