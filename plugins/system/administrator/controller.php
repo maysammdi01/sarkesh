@@ -251,6 +251,12 @@ class administrator extends administrator\module{
 		if($this->has_admin_panel()) return $this->module_onclick_btn_delete_local($e);
 		return $this->msg->modal_no_permission($e);
 	}
+
+	//this function is for add static block
+	public function add_static_block(){
+		if($this->has_admin_panel()) return $this->module_add_static_block();
+        return $this->module_no_permission();
+	}
 	
 }
 	

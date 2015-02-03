@@ -441,15 +441,12 @@ class view{
 			//add rank of block
 			$lbl_block_rank = new control\label($block->rank);
 			$row->add($lbl_block_rank,2);
-			
-			
-			//ADD EDITE BUTTON
-			//add update and cancel buttons
+
 			$btn_edite = new control\button('btn_edite');
 			$btn_edite->configure('LABEL',_('Edite'));
 			$btn_edite->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','edite_block','id',$block->id]));
 			$btn_edite->configure('TYPE','primary');
-			$row->add($btn_edite);
+			$row->add($btn_edite,1);
 			
 			//ADD ROW TO TABLE
 			$table->add_row($row);
@@ -463,12 +460,20 @@ class view{
 		$table->configure('BORDER',true);
 		$form->add($table);
 	
-		
+		//add insert html block and cancel buttons
+		$row = new control\row;
+		$btn_static_block = new control\button('btn_static_block');
+		$btn_static_block->configure('LABEL',_('Add static block'));
+		$btn_static_block->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','add_static_block']));
+		$btn_static_block->configure('TYPE','primary');
+		$row->add($btn_static_block,2);
 		//add cancel buttons
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
 		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','dashboard']));
-		$form->add($btn_cancel); 
+		$row->add($btn_cancel,1);
+
+		$form->add($row); 
 		
 		return array(_('Manage Blocks'),$form->draw());
 	}
@@ -610,6 +615,34 @@ class view{
 
 		$form->add_array([$hid_id,$lbl_msg,$lbl_des,$row]);
 		return [_('Delete local'),$form->draw()];
+	}
+
+	protected function view_add_static_block(){
+		$form = new control\form('administrator_add_static_block');
+
+		$txt_block_name = new control\textbox('txt_block_name');
+        $txt_block_name->configure('LABEL',_('Block name'));
+        $txt_block_name->configure('ADDON','*');
+        $txt_block_name->configure('SIZE',5);
+        $txt_block_name->configure('HELP',_("Block name not show in template"));
+        $form->add($txt_block_name);
+
+        $txt_block_label = new control\textbox('txt_block_label');
+        $txt_block_label->configure('LABEL',_('Block label'));
+        $txt_block_label->configure('ADDON','O');
+        $txt_block_label->configure('SIZE',5);
+        $txt_block_label->configure('HELP',_("if enable show header option this label will be show."));
+        $form->add($txt_block_label);
+
+		$txt_content = new control\textarea('txt_content');
+		$txt_content->configure('LABEL',_('content of block'));
+		$txt_content->configure('EDITOR',FALSE);
+		$txt_content->configure('SIZE',7);
+		$txt_content->configure('ROWS',7);
+		$txt_content->configure('HELP',_('All of content that you will enter,show in block.you can use html and javascript codes and style with CSS.'));
+		
+		$form->add($txt_content);
+		return [_('New static block'),$form->draw()];	
 	}
 }
 ?>

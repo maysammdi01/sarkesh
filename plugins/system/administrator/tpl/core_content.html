@@ -21,8 +21,8 @@
               <ul class="dropdown-menu" role="menu">
               <li role="presentation" class="dropdown-header">{$user_name}</li>
                 <li>
-                <a href="{$user_profile_url}"><i class="fa fa-fw fa-user"></i>{$user_profile}</a>
-              </li>
+                  <a href="{$user_profile_url}"><i class="fa fa-fw fa-user"></i>{$user_profile}</a>
+                </li>
               <li>
                 <a href="{$user_logout_url}"><i class="fa fa-fw fa-power-off"></i>{$user_logout}</a>
               </li>
@@ -34,15 +34,17 @@
     </nav>
     <div class="container-fluid">
         <div class="row content-page-admin">
-            <div class="col-xs-12 col-sm-3 col-lg-2">
-                {loop="menu"}
-                    <a href="#{$value1.0[1]}" class="list-group-item active" data-toggle="collapse" data-parent="#MainMenu">{$value.0[0]}  {$value.0[1]}</a>
-                    <div class="collapse" id="{$value1.0[1]}">
-                    {loop="value1.1"}
-                        <a href="{$value.0}" class="list-group-item list-group-item-success">{$value.1}</a>
-                    {/loop}
-                    </div>  
-                {/loop}
+            <div class="col-xs-12 col-sm-3 col-lg-2" id="Main_side_menu">
+              <div class="list-group panel">
+                  {loop="menu"}
+                      <a href="#{$value1.0[1]}" class="list-group-item list-group-item-success active" data-toggle="collapse" data-parent="#Main_side_menu">{$value.0[0]}  {$value.0[1]}</a>
+                      <div class="collapse" id="{$value1.0[1]}">
+                        {loop="value1.1"}
+                            <a href="{$value.0}" class="list-group-item">{$value.1}</a>
+                        {/loop}
+                      </div>  
+                  {/loop}
+                </div>
             </div>
             <div class="col-xs-12 col-sm-9 col-lg-10">
                 <h4>{$title}</h4>

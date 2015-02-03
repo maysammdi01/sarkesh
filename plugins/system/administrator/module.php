@@ -374,10 +374,15 @@ class module extends view{
 			$local = db\orm::load('localize',$e['hid_id']['VALUE']);
 			//delete local
 			if($local->can_delete != 0)
-				db\orm::exec('DELETE FROM localize WHERE id=?'[$e['hid_id']['VALUE']]);
+				db\orm::exec('DELETE FROM localize WHERE id=?',[$e['hid_id']['VALUE']]);
 			return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','administrator','a','basic_settings']);
 		}
 		return $this->msg->error_modal($e);
+	}
+
+	//this function is for add static block
+	protected function module_add_static_block(){
+        return $this->view_add_static_block();
 	}
 }	
 ?>
