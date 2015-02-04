@@ -492,7 +492,7 @@ class view{
 		return array(_('Manage Blocks'),$form->draw());
 	}
 	
-	public function view_edite_block($block,$places){
+	public function view_edite_block($block,$places,$locals){
 		$form = new control\form("core_edite_block");
 		
 		//Create hidden id of block
@@ -507,7 +507,7 @@ class view{
         $cob_rank->configure('SOURCE',[0,1,2,3,4,5,6,7,8,9]);
         $cob_rank->configure('SIZE',3);
 		$form->add($cob_rank);
-		
+
 		$ckb_show_header = new control\checkbox('ckb_show_header');
 		$ckb_show_header->configure('LABEL',_('Show header') );
 		$ckb_show_header->configure('CHECKED', FALSE);
@@ -522,7 +522,7 @@ class view{
 		$txt_pages->configure('EDITOR',FALSE);
 		$txt_pages->configure('VALUE',$block->pages);
 		$txt_pages->configure('LABEL',_('Pages'));
-		$txt_pages->configure('HELP',_('Use \',\' for seperate page urls.'));
+		$txt_pages->configure('HELP',_('Use \',\' for seperate page urls. for use home page enter \'frontpage\' and start your internal urls with \'\\\'.'));
 		$txt_pages->configure('ROWS',5);
 		$txt_pages->configure('SIZE',7);
 		$form->add($txt_pages);
@@ -544,7 +544,19 @@ class view{
 		}
 		$rad_bot->add($radit_ex_pages);
 		$form->add($rad_bot);
-		
+
+		//add localize for show block
+		$cob_localize = new control\combobox('cob_language');
+		$cob_localize->configure('LABEL',_('Localize block'));
+		$cob_localize->configure('HELP',_('block will showed in selected localize.'));
+		$cob_localize->configure('SIZE',4);
+		$cob_localize->configure('SELECTED_INDEX',$block->localize);
+		$cob_localize->configure('TABLE',$locals);
+
+		$cob_localize->configure('COLUMN_VALUES',0);
+		$cob_localize->configure('COLUMN_LABELS',1);
+		$form->add($cob_localize);
+
 		//create combobox for positions
 		$cob_position = new control\combobox('cob_position');
         $cob_position->configure('LABEL',_('Position'));
@@ -671,7 +683,7 @@ class view{
 		$btn_do = new control\button('btn_add_block');
 		$btn_do->configure('LABEL',_('Add block'));
 		$btn_do->configure('P_ONCLICK_PLUGIN','administrator');
-		$btn_do->configure('P_ONCLICK_FUNCTION','onclick_btn_add_block');
+		$btn_do->configure('P_ONCLICK_FUNCTION','onclick_btn_do_block');
 		$btn_do->configure('TYPE','primary');
 		
 		$btn_cancel = new control\button('btn_cancel');

@@ -30,12 +30,10 @@
   </div>
   
   <hr>
-  
-  <div class="jumbotron text-center">
-    <h2>Moving from Bootstrap 2.x to 3.0?</h2>
-    <p class="lead">Everything has changed, so you can't just replace the 2.x with the 3.0 files. The folks at Bootply, the Bootstrap Playground have created a migration guide to help.</p>
-    <p><a class="btn btn-large btn-success" href="http://www.bootply.com/bootstrap-3-migration-guide" target="ext">Migration Guide</a></p>
+  <div class="col-lg-8">
+      <?php browser\page::set_position('footer'); ?>
   </div>
+  
   
 </div> <!-- /container -->
   </body>

@@ -309,7 +309,15 @@ class module extends view{
 			
 			//id is cerrect
 			$block = db\orm::findOne('blocks','id=?',[$id]);
-			return $this->view_edite_block($block,$places);
+			//get all localizes
+			$locals = db\orm::findAll('localize');
+			$languages = [];
+			foreach ($locals as $key => $local) {
+				array_push($languages, [$local->language,$local->language_name]);
+			}
+			//add all block
+			array_push($languages, ['all',_('All languages')]);
+			return $this->view_edite_block($block,$places,$languages);
 		}
 		else{
 			//show not found message
@@ -323,6 +331,7 @@ class module extends view{
 			$block = db\orm::findOne('blocks','id=?',[$e['hid_id']['VALUE']]);
 			$block->rank = $e['cob_rank']['SELECTED'];
 			$block->position = $e['cob_position']['SELECTED'];
+			$block->localize = $e['cob_language']['SELECTED'];
 			$block->pages = $e['txt_pages']['VALUE'];
 			$block->pages_ad = '0';
 			if($e['rad_it_allow']['CHECKED'] == '1'){
@@ -391,7 +400,7 @@ class module extends view{
 
 	//this function is for add static block
 	protected function module_add_static_block(){
-        return $this->view_add_static_block();
+        return $this->view_static_block();
 	}
 
 	//this function is for add static function 

@@ -232,7 +232,7 @@ class page{
 			//load all blocks data from database
 			$db = db\mysql::singleton();
 			$query_string = "SELECT b.name AS 'b.name',";
-			$query_string .= "b.position AS 'b.position', b.permissions AS 'b.permissions', b.visual AS 'b.visual', b.handel AS 'b.handel', b.value AS 'b.value',";
+			$query_string .= "b.localize AS 'b.localize', b.position AS 'b.position', b.permissions AS 'b.permissions', b.visual AS 'b.visual', b.handel AS 'b.handel', b.value AS 'b.value',";
 			$query_string .= "b.pages AS 'b.pages', b.show_header AS 'b.show_header', b.plugin AS 'b.plugin', p.id AS 'p.id', p.name AS 'p.name', b.rank FROM blocks b INNER JOIN plugins p ON b.plugin = p.id ORDER BY b.rank DESC;";
 			$db->do_query($query_string);
 			self::$blocks = $db->get_array();
@@ -262,29 +262,32 @@ class page{
 					if(self::show_has_allow($block['b.name'])){
 						//checking that plugin is enabled
 						if(self::$plugin->is_enabled($block['p.name'])){
-							$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
-							$plugin = new $ClassName; 
-							//run action method for show block
-							//all blocks name should be like  'blk_blockname'
-							$content = array();
-							if($block['b.visual'] == '0'){
-								$content = call_user_func(array($plugin, $block['b.name']),$position);
-							}
-							else{
-								//plugin is visual
-								$content = call_user_func(array($plugin, $block['b.handel']),$position,$block['b.value']);
-							}
-							if($block['b.show_header'] == 1){
-								echo self::show_block($content[0], $content[1], 'BLOCK');
-							}
-							else{
-								if(is_array($content)){
-									echo $content[1];
+							if($block['b.localize'] == 'all' || self::$localize_settings['language'] == $block['b.localize']){
+								$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
+								$plugin = new $ClassName; 
+								//run action method for show block
+								//all blocks name should be like  'blk_blockname'
+								$content = array();
+								if($block['b.visual'] == '0'){
+									$content = call_user_func(array($plugin, $block['b.name']),$position);
 								}
 								else{
-									echo $content;
+									//plugin is visual
+									$content = call_user_func(array($plugin, $block['b.handel']),$position,$block['b.value']);
+								}
+								if($block['b.show_header'] == 1){
+									echo self::show_block($content[0], $content[1], 'BLOCK');
+								}
+								else{
+									if(is_array($content)){
+										echo $content[1];
+									}
+									else{
+										echo $content;
+									}
 								}
 							}
+							
 						}
 					}
 				}
