@@ -29,7 +29,7 @@ class view{
 		$this->raintpl->assign("editor",$config['EDITOR']);
 		$this->raintpl->assign("form",$config['FORM']);
 		$this->raintpl->assign("class",$config['CLASS']);
-		
+		$this->raintpl->configure("tpl_dir","./core/lib/controls/textarea/");
 		return $this->raintpl->draw("ctr_textarea",true);
 	}
 }

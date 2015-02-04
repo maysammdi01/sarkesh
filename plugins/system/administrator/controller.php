@@ -258,6 +258,34 @@ class administrator extends administrator\module{
         return $this->module_no_permission();
 	}
 	
+	//this function add static block
+	public function onclick_btn_do_block($e){
+		if($this->has_admin_panel()) return $this->module_onclick_btn_do_block($e);
+		return $this->msg->modal_no_permission($e);
+	}
+
+	//this function show static blocks
+	public function static_block($position,$value){
+		return $this->module_static_block($position,$value);
+	}
+
+	//this function is for sure delete static blocks
+	public function sure_delete_block(){
+		if($this->has_admin_panel()) return $this->module_sure_delete_block();
+        return $this->module_no_permission();
+	}
+
+	//function for delete static block
+	public function onclick_btn_delete_static_block($e){
+		if($this->has_admin_panel()) return $this->module_onclick_btn_delete_static_block($e);
+		return $this->msg->modal_no_permission($e);
+	}
+
+	//function for edite static blocks
+	public function edite_static_block(){
+		if($this->has_admin_panel()) return $this->module_edite_static_block();
+        return $this->module_no_permission();
+	}
 }
 	
 	

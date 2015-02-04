@@ -422,7 +422,7 @@ class view{
 			$row->add($lbl_id,1);
 			
 			//add block name
-			$lbl_block_name = new control\label($block->name);
+			$lbl_block_name = new control\label($block->block_name);
 			$row->add($lbl_block_name,2);
 					
 			//add plugin state			
@@ -434,7 +434,6 @@ class view{
 			else{
 				//show position
 				$lbl_block_state = new control\label($block->position);
-	
 			}
 			$row->add($lbl_block_state,1);
 			
@@ -447,6 +446,21 @@ class view{
 			$btn_edite->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','edite_block','id',$block->id]));
 			$btn_edite->configure('TYPE','primary');
 			$row->add($btn_edite,1);
+			if($block->visual == '1' && $block->handel == 'static_block' && $block->name == 'administrator'){
+				//add delete button
+				$btn_sure_delete_block = new control\button('btn_sure_delete_block');
+				$btn_sure_delete_block->configure('LABEL',_('Delete'));
+				$btn_sure_delete_block->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','sure_delete_block','id',$block->id]));
+				$btn_sure_delete_block->configure('TYPE','danger');
+				$row->add($btn_sure_delete_block,1);
+
+				//add edite static values
+				$btn_edite_static_block = new control\button('btn_edite_static_block');
+				$btn_edite_static_block->configure('LABEL',_('Edite static'));
+				$btn_edite_static_block->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','edite_static_block','id',$block->id]));
+				$btn_edite_static_block->configure('TYPE','default');
+				$row->add($btn_edite_static_block,1);
+			}
 			
 			//ADD ROW TO TABLE
 			$table->add_row($row);
@@ -454,9 +468,9 @@ class view{
 		
 		
 		//add headers to table
-		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Place'),_('Rank'),_('Edite')));
-		$table->configure('HEADERS_WIDTH',[1,3,2,1,2]);
-		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Place'),_('Rank'),_('Edite'),_('Delete'),_('Static')));
+		$table->configure('HEADERS_WIDTH',[1,3,1,1,1,1,1]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE]);
 		$table->configure('BORDER',true);
 		$form->add($table);
 	
@@ -494,6 +508,15 @@ class view{
         $cob_rank->configure('SIZE',3);
 		$form->add($cob_rank);
 		
+		$ckb_show_header = new control\checkbox('ckb_show_header');
+		$ckb_show_header->configure('LABEL',_('Show header') );
+		$ckb_show_header->configure('CHECKED', FALSE);
+		if($block->show_header == '1'){
+			$ckb_show_header->configure('CHECKED', TRUE);
+		}
+		$ckb_show_header->configure('HELP',_('If this option checked,label of block will showed at the top of block.'));
+		$form->add($ckb_show_header);
+
 		//create textarea for pages
 		$txt_pages = new control\textarea('txt_pages');
 		$txt_pages->configure('EDITOR',FALSE);
@@ -617,7 +640,7 @@ class view{
 		return [_('Delete local'),$form->draw()];
 	}
 
-	protected function view_add_static_block(){
+	protected function view_static_block($block = ''){
 		$form = new control\form('administrator_add_static_block');
 
 		$txt_block_name = new control\textbox('txt_block_name');
@@ -625,14 +648,17 @@ class view{
         $txt_block_name->configure('ADDON','*');
         $txt_block_name->configure('SIZE',5);
         $txt_block_name->configure('HELP',_("Block name not show in template"));
-        $form->add($txt_block_name);
 
         $txt_block_label = new control\textbox('txt_block_label');
         $txt_block_label->configure('LABEL',_('Block label'));
         $txt_block_label->configure('ADDON','O');
         $txt_block_label->configure('SIZE',5);
         $txt_block_label->configure('HELP',_("if enable show header option this label will be show."));
-        $form->add($txt_block_label);
+
+        $ckb_show_header = new control\checkbox('ckb_show_header');
+		$ckb_show_header->configure('LABEL',_('Show header') );
+		$ckb_show_header->configure('CHECKED', FALSE);
+		$ckb_show_header->configure('HELP',_('If this option checked,label of block will showed at the top of block.'));
 
 		$txt_content = new control\textarea('txt_content');
 		$txt_content->configure('LABEL',_('content of block'));
@@ -640,9 +666,74 @@ class view{
 		$txt_content->configure('SIZE',7);
 		$txt_content->configure('ROWS',7);
 		$txt_content->configure('HELP',_('All of content that you will enter,show in block.you can use html and javascript codes and style with CSS.'));
+
+		//add btn_add and cancel buttons
+		$btn_do = new control\button('btn_add_block');
+		$btn_do->configure('LABEL',_('Add block'));
+		$btn_do->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_do->configure('P_ONCLICK_FUNCTION','onclick_btn_add_block');
+		$btn_do->configure('TYPE','primary');
 		
-		$form->add($txt_content);
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		//check for edite mode
+		if($block != ''){
+			$hid_id = new control\hidden('hid_id');
+			$hid_id->configure('VALUE',$block->id);
+			$form->add($hid_id);
+
+			$txt_block_name->configure('VALUE',$block->name);
+			$value = explode('<::::>',$block->value);
+			$txt_block_label->configure('VALUE',$value[0]);
+			$txt_content->configure('VALUE',$value[1]);
+			if($block->show_header == '1'){
+				$ckb_show_header->configure('CHECKED', TRUE);
+			}
+
+			$btn_do->configure('LABEL',_('Edite block'));
+			$btn_do->configure('P_ONCLICK_PLUGIN','administrator');
+			$btn_do->configure('P_ONCLICK_FUNCTION','onclick_btn_do_block');
+
+		}
+ 		$form->add_array([$txt_block_name,$txt_block_label,$ckb_show_header,$txt_content]);
+		$row->add($btn_do,1);
+		$row->add($btn_cancel,11);
+		$form->add($row); 
 		return [_('New static block'),$form->draw()];	
+	}
+
+	//function for show sure delete static block
+	protected function view_sure_delete_block($block){
+		$form = new control\form('administartor_sure_delete_blocks');
+
+		$hid_id = new control\hidden('hid_id');
+		$hid_id->configure('VALUE',$block->id);
+
+		$lbl_msg = new control\label;
+		$lbl_msg->configure('LABEL',sprintf(_('Are you sure for delete %s ?'),$block->name));
+	
+		$btn_delete = new control\button('btn_delete');
+		$btn_delete->configure('LABEL',_('Delete'));
+		$btn_delete->configure('TYPE','danger');
+		$btn_delete->configure('P_ONCLICK_PLUGIN','administrator');
+		$btn_delete->configure('P_ONCLICK_FUNCTION','onclick_btn_delete_static_block');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','administrator','a','blocks']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_delete,1);
+		$row->add($btn_cancel,11);
+
+		$form->add_array([$hid_id,$lbl_msg,$row]);
+		return [_('Delete Static block'),$form->draw()];
 	}
 }
 ?>

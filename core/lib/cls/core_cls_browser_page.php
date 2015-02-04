@@ -252,7 +252,7 @@ class page{
 		
 			if($block['b.position'] == $position){
 				//going to process block
-				if($block['p.name'] == 'administrator'){
+				if($block['p.name'] == 'administrator' && $block['b.visual'] == '0'){
 					//going to show content;
 					$obj_router = core\router::singleton();
 					$obj_router->show_content();
@@ -278,7 +278,12 @@ class page{
 								echo self::show_block($content[0], $content[1], 'BLOCK');
 							}
 							else{
-								echo $content;
+								if(is_array($content)){
+									echo $content[1];
+								}
+								else{
+									echo $content;
+								}
 							}
 						}
 					}

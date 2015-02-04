@@ -128,9 +128,11 @@ class module extends view{
 			//save new theme in registry
 			$registry = new core\registry;
 			$registry->set('administrator','active_theme',$selected_theme);
+			db\orm::exec("UPDATE blocks SET position='Off' WHERE name != 'content'");
 			//successfully changed going to refresh page
 			$e['RV']['MODAL'] = browser\page::show_block(_('Change Theme'),_('Successfuly changed!'),'MODAL','type-success');
 			$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			return $e;
 		}
 		//show access denied message
 		$e['RV']['MODAL'] = browser\page::show_block(_('Access Denied!'),_('You have no permission to do this operation!'),'MODAL','type-danger');
@@ -275,8 +277,10 @@ class module extends view{
     protected function module_blocks(){
 		
 		//get all blocks from database 
-		$blocks = db\orm::find('blocks',"position != 'content'");
-		
+		$sql = "SELECT b.id, b.plugin, p.id AS 'plugin_id', b.name as 'block_name', b.position, b.rank, b.handel, b.visual , p.name FROM blocks b INNER JOIN plugins p ON b.plugin=p.id WHERE b.name != 'content';";
+		$rows = db\orm::getAll( $sql );
+    	$blocks = db\orm::convertToBeans( 'blocks', $rows );
+
 		//get placess from active theme
 		$theme = $this->active_theme();
 		
@@ -320,12 +324,17 @@ class module extends view{
 			$block->rank = $e['cob_rank']['SELECTED'];
 			$block->position = $e['cob_position']['SELECTED'];
 			$block->pages = $e['txt_pages']['VALUE'];
+			$block->pages_ad = '0';
 			if($e['rad_it_allow']['CHECKED'] == '1'){
 				$block->pages_ad = '1';
 			}
-			else{
-				$block->pages_ad = '0';
+			
+			//SHOW HEADER SAVE
+			$block->show_header = '0';
+			if($e['ckb_show_header']['CHECKED'] == '1'){
+				$block->show_header = '1';
 			}
+
 			//save changes
 			db\orm::store($block);
 			$e['RV']['MODAL'] = browser\page::show_block(_('Update Block'),_('Successfuly Updated.'),'MODAL','type-success');
@@ -366,7 +375,7 @@ class module extends view{
 				return $this->view_sure_delete_local(db\orm::load('localize',$_REQUEST['id']));
 			}
 		}
-		return $this->msg->access_denied();
+		return $this->msg->error();
 	}
 	//function for delete local
 	protected function module_onclick_btn_delete_local($e){
@@ -383,6 +392,88 @@ class module extends view{
 	//this function is for add static block
 	protected function module_add_static_block(){
         return $this->view_add_static_block();
+	}
+
+	//this function is for add static function 
+	protected function module_onclick_btn_do_block($e){
+		if(array_key_exists('txt_block_name', $e) && array_key_exists('txt_block_label', $e) && array_key_exists('ckb_show_header', $e) && array_key_exists('txt_content', $e)){
+			if($e['txt_content']['VALUE'] != ''){
+				//get id of administrator in plugins
+				$plugin = db\orm::findOne('plugins','name=?',['administrator']);
+				$block = db\orm::dispense('blocks');
+				if(array_key_exists('hid_id', $e)){
+					$block = db\orm::load('blocks',$e['hid_id']['VALUE']);
+				}
+				else{
+					$block->position = 'Off';
+				}
+				$block->name = $e['txt_block_name']['VALUE'];
+				$block->plugin = $plugin->id;
+				$block->value = $e['txt_block_label']['VALUE'] . '<::::>' . $e['txt_content']['VALUE'];
+				$block->visual = '1';
+				$block->handel = 'static_block';
+				$block->show_header = '0';
+				if($e['ckb_show_header']['CHECKED'] == '1'){
+					$block->show_header = '1';
+				}
+				db\orm::store($block);
+				$local = db\orm::load('localize',$e['hid_id']['VALUE']);
+				return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','administrator','a','blocks']);
+			}
+			//fill all message
+			return $this->msg->not_complete_modal($e);
+		}
+		return $this->msg->error_modal($e);
+	}
+
+	//this function show static block
+	protected function module_static_block($position,$value){
+		return explode('<::::>',$value);
+	}
+
+	//function for show delete static block
+	protected function module_sure_delete_block(){
+		if(isset($_REQUEST['id'])){
+			if(db\orm::count('blocks','id=?',[$_REQUEST['id']])){
+				$block = db\orm::load('blocks',$_REQUEST['id']);
+				$plugin = db\orm::findOne('plugins',"name='administrator'");
+				if($block->visual == '1' && $block->handel == 'static_block' && $block->plugin == $plugin->id){
+					return $this->view_sure_delete_block($block);
+				}
+			}
+		}
+		return $this->msg->error();
+	}
+
+	//function for delete block
+	protected function module_onclick_btn_delete_static_block($e){
+		if(array_key_exists('hid_id', $e) ){
+			if(db\orm::count('blocks','id=?',[$e['hid_id']['VALUE']])){
+				$block = db\orm::load('blocks',$e['hid_id']['VALUE']);
+				$plugin = db\orm::findOne('plugins',"name='administrator'");
+				if($block->visual == '1' && $block->handel == 'static_block' && $block->plugin == $plugin->id){
+					db\orm::exec('DELETE FROM blocks WHERE id=?',[$e['hid_id']['VALUE']]);
+					return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','administrator','a','blocks']);
+				}
+			}
+			//fill all message
+			return $this->msg->not_complete_modal($e);
+		}
+		return $this->msg->error_modal($e);
+	}
+
+	//function for edite static blocks
+	protected function module_edite_static_block(){
+		if(isset($_REQUEST['id'])){
+			if(db\orm::count('blocks','id=?',[$_REQUEST['id']])){
+				$block = db\orm::load('blocks',$_REQUEST['id']);
+				$plugin = db\orm::findOne('plugins',"name='administrator'");
+				if($block->visual == '1' && $block->handel == 'static_block' && $block->plugin == $plugin->id){
+					return $this->view_static_block($block);
+				}
+			}
+		}
+		return $this->msg->error();
 	}
 }	
 ?>

@@ -13,12 +13,7 @@
 </div>
 
 <div class="container">
-  <div class="jumbotron text-center">
-    <h1>Welcome to SarkeshMVC</h1>
-    <p class="lead">Sarkesh is php content managment framework comes with new options just for you.</p>
-    <p><a class="btn btn-large btn-success" href="http://bootply.com/tagged/bootstrap-3" target="ext">More Examples</a></p>
-  </div>
-  
+  <?php browser\page::set_position('slide_show'); ?>
   <div class="row">
     <div class="col-lg-4">
       <?php browser\page::set_position('sidebar1'); ?>
