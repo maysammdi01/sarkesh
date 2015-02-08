@@ -161,15 +161,132 @@ class module extends view{
 			}
 			return $this->msg->error_modal($e);
 		}
-		else{
-			//no permission to access this page
-			return $this->msg->modal_no_permission($e);
-		}
+		//no permission to access this page
+		return $this->msg->modal_no_permission($e);
 	}
 
 	//show list of catalogue in block
 	protected function module_block_show_catalog(){
-		//get all 
+		//get catalogues
+		$localize = core\localize::singleton();
+		$local = $localize->get_localize();
+		$cats = db\orm::find('blogcats','localize = ?',[$local->language]);
+		$ccats = [];
+		foreach($cats as $cat){
+			array_push($ccats, ['label' => $cat->name,'url' => core\general::create_url(array('plugin','blog','action','show_cat','id',$cat->id)	)]);
+		}
+		$menus = new \core\plugin\menus;
+		return [_('Blog catalogues'),$menus->create_menu($ccats,0,FALSE)];
 	}
+
+	protected function module_new_post(){
+		if($this->users->has_permission('administrator_admin_panel')){
+			//get default type for publish
+			$registry = core\registry::singleton();
+			//get publish page from content plugin
+			$content = new \addon\plugin\content;
+			$content_elements = $content->get_form_submit($registry->get('blog','content_type'));
+			$blogcats = db\orm::findAll('blogcats');
+			return $this->view_new_post($content_elements,$blogcats);
+		}
+		//no permission to access this page
+		return $this->msg->access_denied();
+	}
+
+	//THIS FUNCTION SUBMIT BLOG POST AND SAVE THAT
+	protected function module_onclick_btn_new_post_submit($e){
+		if($this->users->has_permission('administrator_admin_panel')){
+			//save data in content plugin
+			$content = new \addon\plugin\content;
+
+			//save other in blogposts table
+			$post = db\orm::dispense('blogposts');
+			$post->content = $content->save_content($e,$e['cob_cats']['SELECTED']);
+			$post->catalogue = $e['cob_cats']['SELECTED'];
+			$post->tags = $e['txt_tags']['VALUE'];
+
+			db\orm::store($post);
+			return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','blog','a','list_posts']);
+		}
+		//no permission to access this page
+		return $this->msg->modal_no_permission($e);
+	}
+
+	//this function show list of posts in administrator area
+	public function module_list_posts(){
+		if($this->users->has_permission('administrator_admin_panel')){
+			$result = db\orm::getAll("SELECT bp.id,cc.header,cc.date,cc.user,bc.name AS 'cat_name' FROM blogposts bp INNER JOIN contentcontent cc ON bp.content=cc.id INNER JOIN blogcats bc ON bc.id=bp.catalogue;");
+			$posts = db\orm::convertToBeans( 'post', $result );
+			return $this->view_list_posts($posts);
+		}
+		//no permission to access this page
+		return $this->msg->access_denied();
+	}
+
+	//this function show sure delete post form
+	protected function module_sure_delete_post(){
+		if($this->users->has_permission('administrator_admin_panel')){
+			if(isset($_REQUEST['id'])){
+				if(db\orm::count('blogposts','id=?',[$_REQUEST['id']]) != 0){
+					$result = db\orm::getAll("SELECT bp.id,cc.header,cc.date,cc.user,bc.name AS 'cat_name' FROM blogposts bp INNER JOIN contentcontent cc ON bp.content=cc.id INNER JOIN blogcats bc ON bc.id=bp.catalogue WHERE bp.id=?;",[$_REQUEST['id']]);
+					$posts = db\orm::convertToBeans( 'post', $result );
+					$post = [];
+					foreach($posts as $p) $post = $p;
+					return $this->view_sure_delete_post($post);
+				}
+			}
+			
+		}
+		//no permission to access this page
+		return $this->msg->access_denied();
+	}
+
+	//FUNCTION FOR DELETE BLOG POST WITH ONCLICK EVENT
+	protected function module_onclick_btn_delete_post($e){
+		if($this->users->has_permission('administrator_admin_panel')){
+			if(array_key_exists('hid_id', $e)){
+				db\orm::exec('DELETE FROM blogposts WHERE id=?',[$e['hid_id']['VALUE']]);
+			}
+			return $this->msg->successfull_modal($e,['service','1','plugin','administrator','action','main','p','blog','a','list_posts']);
+		}
+		//no permission to access this page
+		return $this->msg->modal_no_permission($e);
+	}
+
+	//this function show blog post
+	protected function module_show(){
+		if(isset($_REQUEST['id'])){
+			if(db\orm::count('blogposts','id=?',[$_REQUEST['id']]) != 0){
+				//get post from database
+				$post_core = db\orm::load('blogposts',$_REQUEST['id']);
+				$content = new \addon\plugin\content;
+				$post_data = $content->get_content($post_core->content);
+				//get settings of blog plugin
+				$registry = core\registry::singleton();
+				return $this->view_show($post_core,$post_data,$registry->get_plugin('blog'));
+			}
+		}
+		//not found
+		return core\router::jump_page(404);
+	}
+
+	//function for show blog catalogue posts
+	protected function module_show_cat(){
+		if(isset($_REQUEST['id'])){
+			if(db\orm::count('blogcats','id=?',[$_REQUEST['id']]) != 0){
+				//get post from database
+				$all_posts = db\orm::find('blogposts','catalogue=?',[$_REQUEST['id']]);
+				$posts_id = db\orm::getCol('SELECT catalogue FROM blogposts WHERE catalogue=?',[$_REQUEST['id']]);
+				$content = new \addon\plugin\content;
+				$posts_data = $content->get_contents_with_special_value($posts_id);
+				//get settings of blog plugin
+				$registry = core\registry::singleton();
+				return $this->view_show_cat($posts_data,$registry->get_plugin('blog'));
+			}
+		}
+		//not found
+		return core\router::jump_page(404);
+	}
+		
 }
 

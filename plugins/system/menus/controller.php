@@ -63,6 +63,11 @@ class menus extends menus\module{
 	public function onclick_btn_delete_menu($e){
 		return $this->module_onclick_btn_delete_menu($e);
 	}
+
+	//this function is fore create menu by other plugins
+	public function create_menu($menu,$show_header,$horizontal=FALSE){
+		RETURN $this->module_create_menu($menu,$show_header,$horizontal=FALSE);
+	}
 	
 }
 

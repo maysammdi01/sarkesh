@@ -102,7 +102,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 
 	if(p_event_p != '0'){
 		url = "?control=1&plugin=" + p_event_p + "&action=" + p_event_f + "&options=" + options;
-		$.get(url ,
+		$.post(url ,
 			function(data){
 				//alert(data);
 				data = data.replace(/_a_n_d_/g,"&");
@@ -156,12 +156,10 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 				else if($(data).find("RV").children("URL").html() != '0'){
 					window.location.assign($(data).find("RV").children("URL").html().replace(/amp;/g,''));
 				}
-				
 				//SHOW MODAL MESSAGES
 				if($(data).find("RV").children("MODAL").html() != '0'){
-					
 					var modal = $(data).find("RV").children("MODAL").html();
-					var jump_after_modal = $(data).find("RV").children("JUMP_AFTER_MODAL").html();
+					var jump_after_modal = $(data).find("RV").children("JUMP_AFTER_MODAL").html().replace(/amp;/g,'');
 					SysShowModal(modal.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'),jump_after_modal);
 				}
 				

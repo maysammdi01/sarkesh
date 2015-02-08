@@ -9,67 +9,6 @@ use \core\plugin as plugin;
 use \core\cls\browser as browser;
 class module extends view{
 	
-	
-	//This function is for show content
-	protected function module_show(){
-		//check for that content is exist
-		if(db\orm::count('contentcontent','id=?',[$_GET['id']]	) != 0){
-			$content = db\orm::findOne('contentcontent','id=?',[$_GET['id']] );
-			//content is exist
-			//check permasion for see this
-			if(1==1){
-				$patterns = db\orm::find('contentpatterns','content=? ORDER BY rank',[$content->id]	);
-				$page = array();
-				foreach($patterns as $key=>$part){
-					array_push($page, $this->module_compile_part($part) );
-				}
-				
-				//get username
-				if($content->user == 0){
-					$username = _('Guest');
-				}
-				else{
-					$str_date = '';
-					//check for show time
-					//get settings
-					$registry = new core\registry;
-					$setting = $registry->get_plugin('content');
-					if($content->show_date == '1'){
-						$calendar = new calendar\calendar;
-						$str_date = $calendar->cdate($setting['date_format'], $content->date);
-					}
-					$content->date = $str_date;
-					//check for that can show author
-					if($content->show_author == '1'){
-						$users = new plugin\users;
-						$user_info = $users->get_info_with_id($content->id);
-						$content->user = $user_info->username;
-					}
-					
-					
-				}
-				return $this->view_show($content,$page);
-				
-			}
-			else{
-				//show access denied message
-			}
-		}
-		else{
-			//content not found
-		}
-		
-	}
-	
-	
-	//this function get row of patterns table and return an array
-	//first index is html element and second index in position of element on page
-	protected function module_compile_part($part){
-		if($part->type == 'textarea'){
-			return [$part->options,$part->position];
-		}
-	}
-	
 	//this function is for insert new catalogue
 	protected function module_insert_cat(){
 		//check for that user has permission for insert catalogues
@@ -202,21 +141,11 @@ class module extends view{
 				$catalogue = db\orm::findOne('contentcatalogue','id=?',[$id]);
 				return $this->view_sure_page($catalogue);
 			}
-			else{
-				//show not found page
-				$msg = plugin\msg;
-				return $msg->msg404();
-				
-			}
 			
 		}
-		else{
-			//show not found page
-			$msg = plugin\msg;
-			return $msg->msg404();
-			
-		}
-		
+		//show not found page
+		$msg = new plugin\msg;
+		return $msg->error();	
 	}
 	
 	protected function module_onclick_btn_delete_cat($e){
@@ -224,8 +153,7 @@ class module extends view{
 		$cat = db\orm::findOne('contentcatalogue','id=?',[$e['hid_id']['VALUE']]);
 		db\orm::trash($cat);
 		$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Catalogue deleted successfuly.'),'MODAL','type-success');
-		$e['RV']['JUMP_AFTER_MODAL'] = htmlspecialchars(core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
-		
+		$e['RV']['JUMP_AFTER_MODAL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']);
 		return $e;
 	}
 	
@@ -271,8 +199,7 @@ class module extends view{
 		}
 		else{
 			//show 404 message
-			core\router::jump_page(404);
-			return ['',''];
+			return core\router::jump_page(404);
 		}
 		return $e;
 	}
@@ -298,12 +225,12 @@ class module extends view{
 	protected function pt_edite_textarea($e='',$pattern=''){
 	
 		$pattern->label = $e['txt_label']['VALUE'];
-		$pattern->rank = $e['txt_rank']['VALUE'];
+		$pattern->rank = $e['cob_rank']['SELECTED'];
 		if($e['ckb_editor']['CHECKED'] == 1){
-			$pattern->options = 'editor:1;';
+			$pattern->options = 'editor:1';
 		}
 		else{
-			$pattern->options = 'editor:0;';
+			$pattern->options = 'editor:0';
 		}
 		db\orm::store($pattern);
 		$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Pattern updated successfuly.'),'MODAL','type-success');
@@ -334,15 +261,14 @@ class module extends view{
 	//function for add new pattern
 	protected function module_add_new_pattern(){
 		if(isset($_GET['type'])){
-			if($_GET['type'] == 'Textarea'){
+			if($_GET['type'] == 'textarea'){
 				return $this->view_iu_pattern_textarea();
 				
 			}
 		}
 		else{
 			//show 404 message
-			core\router::jump_page(404);
-			return ['',''];
+			return core\router::jump_page(404);
 		}
 	}
 	
@@ -351,16 +277,16 @@ class module extends view{
 		//check for type
 		
 		$pattern = db\orm::dispense('contentpatterns');
-		if($e['hid_type']['VALUE'] == 'Textarea'){
+		if($e['hid_type']['VALUE'] == 'textarea'){
 			$pattern->label = $e['txt_label']['VALUE'];
 			$pattern->catalogue = $e['hid_id']['VALUE'];
 			$pattern->type = $e['hid_type']['VALUE'];
 			$pattern->rank = $e['txt_rank']['VALUE'];
 			if($e['ckb_editor']['CHECKED'] == 1){
-				$pattern->options = 'editor:1;';
+				$pattern->options = 'editor:1';
 			}
 			else{
-				$pattern->options = 'editor:0;';
+				$pattern->options = 'editor:0';
 			}
 			db\orm::store($pattern);
 			$e['RV']['MODAL'] = browser\page::show_block(_('Success'),_('Pattern added successfuly.'),'MODAL','type-success');
@@ -385,54 +311,103 @@ class module extends view{
 			return ['',''];
 		}
 	}
-	
-	//function for insert content with onclick event
-	protected function module_onclick_btn_insert_content($e){
-		
+
+	//function for send back form for insert 
+	protected function module_get_form_submit($cat_id){
+		if(db\orm::count('contentcatalogue','id=?',[$cat_id]) != 0){
+			$cat = db\orm::findOne('contentcatalogue','id=?',[$cat_id]);
+			$pattern = db\orm::find('contentpatterns','catalogue=?',[$cat_id]);
+			return $this->view_return_parts($cat,$pattern);
+		}
+		return false;
+	}
+
+	//this function get row of patterns table and return an array
+	//first index is html element and second index in position of element on page
+	protected function module_compile_part($part){
+		$slice = array();
+		if($part->type == 'textarea'){
+			$slice['label'] = $part->label;
+			$slice['value'] = $part->part_opt;
+			$slice['username'] = $part->username;
+			$slice['header'] = $part->header;
+			$slice['date'] = $part->date;
+		}
+		return $slice;
+	}
+
+	//This function is for show content
+	protected function module_get_content($id){
+		//check for that content is exist
+		if(db\orm::count('contentcontent','id=?',[$id]	) != 0){
+			//content is exist
+			$result = db\orm::getAll("SELECT cc.id,cc.header,cc.date,cpat.type,cpat.label,u.username,cpart.options AS 'part_opt',cpat.options AS 'pat_opt' FROM contentparts cpart INNER JOIN contentpatterns cpat ON cpart.pattern=cpat.id INNER JOIN contentcontent cc ON cc.id=cpart.content INNER JOIN users u ON u.id=cc.user WHERE cc.id=?;",[$id]);
+			$posts = db\orm::convertToBeans( 'post', $result );
+			$page = array();
+			foreach($posts as $key=>$post){
+				array_push($page, $this->module_compile_part($post) );
+			}
+			return $page;
+		}
+		//not found or access denied
+		return false;
+	}
+	//this function insert part textarea in database
+	protected function ins_textarea($id,$e,$pattern){
+		$part = db\orm::dispense('contentparts');
+		$part->content = $id;
+		$part->pattern = $pattern->id;
+		$part->options = $e[$pattern->label]['VALUE'];
+		db\orm::store($part);
+	}
+	//function for save content for requestes that comes from plugins
+	protected function module_save_content($e,$special_value){
 		//load catalogue
-		if(db\orm::count('contentcatalogue','id=?',[$e['hid_id']['VALUE']])	!=0){
-			//START INSERT CONTENT PROCCESS
-			
+		if(db\orm::count('contentcatalogue','id=?',[$e['hid_cat_id']['VALUE']])	!=0){
+
 			//load catalog
-			$cat = db\orm::findOne('contentcatalogue','id=?',[$e['hid_id']['VALUE']]);
-			
+			$cat = db\orm::findOne('contentcatalogue','id=?',[$e['hid_cat_id']['VALUE']]);
 			//load patterns of catalog
-			$patterns = db\orm::find('contentpatterns','id=?',[$cat->id]);
+			$patterns = db\orm::find('contentpatterns','catalogue=?',[$cat->id]);
 			
 			//now going to insert content
 			$content = db\orm::dispense('contentcontent');
 			$content->header = $e['txt_header']['VALUE'];
+			$content->special_value = $special_value;
 			$content->date = time();
 			//get information of user
 			$user = new plugin\users;
 			$user_info = $user->get_info();
 			$content->user = $user_info['id'];
-			$content->show_author = '1';
-			$content->show_date = '1';
-			$content->can_comment = '1';
 			$id = db\orm::store($content);
 			
 			// now going to save parts
-			
 			foreach($patterns as $pattern){
-				if($pattern->type == 'Textarea'){
+				if($pattern->type == 'textarea'){
 					$this->ins_textarea($id,$e,$pattern);
 				}
 				
 			}
-			
-			
-			
+			return $id;
 		}
-		return $e;
 	}
-	
-	//this function insert part textarea in database
-	protected function ins_textarea($id,$e,$pattern){
-		
-		$part = db\orm::dispense('contentparts');
-		$part->content = $id;
-		$part->options = $e[$pattern->label]['VALUE'];
+
+	//function for return back some of contents that filtered by special_value column
+	protected function module_get_contents_with_special_value($special){
+		//check for that content is exist
+		$sign = '';
+		foreach($special as $key=>$sp) {
+			$sign .= '?';
+			if($key != max(array_keys($special))) $sign .= ',';
+		}
+		$result = db\orm::getAll("SELECT cc.id,cc.header,cc.date,cpat.type,cpat.label,u.username,cpart.options AS 'part_opt',cpat.options AS 'pat_opt' FROM contentparts cpart INNER JOIN contentpatterns cpat ON cpart.pattern=cpat.id INNER JOIN contentcontent cc ON cc.id=cpart.content INNER JOIN users u ON u.id=cc.user WHERE cc.special_value IN (" . $sign . ");",$special);
+		$posts = db\orm::convertToBeans( 'post', $result );
+		$page = array();
+		foreach($posts as $key=>$post){
+			array_push($page, $this->module_compile_part($post) );
+		}
+		return $page;
+
 	}
 	
 }

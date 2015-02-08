@@ -232,5 +232,11 @@ class module extends view{
 			return $this->modal_no_permission($e);
 		}
 	}
+
+	//function is for create menu by other plugins
+	protected function module_create_menu($menu,$show_header,$horizontal=FALSE){
+		return $this->view_create_menu($menu,$show_header,$horizontal=FALSE);
+	}
+
 }
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2015 at 02:58 AM
+-- Generation Time: Feb 07, 2015 at 01:00 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `blocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `value` varchar(100) CHARACTER SET utf8 COLLATE utf8_estonian_ci NOT NULL DEFAULT '0',
+  `value` text NOT NULL,
   `plugin` int(11) NOT NULL,
   `position` varchar(45) NOT NULL,
   `permissions` varchar(45) DEFAULT NULL,
@@ -39,19 +39,24 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `visual` tinyint(1) NOT NULL DEFAULT '0',
   `handel` varchar(255) DEFAULT NULL,
   `show_header` tinyint(4) NOT NULL DEFAULT '1',
+  `localize` varchar(200) NOT NULL DEFAULT 'all',
   PRIMARY KEY (`id`),
   KEY `plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `blocks`
 --
 
-INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`, `pages`, `pages_ad`, `rank`, `visual`, `handel`, `show_header`) VALUES
-(6, 'content', '0', 3, 'content', NULL, '', '0', 0, 0, NULL, 1),
-(7, 'login_block', '0', 2, 'sidebar1', NULL, '', '1', 1, 0, NULL, 1),
-(12, 'select_lang', '0', 4, 'sidebar1', NULL, '', '1', 0, 0, NULL, 1),
-(19, '12', '18', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0);
+INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`, `pages`, `pages_ad`, `rank`, `visual`, `handel`, `show_header`, `localize`) VALUES
+(6, 'content', '0', 3, 'content', NULL, '', '0', 0, 0, NULL, 1, 'all'),
+(7, 'login_block', '0', 2, 'sidebar1', NULL, '', '1', 1, 0, NULL, 1, 'all'),
+(12, 'select_lang', '0', 4, 'sidebar1', NULL, '', '1', 0, 0, NULL, 1, 'all'),
+(19, '12', '18', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0, 'all'),
+(27, 'SARKESH_SLIDE_SHOW', 'SARKESH_SLIDE_SHOW<::::><div class="jumbotron text-center">    <h2>SarkeshMVC</h2>    <p class="lead">SarkeshMVC is php content managment framework that comes with new futures for build multi language websites.</p>    <p><a class="btn btn-large btn-success" href="http://sarkesh.org" target="ext">Get Started!</a></p>  </div>  ', 3, 'slide_show', NULL, 'frontpage,/?plugin=users&action=profile', '0', 0, 1, 'static_block', 0, 'en_US'),
+(28, 'اسلاید شو بالا', 'اسلاید شو بالا<::::><div class="jumbotron text-center">    <h2>SarkeshMVC</h2>    <p class="lead">سرکش فریمورک مدیریت محتوای تحت زبان PHP با کتابخانه های بسیار برای انجام عملیات های پیچیده به صورت رایگان و متن باز در خدمت شماست.</p>    <p><a class="btn btn-large btn-success" href="http://www.sarkesh.org" target="ext">راهنمای شروع</a></p>  </div>', 3, 'slide_show', NULL, '', '1', 0, 1, 'static_block', 0, 'fa_IR'),
+(29, 'منو اصلی', '19', 15, 'main_menu', NULL, '', '1', 0, 1, 'draw_menu', 0, 'fa_IR'),
+(30, 'blog catalogues', '', 16, 'sidebar1', NULL, NULL, '1', 0, 1, 'block_show_catalog', 1, 'all');
 
 -- --------------------------------------------------------
 
@@ -65,14 +70,31 @@ CREATE TABLE IF NOT EXISTS `blogcats` (
   `machin_name` varchar(60) NOT NULL,
   `localize` varchar(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `blogcats`
 --
 
 INSERT INTO `blogcats` (`id`, `name`, `machin_name`, `localize`) VALUES
-(1, 'news', 'news', 'en_US');
+(1, 'news', 'news', 'en_US'),
+(2, 'release notes', 'release notes', 'en_US'),
+(3, 'آخرین خبرها', 'آخرین خبرها', 'fa_IR'),
+(4, 'یاداشت های انتشار', 'یاداشت های انتشار', 'fa_IR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogposts`
+--
+
+CREATE TABLE IF NOT EXISTS `blogposts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` int(11) NOT NULL,
+  `catalogue` int(11) NOT NULL,
+  `tags` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -85,16 +107,14 @@ CREATE TABLE IF NOT EXISTS `contentcatalogue` (
   `access_name` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `contentcatalogue`
 --
 
 INSERT INTO `contentcatalogue` (`id`, `access_name`, `name`) VALUES
-(16, 'blog', 'blog'),
-(17, 'uncatalogue', 'uncatalogue'),
-(18, 'forum', 'forum');
+(17, 'blog', 'blog');
 
 -- --------------------------------------------------------
 
@@ -111,16 +131,16 @@ CREATE TABLE IF NOT EXISTS `contentcontent` (
   `show_date` tinyint(4) NOT NULL,
   `can_comment` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `contentcontent`
 --
 
 INSERT INTO `contentcontent` (`id`, `header`, `date`, `user`, `show_author`, `show_date`, `can_comment`) VALUES
-(4, 'Hello', 1417779526, 1, 1, 1, 1),
-(5, 'Hello', 1417779529, 1, 1, 1, 1),
-(6, 'Hello', 1417779556, 1, 1, 1, 1);
+(18, 'Start offical sarkesh website', 1423214463, 1, 1, 1, 1),
+(19, 'simple header', 1423299584, 1, 1, 1, 1),
+(20, '121212', 1423301076, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -134,9 +154,8 @@ CREATE TABLE IF NOT EXISTS `contentparts` (
   `rank` int(11) NOT NULL,
   `pattern` int(30) NOT NULL,
   `options` text NOT NULL,
-  `position` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -151,16 +170,15 @@ CREATE TABLE IF NOT EXISTS `contentpatterns` (
   `rank` int(11) NOT NULL,
   `type` varchar(30) NOT NULL,
   `options` varchar(500) NOT NULL,
-  `position` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `contentpatterns`
 --
 
-INSERT INTO `contentpatterns` (`id`, `label`, `catalogue`, `rank`, `type`, `options`, `position`) VALUES
-(11, 'body', 16, 0, 'Textarea', 'editor:1;', '');
+INSERT INTO `contentpatterns` (`id`, `label`, `catalogue`, `rank`, `type`, `options`) VALUES
+(22, 'body', 17, 0, 'textarea', 'editor:1');
 
 -- --------------------------------------------------------
 
@@ -507,14 +525,17 @@ CREATE TABLE IF NOT EXISTS `links` (
   `enable` tinyint(4) NOT NULL DEFAULT '1',
   `rank` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `links`
 --
 
 INSERT INTO `links` (`id`, `ref_id`, `label`, `url`, `enable`, `rank`) VALUES
-(6, 18, 'dsfdsfsd', 'fdsfds', 1, 0);
+(6, 18, 'Documents', 'https://github.com/morrning/sarkesh/wiki', 1, 0),
+(7, 18, 'Download', 'https://github.com/morrning/sarkesh', 1, 0),
+(8, 19, 'دریافت', 'https://github.com/morrning/sarkesh', 1, 0),
+(9, 19, 'مستندات', 'https://github.com/morrning/sarkesh/wiki', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -536,7 +557,7 @@ CREATE TABLE IF NOT EXISTS `localize` (
   `header_tags` text,
   `can_delete` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `localize`
@@ -544,7 +565,7 @@ CREATE TABLE IF NOT EXISTS `localize` (
 
 INSERT INTO `localize` (`id`, `main`, `name`, `language`, `language_name`, `home`, `email`, `calendar`, `direction`, `slogan`, `header_tags`, `can_delete`) VALUES
 (1, 1, 'Sarkesh', 'en_US', 'English - United States', '?plugin=users&action=register', 'info@sarkesh.org', 'gregorian', 'LTR', 'Sarkesh CMF', 'SarkeshMVC is best cms in the world.', 0),
-(3, 0, 'سرکش', 'fa_IR', 'فارسی - ایران', '?plugin=users&action=register', 'info@sarkesh.org', 'jallali', 'RTL', 'شرکت توسعه فناوری', 'سرکش بهترین فریم ورک مدیریت محتوا در جهان است.', 1);
+(2, 1, 'سرکش', 'fa_IR', 'فارسی - ایران', '?plugin=users&action=register', 'info@sarkesh.org', 'jallali', 'RTL', 'سرکش بهترین فریمورک', 'سرکش بهترین فریمورک', 1);
 
 -- --------------------------------------------------------
 
@@ -560,14 +581,15 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `localize` varchar(10) NOT NULL DEFAULT 'en_US',
   `horiz` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `menus`
 --
 
 INSERT INTO `menus` (`id`, `name`, `header`, `show_header`, `localize`, `horiz`) VALUES
-(18, '12', '12', 0, 'en_US', 1);
+(18, 'MAIN_MENU', 'MAIN MENU', 0, 'en_US', 1),
+(19, 'منو اصلی', 'منو اصلی', 0, 'fa_IR', 1);
 
 -- --------------------------------------------------------
 
@@ -640,7 +662,7 @@ CREATE TABLE IF NOT EXISTS `registry` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `fk_plugin_idx` (`plugin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `registry`
@@ -657,7 +679,7 @@ INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (9, 2, 'default_permation', '2'),
 (13, 2, 'register_captcha', '1'),
 (15, 3, 'default_timezone', '0.00 - UTC'),
-(16, 3, 'active_theme', 'simple'),
+(16, 3, 'active_theme', 'basic'),
 (17, 3, '1st_template', '0'),
 (18, 2, 'register_date_format', 'y/m/d'),
 (19, 14, 'date_format', 'y/m/d'),
@@ -668,9 +690,10 @@ INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (25, 2, 'avatar_guidline', NULL),
 (26, 2, 'max_file_size', NULL),
 (27, 3, 'clean_url', '0'),
-(28, 3, 'core_version', '0.6.0'),
-(29, 3, 'build_num', '931112'),
-(30, 16, 'content_type', '16');
+(28, 3, 'core_version', '0.7.1'),
+(29, 3, 'build_num', '931117'),
+(30, 16, 'content_type', '17'),
+(31, 16, 'post_date_format', 'y/m/d');
 
 -- --------------------------------------------------------
 
@@ -742,7 +765,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `register_date`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `permation`, `state`, `code`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 166, 5, NULL, NULL, NULL),
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1412751997, 183, 5, NULL, NULL, NULL),
 (6, 'morrning', '90deff4b32c134f32e3f0d7e8a2aad92', 'alizadeh.babak@gmail.com', 1, 1412786925, NULL, NULL, NULL, NULL, 0, 2, 'NA', '1d48txim52');
 
 -- --------------------------------------------------------
@@ -757,38 +780,13 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=167 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=184 ;
 
 --
 -- Dumping data for table `validator`
 --
 
 INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
-(38, 'USERS_LOGIN', 'lt8n72wnub', '1396278409'),
-(39, 'USERS_LOGIN', '2w83crc462', '1396552530'),
-(40, 'USERS_LOGIN', 'mury4ymxnw', '1396590297'),
-(41, 'USERS_LOGIN', '2z373wajoe', '1396874206'),
-(42, 'USERS_LOGIN', 'paq2ivf5mn', '1397334024'),
-(43, 'USERS_LOGIN', 'l2rfq2dqem', '1397334329'),
-(45, 'USERS_ACTIVE', 'u85erc8xwk', '1397505851'),
-(46, 'USERS_LOGIN', 'wm16a6365n', '1398237718'),
-(47, 'USERS_LOGIN', '0zng1vgc2f', '1398426134'),
-(48, 'USERS_LOGIN', 'jfcjaqz3n0', '1399013450'),
-(49, 'USERS_LOGIN', 'l9l43zebcp', '1399039852'),
-(50, 'USERS_LOGIN', '7v40usd1f3', '1399134305'),
-(51, 'USERS_LOGIN', 'o8uxh6jswn', '1399352212'),
-(54, 'USERS_LOGIN', 'qj4knruvgw', '1399639054'),
-(55, 'USERS_LOGIN', 'onf0cooh46', '1399700686'),
-(56, 'USERS_LOGIN', 'irbd4su8gv', '1408439000'),
-(58, 'USERS_LOGIN', 'ocn800irph', '1410600455'),
-(60, 'USERS_LOGIN', '0loll6eyus', '1410955410'),
-(61, 'USERS_LOGIN', 'r7d3wc5rn5', '1412054296'),
-(62, 'USERS_LOGIN', 'eohvw8utqa', '1412226494'),
-(63, 'USERS_LOGIN', '4jabehrv3c', '1413050550'),
-(64, 'USERS_LOGIN', 'cv4aup05ux', '1413134654'),
-(65, 'USERS_LOGIN', 'qmha9cnhkn', '1413395101'),
-(68, 'USERS_LOGIN', 'zqfpwanfy1', '1413478762'),
-(69, 'USERS_LOGIN', '7d6p9cxtd3', '1413603302'),
 (71, 'USERS_LOGIN', '5sn336oa7l', '1413939386'),
 (72, 'USERS_LOGIN', '0hki41zbw3', '1414135411'),
 (73, 'USERS_LOGIN', 'x560owqe7m', '1414216563'),
@@ -854,7 +852,21 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (162, 'USERS_LOGIN', 'zk569fpg9k', '1422876431'),
 (164, 'USERS_LOGIN', 'w9r7bsumw9', '1422906412'),
 (165, 'USERS_LOGIN', 'i54y9jat5o', '1422937755'),
-(166, 'USERS_LOGIN', 'yvtl2pct6h', '1422994807');
+(166, 'USERS_LOGIN', 'yvtl2pct6h', '1422994807'),
+(167, 'USERS_LOGIN', 'gbdef7tzwb', '1423011625'),
+(168, 'USERS_LOGIN', '698t3s065y', '1423031928'),
+(169, 'USERS_LOGIN', 'fk01j7jn0l', '1423052268'),
+(170, 'USERS_LOGIN', 'lkjv0uw1zy', '1423078439'),
+(171, 'USERS_LOGIN', 'i7a4dap8wr', '1423101500'),
+(173, 'USERS_LOGIN', 'ny77gmg706', '1423119250'),
+(175, 'USERS_LOGIN', '8guvrwvreq', '1423154689'),
+(176, 'USERS_LOGIN', 'byzsdvqtn2', '1423172722'),
+(177, 'USERS_LOGIN', 'al08zl6wts', '1423180211'),
+(178, 'USERS_LOGIN', 'l5lbmjkqnb', '1423200717'),
+(179, 'USERS_LOGIN', '72rk4xrnbu', '1423242815'),
+(181, 'USERS_LOGIN', 'r36c0uqmo5', '1423299842'),
+(182, 'USERS_LOGIN', '9vbxbqvjob', '1423342149'),
+(183, 'USERS_LOGIN', 'lcltxen29l', '1423372647');
 
 --
 -- Constraints for dumped tables

@@ -2,6 +2,8 @@
 namespace addon\plugin\blog;
 use \core\control as control;
 use \core\cls\core as core;
+use \core\cls\template as template;
+use \core\cls\calendar as calendar;
 
 class view{
 	
@@ -205,5 +207,165 @@ class view{
 		return [_('Delete catalogue'),$form->draw()];
 
 	}
+
+	//show blog catalog in theme
+	protected function view_new_post($content_elements,$blogcats){
+		$form = new control\form('blog_new_post');
+		$form->add_array($content_elements);
+
+		//ADD BLOG COMPONNENTS
+		//catalogue of post
+        $cob_cats = new control\combobox('cob_cats');
+        $cob_cats->configure('LABEL',_('Catalogue'));
+        $cob_cats->configure('HELP',_('content of catalogue just show in selected localize.'));
+        $cob_cats->configure('TABLE',$blogcats);
+        $cob_cats->configure('COLUMN_VALUES','id');
+        $cob_cats->configure('COLUMN_LABELS','name');
+        $cob_cats->configure('SIZE',9);
+
+		//add textbox for add tags
+        $txt_tags = new control\textbox('txt_tags');
+		$txt_tags->configure('LABEL','Tags');
+		$txt_tags->configure('HELP',_('you can seperate tags with ",".'));
+		$txt_tags->configure('SIZE',9);
+        $row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+
+		$row->add($txt_tags,6);
+		$row->add($cob_cats,6);
+		$form->add($row);
+		$btn_new_post_submit = new control\button('btn_new_post_submit');
+		$btn_new_post_submit->configure('LABEL',_('Publish'));
+		$btn_new_post_submit->configure('TYPE','success');
+		$btn_new_post_submit->configure('P_ONCLICK_PLUGIN','blog');
+		$btn_new_post_submit->configure('P_ONCLICK_FUNCTION','onclick_btn_new_post_submit');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','list_posts']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_new_post_submit,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
+		return [_('New post'),$form->draw()];
+	
+	}
+
+	//function for show posts in administrator area
+	protected function view_list_posts($posts){
+		$form = new control\form('blog_list_posts');
+		$table = new control\table('blog_list_posts');
+		$counter = 0;
+		foreach($posts as $key=>$post){
+			$counter += 1;
+			$row = new control\row('blog_cat_row');
+			
+			$lbl_id = new control\label('lbl');
+			$lbl_id->configure('LABEL',$counter);
+			$row->add($lbl_id,1);
+			
+			$btn_header = new control\button('lbl');
+			$btn_header->configure('LABEL',$post->header);
+			$btn_header->configure('TYPE','link');
+			$btn_header->configure('HREF',core\general::create_url(['plugin','blog','action','show','id',$post->id]));
+			$row->add($btn_header,1);
+
+			$lbl_loc = new control\label('lbl');
+			$lbl_loc->configure('LABEL',$post->cat_name);
+			$row->add($lbl_loc,1);
+			
+			$btn_edite = new control\button('btn_content_cats_edite');
+			$btn_edite->configure('LABEL',_('Edit'));
+			$btn_edite->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','edite_posts','id',$post->id]));
+			$row->add($btn_edite,2);
+			
+			$btn_delete = new control\button('btn_content_cats_delete');
+			$btn_delete->configure('LABEL',_('Delete'));
+			$btn_delete->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','sure_delete_post','id',$post->id]));
+			$btn_delete->configure('TYPE','danger');
+			$row->add($btn_delete,2);
+			
+			$table->add_row($row);
+			$table->configure('HEADERS',[_('ID'),_('Header'),_('Catalogue'),_('Edit'),_('Delete')]);
+			$table->configure('HEADERS_WIDTH',[1,7,2,1,1]);
+			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
+			$table->configure('BORDER',true);
+			$table->configure('SIZE',9);
+		}
+		$form->add($table);	
+
+		$btn_add_post = new control\button('btn_add_post');
+		$btn_add_post->configure('LABEL',_('New post'));
+		$btn_add_post->configure('TYPE','success');
+		$btn_add_post->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','new_post']));
+		$form->add($btn_add_post);
+		
+		return [_('Blog posts'),$form->draw()];
+	}
+
+	//this function show sure delete post form
+	protected function view_sure_delete_post($post){
+		$form = new control\form('blog_delete_post');
+
+		$hid_id = new control\hidden('hid_id');
+		$hid_id->configure('VALUE',$post->id);
+
+		$lbl_msg = new control\label;
+		$lbl_msg->configure('LABEL',sprintf(_('Are you sure for delete %s ?'),$post->header));
+
+		$btn_delete = new control\button('btn_delete');
+		$btn_delete->configure('LABEL',_('Delete'));
+		$btn_delete->configure('TYPE','danger');
+		$btn_delete->configure('P_ONCLICK_PLUGIN','blog');
+		$btn_delete->configure('P_ONCLICK_FUNCTION','onclick_btn_delete_post');
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','list_posts']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_delete,1);
+		$row->add($btn_cancel,11);
+
+		$form->add_array([$hid_id,$lbl_msg,$row]);
+		return [_('Delete catalogue'),$form->draw()];
+	}
+
+	//function for show blog post
+	protected function view_show($post_core,$post_data,$settings){
+		//create an object from raintpl class//
+		$content_post = [];
+		foreach($post_data as $post){
+			$content_post['username'] = $post['username'];
+			$content_post['date'] = $post['date'];
+			$content_post['header'] = $post['header'];
+			break;
+		}
+		$raintpl = new template\raintpl;
+		//configure raintpl //
+		$raintpl->configure('tpl_dir','plugins/defined/blog/tpl/');
+		$raintpl->assign( "by", _('by'));
+		$raintpl->assign( "posts", $post_data);
+		$raintpl->assign( "username", $content_post['username']);
+		//SHOW POST DATE
+		$calendar = new calendar\calendar;
+		$raintpl->assign( "post_date", sprintf(_('Posted on %s'),$calendar->cdate($settings['post_date_format'],$content_post['date'] )));
+		$raintpl->assign( "links", '$links');
+		//draw and return back content
+		return [$content_post['header'],$raintpl->draw('blog_post', true )];
+	}
+
+	//function for show blog posts that stored in catalogue
+	protected function view_show_cat($posts_data,$settings){
+
+		return [1,1];
+	}
+
 	
 }

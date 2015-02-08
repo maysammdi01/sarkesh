@@ -70,13 +70,6 @@ class view{
 			$lbl_cat->configure('LABEL',$cat->name);
 			$row->add($lbl_cat,1);
 			
-			$btn_add_content = new control\button('btn_content_insert_content');
-			$btn_add_content->configure('LABEL',_('Add Content'));
-			$btn_add_content->configure('VALUE',$cat->id);
-			$btn_add_content->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','insert_content','id',$cat->id]));
-
-			$row->add($btn_add_content,2);
-			
 			$btn_edite = new control\button('btn_content_cats_edite');
 			$btn_edite->configure('LABEL',_('Edit'));
 			$btn_edite->configure('VALUE',$cat->id);
@@ -97,9 +90,9 @@ class view{
 			$row->add($btn_patterns,2);
 			
 			$table->add_row($row);
-			$table->configure('HEADERS',[_('ID'),_('Name'),_('ADD'),_('Edit'),_('Delete'),_('patterns')]);
-			$table->configure('HEADERS_WIDTH',[1,7,1,1,1,1]);
-			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE,TRUE]);
+			$table->configure('HEADERS',[_('ID'),_('Name'),_('Edit'),_('Delete'),_('patterns')]);
+			$table->configure('HEADERS_WIDTH',[1,8,1,1,1]);
+			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
 			$table->configure('BORDER',true);
 		}
 		
@@ -181,7 +174,6 @@ class view{
 		
 		$lbl_cat_info = new control\label;
 		$lbl_cat_info->configure('LABEL',sprintf(_('%s Patterns'),$cat->name));
-		
 		$form->add($lbl_cat_info);
 		
 		$hid_id = new control\hidden('hid_id');
@@ -213,9 +205,8 @@ class view{
 			$lbl_type->configure('LABEL',$pattern->type);
 			$row->add($lbl_type);
 			
-			$txt_rank = new control\textbox('txt_rank');
-			$txt_rank->configure('IN_TABLE',TRUE);
-			$txt_rank->configure('VALUE',$pattern->rank);
+			$txt_rank = new control\label;
+			$txt_rank->configure('LABEL',$pattern->rank);
 			$row->add($txt_rank);
 			
 			$btn_edite = new control\button('btn_edite');
@@ -243,33 +234,23 @@ class view{
 		$combo_items = new control\combobox('cob_item');
 		$combo_items->configure('SIZE',2);
 		$combo_items->configure('INLINE',TRUE);
-		$combo_items->configure('SOURCE',[['Textarea',_('Textarea')]]);
-		$row_new_pattern->add($combo_items,4);
+		$combo_items->configure('SOURCE',[['textarea',_('textarea')]]);
+		$row_new_pattern->add($combo_items,3);
 		
 		$btn_new = new control\button('btn_new');
 		$btn_new->configure('LABEL',_('Add new'));
 		$btn_new->configure('P_ONCLICK_PLUGIN','content');
 		$btn_new->configure('P_ONCLICK_FUNCTION','onclick_btn_add_new_pattern');
 		$btn_new->configure('TYPE','primary');
-		$row_new_pattern->add($btn_new,1);
+		$row_new_pattern->add($btn_new,9);
 				
 		$form->add($row_new_pattern);
-		
-		
-		$row_buttons = new control\row;
-		$row_buttons->configure('IN_TABLE',FALSE);
-		
-		$btn_applay = new control\button('btn_applay');
-		$btn_applay->configure('LABEL',_('Applay'));
-		$row_buttons->add($btn_applay,1);
 		
 		$btn_cancel = new control\button('btn_cancel');
 		$btn_cancel->configure('LABEL',_('Cancel'));
 		$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_cats']));
-		$btn_cancel->configure('TYPE','default');
-		$row_buttons->add($btn_cancel,1);
-		
-		$form->add($row_buttons);
+		$btn_cancel->configure('TYPE','default');		
+		$form->add($btn_cancel);
 		
 		return [$lbl_cat_info->get('LABEL'), $form->draw()];
 		
@@ -300,7 +281,7 @@ class view{
 		$row->configure('IN_TABLE',false);
 		
 		$row->add($btn,1);
-		$row->add($btn_cancel,1);
+		$row->add($btn_cancel,11);
 		
 		$form->add_array([$hid_id,$label,$row]);
 		
@@ -311,7 +292,7 @@ class view{
 	protected function get_options($str_options){
 		
 		$f_options = explode(';',$str_options);
-		$options = array();
+		$options = [];
 		foreach($f_options as $option){
 			$op = explode(':',$option);
 			$options[$op[0]] = $op[1];
@@ -338,11 +319,14 @@ class view{
 			$txt_label->configure('HELP',_('Lable show to user in insert new content page'));
 			$form->add($txt_label);
 			
-			$txt_rank = new control\textbox('txt_rank');
-			$txt_rank->configure('LABEL',_('Rank'));
-			$txt_rank->configure('VALUE',$pattern->rank);
-			$txt_rank->configure('HELP',_('When set rank you can set position of pattern in content.ranks show from DEC values'));
-			$form->add($txt_rank);
+			//create combobox for ranking
+			$cob_rank = new control\combobox('cob_rank');
+	        $cob_rank->configure('LABEL',_('Rank'));
+	        $cob_rank->configure('SOURCE',[0,1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20]);
+	        $cob_rank->configure('SELECTED_INDEX',$pattern->rank);
+			$cob_rank->configure('HELP',_('When set rank you can set position of pattern in content.ranks show from DEC values'));
+	        $cob_rank->configure('SIZE',4);
+			$form->add($cob_rank);
 			
 			$ckb_editor = new control\checkbox('ckb_editor');
 			$ckb_editor->configure('LABEL',_('Editor') );
@@ -360,12 +344,12 @@ class view{
 			$btn_edite->configure('P_ONCLICK_PLUGIN','content');
 			$btn_edite->configure('P_ONCLICK_FUNCTION','onclick_btn_edite_pattern');
 			$btn_edite->configure('TYPE','primary');
-			$row->add($btn_edite);
+			$row->add($btn_edite,1);
 
 			$btn_cancel = new control\button('btn_cancel');
 			$btn_cancel->configure('LABEL',_('Cancel'));
 			$btn_cancel->configure('HREF',core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','list_patterns','id',$pattern->catalogue]));
-			$row->add($btn_cancel);
+			$row->add($btn_cancel,11);
 			
 			$form->add($row);
 			
@@ -421,7 +405,7 @@ class view{
 	//function for edite pattern
 	protected function view_iu_pattern_textarea($pattern=''){
 		if(is_object($pattern)){
-			if($pattern->type == 'Textarea'){
+			if($pattern->type == 'textarea'){
 				return $this->pt_textarea($pattern);
 			}
 		}
@@ -453,11 +437,12 @@ class view{
 		//ADD TEXTBOX FOR SHOW HEADER
 		$txt_header = new control\textbox('txt_header');
 		$txt_header->configure('LABEL',_('Header'));
+		$txt_header->configure('size',5);
 		$form->add($txt_header);
 		
 		//add patterns
 		foreach($patterns as $pat){
-			if($pat->type == 'Textarea'){
+			if($pat->type == 'textarea'){
 				$form->add($this->get_textarea($pat)	);
 			}
 		}
@@ -484,6 +469,30 @@ class view{
 		$form->add_array([$row,$hid_id]);
 		
 		return [sprintf(_('Insert new content:%s'),$cat->name),$form->draw()];
+	}
+
+	//this function return back parts of catalog in insert_mode
+	protected function view_return_parts($cat,$patterns){
+		$form = array();
+		$hid_id = new control\hidden('hid_cat_id');
+		$hid_id->configure('VALUE',$cat->id);
+		array_push($form, $hid_id);
+		//ADD TEXTBOX FOR SHOW HEADER
+		$txt_header = new control\textbox('txt_header');
+		$txt_header->configure('LABEL',_('Header'));
+		array_push($form, $txt_header);
+		
+		//add patterns
+		foreach($patterns as $pat){
+			if($pat->type == 'textarea'){
+				array_push($form, $this->get_textarea($pat));
+			}
+		}
+		//add id of catalogue
+		$hid_id = new control\hidden('hid_id');
+		$hid_id->configure('VALUE',$cat->id);
+		array_push($form, $hid_id);
+		return $form;
 	}
 	
 }

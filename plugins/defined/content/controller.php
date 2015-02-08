@@ -32,15 +32,10 @@ class content extends content\module{
 		
 	}
 	
-	public function show(){
-		if(isset($_GET['id'])	){
-			//going to search and show content
-			return $this->module_show();
-		}
-		else{
-			//show 404 msg
-			core\router::jump_page(array('plugin','msg','action','msg_404')	);
-		}
+	//this function return parts of content in an array
+	//if content not found this function return false
+	public function get_content($id){
+		return $this->module_get_content($id);
 	}
 	
 	//this function is for add catalogue
@@ -154,7 +149,7 @@ class content extends content\module{
 	
 	//FUNCTION FOR JUMP TO INSERT NEW PATTERN
 	public function onclick_btn_add_new_pattern($e){
-		$e['RV']['URL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','add_new_pattern','type',$e['cob_item']['SELECTED'],'id',$e['hid_id']['VALUE']],true);
+		$e['RV']['URL'] = core\general::create_url(['service','1','plugin','administrator','action','main','p','content','a','add_new_pattern','type',$e['cob_item']['SELECTED'],'id',$e['hid_id']['VALUE']]);
 		return $e;
 	}
 	
@@ -185,6 +180,20 @@ class content extends content\module{
 	public function onclick_btn_insert_content($e){
 		return $this->module_onclick_btn_insert_content($e);
 	}
+
+	//this part is for get patterns in insert mode
+	public function get_form_submit($cat_id){
+		return $this->module_get_form_submit($cat_id);
+	}
+	public function save_content($e,$special_value){
+		return $this->module_save_content($e,$special_value);
+	}
+
+	//this function return back some of contents that filtered by special_value column
+	public function get_contents_with_special_value($special){
+		return $this->module_get_contents_with_special_value($special);
+	}
+
 	
 	
 	

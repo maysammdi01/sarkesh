@@ -141,6 +141,9 @@ class view{
 		$this->raintpl->assign( "system_update", _('Update center'));
 		$this->raintpl->assign( "url_system_update", core\general::create_url(array('service','1','plugin','administrator','action','main','p','log','a','updates')	));
 
+		$this->raintpl->assign( "blog_new_post", _('New blog post'));
+		$this->raintpl->assign( "url_blog_new_post", core\general::create_url(array('service','1','plugin','administrator','action','main','p','blog','a','new_post')	));
+
 		$this->raintpl->assign( "core_settings", _('Core settings'));
 		$this->raintpl->assign( "url_core_settings", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','core_settings')	));
 
@@ -151,6 +154,7 @@ class view{
 		$this->raintpl->assign( "url_uap",core\general::create_url(array('service','1','plugin','administrator','action','main','p','users','a','list_people')	));
 		
 		$this->raintpl->assign( "url_basic", core\general::create_url(array('service','1','plugin','administrator','action','main','p','administrator','a','basic_settings')	));
+		
 		
 		//draw and return back content
 		return array(_('Dashboard'),$this->raintpl->draw('core_dashboard', true )	);

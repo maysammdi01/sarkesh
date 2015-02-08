@@ -264,6 +264,9 @@ class page{
 						if(self::$plugin->is_enabled($block['p.name'])){
 							if($block['b.localize'] == 'all' || self::$localize_settings['language'] == $block['b.localize']){
 								$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
+								if(!file_exists(AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php')){
+									$ClassName = '\\addon\\plugin\\' . $block['p.name'] ;
+								}
 								$plugin = new $ClassName; 
 								//run action method for show block
 								//all blocks name should be like  'blk_blockname'

@@ -14,7 +14,7 @@ class blog extends blog\module{
 		$menu = array();
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','new_post']);
 		array_push($menu,[$url, _('New Post')]);
-		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','posts']);
+		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','list_posts']);
 		array_push($menu,[$url, _('Posts')]);
 		$url = core\general::create_url(['service','1','plugin','administrator','action','main','p','blog','a','list_cats']);
 		array_push($menu,[$url, _('Catalogues')]);
@@ -76,6 +76,41 @@ class blog extends blog\module{
 		return $this->module_block_show_catalog();
 	}
 	
+	//this function is for submit new post
+	public function new_post(){
+		return $this->module_new_post();
+	}
+
+	//THIS FUNCTION SUBMIT BLOG POST AND SAVE THAT
+	public function onclick_btn_new_post_submit($e){
+		return $this->module_onclick_btn_new_post_submit($e);
+	}
+
+	//this function show list of posts in administrator area
+	public function list_posts(){
+		return $this->module_list_posts();
+	}
+
+	//this function show sure delete post form
+	public function sure_delete_post(){
+		return $this->module_sure_delete_post();
+	}
+
+	//function for delete post with onclick event
+	public function onclick_btn_delete_post($e){
+		return $this->module_onclick_btn_delete_post($e);
+	}
+
+	//this function show blog post
+	public function show(){
+		return $this->module_show();		
+	}
+
+	//this function show blog catalogue posts
+	public function show_cat(){
+		return $this->module_show_cat();		
+	}
+
 	
 }
 

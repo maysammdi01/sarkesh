@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh persian language\n"
-"POT-Creation-Date: 2015-01-31 16:43-0800\n"
-"PO-Revision-Date: 2015-01-31 17:03-0800\n"
+"POT-Creation-Date: 2015-02-06 06:25-0800\n"
+"PO-Revision-Date: 2015-02-06 06:28-0800\n"
 "Last-Translator: babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: sarkesh dev <info@sarkesh.org>\n"
 "Language: fa_IR\n"
@@ -27,42 +27,52 @@ msgstr "دیوار آتش سرکش"
 msgid "can not open zip archive files"
 msgstr "فایل های آرشیو زیپ باز نمی شوند"
 
-#: core/lib/cls/core_cls_browser_page.php:211
+#: core/lib/cls/core_cls_browser_page.php:213
 msgid "Ok"
 msgstr "قبول"
 
-#: core/lib/cls/core_cls_browser_page.php:214
+#: core/lib/cls/core_cls_browser_page.php:216
 msgid "Back"
 msgstr "بازگشت"
 
-#: core/lib/cls/core_cls_browser_page.php:217
-#: plugins/defined/content/view.php:132 plugins/defined/content/view.php:164
-#: plugins/defined/content/view.php:267 plugins/defined/content/view.php:296
-#: plugins/defined/content/view.php:366 plugins/defined/content/view.php:412
-#: plugins/defined/content/view.php:476
-#: plugins/system/administrator/view.php:223
-#: plugins/system/administrator/view.php:303
-#: plugins/system/administrator/view.php:358
-#: plugins/system/administrator/view.php:431
-#: plugins/system/administrator/view.php:499 plugins/system/log/view.php:28
-#: plugins/system/menus/view.php:49 plugins/system/menus/view.php:190
-#: plugins/system/menus/view.php:264 plugins/system/menus/view.php:314
-#: plugins/system/users/view.php:178 plugins/system/users/view.php:418
-#: plugins/system/users/view.php:480 plugins/system/users/view.php:538
-#: plugins/system/users/view.php:603 plugins/system/users/view.php:632
+#: core/lib/cls/core_cls_browser_page.php:219 plugins/defined/blog/view.php:30
+#: plugins/defined/blog/view.php:120 plugins/defined/blog/view.php:165
+#: plugins/defined/blog/view.php:195 plugins/defined/blog/view.php:242
+#: plugins/defined/blog/view.php:322 plugins/defined/content/view.php:125
+#: plugins/defined/content/view.php:157 plugins/defined/content/view.php:250
+#: plugins/defined/content/view.php:277 plugins/defined/content/view.php:347
+#: plugins/defined/content/view.php:393 plugins/defined/content/view.php:458
+#: plugins/system/administrator/view.php:233
+#: plugins/system/administrator/view.php:345
+#: plugins/system/administrator/view.php:400
+#: plugins/system/administrator/view.php:490
+#: plugins/system/administrator/view.php:581
+#: plugins/system/administrator/view.php:615
+#: plugins/system/administrator/view.php:646
+#: plugins/system/administrator/view.php:694
+#: plugins/system/administrator/view.php:742 plugins/system/log/view.php:28
+#: plugins/system/menus/view.php:48 plugins/system/menus/view.php:189
+#: plugins/system/menus/view.php:263 plugins/system/menus/view.php:313
+#: plugins/system/users/view.php:179 plugins/system/users/view.php:419
+#: plugins/system/users/view.php:481 plugins/system/users/view.php:539
+#: plugins/system/users/view.php:604 plugins/system/users/view.php:633
 msgid "Cancel"
 msgstr "انصراف"
 
-#: core/lib/cls/core_cls_browser_page.php:303
+#: core/lib/cls/core_cls_browser_page.php:315
 msgid "Memory usage by system:"
 msgstr "استفاده از حافظه های سیستم:"
 
-#: core/lib/cls/core_cls_browser_page.php:304
+#: core/lib/cls/core_cls_browser_page.php:316
+msgid "Real usage by system:"
+msgstr ""
+
+#: core/lib/cls/core_cls_browser_page.php:317
 msgid "CPU usage by system:"
 msgstr "استفاده از پردازنده های سیستم:"
 
-#: core/lib/cls/core_cls_core_router.php:135
-#: core/lib/cls/core_cls_core_router.php:142
+#: core/lib/cls/core_cls_core_router.php:136
+#: core/lib/cls/core_cls_core_router.php:143
 msgid "Warning:Your requested service not found!"
 msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
 
@@ -122,26 +132,170 @@ msgstr "حدکثر حجم"
 msgid "Valid types"
 msgstr "فرمت های مجاز"
 
-#: plugins/defined/blog/controller.php:12
+#: plugins/defined/blog/controller.php:16
 msgid "New Post"
 msgstr "ایجاد مطلب"
 
-#: plugins/defined/blog/controller.php:14 plugins/defined/content/view.php:108
+#: plugins/defined/blog/controller.php:18
+msgid "Posts"
+msgstr "مطالب"
+
+#: plugins/defined/blog/controller.php:20 plugins/defined/blog/view.php:91
+#: plugins/defined/content/view.php:101
 msgid "Catalogues"
 msgstr "فهرست"
 
-#: plugins/defined/blog/controller.php:16
+#: plugins/defined/blog/controller.php:22
 msgid "Blog Settings"
 msgstr "تنظیمات وبلاگ"
 
-#: plugins/defined/blog/controller.php:18
+#: plugins/defined/blog/controller.php:24
 msgid "Blog"
 msgstr "وبلاگ"
 
+#: plugins/defined/blog/module.php:179
+msgid "Blog catalogues"
+msgstr "فهرست"
+
+#: plugins/defined/blog/view.php:13
+msgid "Content type"
+msgstr "نوع محتوا"
+
+#: plugins/defined/blog/view.php:14
+msgid ""
+"blog plugin work with selected content type that you set in this combobox.you "
+"can manage content types from content plugin."
+msgstr ""
+
+#: plugins/defined/blog/view.php:24 plugins/defined/blog/view.php:159
+#: plugins/defined/content/view.php:119 plugins/defined/content/view.php:340
+#: plugins/defined/content/view.php:452
+#: plugins/system/administrator/view.php:339
+#: plugins/system/administrator/view.php:394
+#: plugins/system/administrator/view.php:575
+#: plugins/system/administrator/view.php:609 plugins/system/users/view.php:475
+#: plugins/system/users/view.php:533
+msgid "Update"
+msgstr "بروز رسانی"
+
+#: plugins/defined/blog/view.php:40
+msgid "Blog settings"
+msgstr "تنظیمات وبلاگ"
+
+#: plugins/defined/blog/view.php:65 plugins/defined/blog/view.php:77
+#: plugins/defined/blog/view.php:277 plugins/defined/blog/view.php:288
+#: plugins/defined/content/view.php:74 plugins/defined/content/view.php:93
+#: plugins/defined/content/view.php:185
+#: plugins/system/administrator/view.php:277
+msgid "Edit"
+msgstr "ویرایش"
+
+#: plugins/defined/blog/view.php:71 plugins/defined/blog/view.php:77
+#: plugins/defined/blog/view.php:189 plugins/defined/blog/view.php:282
+#: plugins/defined/blog/view.php:288 plugins/defined/blog/view.php:316
+#: plugins/defined/content/view.php:81 plugins/defined/content/view.php:93
+#: plugins/defined/content/view.php:185 plugins/defined/content/view.php:221
+#: plugins/system/administrator/view.php:269
+#: plugins/system/administrator/view.php:277
+#: plugins/system/administrator/view.php:456
+#: plugins/system/administrator/view.php:475
+#: plugins/system/administrator/view.php:640
+#: plugins/system/administrator/view.php:736 plugins/system/menus/view.php:126
+#: plugins/system/menus/view.php:136 plugins/system/menus/view.php:240
+#: plugins/system/menus/view.php:250 plugins/system/menus/view.php:307
+#: plugins/system/users/view.php:580
+msgid "Delete"
+msgstr "حدف"
+
+#: plugins/defined/blog/view.php:77 plugins/defined/blog/view.php:288
+#: plugins/defined/content/view.php:93 plugins/defined/content/view.php:185
+#: plugins/system/administrator/view.php:114
+#: plugins/system/administrator/view.php:209
+#: plugins/system/administrator/view.php:277
+#: plugins/system/administrator/view.php:475 plugins/system/menus/view.php:136
+#: plugins/system/menus/view.php:250 plugins/system/users/view.php:363
+#: plugins/system/users/view.php:407 plugins/system/users/view.php:591
+msgid "ID"
+msgstr "ردیف"
+
+#: plugins/defined/blog/view.php:77 plugins/defined/content/view.php:93
+#: plugins/defined/content/view.php:185
+#: plugins/system/administrator/view.php:114
+#: plugins/system/administrator/view.php:209
+#: plugins/system/administrator/view.php:277
+#: plugins/system/administrator/view.php:475 plugins/system/menus/view.php:136
+#: plugins/system/menus/view.php:250 plugins/system/users/view.php:407
+msgid "Name"
+msgstr "نام"
+
+#: plugins/defined/blog/view.php:77 plugins/defined/blog/view.php:105
+#: plugins/defined/blog/view.php:150 plugins/defined/blog/view.php:217
+#: plugins/system/menus/view.php:29 plugins/system/menus/view.php:136
+msgid "Localize"
+msgstr "محلی سازی"
+
+#: plugins/defined/blog/view.php:86
+msgid "Add new catalogue"
+msgstr "افزودن فهرست جدید"
+
+#: plugins/defined/blog/view.php:100 plugins/defined/blog/view.php:145
+#: plugins/defined/content/view.php:32 plugins/defined/content/view.php:37
+msgid "Enter name of catalogue that you want to use that."
+msgstr "نام فهرستی که قصد استفاده از آن را دارید را وارد کنید."
+
+#: plugins/defined/blog/view.php:106 plugins/defined/blog/view.php:151
+#: plugins/defined/blog/view.php:218
+msgid "content of catalogue just show in selected localize."
+msgstr ""
+
+#: plugins/defined/blog/view.php:114 plugins/defined/content/view.php:36
+#: plugins/defined/content/view.php:386
+msgid "Insert"
+msgstr "درج"
+
+#: plugins/defined/blog/view.php:130 plugins/defined/blog/view.php:175
 #: plugins/defined/content/controller.php:25
 #: plugins/defined/content/view.php:50
 msgid "New catalogue"
 msgstr "فهرست جدید"
+
+#: plugins/defined/blog/view.php:186 plugins/defined/blog/view.php:313
+#: plugins/defined/content/view.php:148 plugins/defined/content/view.php:268
+#: plugins/system/administrator/view.php:635
+#: plugins/system/administrator/view.php:733
+#, php-format
+msgid "Are you sure for delete %s ?"
+msgstr "آیا برای حذف %s مطمئن هستید؟"
+
+#: plugins/defined/blog/view.php:205 plugins/defined/blog/view.php:332
+#: plugins/defined/content/view.php:168
+msgid "Delete catalogue"
+msgstr "حذف فهرست"
+
+#: plugins/defined/blog/view.php:227
+msgid "you can seperate tags with \",\"."
+msgstr ""
+
+#: plugins/defined/blog/view.php:236
+msgid "Publish"
+msgstr "انتشار"
+
+#: plugins/defined/blog/view.php:251 plugins/defined/blog/view.php:297
+msgid "New post"
+msgstr "ارسال جدید"
+
+#: plugins/defined/blog/view.php:288 plugins/defined/content/view.php:436
+#: plugins/defined/content/view.php:479
+msgid "Header"
+msgstr "سربرگ"
+
+#: plugins/defined/blog/view.php:288
+msgid "Catalogue"
+msgstr "فهرست"
+
+#: plugins/defined/blog/view.php:302
+msgid "Blog posts"
+msgstr "ارسال های وبلاگ"
 
 #: plugins/defined/content/controller.php:27
 msgid "Manage catalogues"
@@ -151,67 +305,63 @@ msgstr "مدیریت فهرست ها"
 msgid "Content"
 msgstr "محتوا"
 
-#: plugins/defined/content/controller.php:59
-#: plugins/defined/content/module.php:119
-#: plugins/defined/content/module.php:170 plugins/system/msg/controller.php:76
-#: plugins/system/msg/controller.php:84 plugins/system/users/controller.php:84
+#: plugins/defined/content/controller.php:54
+#: plugins/defined/content/module.php:91 plugins/defined/content/module.php:142
+#: plugins/system/msg/controller.php:90 plugins/system/msg/controller.php:98
+#: plugins/system/users/controller.php:84
 #: plugins/system/users/controller.php:133
 #: plugins/system/users/controller.php:156
 #: plugins/system/users/controller.php:240
-#: plugins/system/users/controller.php:255 plugins/system/users/module.php:94
-#: plugins/system/users/module.php:219 plugins/system/users/module.php:228
-#: plugins/system/users/module.php:282 plugins/system/users/module.php:287
-#: plugins/system/users/module.php:291 plugins/system/users/module.php:296
-#: plugins/system/users/module.php:303 plugins/system/users/module.php:307
-#: plugins/system/users/module.php:314 plugins/system/users/module.php:323
+#: plugins/system/users/controller.php:255 plugins/system/users/module.php:93
+#: plugins/system/users/module.php:218 plugins/system/users/module.php:227
+#: plugins/system/users/module.php:281 plugins/system/users/module.php:286
+#: plugins/system/users/module.php:290 plugins/system/users/module.php:295
+#: plugins/system/users/module.php:302 plugins/system/users/module.php:306
+#: plugins/system/users/module.php:313 plugins/system/users/module.php:322
 msgid "Message"
 msgstr "پیام"
 
-#: plugins/defined/content/controller.php:59
+#: plugins/defined/content/controller.php:54
 #: plugins/system/users/controller.php:84
 #: plugins/system/users/controller.php:240
 #: plugins/system/users/controller.php:255
 msgid "Please fill in all of the required fields"
 msgstr "لطفا  تمام موارد مورد نیاز را پر کنید"
 
-#: plugins/defined/content/module.php:29
-msgid "Guest"
-msgstr "مهمان"
-
-#: plugins/defined/content/module.php:119
+#: plugins/defined/content/module.php:91
 msgid ""
 "Entered catalogue is exists before.please enter another one and try again."
 msgstr "فهرست وارد شده تکراری است لطفا مورد دیگری را امتحان کنید."
 
-#: plugins/defined/content/module.php:129
-#: plugins/defined/content/module.php:226
-#: plugins/defined/content/module.php:268
-#: plugins/defined/content/module.php:309
-#: plugins/defined/content/module.php:366
+#: plugins/defined/content/module.php:101
+#: plugins/defined/content/module.php:188
+#: plugins/defined/content/module.php:229
+#: plugins/defined/content/module.php:269
+#: plugins/defined/content/module.php:326
 msgid "Success"
 msgstr "موفقیت"
 
-#: plugins/defined/content/module.php:129
+#: plugins/defined/content/module.php:101
 msgid "Successfully saved."
 msgstr "موفقیت ذخیره شد."
 
-#: plugins/defined/content/module.php:170
+#: plugins/defined/content/module.php:142
 msgid "Update successful"
 msgstr "به روز رسانی موفق"
 
-#: plugins/defined/content/module.php:226
+#: plugins/defined/content/module.php:188
 msgid "Catalogue deleted successfuly."
 msgstr "کاتالوگ با موفقیت حذف شد.."
 
-#: plugins/defined/content/module.php:268
+#: plugins/defined/content/module.php:229
 msgid "Pattern deleted successfuly."
 msgstr "الگو با موفقیت حذف شد."
 
-#: plugins/defined/content/module.php:309
+#: plugins/defined/content/module.php:269
 msgid "Pattern updated successfuly."
 msgstr "الگو با موفقیت به روز شد."
 
-#: plugins/defined/content/module.php:366
+#: plugins/defined/content/module.php:326
 msgid "Pattern added successfuly."
 msgstr "الگو با موفقیت اضافه شد."
 
@@ -220,136 +370,69 @@ msgstr "الگو با موفقیت اضافه شد."
 msgid "%s by %s"
 msgstr "%s توسط %s"
 
-#: plugins/defined/content/view.php:32 plugins/defined/content/view.php:37
-msgid "Enter name of catalogue that you want to use that."
-msgstr "نام فهرستی که قصد استفاده از آن را دارید را وارد کنید."
-
-#: plugins/defined/content/view.php:36 plugins/defined/content/view.php:405
-msgid "Insert"
-msgstr "درج"
-
-#: plugins/defined/content/view.php:74
-msgid "Add Content"
-msgstr "اضافه کردن محتوا"
-
-#: plugins/defined/content/view.php:81 plugins/defined/content/view.php:100
-#: plugins/defined/content/view.php:193
-msgid "Edit"
-msgstr "ویرایش"
-
-#: plugins/defined/content/view.php:88 plugins/defined/content/view.php:100
-#: plugins/defined/content/view.php:193 plugins/defined/content/view.php:230
-#: plugins/system/menus/view.php:127 plugins/system/menus/view.php:137
-#: plugins/system/menus/view.php:241 plugins/system/menus/view.php:251
-#: plugins/system/menus/view.php:308 plugins/system/users/view.php:579
-msgid "Delete"
-msgstr "حدف"
-
-#: plugins/defined/content/view.php:94
+#: plugins/defined/content/view.php:87
 msgid "Manage patterns"
 msgstr "مدیریت الگوها"
 
-#: plugins/defined/content/view.php:100 plugins/defined/content/view.php:193
-#: plugins/system/administrator/view.php:114
-#: plugins/system/administrator/view.php:199
-#: plugins/system/administrator/view.php:422 plugins/system/menus/view.php:137
-#: plugins/system/menus/view.php:251 plugins/system/users/view.php:362
-#: plugins/system/users/view.php:406 plugins/system/users/view.php:590
-msgid "ID"
-msgstr "ردیف"
-
-#: plugins/defined/content/view.php:100 plugins/defined/content/view.php:193
-#: plugins/system/administrator/view.php:114
-#: plugins/system/administrator/view.php:199
-#: plugins/system/administrator/view.php:422 plugins/system/menus/view.php:137
-#: plugins/system/menus/view.php:251 plugins/system/users/view.php:406
-msgid "Name"
-msgstr "نام"
-
-#: plugins/defined/content/view.php:100
-msgid "ADD"
-msgstr "افزودن"
-
-#: plugins/defined/content/view.php:100
+#: plugins/defined/content/view.php:93
 msgid "patterns"
 msgstr "الگوها"
 
-#: plugins/defined/content/view.php:126 plugins/defined/content/view.php:359
-#: plugins/defined/content/view.php:470
-#: plugins/system/administrator/view.php:297
-#: plugins/system/administrator/view.php:352
-#: plugins/system/administrator/view.php:493 plugins/system/users/view.php:474
-#: plugins/system/users/view.php:532
-msgid "Update"
-msgstr "بروز رسانی"
-
-#: plugins/defined/content/view.php:142
+#: plugins/defined/content/view.php:135
 msgid "Update catalogue:"
 msgstr "به روز رسانی فهرست"
 
-#: plugins/defined/content/view.php:155 plugins/defined/content/view.php:287
-#, php-format
-msgid "Are you sure for delete %s ?"
-msgstr "آیا برای حذف %s مطمئن هستید؟"
-
-#: plugins/defined/content/view.php:160 plugins/defined/content/view.php:292
+#: plugins/defined/content/view.php:153 plugins/defined/content/view.php:273
 msgid "Delete!"
 msgstr "حذف!"
 
-#: plugins/defined/content/view.php:175
-msgid "Delete catalogue"
-msgstr "حذف فهرست"
-
-#: plugins/defined/content/view.php:183
+#: plugins/defined/content/view.php:176
 #, php-format
 msgid "%s Patterns"
 msgstr "الگوهای %s"
 
-#: plugins/defined/content/view.php:193
+#: plugins/defined/content/view.php:185
 msgid "Type"
 msgstr "نوع"
 
-#: plugins/defined/content/view.php:193 plugins/defined/content/view.php:342
-#: plugins/defined/content/view.php:392
-#: plugins/system/administrator/view.php:422
-#: plugins/system/administrator/view.php:448 plugins/system/menus/view.php:177
+#: plugins/defined/content/view.php:185 plugins/defined/content/view.php:323
+#: plugins/defined/content/view.php:373
+#: plugins/system/administrator/view.php:475
+#: plugins/system/administrator/view.php:509 plugins/system/menus/view.php:176
 msgid "Rank"
 msgstr "رتبه"
 
-#: plugins/defined/content/view.php:224
-#: plugins/system/administrator/view.php:411
-#: plugins/system/administrator/view.php:422 plugins/system/menus/view.php:69
-#: plugins/system/menus/view.php:121 plugins/system/menus/view.php:137
-#: plugins/system/menus/view.php:235 plugins/system/menus/view.php:251
-#: plugins/system/users/view.php:350 plugins/system/users/view.php:397
+#: plugins/defined/content/view.php:215
+#: plugins/system/administrator/view.php:264
+#: plugins/system/administrator/view.php:449
+#: plugins/system/administrator/view.php:475 plugins/system/menus/view.php:68
+#: plugins/system/menus/view.php:120 plugins/system/menus/view.php:136
+#: plugins/system/menus/view.php:234 plugins/system/menus/view.php:250
+#: plugins/system/users/view.php:351 plugins/system/users/view.php:398
 msgid "Edite"
 msgstr "ویرایش"
 
-#: plugins/defined/content/view.php:246
+#: plugins/defined/content/view.php:237
 msgid "Textarea"
 msgstr "ناحیه متنی"
 
-#: plugins/defined/content/view.php:250
+#: plugins/defined/content/view.php:241
 msgid "Add new"
 msgstr "اضافه کردن جدید"
 
-#: plugins/defined/content/view.php:263
-msgid "Applay"
-msgstr "اعمال"
-
-#: plugins/defined/content/view.php:307
+#: plugins/defined/content/view.php:288
 msgid "Delete pattern"
 msgstr "حذف الگو"
 
-#: plugins/defined/content/view.php:336 plugins/defined/content/view.php:387
+#: plugins/defined/content/view.php:317 plugins/defined/content/view.php:368
 msgid "Lable"
 msgstr "برچسب"
 
-#: plugins/defined/content/view.php:338 plugins/defined/content/view.php:388
+#: plugins/defined/content/view.php:319 plugins/defined/content/view.php:369
 msgid "Lable show to user in insert new content page"
 msgstr "برچسب در صفحه درج محتوای جدید نمایش داده می شود."
 
-#: plugins/defined/content/view.php:344 plugins/defined/content/view.php:393
+#: plugins/defined/content/view.php:325 plugins/defined/content/view.php:374
 msgid ""
 "When set rank you can set position of pattern in content.ranks show from DEC "
 "values"
@@ -357,11 +440,11 @@ msgstr ""
 "به وسیله شاخص رتبه بندی میتوانید مکان الگو را در محتوا مشخص کنید.رتبه بندی بر "
 "اساس نزولی است."
 
-#: plugins/defined/content/view.php:348 plugins/defined/content/view.php:397
+#: plugins/defined/content/view.php:329 plugins/defined/content/view.php:378
 msgid "Editor"
 msgstr "ویرایشگر"
 
-#: plugins/defined/content/view.php:349 plugins/defined/content/view.php:398
+#: plugins/defined/content/view.php:330 plugins/defined/content/view.php:379
 msgid ""
 "With this option you can enable or disable editor when user want to insert "
 "new content."
@@ -369,33 +452,29 @@ msgstr ""
 "با این گذینه شما می توانید در برای ارسال محتوا,ویرایشگر را فعال یا غیر فعال "
 "کنید."
 
-#: plugins/defined/content/view.php:372
+#: plugins/defined/content/view.php:353
 msgid "Edite pattern"
 msgstr "ویرایش الگو"
 
-#: plugins/defined/content/view.php:417
+#: plugins/defined/content/view.php:398
 msgid "Insert new pattern"
 msgstr "الگوی جدید"
 
-#: plugins/defined/content/view.php:455
-msgid "Header"
-msgstr "سربرگ"
-
-#: plugins/defined/content/view.php:486
+#: plugins/defined/content/view.php:468
 #, php-format
 msgid "Insert new content:%s"
 msgstr "درج محتوای جدید:%s"
 
 #: plugins/system/administrator/controller.php:20
 #: plugins/system/administrator/view.php:53
-#: plugins/system/administrator/view.php:150
+#: plugins/system/administrator/view.php:160
 msgid "Dashboard"
 msgstr "پیشخوان"
 
 #: plugins/system/administrator/controller.php:22
 #: plugins/system/administrator/view.php:136
-#: plugins/system/administrator/view.php:157
-#: plugins/system/administrator/view.php:233
+#: plugins/system/administrator/view.php:167
+#: plugins/system/administrator/view.php:243
 msgid "Plugins"
 msgstr "افزونه‌ها"
 
@@ -415,7 +494,7 @@ msgstr "ظاهر"
 
 #: plugins/system/administrator/controller.php:30
 #: plugins/system/administrator/view.php:137
-#: plugins/system/administrator/view.php:375
+#: plugins/system/administrator/view.php:417
 msgid "Blocks"
 msgstr "بلوک‌ها"
 
@@ -424,20 +503,23 @@ msgid "Administrator"
 msgstr "مدیریت"
 
 #: plugins/system/administrator/controller.php:127
-#: plugins/system/administrator/controller.php:158
-#: plugins/system/administrator/controller.php:182
-#: plugins/system/administrator/controller.php:220
-#: plugins/system/administrator/module.php:137
+#: plugins/system/administrator/controller.php:167
+#: plugins/system/administrator/controller.php:191
+#: plugins/system/administrator/controller.php:221
+#: plugins/system/administrator/controller.php:238
+#: plugins/system/administrator/module.php:138
 #: plugins/system/menus/module.php:116 plugins/system/msg/controller.php:52
+#: plugins/system/msg/controller.php:106
 msgid "Access Denied!"
 msgstr "دسترسی غیرمجاز"
 
 #: plugins/system/administrator/controller.php:127
-#: plugins/system/administrator/controller.php:158
-#: plugins/system/administrator/controller.php:182
-#: plugins/system/administrator/controller.php:220
-#: plugins/system/administrator/module.php:137
-#: plugins/system/menus/module.php:116
+#: plugins/system/administrator/controller.php:167
+#: plugins/system/administrator/controller.php:191
+#: plugins/system/administrator/controller.php:221
+#: plugins/system/administrator/controller.php:238
+#: plugins/system/administrator/module.php:138
+#: plugins/system/menus/module.php:116 plugins/system/msg/controller.php:106
 msgid "You have no permission to do this operation!"
 msgstr "شما دسترسی لازم را ندارید."
 
@@ -468,39 +550,43 @@ msgstr "دسترسی غیرمجاز"
 msgid "you have no permission"
 msgstr "شما دسترسی لازم را ندارید."
 
-#: plugins/system/administrator/module.php:132
+#: plugins/system/administrator/module.php:133
 msgid "Change Theme"
 msgstr "تغییر پوسته سایت"
 
-#: plugins/system/administrator/module.php:132
-#: plugins/system/administrator/module.php:167
+#: plugins/system/administrator/module.php:133
+#: plugins/system/administrator/module.php:165
 msgid "Successfuly changed!"
 msgstr "با موفقیت تغییر کرد."
 
-#: plugins/system/administrator/module.php:167
+#: plugins/system/administrator/module.php:165
 msgid "Change Plugin state"
 msgstr "تغییر وضعیت افزونه"
 
-#: plugins/system/administrator/module.php:201
-#: plugins/system/administrator/module.php:219
-#: plugins/system/administrator/module.php:264
+#: plugins/system/administrator/module.php:211
+#: plugins/system/administrator/module.php:226
+#: plugins/system/administrator/module.php:271
 msgid "System message"
 msgstr "پیام سیستم !"
 
-#: plugins/system/administrator/module.php:201
+#: plugins/system/administrator/module.php:211
 msgid "Please fill all fields that marked with * ."
 msgstr "لطفا فیلد های که دارای ستاره هستند را پر کنید"
 
-#: plugins/system/administrator/module.php:219
-#: plugins/system/administrator/module.php:264
+#: plugins/system/administrator/module.php:226
+#: plugins/system/administrator/module.php:271
 msgid "All changes saved successfuly."
 msgstr "تمام تغییرات ذخیره شده اند!"
 
-#: plugins/system/administrator/module.php:326
+#: plugins/system/administrator/module.php:319
+msgid "All languages"
+msgstr "همه زبان ها"
+
+#: plugins/system/administrator/module.php:349
 msgid "Update Block"
 msgstr "به روز رسانی بلوک"
 
-#: plugins/system/administrator/module.php:326
+#: plugins/system/administrator/module.php:349
 msgid "Successfuly Updated."
 msgstr "به روز رسانی با موفقیت انجام شد."
 
@@ -547,14 +633,14 @@ msgid "Author"
 msgstr "نویسنده"
 
 #: plugins/system/administrator/view.php:114
-#: plugins/system/administrator/view.php:199 plugins/system/users/view.php:362
-#: plugins/system/users/view.php:406 plugins/system/users/view.php:590
+#: plugins/system/administrator/view.php:209 plugins/system/users/view.php:363
+#: plugins/system/users/view.php:407 plugins/system/users/view.php:591
 msgid "Options"
 msgstr "تنظیمات"
 
 #: plugins/system/administrator/view.php:124
-#: plugins/system/administrator/view.php:209
-#: plugins/system/administrator/view.php:217
+#: plugins/system/administrator/view.php:219
+#: plugins/system/administrator/view.php:227
 msgid "Install"
 msgstr "نصب"
 
@@ -567,125 +653,226 @@ msgstr "ظاهر"
 msgid "Users and permissions"
 msgstr "کاربران و سطوح دسترسی"
 
-#: plugins/system/administrator/view.php:176
+#: plugins/system/administrator/view.php:141
+msgid "Update center"
+msgstr "مرکز به روز رسانی"
+
+#: plugins/system/administrator/view.php:144
+msgid "New blog post"
+msgstr "ارسال مطلب جدید"
+
+#: plugins/system/administrator/view.php:147
+#: plugins/system/administrator/view.php:624
+msgid "Core settings"
+msgstr "تنظیمات هسته"
+
+#: plugins/system/administrator/view.php:186
 msgid "Active"
 msgstr "فعال کردن"
 
-#: plugins/system/administrator/view.php:186
+#: plugins/system/administrator/view.php:196
 msgid "Disactive"
 msgstr "غیرفعال کردن"
 
-#: plugins/system/administrator/view.php:245
+#: plugins/system/administrator/view.php:285
+msgid "Locals"
+msgstr "نواحی و زبان ها"
+
+#: plugins/system/administrator/view.php:296
 msgid "Site name"
 msgstr "نام سایت"
 
-#: plugins/system/administrator/view.php:252
+#: plugins/system/administrator/view.php:303
 msgid "Slogan"
 msgstr "شعار سایت"
 
-#: plugins/system/administrator/view.php:254
+#: plugins/system/administrator/view.php:305
 msgid "How this is used depends on your site's theme."
 msgstr "نحوه استفاده به پوسته استفاده شده سایت بستگی دارد."
 
-#: plugins/system/administrator/view.php:260
+#: plugins/system/administrator/view.php:311
 msgid "Email address"
 msgstr "رایانامه"
 
-#: plugins/system/administrator/view.php:264
+#: plugins/system/administrator/view.php:315
 msgid ""
 "The From address in automated e-mails sent during registration and new "
 "password requests, and other notifications. (Use an address ending in your "
 "site's domain to help prevent this e-mail being flagged as spam.)"
 msgstr ""
 
-#: plugins/system/administrator/view.php:268
+#: plugins/system/administrator/view.php:319
 msgid "Front page"
 msgstr "صفحه ی نخست"
 
-#: plugins/system/administrator/view.php:272
+#: plugins/system/administrator/view.php:323
 msgid ""
 "Optionally, specify a relative URL to display as the front page. be careful "
 "for that this address be correct!"
 msgstr ""
 
-#: plugins/system/administrator/view.php:277
-msgid "Enable clean url"
-msgstr "فعال سازی آدرس کوتاه"
-
-#: plugins/system/administrator/view.php:278
-msgid ""
-"With this option,pages with parameters will be replaced with clean address."
-msgstr ""
-
-#: plugins/system/administrator/view.php:288
+#: plugins/system/administrator/view.php:330
 msgid "Description"
 msgstr "توضیحات"
 
-#: plugins/system/administrator/view.php:289
+#: plugins/system/administrator/view.php:331
 msgid "your text show in header of page for use in search engines."
 msgstr ""
 "متنی که وارد می کنید در هدر صفحات برای استفاده موتور های جست و جو به نمایش در "
 "می اید.کاربران قادر به مشاهده متن نیستند."
 
-#: plugins/system/administrator/view.php:314
+#: plugins/system/administrator/view.php:356
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
-#: plugins/system/administrator/view.php:324
+#: plugins/system/administrator/view.php:366
 msgid "Default country"
 msgstr "کشور پیش فرض"
 
-#: plugins/system/administrator/view.php:333
+#: plugins/system/administrator/view.php:375
 msgid "Default Localize"
 msgstr "ناحیه پیشفرض"
 
-#: plugins/system/administrator/view.php:343
+#: plugins/system/administrator/view.php:385
 msgid "Default Timezone"
 msgstr "ساعت زمانی پیشفرض"
 
-#: plugins/system/administrator/view.php:368
+#: plugins/system/administrator/view.php:410
 msgid "Regional and languages"
 msgstr "نواحی و زبان‌ها"
 
-#: plugins/system/administrator/view.php:393
+#: plugins/system/administrator/view.php:435
 msgid "Off"
 msgstr "خاموش"
 
-#: plugins/system/administrator/view.php:422
+#: plugins/system/administrator/view.php:463
+msgid "Edite static"
+msgstr "ویرایش ایستا"
+
+#: plugins/system/administrator/view.php:475
 msgid "Place"
 msgstr "محل"
 
-#: plugins/system/administrator/view.php:435
+#: plugins/system/administrator/view.php:475
+msgid "Static"
+msgstr "ایستا"
+
+#: plugins/system/administrator/view.php:484
+msgid "Add static block"
+msgstr "افزودن بلوک ایستا"
+
+#: plugins/system/administrator/view.php:496
 msgid "Manage Blocks"
 msgstr "مدیریت بلوک ها"
 
-#: plugins/system/administrator/view.php:458
+#: plugins/system/administrator/view.php:516
+#: plugins/system/administrator/view.php:675
+msgid "Show header"
+msgstr "نمایش سربرگ"
+
+#: plugins/system/administrator/view.php:521
+#: plugins/system/administrator/view.php:677
+msgid "If this option checked,label of block will showed at the top of block."
+msgstr ""
+
+#: plugins/system/administrator/view.php:528
 msgid "Pages"
 msgstr "صفحات"
 
-#: plugins/system/administrator/view.php:459
-msgid "Use ',' for seperate page urls."
-msgstr "برای جدا کردن صفحات از کاما استفاده کنید."
+#: plugins/system/administrator/view.php:529
+msgid ""
+"Use ',' for seperate page urls. for use home page enter 'frontpage' and start "
+"your internal urls with '\\'."
+msgstr ""
 
-#: plugins/system/administrator/view.php:466
+#: plugins/system/administrator/view.php:536
 msgid "With this option you can select pages for show."
 msgstr ""
 
-#: plugins/system/administrator/view.php:468
+#: plugins/system/administrator/view.php:538
 msgid "All pages espect that comes above."
 msgstr ""
 
-#: plugins/system/administrator/view.php:475
+#: plugins/system/administrator/view.php:545
 msgid "show in pages that comes above."
 msgstr ""
 
-#: plugins/system/administrator/view.php:484
+#: plugins/system/administrator/view.php:554
+msgid "Localize block"
+msgstr ""
+
+#: plugins/system/administrator/view.php:555
+msgid "block will showed in selected localize."
+msgstr ""
+
+#: plugins/system/administrator/view.php:566
 msgid "Position"
 msgstr "موقعیت"
 
-#: plugins/system/administrator/view.php:510
+#: plugins/system/administrator/view.php:592
 msgid "Edite Block:"
 msgstr "ویرایش بلوک:"
+
+#: plugins/system/administrator/view.php:600
+msgid "Enable clean url"
+msgstr "فعال سازی آدرس کوتاه"
+
+#: plugins/system/administrator/view.php:602
+msgid ""
+"With this option,pages with parameters will be replaced with clean address."
+msgstr ""
+
+#: plugins/system/administrator/view.php:637
+msgid ""
+"Be careful! after delete this local setting all content that has relation "
+"with this,will be removed."
+msgstr ""
+
+#: plugins/system/administrator/view.php:656
+msgid "Delete local"
+msgstr ""
+
+#: plugins/system/administrator/view.php:663
+msgid "Block name"
+msgstr ""
+
+#: plugins/system/administrator/view.php:666
+msgid "Block name not show in template"
+msgstr ""
+
+#: plugins/system/administrator/view.php:669
+msgid "Block label"
+msgstr ""
+
+#: plugins/system/administrator/view.php:672
+msgid "if enable show header option this label will be show."
+msgstr ""
+
+#: plugins/system/administrator/view.php:680
+msgid "content of block"
+msgstr ""
+
+#: plugins/system/administrator/view.php:684
+msgid ""
+"All of content that you will enter,show in block.you can use html and "
+"javascript codes and style with CSS."
+msgstr ""
+
+#: plugins/system/administrator/view.php:688
+msgid "Add block"
+msgstr ""
+
+#: plugins/system/administrator/view.php:713
+msgid "Edite block"
+msgstr ""
+
+#: plugins/system/administrator/view.php:722
+msgid "New static block"
+msgstr ""
+
+#: plugins/system/administrator/view.php:752
+msgid "Delete Static block"
+msgstr ""
 
 #: plugins/system/files/controller.php:45
 #: plugins/system/files/controller.php:54
@@ -799,129 +986,125 @@ msgstr "مطالعه یاداشت های انتشار"
 msgid "Updates"
 msgstr "به روز رسانی ها"
 
-#: plugins/system/menus/controller.php:11
+#: plugins/system/menus/controller.php:14
 msgid "New Menu"
 msgstr "منو جدید"
 
-#: plugins/system/menus/controller.php:13
+#: plugins/system/menus/controller.php:16
 msgid "List Menus"
 msgstr "لیست منوها"
 
-#: plugins/system/menus/controller.php:15
+#: plugins/system/menus/controller.php:18
 msgid "Menus"
 msgstr "فهرست"
 
-#: plugins/system/menus/view.php:13
+#: plugins/system/menus/view.php:12
 msgid "Menu name"
 msgstr "نام فهرست"
 
-#: plugins/system/menus/view.php:18
+#: plugins/system/menus/view.php:17
 msgid "Header label"
 msgstr "برچسب سربرگ"
 
-#: plugins/system/menus/view.php:19
+#: plugins/system/menus/view.php:18
 msgid "This text show above of menu in template."
 msgstr "این متن در بالای منو در قالب وب سایت نمایش داده خواهد شد."
 
-#: plugins/system/menus/view.php:24
+#: plugins/system/menus/view.php:23
 msgid "Show header label"
 msgstr "نمایش برچسب سربرگ"
 
-#: plugins/system/menus/view.php:25
+#: plugins/system/menus/view.php:24
 msgid "This option use for show or hide label of menu."
 msgstr "این گذینه قابلیت نمایش یا مخفی کردن برچسب فهرست را دارد."
 
-#: plugins/system/menus/view.php:30 plugins/system/menus/view.php:137
-msgid "Localize"
-msgstr "محلی سازی"
-
-#: plugins/system/menus/view.php:31
+#: plugins/system/menus/view.php:30
 msgid "Created menu just will showed in selected localize."
 msgstr "فهرست ایجاد  شده فقط در ناحیه محلی انتخاب شده نمایش داده خواهد شد."
 
-#: plugins/system/menus/view.php:38
+#: plugins/system/menus/view.php:37
 msgid "Horizontal menu"
 msgstr "فهرست افقی"
 
-#: plugins/system/menus/view.php:39
+#: plugins/system/menus/view.php:38
 msgid "if this option checked,menu show in horizontal mode."
 msgstr "اگر این گزینه را فعال کنید,فهرست به صورت افقی نمایش داده خواهد شد."
 
-#: plugins/system/menus/view.php:43 plugins/system/menus/view.php:184
-#: plugins/system/users/view.php:626
+#: plugins/system/menus/view.php:42 plugins/system/menus/view.php:183
+#: plugins/system/users/view.php:627
 msgid "Add"
 msgstr "افزودن"
 
-#: plugins/system/menus/view.php:83 plugins/system/menus/view.php:144
+#: plugins/system/menus/view.php:82 plugins/system/menus/view.php:143
 msgid "New menu"
 msgstr "فهرست جدید"
 
-#: plugins/system/menus/view.php:109 plugins/system/menus/view.php:137
+#: plugins/system/menus/view.php:108 plugins/system/menus/view.php:136
 msgid "Add link"
 msgstr "افزودن پیوند"
 
-#: plugins/system/menus/view.php:115
+#: plugins/system/menus/view.php:114
 msgid "Manage links"
 msgstr "مدیریت پیوند ها"
 
-#: plugins/system/menus/view.php:137
+#: plugins/system/menus/view.php:136
 msgid "Manage"
 msgstr "مدیریت"
 
-#: plugins/system/menus/view.php:149
+#: plugins/system/menus/view.php:148
 msgid "List of menus"
 msgstr "لیست فهرست ها"
 
-#: plugins/system/menus/view.php:160
+#: plugins/system/menus/view.php:159
 msgid "Link label"
 msgstr "برچسب پیوند"
 
-#: plugins/system/menus/view.php:161
+#: plugins/system/menus/view.php:160
 msgid "This option set label for link."
 msgstr "با این گذینه می توانید برای پیوند یک برچسب انتخاب کنید."
 
-#: plugins/system/menus/view.php:166
+#: plugins/system/menus/view.php:165
 msgid "URL"
 msgstr "آدرس اینترنتی"
 
-#: plugins/system/menus/view.php:167
+#: plugins/system/menus/view.php:166
 msgid "This option set address of link."
 msgstr "این گذینه آدرس پیوند را مشخص می کند."
 
-#: plugins/system/menus/view.php:172
+#: plugins/system/menus/view.php:171
 msgid "Enable link"
 msgstr "فعالی سازی پیوند"
 
-#: plugins/system/menus/view.php:173
+#: plugins/system/menus/view.php:172
 msgid "With this, you can show or hide link in menu."
 msgstr "با این گذینه می توانید نمایش لینک در منو را فعال یا غیر فعال کنید."
 
-#: plugins/system/menus/view.php:179
+#: plugins/system/menus/view.php:178
 msgid "use for set position of link in menu."
 msgstr "برای تنظیم محل نمایش پیوند در فهرست از این گذینه استفاده کنید."
 
-#: plugins/system/menus/view.php:205
+#: plugins/system/menus/view.php:204
 msgid "Save"
 msgstr "ذخیره"
 
-#: plugins/system/menus/view.php:259
+#: plugins/system/menus/view.php:258
 msgid "New link"
 msgstr "افزودن پیوند"
 
-#: plugins/system/menus/view.php:273
+#: plugins/system/menus/view.php:272
 msgid "List of links"
 msgstr "لیست پیوند ها"
 
-#: plugins/system/menus/view.php:300
+#: plugins/system/menus/view.php:299
 msgid "Are you sure for delete menu?"
 msgstr "آیا برای حذف این منو مطمئن هستید؟"
 
-#: plugins/system/menus/view.php:302
+#: plugins/system/menus/view.php:301
 #, php-format
 msgid "Menu name: %s"
 msgstr "نام فهرست : %s"
 
-#: plugins/system/menus/view.php:323
+#: plugins/system/menus/view.php:322
 msgid "Delete menu"
 msgstr "حذف فهرست"
 
@@ -937,15 +1120,23 @@ msgstr "کامل شد"
 msgid "Your request successfully completed."
 msgstr "درخواست شما با موفقیت کامل شد."
 
-#: plugins/system/msg/controller.php:76 plugins/system/msg/controller.php:84
+#: plugins/system/msg/controller.php:77 plugins/system/users/module.php:518
+msgid "Error"
+msgstr "خطا"
+
+#: plugins/system/msg/controller.php:77
+msgid "An error has occurred in system.please try again."
+msgstr ""
+
+#: plugins/system/msg/controller.php:90 plugins/system/msg/controller.php:98
 msgid "Please fill all necessary places"
 msgstr "لطفا فیلد های لازم را تکمیل کنید."
 
-#: plugins/system/msg/controller.php:87
+#: plugins/system/msg/controller.php:101
 msgid "Error!"
 msgstr "خطا!"
 
-#: plugins/system/msg/controller.php:87
+#: plugins/system/msg/controller.php:101
 msgid "Some error was happen!"
 msgstr "خطایی رخ داده است!"
 
@@ -965,16 +1156,16 @@ msgstr "صفحه نخست"
 msgid "Not Found!"
 msgstr "پیدا نشد!"
 
-#: plugins/system/users/controller.php:20 plugins/system/users/view.php:318
-#: plugins/system/users/view.php:368
+#: plugins/system/users/controller.php:20 plugins/system/users/view.php:319
+#: plugins/system/users/view.php:369
 msgid "People"
 msgstr "افراد"
 
-#: plugins/system/users/controller.php:22 plugins/system/users/view.php:427
+#: plugins/system/users/controller.php:22 plugins/system/users/view.php:428
 msgid "Groups"
 msgstr "گروه ها"
 
-#: plugins/system/users/controller.php:24 plugins/system/users/view.php:554
+#: plugins/system/users/controller.php:24 plugins/system/users/view.php:555
 msgid "Account settings"
 msgstr "تنظیمات حساب کاربری"
 
@@ -998,86 +1189,86 @@ msgstr "لطفا تمام فیلد هایی را که با (*) علامت گذا
 msgid "Users and permations controlled with this plugin."
 msgstr "کاربران و سطوح دسترسی توسط این پلاگین کنترل می شوند"
 
-#: plugins/system/users/module.php:94
+#: plugins/system/users/module.php:93
 msgid "Username or Password is incerrect!"
 msgstr "کلید ورود یا گذرواژه اشتباه است!"
 
-#: plugins/system/users/module.php:213 plugins/system/users/view.php:231
+#: plugins/system/users/module.php:212 plugins/system/users/view.php:232
 msgid "Reset password"
 msgstr "بازیابی گذرواژه"
 
-#: plugins/system/users/module.php:214
+#: plugins/system/users/module.php:213
 #, php-format
 msgid "Your reset password code is:%s"
 msgstr "کد بازیابی گذرواژه شما: %s"
 
-#: plugins/system/users/module.php:214
+#: plugins/system/users/module.php:213
 msgid "first go to this link and enter your reset password code."
 msgstr ""
 
-#: plugins/system/users/module.php:219
+#: plugins/system/users/module.php:218
 msgid ""
 "We send an email to you.please go to your inbox for more information about "
 "reset your password."
 msgstr ""
 
-#: plugins/system/users/module.php:228
+#: plugins/system/users/module.php:227
 msgid "Your entered username/email not found."
 msgstr ""
 
-#: plugins/system/users/module.php:282
+#: plugins/system/users/module.php:281
 msgid "Format of username is not cerrect."
 msgstr ""
 
-#: plugins/system/users/module.php:287
+#: plugins/system/users/module.php:286
 msgid "The username you entered is already taken by another user."
 msgstr ""
 
-#: plugins/system/users/module.php:291
+#: plugins/system/users/module.php:290
 msgid "Email is already taken by another user."
 msgstr "ایمیل وارد شده قبلا ثبت شده است."
 
-#: plugins/system/users/module.php:296
+#: plugins/system/users/module.php:295
 msgid "Your usernameis too short."
 msgstr "نام‌کاربری کوتاه است."
 
-#: plugins/system/users/module.php:303
+#: plugins/system/users/module.php:302
 msgid "The new passwords you entered do not match."
 msgstr "کلمه‌های عبور وارد شده با هم مطابقت ندارند."
 
-#: plugins/system/users/module.php:307
+#: plugins/system/users/module.php:306
 msgid "Your password is to short."
 msgstr "طول کلمه‌عبور کوتاه است."
 
-#: plugins/system/users/module.php:314
+#: plugins/system/users/module.php:313
 msgid "Your email is not cerrect."
 msgstr "رایانامه وارد شده معتبر نیست."
 
-#: plugins/system/users/module.php:354 plugins/system/users/module.php:392
-#: plugins/system/users/module.php:480 plugins/system/users/view.php:264
-#: plugins/system/users/view.php:269
+#: plugins/system/users/module.php:353 plugins/system/users/module.php:391
+#: plugins/system/users/module.php:479 plugins/system/users/view.php:265
+#: plugins/system/users/view.php:270
 msgid "Active account"
 msgstr "فعال‌سازی حساب کاربری"
 
-#: plugins/system/users/module.php:355
+#: plugins/system/users/module.php:354
 #, php-format
 msgid "Your activation code is:%s"
 msgstr "کد فعال‌سازی شما: %s"
 
-#: plugins/system/users/module.php:355
+#: plugins/system/users/module.php:354
 msgid " first go to link that comes below and enter your activation code."
 msgstr "ابتدا به پیوند زیر مراجعه کرده،سپس کد فعال‌سازی خود را وارد کنید."
 
-#: plugins/system/users/module.php:387
+#: plugins/system/users/module.php:386
 msgid "Registration complete"
 msgstr "عضویت کامل شد"
 
-#: plugins/system/users/module.php:388
+#: plugins/system/users/module.php:387
 #, php-format
 msgid "Your registration in %s was completed."
 msgstr "عضویت شما در %s با موفقیت به پایان رسید."
 
-#: plugins/system/users/module.php:393
+#: plugins/system/users/module.php:392
 msgid ""
 "We sent an email with an activation code to activate your account, check your "
 "email for more information."
@@ -1085,11 +1276,11 @@ msgstr ""
 "ما یک نامه حاوی کد فعال‌سازی جهت تکمیل فرآیند عضویت به رایانامه شما ارسال "
 "کردیم.برای اطلاعات بیشتر صندوق ورودی خود را چک کنید."
 
-#: plugins/system/users/module.php:474
+#: plugins/system/users/module.php:473
 msgid "Registration completed!"
 msgstr "عضویت کامل شد!"
 
-#: plugins/system/users/module.php:475
+#: plugins/system/users/module.php:474
 msgid ""
 "Your registration was successful.now you can login to system with your login "
 "information that you entered"
@@ -1097,47 +1288,43 @@ msgstr ""
 "عضویت شما با موفقیت انجام شد.هم‌اکنون میتوانید با اطلاعاتی که در زمان ثبت‌نام "
 "وارد کرده‌اید وارد شوید."
 
-#: plugins/system/users/module.php:481
+#: plugins/system/users/module.php:480
 msgid ""
 "We sent an email with an activation code to activate your account, check your "
 "email for more information and enter your activation code in box below."
 msgstr ""
 
-#: plugins/system/users/module.php:508
+#: plugins/system/users/module.php:507
 msgid "New password"
 msgstr "گذرواژه جدید"
 
-#: plugins/system/users/module.php:509
+#: plugins/system/users/module.php:508
 #, php-format
 msgid "Your new password is: %s"
 msgstr "گذرواژه جدید شما: %s"
 
-#: plugins/system/users/module.php:509
+#: plugins/system/users/module.php:508
 msgid "Please after login to portal change your password"
 msgstr "لطفا بعد از ورود به پورتال کلمه‌عبور خود را تغییر دهید."
 
-#: plugins/system/users/module.php:514
+#: plugins/system/users/module.php:513
 msgid "Password changed"
 msgstr "گذرواژه با موفقیت تغییر کرد."
 
-#: plugins/system/users/module.php:514
+#: plugins/system/users/module.php:513
 msgid "Your new password was send to your email. check your email for get that."
 msgstr "برای اطلاع از گذرواژه خویش، ایمیل خود را چک کنید."
 
-#: plugins/system/users/module.php:519
-msgid "Error"
-msgstr "خطا"
-
-#: plugins/system/users/module.php:519
+#: plugins/system/users/module.php:518
 msgid ""
 "Error in sending new password to your email. please tell with administrator"
 msgstr "خطا در ارسال رمز عبور جدید به ایمیل شما. لطفا با مدیر سایت تماس بگیرید."
 
-#: plugins/system/users/module.php:526
+#: plugins/system/users/module.php:525
 msgid "Warning"
 msgstr "هشدار"
 
-#: plugins/system/users/module.php:526
+#: plugins/system/users/module.php:525
 msgid ""
 "Code that you entered is invalid.please enter code that you got from your "
 "email."
@@ -1145,108 +1332,108 @@ msgstr ""
 "کد وارد شده اشتباه است.لطفا کدی که از طریق صندوق پست الکترونیکی خود دریافت "
 "کرده‌اید را وارد کنید."
 
-#: plugins/system/users/module.php:610 plugins/system/users/module.php:639
+#: plugins/system/users/module.php:609 plugins/system/users/module.php:638
 msgid "successfully updated"
 msgstr "به روز رسانی با موفقیت انجام شد."
 
-#: plugins/system/users/module.php:610 plugins/system/users/module.php:639
+#: plugins/system/users/module.php:609 plugins/system/users/module.php:638
 msgid "Settings was successfully updated."
 msgstr "تنظیمات به‌روز شد"
 
-#: plugins/system/users/module.php:647
+#: plugins/system/users/module.php:646
 msgid "Permission denied"
 msgstr "دسترسی غیرمجاز"
 
-#: plugins/system/users/module.php:647
+#: plugins/system/users/module.php:646
 msgid "You do't have permission to do this action."
 msgstr "شما دسترسی لازم را ندارید."
 
-#: plugins/system/users/module.php:681
+#: plugins/system/users/module.php:680
 msgid "Delete IP"
 msgstr "حذف آی پی"
 
-#: plugins/system/users/module.php:681
+#: plugins/system/users/module.php:680
 msgid "Requested IP successfully deleted."
 msgstr "آی پی درخواستی با موفقیت حذف شد."
 
-#: plugins/system/users/module.php:697 plugins/system/users/view.php:598
+#: plugins/system/users/module.php:696 plugins/system/users/view.php:599
 msgid "Add IP"
 msgstr "افزودن آی پی"
 
-#: plugins/system/users/module.php:697
+#: plugins/system/users/module.php:696
 msgid "IP Added to block list successfully."
 msgstr "آی پی با موفقیت به لیست سیاه اضافه شد."
 
-#: plugins/system/users/view.php:20 plugins/system/users/view.php:203
-#: plugins/system/users/view.php:205
+#: plugins/system/users/view.php:21 plugins/system/users/view.php:204
+#: plugins/system/users/view.php:206
 msgid "Username or e-mail address"
 msgstr "نام کاربری یا رایانامه"
 
-#: plugins/system/users/view.php:26 plugins/system/users/view.php:154
+#: plugins/system/users/view.php:27 plugins/system/users/view.php:155
 msgid "Password:"
 msgstr "گذرواژه:"
 
-#: plugins/system/users/view.php:28 plugins/system/users/view.php:156
-#: plugins/system/users/view.php:164
+#: plugins/system/users/view.php:29 plugins/system/users/view.php:157
+#: plugins/system/users/view.php:165
 msgid "Password"
 msgstr "گذرواژه"
 
-#: plugins/system/users/view.php:34
+#: plugins/system/users/view.php:35
 msgid "Remember me!"
 msgstr "مرا فراموش مکن!"
 
-#: plugins/system/users/view.php:38 plugins/system/users/view.php:78
+#: plugins/system/users/view.php:39 plugins/system/users/view.php:79
 msgid "Sign in"
 msgstr "ورود"
 
-#: plugins/system/users/view.php:45
+#: plugins/system/users/view.php:46
 msgid "Reset Password"
 msgstr "بازیابی گذرواژه"
 
-#: plugins/system/users/view.php:66
+#: plugins/system/users/view.php:67
 msgid "Don't have account?"
 msgstr "حساب کاربری ندارید؟"
 
-#: plugins/system/users/view.php:69 plugins/system/users/view.php:189
+#: plugins/system/users/view.php:70 plugins/system/users/view.php:190
 msgid "Sign up"
 msgstr "ثبت نام"
 
-#: plugins/system/users/view.php:101
+#: plugins/system/users/view.php:102
 msgid "Hello"
 msgstr "سلام"
 
-#: plugins/system/users/view.php:108
+#: plugins/system/users/view.php:109
 msgid "Sign Out!"
 msgstr "خروج!"
 
-#: plugins/system/users/view.php:117
+#: plugins/system/users/view.php:118
 msgid "Admin panel"
 msgstr "محیط مدیریت"
 
-#: plugins/system/users/view.php:123
+#: plugins/system/users/view.php:124
 msgid "User Profile"
 msgstr "نمایه کاربر"
 
-#: plugins/system/users/view.php:132
+#: plugins/system/users/view.php:133
 msgid "Register"
 msgstr "ثبت نام"
 
-#: plugins/system/users/view.php:136 plugins/system/users/view.php:290
+#: plugins/system/users/view.php:137 plugins/system/users/view.php:291
 msgid "Username:"
 msgstr "نام کاربری:"
 
-#: plugins/system/users/view.php:137 plugins/system/users/view.php:145
-#: plugins/system/users/view.php:155 plugins/system/users/view.php:163
-#: plugins/system/users/view.php:206 plugins/system/users/view.php:226
-#: plugins/system/users/view.php:256 plugins/system/users/view.php:620
+#: plugins/system/users/view.php:138 plugins/system/users/view.php:146
+#: plugins/system/users/view.php:156 plugins/system/users/view.php:164
+#: plugins/system/users/view.php:207 plugins/system/users/view.php:227
+#: plugins/system/users/view.php:257 plugins/system/users/view.php:621
 msgid "*"
 msgstr "*"
 
-#: plugins/system/users/view.php:138 plugins/system/users/view.php:362
+#: plugins/system/users/view.php:139 plugins/system/users/view.php:363
 msgid "Username"
 msgstr "نام کاربری"
 
-#: plugins/system/users/view.php:139
+#: plugins/system/users/view.php:140
 msgid ""
 "Spaces are allowed; punctuation is not allowed except for periods, hyphens, "
 "apostrophes, and underscores."
@@ -1254,15 +1441,15 @@ msgstr ""
 "شما مجاز به استفاده از فاصله هستید؛ ولی مجاز به استفاده از نشانه های سجاوندی "
 "به جز نقطه، خط تیره، آپاستروف و زیرخط (_) نیستید."
 
-#: plugins/system/users/view.php:144
+#: plugins/system/users/view.php:145
 msgid "Email:"
 msgstr "رایانامه:"
 
-#: plugins/system/users/view.php:146
+#: plugins/system/users/view.php:147
 msgid "Email"
 msgstr "رایانامه"
 
-#: plugins/system/users/view.php:147
+#: plugins/system/users/view.php:148
 msgid ""
 "A valid e-mail address. All e-mails from the system will be sent to this "
 "address. The e-mail address is not made public and will only be used if you "
@@ -1273,121 +1460,121 @@ msgstr ""
 "خواهند شد. آدرس رایانامه شما منتشر نخواهد شد و فقط برای کار هایی مانند "
 "درخواست گذرواژه جدید یا درخواست دریافت اخبار و اطلاعیه استفاده خواهد شد."
 
-#: plugins/system/users/view.php:162
+#: plugins/system/users/view.php:163
 msgid "Confirm password :"
 msgstr "تأیید گذرواژه: "
 
-#: plugins/system/users/view.php:171
+#: plugins/system/users/view.php:172
 msgid "Create new account"
 msgstr "ایجاد حساب جدید"
 
-#: plugins/system/users/view.php:198
+#: plugins/system/users/view.php:199
 msgid "Request reset password"
 msgstr "درخواست گذرواژه جدید"
 
-#: plugins/system/users/view.php:204
+#: plugins/system/users/view.php:205
 msgid "Enter your Alternate Email Address or username"
 msgstr "نام کاربری یا رایانامه جایگزین خود را وارد کنید"
 
-#: plugins/system/users/view.php:211
+#: plugins/system/users/view.php:212
 msgid "Send password reset code"
 msgstr "ارسال کد بازیابی گذرواژه"
 
-#: plugins/system/users/view.php:219
+#: plugins/system/users/view.php:220
 msgid "Enter reset code"
 msgstr "کد بازیابی گذرواژه را وارد کنید."
 
-#: plugins/system/users/view.php:223
+#: plugins/system/users/view.php:224
 msgid "Reset code"
 msgstr "کد تنظیم مجدد"
 
-#: plugins/system/users/view.php:224
+#: plugins/system/users/view.php:225
 msgid "Enter your code that you get in your email"
 msgstr "کد ی را که در ایمیل خود دریافت کرده اید را وارد کنید"
 
-#: plugins/system/users/view.php:225
+#: plugins/system/users/view.php:226
 msgid "Code"
 msgstr "کد"
 
-#: plugins/system/users/view.php:241
+#: plugins/system/users/view.php:242
 msgid "Change password"
 msgstr "تغییر گذرواژه"
 
-#: plugins/system/users/view.php:255
+#: plugins/system/users/view.php:256
 msgid "Activation code"
 msgstr "کد فعال‌سازی"
 
-#: plugins/system/users/view.php:257
+#: plugins/system/users/view.php:258
 msgid "Your code in here!"
 msgstr "کد شما در اینجا!"
 
-#: plugins/system/users/view.php:258
+#: plugins/system/users/view.php:259
 msgid ""
 "Enter code that you got it in your email in box below for active your account."
 msgstr "کد فعال‌سازی که از طریق رایانامه خود دریافت کرده‌اید را وارد کنید."
 
-#: plugins/system/users/view.php:296
+#: plugins/system/users/view.php:297
 msgid "Last login:"
 msgstr "آخرین ورود:"
 
-#: plugins/system/users/view.php:300
+#: plugins/system/users/view.php:301
 msgid "Register date:"
 msgstr "تاریخ عضویت"
 
-#: plugins/system/users/view.php:304
+#: plugins/system/users/view.php:305
 msgid "Edite Profile"
 msgstr "ویرایش نمایه"
 
-#: plugins/system/users/view.php:310
+#: plugins/system/users/view.php:311
 #, php-format
 msgid "%s's profile"
 msgstr "نمایه %s"
 
-#: plugins/system/users/view.php:362
+#: plugins/system/users/view.php:363
 msgid "Group"
 msgstr "گروه"
 
-#: plugins/system/users/view.php:362
+#: plugins/system/users/view.php:363
 msgid "Register Date"
 msgstr "تاریخ عضویت"
 
-#: plugins/system/users/view.php:375
+#: plugins/system/users/view.php:376
 msgid "User Groups"
 msgstr "گروه های کاربری"
 
-#: plugins/system/users/view.php:406
+#: plugins/system/users/view.php:407
 msgid "Count"
 msgstr "تعداد"
 
-#: plugins/system/users/view.php:413
+#: plugins/system/users/view.php:414
 msgid "New Group"
 msgstr "گروه جدید"
 
-#: plugins/system/users/view.php:436
+#: plugins/system/users/view.php:437
 msgid "Registration and cancellation"
 msgstr "عضویت و غیرفعال سازی"
 
-#: plugins/system/users/view.php:439
+#: plugins/system/users/view.php:440
 msgid "Who can register accounts? "
 msgstr "چه کسانی میتوانند ثبت نام کنند."
 
-#: plugins/system/users/view.php:441
+#: plugins/system/users/view.php:442
 msgid "Administrators only"
 msgstr "فقط مدیران سایت"
 
-#: plugins/system/users/view.php:448
+#: plugins/system/users/view.php:449
 msgid "Visitors"
 msgstr "ببینندگان"
 
-#: plugins/system/users/view.php:455
+#: plugins/system/users/view.php:456
 msgid "Visitors, but administrator approval is required"
 msgstr "بینندگان,اما نیازمندان تایید مدیران است."
 
-#: plugins/system/users/view.php:465
+#: plugins/system/users/view.php:466
 msgid "Require e-mail verification when a visitor creates an account."
 msgstr "نیاز به تایید پست الکترونیکی در زمان عضویت."
 
-#: plugins/system/users/view.php:466
+#: plugins/system/users/view.php:467
 msgid ""
 "New users will be required to validate their e-mail address prior to logging "
 "into the site, and will be assigned a system-generated password. With this "
@@ -1395,49 +1582,49 @@ msgid ""
 "may select their own passwords during registration."
 msgstr ""
 
-#: plugins/system/users/view.php:492
+#: plugins/system/users/view.php:493
 msgid "Personalization"
 msgstr "شخصی سازی"
 
-#: plugins/system/users/view.php:496
+#: plugins/system/users/view.php:497
 msgid "Enable signatures."
 msgstr "فعال سازی امضا کاربران"
 
-#: plugins/system/users/view.php:497
+#: plugins/system/users/view.php:498
 msgid ""
 "With enable this option user signature show in content that published by user."
 msgstr ""
 "با فعال سازی این گذینه کاربران می توانند متن امضا خود را در محتواهایی که "
 "منتشر می کنند نمایش دهند."
 
-#: plugins/system/users/view.php:505
+#: plugins/system/users/view.php:506
 msgid "Enable user pictures. "
 msgstr "فعال کردن تصاویر کاربر."
 
-#: plugins/system/users/view.php:506
+#: plugins/system/users/view.php:507
 msgid "With this option,site users can upload personal avatars."
 msgstr ""
 
-#: plugins/system/users/view.php:514
+#: plugins/system/users/view.php:515
 msgid "Picture upload max file size"
 msgstr "حداکثر حجم تصویر"
 
-#: plugins/system/users/view.php:515
+#: plugins/system/users/view.php:516
 msgid "KiloByte"
 msgstr "کیلوبایت"
 
-#: plugins/system/users/view.php:518
+#: plugins/system/users/view.php:519
 msgid ""
 "Maximum allowed file size for uploaded pictures. Upload size is normally "
 "limited only by the PHP maximum post and file upload settings, and images are "
 "automatically scaled down to the dimensions specified above."
 msgstr ""
 
-#: plugins/system/users/view.php:523
+#: plugins/system/users/view.php:524
 msgid "Picture guidelines"
 msgstr "راهنمای تصویر"
 
-#: plugins/system/users/view.php:527
+#: plugins/system/users/view.php:528
 msgid ""
 "This text is displayed at the picture upload form in addition to the default "
 "guidelines. It's useful for helping or instructing your users."
@@ -1445,27 +1632,27 @@ msgstr ""
 "این متن در فرم ارسال تصویر علاوه بر دستورالعمل به طور پیش فرض نمایش داده می "
 "شود. که می تواند برای کمک یا راهنمایی کاربران شما مفید باشد."
 
-#: plugins/system/users/view.php:549
+#: plugins/system/users/view.php:550
 msgid "Emails"
 msgstr "رایانامه"
 
-#: plugins/system/users/view.php:560 plugins/system/users/view.php:611
+#: plugins/system/users/view.php:561 plugins/system/users/view.php:612
 msgid "Blocked IPs"
 msgstr "آی پی های مسدود شده"
 
-#: plugins/system/users/view.php:590
+#: plugins/system/users/view.php:591
 msgid "IP number"
 msgstr "ادرس آی پی"
 
-#: plugins/system/users/view.php:619
+#: plugins/system/users/view.php:620
 msgid "IP Address"
 msgstr "ادرس آی پی"
 
-#: plugins/system/users/view.php:622
+#: plugins/system/users/view.php:623
 msgid "Enter ip that you want will be blocked by system. "
 msgstr "آی پی که قصد مسدود کردن آن را دارید را وارد کنید."
 
-#: plugins/system/users/view.php:640
+#: plugins/system/users/view.php:641
 msgid "Block new ip"
 msgstr "مسدود کردن آی پی جدید"
 
@@ -1476,6 +1663,21 @@ msgstr "پایه"
 #: themes/simple/info.php:9
 msgid "simple"
 msgstr "ساده"
+
+#~ msgid "Guest"
+#~ msgstr "مهمان"
+
+#~ msgid "Add Content"
+#~ msgstr "اضافه کردن محتوا"
+
+#~ msgid "ADD"
+#~ msgstr "افزودن"
+
+#~ msgid "Applay"
+#~ msgstr "اعمال"
+
+#~ msgid "Use ',' for seperate page urls."
+#~ msgstr "برای جدا کردن صفحات از کاما استفاده کنید."
 
 #~ msgid "Settings"
 #~ msgstr "تنظیمات"
