@@ -25,8 +25,14 @@ class view{
 		
 		if($config['SCRIPT_SRC'] != ''){browser\page::add_header('<script src="' . $config['SCRIPT_SRC'] . '"></script>'); }		
 		if($config['CSS_FILE'] != ''){ browser\page::add_header('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}
-	
-	
+		
+		//labels
+		$this->raintpl->assign( "browse_label", _('Browse ...'));
+		$this->raintpl->assign( "upload_label", _('Upload'));
+		$this->raintpl->assign( "remove_label", _('Remove'));
+
+		$this->raintpl->assign( "file_system_id", $config['FILE_SYSTEM_ID']);
+		
 		$this->raintpl->assign( "size", $config['SIZE']);
 		$this->raintpl->assign( "class", $config['CLASS']);
 		$this->raintpl->assign( "form", $config['FORM']);

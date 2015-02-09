@@ -1,17 +1,4 @@
-<div class="row body_ctr_uploader_{$name}">
-	<div class="col-xs-{$size} {$class}">
-		
-	<input form ="{$form}" name="{$name}" id="id_ctr_uploader_{$name}" class="ca_{$form}" type="hidden" value="" />
-    
-    <form name="form_ctr_upload_{$name}" id="form_ctr_upload_{$name}" enctype="multipart/form-data" >
-        <input type="file" name ="uploader" form="form_ctr_upload" id ="ctr_uploader_{$name}" style="display: none;" onchange="ctr_uploader_onchange(this.files, 'ctr_uploader_{$name}')"  />
-    	<input type="hidden" id="ctr_uploader_{$name}_types" form="form_ctr_upload_{$name}" value="{$file_types}" />
-	    <input type="hidden" id="ctr_uploader_{$name}_size" form="form_ctr_upload_{$name}" value="{$max_size}" />
-    </form>
-	
-
-	
-	
+<div class="row body_ctr_uploader_{$name} col-xs-12 col-sm-12 col-lg-{$size}">	
 	<div class="panel panel-{$type}">
 		<div class="panel-heading">
 			<div class="panel-tittle">
@@ -19,36 +6,28 @@
 			</div>
 		</div>
 		<div class="panel-body">
-
-				  <div class="row">
-					  {if="$preview"}
-						<div class="col-xs-2">
-							<img class="ctr_uploader_img img-thumbnail" id="ctr_uploader_{$name}_img" src="./core/lib/controls/uploader/preview.png" alt="uploader privew"  />
-						</div>
-					  {/if}
-						<div class="col-xs-5">
-								<div class="row">
-										<div class="col-xs-12">
-											<input type="textbox" class="form-control" id="ctr_uploader_{$name}_txt" placeholder="{$txt_file_address}" readonly>
-										</div>
-								</div>
-								<div class="row">
-										<div class="col-xs-12">
-											<span class="label label-default">
-												{$txt_max_size} : {$max_size_unit} {$txt_max_size_unit}    
-												{$txt_file_types} : {$file_types}
-											</span>
-										</div>
-								</div>
-				  
-						</div>  
-						<div class="col-xs-4">
-								<button type="button" class="btn btn-default" onclick="ctr_uploader_select('{$name}')">{$txt_select}</button>
-								<button type="button" class="btn btn-info" id="btn_ctr_uploader_{$name}" onclick="ctr_uploader_upload('{$name}')" disabled="disabled" >{$txt_upload}</button>
-						</div>
-				  </div>
-				  
-			  
+				<div class="row">
+					<div class="col-xs-12">
+						<input form ="{$form}" name="{$name}" id="id_ctr_uploader_{$name}" class="ca_{$form}" type="hidden" value="" />
+						<form name="form_ctr_upload_{$name}" id="form_ctr_upload_{$name}" enctype="multipart/form-data" >
+						    
+			    			<input type="file" name ="uploader" form="form_ctr_upload" id ="ctr_uploader_{$name}" onchange="ctr_uploader_onchange(this.files, 'ctr_uploader_{$name}')"  class="file"/>
+	    				</form>
+	    			</div>
+    			</div>
 		</div>	
 	</div>
 </div>
+<script type="text/javascript">
+	$("#ctr_uploader_{$name}").fileinput({
+		{if="!$preview"}'showPreview':false,{/if}
+		'previewFileType':'any',
+		'browseLabel':'{$browse_label}',
+		'removeLabel':'{$remove_label}',
+		'uploadLabel':'{$upload_label}',
+		'uploadExtraData':{id:'{$file_system_id}'},
+
+		'uploadTitle':'{$label}'
+		
+	});
+</script>
