@@ -20,6 +20,9 @@ class checkbox extends checkbox\module{
 		
 		//this config show abow of element
 		$this->config['LABEL'] = 'checkbox';
+
+		//THIS IS FOR SHOW LABEL AT TOP OF CHECKBOX
+		$this->config['SHOW_LABEL'] = TRUE;
 		
 		//this config show below of element
 		$this->config['HELP'] = '';

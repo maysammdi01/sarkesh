@@ -187,18 +187,7 @@ class content extends content\module{
 	}
 	public function save_content($e,$special_value){
 		return $this->module_save_content($e,$special_value);
-	}
-
-	//this function return back some of contents that filtered by special_value column
-	public function get_contents_with_special_value($special){
-		return $this->module_get_contents_with_special_value($special);
-	}
-
-	
-	
-	
-	
-		
+	}		
 }
 
 ?>

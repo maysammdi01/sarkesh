@@ -43,11 +43,8 @@ class hello extends hello\module{
 		
 	}
 	public function sw(){
-		$form = new control\form('frmmm');
-		$ch = new control\checkbox('chk');
-		$ch->configure('SWITCH',TRUE);
-		$form->add($ch);
-		return [1,$form->draw()];
+		$ch = new control\uploader('chk');
+		return [1,$ch->draw()];
 	}
 	
 }

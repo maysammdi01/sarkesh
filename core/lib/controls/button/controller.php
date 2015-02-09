@@ -22,6 +22,12 @@ class button extends control\button\module{
 			$this->config['NAME'] = 'ctr_button';
 		}
 		
+		//this configs is for set tooltip
+		//for place you can select left/right/top/bottom
+		$this->config['TOOLTIP_PLACE'] = 'left';
+
+		//this config text for tooltip
+		$this->config['TOOLTIP_TEXT'] = 'left';
 		$this->config['LABEL'] = 'Button';
 		//This variable set form name of this element
 

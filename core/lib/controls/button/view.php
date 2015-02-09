@@ -37,6 +37,8 @@ class view{
 		$this->raintpl->assign( "type", 'btn btn-' . $config['TYPE']);
 		$this->raintpl->assign( "styles", $config['STYLE']);
 		$this->raintpl->assign( "class", $config['CLASS']);
+		$this->raintpl->assign( "tooltip_place", $config['TOOLTIP_PLACE']);
+		$this->raintpl->assign( "tooltip_text", $config['TOOLTIP_TEXT']);
 		$this->raintpl->assign( "j_onclick", $config['J_ONCLICK']);
 		$this->raintpl->assign( "p_onclick_f", $config['P_ONCLICK_FUNCTION']);
 		$this->raintpl->assign( "p_onclick_p", $config['P_ONCLICK_PLUGIN']);

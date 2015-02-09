@@ -19,8 +19,9 @@ class view{
 		
 		//add headers to page//
 		browser\page::add_header('<script src="./core/ect/scripts/events/functions.js"></script>');		
+		browser\page::add_header('<script src="./core/lib/controls/uploader/fileinput.min.js"></script>');
 		browser\page::add_header('<script src="./core/lib/controls/uploader/ctr_uploader.js"></script>');
-		browser\page::add_header('<link rel="stylesheet" type="text/css" href="./core/lib/controls/uploader/ctr_uploader.css" />');
+		browser\page::add_header('<link rel="stylesheet" type="text/css" href="./core/lib/controls/uploader/fileinput.min.css" />');
 		
 		if($config['SCRIPT_SRC'] != ''){browser\page::add_header('<script src="' . $config['SCRIPT_SRC'] . '"></script>'); }		
 		if($config['CSS_FILE'] != ''){ browser\page::add_header('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}

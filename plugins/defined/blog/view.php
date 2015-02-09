@@ -10,7 +10,7 @@ class view{
 	protected function view_settings($settings,$current_type,$content_types){
 
 		$form = new control\form('blog_settings');
-
+		//for select content type that user want to work with that
 		$cob_content_type = new control\combobox('cob_content_type');
         $cob_content_type->configure('LABEL',_('Content type'));
         $cob_content_type->configure('HELP',_('blog plugin work with selected content type that you set in this combobox.you can manage content types from content plugin.'));
@@ -21,6 +21,24 @@ class view{
         $cob_content_type->configure('SIZE',4);
         $form->add($cob_content_type);
 
+        //show author of post
+        $ckb_show_author = new control\checkbox('ckb_show_author');
+		$ckb_show_author->configure('LABEL',_('Show author') );
+		//$ckb_show_author->configure('SWITCH',TRUE);
+		$ckb_show_author->configure('HELP',_('If checked,author of post show in posts and catlogues.'));
+		if($settings['show_author'] == 1){
+			$ckb_show_author->configure('CHECKED',TRUE);
+		}
+		$form->add($ckb_show_author);
+		//show date of post
+        $ckb_show_date = new control\checkbox('ckb_show_date');
+		$ckb_show_date->configure('LABEL',_('Show date') );
+		//$ckb_show_date->configure('SWITCH',TRUE);
+		$ckb_show_date->configure('HELP',_('If checked,date will showed in post content.'));
+		if($settings['show_date'] == 1){
+			$ckb_show_date->configure('CHECKED',TRUE);
+		}
+		$form->add($ckb_show_date);
         //add update and cancel buttons
 		$btn_update = new control\button('btn_update');
 		$btn_update->configure('LABEL',_('Update'));
@@ -339,7 +357,7 @@ class view{
 
 	//function for show blog post
 	protected function view_show($post_core,$post_data,$settings){
-		//create an object from raintpl class//
+		
 		$content_post = [];
 		foreach($post_data as $post){
 			$content_post['username'] = $post['username'];
@@ -347,25 +365,55 @@ class view{
 			$content_post['header'] = $post['header'];
 			break;
 		}
+		//create an object from raintpl class//
 		$raintpl = new template\raintpl;
 		//configure raintpl //
 		$raintpl->configure('tpl_dir','plugins/defined/blog/tpl/');
+		$raintpl->assign( "settings", $settings);
+		$raintpl->assign( "show_header", FALSE);
 		$raintpl->assign( "by", _('by'));
 		$raintpl->assign( "posts", $post_data);
 		$raintpl->assign( "username", $content_post['username']);
 		//SHOW POST DATE
 		$calendar = new calendar\calendar;
 		$raintpl->assign( "post_date", sprintf(_('Posted on %s'),$calendar->cdate($settings['post_date_format'],$content_post['date'] )));
-		$raintpl->assign( "links", '$links');
+		$raintpl->assign( "header", $content_post['header']);
+		$raintpl->assign( "post_url", core\general::create_url(['plugin','blog','action','show','id',$post_core->id]));
 		//draw and return back content
 		return [$content_post['header'],$raintpl->draw('blog_post', true )];
 	}
 
 	//function for show blog posts that stored in catalogue
-	protected function view_show_cat($posts_data,$settings){
-
-		return [1,1];
+	protected function view_show_cat($posts,$settings,$cat,$all_posts){
+		//create an object from raintpl class//
+		$raintpl = new template\raintpl;
+		$calendar = new calendar\calendar;
+		//configure raintpl //
+		$raintpl->configure('tpl_dir','plugins/defined/blog/tpl/');
+		$raintpl->assign( "by", _('by'));
+		$raintpl->assign( "settings", $settings);
+		$raintpl->assign( "show_header", TRUE);
+		$content_post = [];
+		//SHOW POST DATE
+		$cat_content = '';
+		foreach ($posts as $key => $post_data) {
+			foreach($post_data as $post){
+				$content_post['username'] = $post['username'];
+				$content_post['date'] = $post['date'];
+				$content_post['header'] = $post['header'];
+				break;
+			}
+			$raintpl->assign( "posts", $post_data);
+			$raintpl->assign( "username", $content_post['username']);
+			$raintpl->assign( "header", $content_post['header']);
+			$key_all_post = key($all_posts);
+			$po = $all_posts[$key_all_post];
+			$raintpl->assign( "post_url", core\general::create_url(['plugin','blog','action','show','id',$po->id]));
+			next($all_posts);
+			$raintpl->assign( "post_date", sprintf(_('Posted on %s'),$calendar->cdate($settings['post_date_format'],$content_post['date'] )));
+			$cat_content .= $raintpl->draw('blog_post', true );
+		}
+		//draw and return back content
+		return [$cat->name,$cat_content];
 	}
-
-	
 }

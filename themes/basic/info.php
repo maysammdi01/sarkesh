@@ -14,7 +14,7 @@ namespace theme;
 	class basic{
 		
 		public function get_places(){
-			return ['sidebar1','main_menu','slide_show','footer'];
+			return ['sidebar1','main_menu','slide_show','footer','top_footer1','top_footer2','top_footer3','top_footer4'];
 		}
 	}
 ?>

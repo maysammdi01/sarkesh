@@ -17,20 +17,28 @@
   <div class="row">
     <div class="col-lg-4">
       <?php browser\page::set_position('sidebar1'); ?>
-      <h4>Mobile First</h4>
-      <p>Responsive by default, and a clean "flat" design.</p>
-      
-      <h4>Powerful Grid</h4>
-      <p>3 responsive grid sizes to control the grid layout on tiny, small and large displays.</p>
     </div>
     
     <div class="col-lg-8">
       <?php browser\page::set_position('content'); ?>
     </div>
   </div>
-  
+  <div class="row">
+    <div class="col-lg-3">
+      <?php browser\page::set_position('top_footer1'); ?>
+    </div>
+    <div class="col-lg-3">
+      <?php browser\page::set_position('top_footer2'); ?>
+    </div>
+    <div class="col-lg-3">
+      <?php browser\page::set_position('top_footer3'); ?>
+    </div>
+    <div class="col-lg-3">
+      <?php browser\page::set_position('top_footer4'); ?>
+    </div>
+  </div>
   <hr>
-  <div class="col-lg-8">
+  <div class="col-lg-12">
       <?php browser\page::set_position('footer'); ?>
   </div>
   

@@ -336,6 +336,13 @@ class module extends view{
 		return $slice;
 	}
 
+	protected function module_compile_part_str($part){
+		if($part->type == 'textarea'){
+			return $part->part_opt;
+		}
+		return $slice;
+	}
+
 	//This function is for show content
 	protected function module_get_content($id){
 		//check for that content is exist
@@ -392,24 +399,6 @@ class module extends view{
 		}
 	}
 
-	//function for return back some of contents that filtered by special_value column
-	protected function module_get_contents_with_special_value($special){
-		//check for that content is exist
-		$sign = '';
-		foreach($special as $key=>$sp) {
-			$sign .= '?';
-			if($key != max(array_keys($special))) $sign .= ',';
-		}
-		$result = db\orm::getAll("SELECT cc.id,cc.header,cc.date,cpat.type,cpat.label,u.username,cpart.options AS 'part_opt',cpat.options AS 'pat_opt' FROM contentparts cpart INNER JOIN contentpatterns cpat ON cpart.pattern=cpat.id INNER JOIN contentcontent cc ON cc.id=cpart.content INNER JOIN users u ON u.id=cc.user WHERE cc.special_value IN (" . $sign . ");",$special);
-		$posts = db\orm::convertToBeans( 'post', $result );
-		$page = array();
-		foreach($posts as $key=>$post){
-			array_push($page, $this->module_compile_part($post) );
-		}
-		return $page;
-
-	}
-	
 }
 
 ?>

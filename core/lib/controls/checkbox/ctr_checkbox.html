@@ -1,7 +1,9 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-sm-{$size}">
+			{if="$switch && $show_label"}{$label}{/if}
 			<div class="checkbox">
+
 				<label>
 					<input
 						{if="$checked"}checked="checked"{/if}
@@ -29,7 +31,7 @@
 		$.fn.bootstrapSwitch.defaults.onText = '{$ontext}';
 		$.fn.bootstrapSwitch.defaults.offText = '{$offtext}';
 		$.fn.bootstrapSwitch.defaults.size = 'small';
-		$.fn.bootstrapSwitch.defaults.labelText = '{$label}';
+		{if="!$show_label"}$.fn.bootstrapSwitch.defaults.labelText = '{$label}';{/if}
 		$("[name='{$id}']").bootstrapSwitch(); 
 	</script>
 {/if}

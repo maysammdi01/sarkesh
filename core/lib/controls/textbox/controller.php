@@ -26,6 +26,13 @@ class textbox extends control\textbox\module{
 		//this config is for show addon on element
 		$this->config['ADDON'] = '';
 		
+		//this configs is for set tooltip
+		//for place you can select left/right/top/bottom
+		$this->config['TOOLTIP_PLACE'] = '0';
+
+		//this config text for tooltip
+		$this->config['TOOLTIP_TEXT'] = '0';
+
 		//this config show below of element
 		$this->config['HELP'] = '';
 		

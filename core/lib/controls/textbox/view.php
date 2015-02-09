@@ -41,7 +41,8 @@ class view{
 		$this->raintpl->assign( "p_onclick_f", $config['P_ONCLICK_FUNCTION']);
 		$this->raintpl->assign( "p_onclick_p", $config['P_ONCLICK_PLUGIN']);
 		$this->raintpl->assign( "j_after_onclick", $config['J_AFTER_ONCLICK']);
-
+		$this->raintpl->assign( "tooltip_place", $config['TOOLTIP_PLACE']);
+		$this->raintpl->assign( "tooltip_text", $config['TOOLTIP_TEXT']);
 		$this->raintpl->assign( "j_onfocus", $config['J_ONFOCUS']);
 		$this->raintpl->assign( "p_onfocus_f", $config['P_ONFOCUS_FUNCTION']);
 		$this->raintpl->assign( "p_onfocus_p", $config['P_ONFOCUS_PLUGIN']);

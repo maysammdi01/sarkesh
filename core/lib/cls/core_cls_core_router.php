@@ -50,7 +50,7 @@ class router{
 				// plugin not set
 				// now jump to Home page
 				$obj_localize = new core\localize;
-				$localize = $obj_localize->get_localize(true);
+				$localize = $obj_localize->get_localize();
 				$this->jump_page($localize['home'] ,true);
 
 			}
@@ -74,7 +74,7 @@ class router{
 				}
 				else{
 					//plugin not found
-					exit('plugin not found');
+					exit(_('plugin not found'));
 				}
 				
 	     		 $plugin = new $PluginName;

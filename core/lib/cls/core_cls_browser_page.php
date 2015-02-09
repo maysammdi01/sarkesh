@@ -339,6 +339,7 @@ class page{
 							break;
 						}
 						elseif($page == 'frontpage'){
+							echo "page uri: " . $_SERVER['REQUEST_URI'];
 							if($_SERVER['REQUEST_URI'] == '/' . self::$localize_settings['home']){
 								return false;
 								break;

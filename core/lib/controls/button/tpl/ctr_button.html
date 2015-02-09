@@ -5,6 +5,7 @@
 	name="{$id}" 
 	id="{$id}" 
 	form="{$form}" 
+	{if="$tooltip_place !='0'"}data-toggle="tooltip" data-placement="{$tooltip_place}" title="{$tooltip_text}"{/if}
 	class="button {if="$bs_control"}{$type} {$class} {if="$size != ''"}btn-{$size}{/if}{/if} ca_{$form}" 
 	style="{$styles}" 
 	{if="$disabled == 'disabled'"} disabled="disabled"{/if} 
@@ -15,4 +16,3 @@
 	{$label}
 </button>
 {if="$href != ''"}</a>{/if}
-

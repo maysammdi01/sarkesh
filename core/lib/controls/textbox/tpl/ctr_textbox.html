@@ -11,7 +11,9 @@
 			
 				<input 
 				type="{if="$password"}password{else}text{/if}"
-				name="{$id}" 
+				name="{$id}"
+				{if="$tooltip_place !='0'"}data-toggle="tooltip" data-placement="{$tooltip_place}" title="{$tooltip_text}"{/if}
+				
 				placeholder="{$placeholder}"
 				id="{$id}" 
 				form="{$form}"

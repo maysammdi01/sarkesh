@@ -34,6 +34,12 @@ class module extends view{
 		if($this->users->has_permission('administrator_admin_panel')){
 			$registry = core\registry::singleton();
 			$registry->set('blog','content_type',$e['cob_content_type']['SELECTED']);
+			$show_author = 0;
+			if($e['ckb_show_author']['CHECKED'] == '1') $show_author = 1;
+			$registry->set('blog','show_author',$show_author);
+			$show_date = 0;
+			if($e['ckb_show_date']['CHECKED'] == '1') $show_date = 1;
+			$registry->set('blog','show_date',$show_date);
 			return $this->msg->successfull_modal($e,'N');
 		}
 		else{
@@ -198,7 +204,6 @@ class module extends view{
 		if($this->users->has_permission('administrator_admin_panel')){
 			//save data in content plugin
 			$content = new \addon\plugin\content;
-
 			//save other in blogposts table
 			$post = db\orm::dispense('blogposts');
 			$post->content = $content->save_content($e,$e['cob_cats']['SELECTED']);
@@ -275,13 +280,16 @@ class module extends view{
 		if(isset($_REQUEST['id'])){
 			if(db\orm::count('blogcats','id=?',[$_REQUEST['id']]) != 0){
 				//get post from database
-				$all_posts = db\orm::find('blogposts','catalogue=?',[$_REQUEST['id']]);
-				$posts_id = db\orm::getCol('SELECT catalogue FROM blogposts WHERE catalogue=?',[$_REQUEST['id']]);
+				$all_posts = db\orm::find('blogposts','catalogue=? ORDER BY id DESC',[$_REQUEST['id']]);
+				$posts_catalogue = db\orm::load('blogcats',$_REQUEST['id']);
 				$content = new \addon\plugin\content;
-				$posts_data = $content->get_contents_with_special_value($posts_id);
 				//get settings of blog plugin
 				$registry = core\registry::singleton();
-				return $this->view_show_cat($posts_data,$registry->get_plugin('blog'));
+				$posts = [];
+				foreach($all_posts as $post){
+					array_push($posts, $content->get_content($post->content));
+				}
+				return $this->view_show_cat($posts,$registry->get_plugin('blog'),$posts_catalogue,$all_posts);
 			}
 		}
 		//not found
