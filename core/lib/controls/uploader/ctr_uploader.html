@@ -21,13 +21,22 @@
 <script type="text/javascript">
 	$("#ctr_uploader_{$name}").fileinput({
 		{if="!$preview"}'showPreview':false,{/if}
+		'uploadUrl':'{$uploadUrl}',
 		'previewFileType':'any',
 		'browseLabel':'{$browse_label}',
 		'removeLabel':'{$remove_label}',
 		'uploadLabel':'{$upload_label}',
 		'uploadExtraData':{id:'{$file_system_id}'},
-
-		'uploadTitle':'{$label}'
+		'allowedFileExtensions':[{$file_extensions}],
+		'uploadTitle':'{$label}',
+		'maxFileSize':'{$max_size}',
+		'msgSizeTooLarge':'{$msgSizeTooLarge}',
+		'msgInvalidFileExtension':'{$msgInvalidFileExtension}',
+		'msgLoading':'{$msgLoading}',
+		'msgProgress':'{$msgProgress}',
+		'dropZoneEnabled':'{$can_drag}',
+		'dropZoneTitle':'{$dropZoneTitle}'
+		
 		
 	});
 </script>

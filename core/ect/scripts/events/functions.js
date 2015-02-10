@@ -101,10 +101,18 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 	}
 
 	if(p_event_p != '0'){
-		url = "?control=1&plugin=" + p_event_p + "&action=" + p_event_f + "&options=" + options;
-		$.post(url ,
-			function(data){
-				//alert(data);
+		var formData = new FormData();
+		formData.append('options', options);
+		$.ajax({
+            url: "?control=1&plugin=" + p_event_p + "&action=" + p_event_f,
+			type: 'POST',
+            data: formData,
+            cache: false,
+            dataType: 'html',
+            processData: false, // Don't process the files
+            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+            success: function(data, textStatus, jqXHR){
+            	alert(data);
 				data = data.replace(/_a_n_d_/g,"&");
 				//find deference and set that
 				window['Counter'] = 0;
@@ -170,8 +178,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 					var RV = $(data).find("RV").children("VALUE").html();
 					window[j_after](RV.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'));
 				}
-				
 			}
-		); 
+        });
 	}
 }

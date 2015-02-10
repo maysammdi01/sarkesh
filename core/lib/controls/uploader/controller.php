@@ -32,10 +32,13 @@ class uploader extends control\uploader\module{
 		
 		//this config set max size of file that can be uploaded 
 		//unit of this number is byte
-		$this->config['MAX_FILE_SIZE'] = '12333333322'; //Byte
+		$this->config['MAX_FILE_SIZE'] = 1024 * 8 * 8; //Byte
 		
 		//this id for set id that plugin get from file system
 		$this->config['FILE_SYSTEM_ID'] = '0'; //Byte
+
+		//if you  enable this option drag and drop will enabled in system
+		$this->config['CAN_DRAG'] = false;
 
 		//for set number of files that user can upload ,use this config . default value is 1 and can be between 1 and 15
 		// 0  is not valid number for this config
@@ -43,7 +46,7 @@ class uploader extends control\uploader\module{
 		
 		//for set type of files that user can upload set this config
 		//file types should be seperate with (,) 
-		$this->config['FILE_TYPES'] = 'image/png,image/jpeg,image/jpg,image/gif';
+		$this->config['FILE_TYPES'] = "'jpg', 'gif', 'png'";
 		
 		//if user want to upload picture. it's better for show preview of picture to user.
 		//this config is boolean and default of that is false (not enabled by default)

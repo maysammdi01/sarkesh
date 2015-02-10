@@ -148,7 +148,7 @@ class router{
 	//this function is for runing services from controls
 	public function run_control(){
 		//first create object from form elements
-		$options = str_replace('_a_n_d_','&',$_GET['options']);
+		$options = str_replace('_a_n_d_','&',$_REQUEST['options']);
 		$elements = new core\uiobjects($options);
 		if(file_exists('./plugins/system/' . $this->plugin . '/controller.php')){
 					$PluginName = '\\core\\plugin\\' . $this->plugin;
