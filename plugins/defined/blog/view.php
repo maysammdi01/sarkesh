@@ -30,6 +30,14 @@ class view{
 			$ckb_show_author->configure('CHECKED',TRUE);
 		}
 		$form->add($ckb_show_author);
+		//set number of post per page
+		$cob_per_page = new control\combobox('cob_per_page');
+        $cob_per_page->configure('LABEL',_('Posts per page'));
+        $cob_per_page->configure('HELP',_('This option set number of post that can show per page.'));
+        $cob_per_page->configure('SOURCE',[1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20]);
+        $cob_per_page->configure('SELECTED_INDEX',$settings['post_per_page']);
+        $cob_per_page->configure('SIZE',4);
+        $form->add($cob_per_page);
 		//show date of post
         $ckb_show_date = new control\checkbox('ckb_show_date');
 		$ckb_show_date->configure('LABEL',_('Show date') );
@@ -226,7 +234,6 @@ class view{
 
 	}
 
-	//show blog catalog in theme
 	protected function view_new_post($content_elements,$blogcats){
 		$form = new control\form('blog_new_post');
 		$form->add_array($content_elements);
@@ -384,7 +391,7 @@ class view{
 	}
 
 	//function for show blog posts that stored in catalogue
-	protected function view_show_cat($posts,$settings,$cat,$all_posts){
+	protected function view_show_cat($posts,$settings,$cat,$all_posts,$with_next,$with_back,$page_num){
 		//create an object from raintpl class//
 		$raintpl = new template\raintpl;
 		$calendar = new calendar\calendar;
@@ -413,6 +420,14 @@ class view{
 			$raintpl->assign( "post_date", sprintf(_('Posted on %s'),$calendar->cdate($settings['post_date_format'],$content_post['date'] )));
 			$cat_content .= $raintpl->draw('blog_post', true );
 		}
+		$raintpl->assign( "with_next", $with_next);
+		$raintpl->assign( "with_back", $with_back);
+		$raintpl->assign( "back_label", _('Older &rarr;'));
+		$raintpl->assign( "next_label", _('&larr; Newer'));
+		$raintpl->assign( "pre_url", core\general::create_url(['plugin','blog','action','show_cat','id',$po->catalogue,'page',$page_num - 1]));
+		$raintpl->assign( "next_url", core\general::create_url(['plugin','blog','action','show_cat','id',$po->catalogue,'page',$page_num + 1]));
+		$cat_content .= $raintpl->draw('blog_nav', true );
+		
 		//draw and return back content
 		return [$cat->name,$cat_content];
 	}

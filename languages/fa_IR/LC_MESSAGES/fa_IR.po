@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh persian language\n"
-"POT-Creation-Date: 2015-02-06 06:25-0800\n"
-"PO-Revision-Date: 2015-02-06 06:28-0800\n"
+"POT-Creation-Date: 2015-02-11 08:09-0800\n"
+"PO-Revision-Date: 2015-02-11 08:33-0800\n"
 "Last-Translator: babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: sarkesh dev <info@sarkesh.org>\n"
 "Language: fa_IR\n"
@@ -35,13 +35,13 @@ msgstr "قبول"
 msgid "Back"
 msgstr "بازگشت"
 
-#: core/lib/cls/core_cls_browser_page.php:219 plugins/defined/blog/view.php:30
-#: plugins/defined/blog/view.php:120 plugins/defined/blog/view.php:165
-#: plugins/defined/blog/view.php:195 plugins/defined/blog/view.php:242
-#: plugins/defined/blog/view.php:322 plugins/defined/content/view.php:125
+#: core/lib/cls/core_cls_browser_page.php:219 plugins/defined/blog/view.php:58
+#: plugins/defined/blog/view.php:148 plugins/defined/blog/view.php:193
+#: plugins/defined/blog/view.php:223 plugins/defined/blog/view.php:270
+#: plugins/defined/blog/view.php:352 plugins/defined/content/view.php:125
 #: plugins/defined/content/view.php:157 plugins/defined/content/view.php:250
-#: plugins/defined/content/view.php:277 plugins/defined/content/view.php:347
-#: plugins/defined/content/view.php:393 plugins/defined/content/view.php:458
+#: plugins/defined/content/view.php:277 plugins/defined/content/view.php:350
+#: plugins/defined/content/view.php:396 plugins/defined/content/view.php:461
 #: plugins/system/administrator/view.php:233
 #: plugins/system/administrator/view.php:345
 #: plugins/system/administrator/view.php:400
@@ -65,11 +65,15 @@ msgstr "استفاده از حافظه های سیستم:"
 
 #: core/lib/cls/core_cls_browser_page.php:316
 msgid "Real usage by system:"
-msgstr ""
+msgstr "حافظه واقعی مصرف شده:"
 
 #: core/lib/cls/core_cls_browser_page.php:317
 msgid "CPU usage by system:"
 msgstr "استفاده از پردازنده های سیستم:"
+
+#: core/lib/cls/core_cls_core_router.php:77
+msgid "plugin not found"
+msgstr "افزونه پیدا نشد"
 
 #: core/lib/cls/core_cls_core_router.php:136
 #: core/lib/cls/core_cls_core_router.php:143
@@ -84,11 +88,11 @@ msgstr ""
 msgid "best regards"
 msgstr "با احترام"
 
-#: core/lib/controls/checkbox/controller.php:57
+#: core/lib/controls/checkbox/controller.php:60
 msgid "ON"
 msgstr "روشن"
 
-#: core/lib/controls/checkbox/controller.php:58
+#: core/lib/controls/checkbox/controller.php:61
 msgid "OFF"
 msgstr "خاموش"
 
@@ -112,23 +116,55 @@ msgstr "کیلوبایت"
 msgid "MByte"
 msgstr "مگابایت"
 
-#: core/lib/controls/uploader/view.php:36
-msgid "File name"
-msgstr "نام فایل"
+#: core/lib/controls/uploader/view.php:30
+msgid "Browse ..."
+msgstr "انتخاب فایل"
 
-#: core/lib/controls/uploader/view.php:37
+#: core/lib/controls/uploader/view.php:31
+#: core/lib/controls/uploader/view.php:56
 msgid "Upload"
 msgstr "بارگزاری"
 
+#: core/lib/controls/uploader/view.php:32
+msgid "Remove"
+msgstr "حذف"
+
 #: core/lib/controls/uploader/view.php:38
+msgid "File % is too large.max file size is:%s"
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:39
+#, php-format
+msgid "Invalid extension for file \"%s\". Only \"%s\" files are supported."
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:40
+#, php-format
+msgid "Loading file %s of %s …"
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:41
+#, php-format
+msgid "Loading file %s of %s - %s - %s %%  completed."
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:44
+msgid "Drag & drop files here …"
+msgstr "فایل برای آپلود را اینجا بکشید"
+
+#: core/lib/controls/uploader/view.php:55
+msgid "File name"
+msgstr "نام فایل"
+
+#: core/lib/controls/uploader/view.php:57
 msgid "Select"
 msgstr "انتخاب"
 
-#: core/lib/controls/uploader/view.php:39
+#: core/lib/controls/uploader/view.php:58
 msgid "Max Size"
 msgstr "حدکثر حجم"
 
-#: core/lib/controls/uploader/view.php:43
+#: core/lib/controls/uploader/view.php:62
 msgid "Valid types"
 msgstr "فرمت های مجاز"
 
@@ -140,7 +176,7 @@ msgstr "ایجاد مطلب"
 msgid "Posts"
 msgstr "مطالب"
 
-#: plugins/defined/blog/controller.php:20 plugins/defined/blog/view.php:91
+#: plugins/defined/blog/controller.php:20 plugins/defined/blog/view.php:119
 #: plugins/defined/content/view.php:101
 msgid "Catalogues"
 msgstr "فهرست"
@@ -153,23 +189,53 @@ msgstr "تنظیمات وبلاگ"
 msgid "Blog"
 msgstr "وبلاگ"
 
-#: plugins/defined/blog/module.php:179
+#: plugins/defined/blog/module.php:186
 msgid "Blog catalogues"
 msgstr "فهرست"
 
-#: plugins/defined/blog/view.php:13
+#: plugins/defined/blog/view.php:15
 msgid "Content type"
 msgstr "نوع محتوا"
 
-#: plugins/defined/blog/view.php:14
+#: plugins/defined/blog/view.php:16
 msgid ""
 "blog plugin work with selected content type that you set in this combobox.you "
 "can manage content types from content plugin."
 msgstr ""
+"پلاگین وبلاگ با نوع محتوایی که انتخاب می کنید کار میکند.شما میتوانید برای "
+"مدیریت نوع محتواها از افزونه مدیریت محتوا استفاده کنید."
 
-#: plugins/defined/blog/view.php:24 plugins/defined/blog/view.php:159
-#: plugins/defined/content/view.php:119 plugins/defined/content/view.php:340
-#: plugins/defined/content/view.php:452
+#: plugins/defined/blog/view.php:26
+msgid "Show author"
+msgstr "نمایش نام نویسنده"
+
+#: plugins/defined/blog/view.php:28
+msgid "If checked,author of post show in posts and catlogues."
+msgstr ""
+"اگر این گذینه را انتخاب کنید نام نویسنده در مطالب و بخش های منتشر شده نمایش "
+"داده می شود."
+
+#: plugins/defined/blog/view.php:35
+msgid "Posts per page"
+msgstr "تعداد مطالب در هر صفحه"
+
+#: plugins/defined/blog/view.php:36
+msgid "This option set number of post that can show per page."
+msgstr ""
+"از این گذینه میتوانید برای تعیین تعداد مطالب قابل نمایش در هر بخش استفاده "
+"کنید."
+
+#: plugins/defined/blog/view.php:43
+msgid "Show date"
+msgstr "نمایش تاریخ"
+
+#: plugins/defined/blog/view.php:45
+msgid "If checked,date will showed in post content."
+msgstr "با انتخاب این گذینه تاریخ نشر مطلب نمایش داده می شود."
+
+#: plugins/defined/blog/view.php:52 plugins/defined/blog/view.php:187
+#: plugins/defined/content/view.php:119 plugins/defined/content/view.php:343
+#: plugins/defined/content/view.php:455
 #: plugins/system/administrator/view.php:339
 #: plugins/system/administrator/view.php:394
 #: plugins/system/administrator/view.php:575
@@ -178,21 +244,21 @@ msgstr ""
 msgid "Update"
 msgstr "بروز رسانی"
 
-#: plugins/defined/blog/view.php:40
+#: plugins/defined/blog/view.php:68
 msgid "Blog settings"
 msgstr "تنظیمات وبلاگ"
 
-#: plugins/defined/blog/view.php:65 plugins/defined/blog/view.php:77
-#: plugins/defined/blog/view.php:277 plugins/defined/blog/view.php:288
+#: plugins/defined/blog/view.php:93 plugins/defined/blog/view.php:105
+#: plugins/defined/blog/view.php:307 plugins/defined/blog/view.php:318
 #: plugins/defined/content/view.php:74 plugins/defined/content/view.php:93
 #: plugins/defined/content/view.php:185
 #: plugins/system/administrator/view.php:277
 msgid "Edit"
 msgstr "ویرایش"
 
-#: plugins/defined/blog/view.php:71 plugins/defined/blog/view.php:77
-#: plugins/defined/blog/view.php:189 plugins/defined/blog/view.php:282
-#: plugins/defined/blog/view.php:288 plugins/defined/blog/view.php:316
+#: plugins/defined/blog/view.php:99 plugins/defined/blog/view.php:105
+#: plugins/defined/blog/view.php:217 plugins/defined/blog/view.php:312
+#: plugins/defined/blog/view.php:318 plugins/defined/blog/view.php:346
 #: plugins/defined/content/view.php:81 plugins/defined/content/view.php:93
 #: plugins/defined/content/view.php:185 plugins/defined/content/view.php:221
 #: plugins/system/administrator/view.php:269
@@ -207,7 +273,7 @@ msgstr "ویرایش"
 msgid "Delete"
 msgstr "حدف"
 
-#: plugins/defined/blog/view.php:77 plugins/defined/blog/view.php:288
+#: plugins/defined/blog/view.php:105 plugins/defined/blog/view.php:318
 #: plugins/defined/content/view.php:93 plugins/defined/content/view.php:185
 #: plugins/system/administrator/view.php:114
 #: plugins/system/administrator/view.php:209
@@ -218,7 +284,7 @@ msgstr "حدف"
 msgid "ID"
 msgstr "ردیف"
 
-#: plugins/defined/blog/view.php:77 plugins/defined/content/view.php:93
+#: plugins/defined/blog/view.php:105 plugins/defined/content/view.php:93
 #: plugins/defined/content/view.php:185
 #: plugins/system/administrator/view.php:114
 #: plugins/system/administrator/view.php:209
@@ -228,38 +294,38 @@ msgstr "ردیف"
 msgid "Name"
 msgstr "نام"
 
-#: plugins/defined/blog/view.php:77 plugins/defined/blog/view.php:105
-#: plugins/defined/blog/view.php:150 plugins/defined/blog/view.php:217
-#: plugins/system/menus/view.php:29 plugins/system/menus/view.php:136
+#: plugins/defined/blog/view.php:105 plugins/defined/blog/view.php:133
+#: plugins/defined/blog/view.php:178 plugins/system/menus/view.php:29
+#: plugins/system/menus/view.php:136
 msgid "Localize"
 msgstr "محلی سازی"
 
-#: plugins/defined/blog/view.php:86
+#: plugins/defined/blog/view.php:114
 msgid "Add new catalogue"
 msgstr "افزودن فهرست جدید"
 
-#: plugins/defined/blog/view.php:100 plugins/defined/blog/view.php:145
+#: plugins/defined/blog/view.php:128 plugins/defined/blog/view.php:173
 #: plugins/defined/content/view.php:32 plugins/defined/content/view.php:37
 msgid "Enter name of catalogue that you want to use that."
 msgstr "نام فهرستی که قصد استفاده از آن را دارید را وارد کنید."
 
-#: plugins/defined/blog/view.php:106 plugins/defined/blog/view.php:151
-#: plugins/defined/blog/view.php:218
+#: plugins/defined/blog/view.php:134 plugins/defined/blog/view.php:179
+#: plugins/defined/blog/view.php:245
 msgid "content of catalogue just show in selected localize."
-msgstr ""
+msgstr "محتوای بخش تنها در زبان محلی انتخاب شده نمایش داده خواهد شد."
 
-#: plugins/defined/blog/view.php:114 plugins/defined/content/view.php:36
-#: plugins/defined/content/view.php:386
+#: plugins/defined/blog/view.php:142 plugins/defined/content/view.php:36
+#: plugins/defined/content/view.php:389
 msgid "Insert"
 msgstr "درج"
 
-#: plugins/defined/blog/view.php:130 plugins/defined/blog/view.php:175
+#: plugins/defined/blog/view.php:158 plugins/defined/blog/view.php:203
 #: plugins/defined/content/controller.php:25
 #: plugins/defined/content/view.php:50
 msgid "New catalogue"
 msgstr "فهرست جدید"
 
-#: plugins/defined/blog/view.php:186 plugins/defined/blog/view.php:313
+#: plugins/defined/blog/view.php:214 plugins/defined/blog/view.php:343
 #: plugins/defined/content/view.php:148 plugins/defined/content/view.php:268
 #: plugins/system/administrator/view.php:635
 #: plugins/system/administrator/view.php:733
@@ -267,35 +333,52 @@ msgstr "فهرست جدید"
 msgid "Are you sure for delete %s ?"
 msgstr "آیا برای حذف %s مطمئن هستید؟"
 
-#: plugins/defined/blog/view.php:205 plugins/defined/blog/view.php:332
+#: plugins/defined/blog/view.php:233 plugins/defined/blog/view.php:362
 #: plugins/defined/content/view.php:168
 msgid "Delete catalogue"
 msgstr "حذف فهرست"
 
-#: plugins/defined/blog/view.php:227
-msgid "you can seperate tags with \",\"."
-msgstr ""
-
-#: plugins/defined/blog/view.php:236
-msgid "Publish"
-msgstr "انتشار"
-
-#: plugins/defined/blog/view.php:251 plugins/defined/blog/view.php:297
-msgid "New post"
-msgstr "ارسال جدید"
-
-#: plugins/defined/blog/view.php:288 plugins/defined/content/view.php:436
-#: plugins/defined/content/view.php:479
-msgid "Header"
-msgstr "سربرگ"
-
-#: plugins/defined/blog/view.php:288
+#: plugins/defined/blog/view.php:244 plugins/defined/blog/view.php:318
 msgid "Catalogue"
 msgstr "فهرست"
 
-#: plugins/defined/blog/view.php:302
+#: plugins/defined/blog/view.php:254
+msgid "you can seperate tags with \",\"."
+msgstr "میتوانید برچسب ها را با \",\" از هم جدا کنید."
+
+#: plugins/defined/blog/view.php:264
+msgid "Publish"
+msgstr "انتشار"
+
+#: plugins/defined/blog/view.php:279 plugins/defined/blog/view.php:327
+msgid "New post"
+msgstr "ارسال جدید"
+
+#: plugins/defined/blog/view.php:318 plugins/defined/content/view.php:439
+#: plugins/defined/content/view.php:482
+msgid "Header"
+msgstr "سربرگ"
+
+#: plugins/defined/blog/view.php:332
 msgid "Blog posts"
 msgstr "ارسال های وبلاگ"
+
+#: plugins/defined/blog/view.php:381 plugins/defined/blog/view.php:400
+msgid "by"
+msgstr "توسط"
+
+#: plugins/defined/blog/view.php:386 plugins/defined/blog/view.php:420
+#, php-format
+msgid "Posted on %s"
+msgstr "ارسال شده در %s"
+
+#: plugins/defined/blog/view.php:425
+msgid "Older &rarr;"
+msgstr "قدیمی تر &rarr;"
+
+#: plugins/defined/blog/view.php:426
+msgid "&larr; Newer"
+msgstr "&larr; جدیدتر"
 
 #: plugins/defined/content/controller.php:27
 msgid "Manage catalogues"
@@ -306,7 +389,7 @@ msgid "Content"
 msgstr "محتوا"
 
 #: plugins/defined/content/controller.php:54
-#: plugins/defined/content/module.php:91 plugins/defined/content/module.php:142
+#: plugins/defined/content/module.php:58 plugins/defined/content/module.php:109
 #: plugins/system/msg/controller.php:90 plugins/system/msg/controller.php:98
 #: plugins/system/users/controller.php:84
 #: plugins/system/users/controller.php:133
@@ -328,40 +411,39 @@ msgstr "پیام"
 msgid "Please fill in all of the required fields"
 msgstr "لطفا  تمام موارد مورد نیاز را پر کنید"
 
-#: plugins/defined/content/module.php:91
+#: plugins/defined/content/module.php:58
 msgid ""
 "Entered catalogue is exists before.please enter another one and try again."
 msgstr "فهرست وارد شده تکراری است لطفا مورد دیگری را امتحان کنید."
 
-#: plugins/defined/content/module.php:101
-#: plugins/defined/content/module.php:188
-#: plugins/defined/content/module.php:229
-#: plugins/defined/content/module.php:269
-#: plugins/defined/content/module.php:326
+#: plugins/defined/content/module.php:68 plugins/defined/content/module.php:155
+#: plugins/defined/content/module.php:196
+#: plugins/defined/content/module.php:236
+#: plugins/defined/content/module.php:292
 msgid "Success"
 msgstr "موفقیت"
 
-#: plugins/defined/content/module.php:101
+#: plugins/defined/content/module.php:68
 msgid "Successfully saved."
 msgstr "موفقیت ذخیره شد."
 
-#: plugins/defined/content/module.php:142
+#: plugins/defined/content/module.php:109
 msgid "Update successful"
 msgstr "به روز رسانی موفق"
 
-#: plugins/defined/content/module.php:188
+#: plugins/defined/content/module.php:155
 msgid "Catalogue deleted successfuly."
 msgstr "کاتالوگ با موفقیت حذف شد.."
 
-#: plugins/defined/content/module.php:229
+#: plugins/defined/content/module.php:196
 msgid "Pattern deleted successfuly."
 msgstr "الگو با موفقیت حذف شد."
 
-#: plugins/defined/content/module.php:269
+#: plugins/defined/content/module.php:236
 msgid "Pattern updated successfuly."
 msgstr "الگو با موفقیت به روز شد."
 
-#: plugins/defined/content/module.php:326
+#: plugins/defined/content/module.php:292
 msgid "Pattern added successfuly."
 msgstr "الگو با موفقیت اضافه شد."
 
@@ -395,8 +477,8 @@ msgstr "الگوهای %s"
 msgid "Type"
 msgstr "نوع"
 
-#: plugins/defined/content/view.php:185 plugins/defined/content/view.php:323
-#: plugins/defined/content/view.php:373
+#: plugins/defined/content/view.php:185 plugins/defined/content/view.php:324
+#: plugins/defined/content/view.php:376
 #: plugins/system/administrator/view.php:475
 #: plugins/system/administrator/view.php:509 plugins/system/menus/view.php:176
 msgid "Rank"
@@ -413,7 +495,7 @@ msgid "Edite"
 msgstr "ویرایش"
 
 #: plugins/defined/content/view.php:237
-msgid "Textarea"
+msgid "textarea"
 msgstr "ناحیه متنی"
 
 #: plugins/defined/content/view.php:241
@@ -424,15 +506,15 @@ msgstr "اضافه کردن جدید"
 msgid "Delete pattern"
 msgstr "حذف الگو"
 
-#: plugins/defined/content/view.php:317 plugins/defined/content/view.php:368
+#: plugins/defined/content/view.php:317 plugins/defined/content/view.php:371
 msgid "Lable"
 msgstr "برچسب"
 
-#: plugins/defined/content/view.php:319 plugins/defined/content/view.php:369
+#: plugins/defined/content/view.php:319 plugins/defined/content/view.php:372
 msgid "Lable show to user in insert new content page"
 msgstr "برچسب در صفحه درج محتوای جدید نمایش داده می شود."
 
-#: plugins/defined/content/view.php:325 plugins/defined/content/view.php:374
+#: plugins/defined/content/view.php:327 plugins/defined/content/view.php:377
 msgid ""
 "When set rank you can set position of pattern in content.ranks show from DEC "
 "values"
@@ -440,11 +522,11 @@ msgstr ""
 "به وسیله شاخص رتبه بندی میتوانید مکان الگو را در محتوا مشخص کنید.رتبه بندی بر "
 "اساس نزولی است."
 
-#: plugins/defined/content/view.php:329 plugins/defined/content/view.php:378
+#: plugins/defined/content/view.php:332 plugins/defined/content/view.php:381
 msgid "Editor"
 msgstr "ویرایشگر"
 
-#: plugins/defined/content/view.php:330 plugins/defined/content/view.php:379
+#: plugins/defined/content/view.php:333 plugins/defined/content/view.php:382
 msgid ""
 "With this option you can enable or disable editor when user want to insert "
 "new content."
@@ -452,15 +534,15 @@ msgstr ""
 "با این گذینه شما می توانید در برای ارسال محتوا,ویرایشگر را فعال یا غیر فعال "
 "کنید."
 
-#: plugins/defined/content/view.php:353
+#: plugins/defined/content/view.php:356
 msgid "Edite pattern"
 msgstr "ویرایش الگو"
 
-#: plugins/defined/content/view.php:398
+#: plugins/defined/content/view.php:401
 msgid "Insert new pattern"
 msgstr "الگوی جدید"
 
-#: plugins/defined/content/view.php:468
+#: plugins/defined/content/view.php:471
 #, php-format
 msgid "Insert new content:%s"
 msgstr "درج محتوای جدید:%s"
@@ -773,7 +855,7 @@ msgstr "نمایش سربرگ"
 #: plugins/system/administrator/view.php:521
 #: plugins/system/administrator/view.php:677
 msgid "If this option checked,label of block will showed at the top of block."
-msgstr ""
+msgstr "با انتخاب این گذینه,سربرگ  در بالای بلوک نمایش داده خواهد شد."
 
 #: plugins/system/administrator/view.php:528
 msgid "Pages"
@@ -784,26 +866,30 @@ msgid ""
 "Use ',' for seperate page urls. for use home page enter 'frontpage' and start "
 "your internal urls with '\\'."
 msgstr ""
+"برای جدا سازی آدرس های اینترنتی از ',' استفاده کنید. برای ارجاع به صفحه اصلی "
+"میتوانید از frontpage استفاده کنید .همچنین توجه داشته باشید آدرس های درونی با "
+"علامت \\ شروع می شوند."
 
 #: plugins/system/administrator/view.php:536
 msgid "With this option you can select pages for show."
 msgstr ""
+"با این گذینه میتوانید صفحات برای نمایش بلوک مورد نظر خود را انتخاب کنید."
 
 #: plugins/system/administrator/view.php:538
 msgid "All pages espect that comes above."
-msgstr ""
+msgstr "در تمام صفحات به غیر از آنهایی که در بالا آمده است."
 
 #: plugins/system/administrator/view.php:545
 msgid "show in pages that comes above."
-msgstr ""
+msgstr "نمایش تنها در صفحاتی که در بالا آمده."
 
 #: plugins/system/administrator/view.php:554
 msgid "Localize block"
-msgstr ""
+msgstr "محلی سازی بلوک"
 
 #: plugins/system/administrator/view.php:555
 msgid "block will showed in selected localize."
-msgstr ""
+msgstr "بلوک تنها در مناطق محلی انتخاب شده نمایش داده می شود."
 
 #: plugins/system/administrator/view.php:566
 msgid "Position"
@@ -821,58 +907,63 @@ msgstr "فعال سازی آدرس کوتاه"
 msgid ""
 "With this option,pages with parameters will be replaced with clean address."
 msgstr ""
+"با انتخاب این گذینه صفحات دارای پارمتر با آدرس های تمیز جایگزین می شوند."
 
 #: plugins/system/administrator/view.php:637
 msgid ""
 "Be careful! after delete this local setting all content that has relation "
 "with this,will be removed."
 msgstr ""
+"مراقب باشید! بعد از حذف منطقه محلی , تمام محتواهای منتشر شده در آن از دسترس "
+"خارج و حذف می شوند."
 
 #: plugins/system/administrator/view.php:656
 msgid "Delete local"
-msgstr ""
+msgstr "حذف منطقه محلی"
 
 #: plugins/system/administrator/view.php:663
 msgid "Block name"
-msgstr ""
+msgstr "نام بلوک"
 
 #: plugins/system/administrator/view.php:666
 msgid "Block name not show in template"
-msgstr ""
+msgstr "نام بلوگ در خروجی نمایش داده نمی شود."
 
 #: plugins/system/administrator/view.php:669
 msgid "Block label"
-msgstr ""
+msgstr "برچسب بلوک"
 
 #: plugins/system/administrator/view.php:672
 msgid "if enable show header option this label will be show."
-msgstr ""
+msgstr "اگر این گذینه را انتخاب کنید این برچسب در بلوک نمایش داده می شود."
 
 #: plugins/system/administrator/view.php:680
 msgid "content of block"
-msgstr ""
+msgstr "محتوای بلوک"
 
 #: plugins/system/administrator/view.php:684
 msgid ""
 "All of content that you will enter,show in block.you can use html and "
 "javascript codes and style with CSS."
 msgstr ""
+"تمام چیزی که وارد میکنید در داخل بلوک نمایش داده خواهد شد.برای مثال میتوانید "
+"از متون دستورات html ,javascript,css استفاده کنید."
 
 #: plugins/system/administrator/view.php:688
 msgid "Add block"
-msgstr ""
+msgstr "افزودن بلوک"
 
 #: plugins/system/administrator/view.php:713
 msgid "Edite block"
-msgstr ""
+msgstr "ویرایش بلوک"
 
 #: plugins/system/administrator/view.php:722
 msgid "New static block"
-msgstr ""
+msgstr "افزودن بلوک ایستا"
 
 #: plugins/system/administrator/view.php:752
 msgid "Delete Static block"
-msgstr ""
+msgstr "حذف بلوک ایستا"
 
 #: plugins/system/files/controller.php:45
 #: plugins/system/files/controller.php:54
@@ -1126,7 +1217,7 @@ msgstr "خطا"
 
 #: plugins/system/msg/controller.php:77
 msgid "An error has occurred in system.please try again."
-msgstr ""
+msgstr "خطایی در سیستم به وجود آمده است. لطفا مجددا تلاش کنید."
 
 #: plugins/system/msg/controller.php:90 plugins/system/msg/controller.php:98
 msgid "Please fill all necessary places"
@@ -1604,6 +1695,8 @@ msgstr "فعال کردن تصاویر کاربر."
 #: plugins/system/users/view.php:507
 msgid "With this option,site users can upload personal avatars."
 msgstr ""
+"با فعال سازی این گذینه کاربران میتوانند برای خود تصویر معرف دلخواه انتخاب "
+"کنند."
 
 #: plugins/system/users/view.php:515
 msgid "Picture upload max file size"
@@ -1663,6 +1756,9 @@ msgstr "پایه"
 #: themes/simple/info.php:9
 msgid "simple"
 msgstr "ساده"
+
+#~ msgid "Textarea"
+#~ msgstr "ناحیه متنی"
 
 #~ msgid "Guest"
 #~ msgstr "مهمان"

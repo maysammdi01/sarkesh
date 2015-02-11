@@ -33,6 +33,7 @@ class module extends view{
 	protected function module_onclick_btn_save_settings($e){
 		if($this->users->has_permission('administrator_admin_panel')){
 			$registry = core\registry::singleton();
+			$registry->set('blog','post_per_page',$e['cob_per_page']['SELECTED']);
 			$registry->set('blog','content_type',$e['cob_content_type']['SELECTED']);
 			$show_author = 0;
 			if($e['ckb_show_author']['CHECKED'] == '1') $show_author = 1;
@@ -279,17 +280,32 @@ class module extends view{
 	protected function module_show_cat(){
 		if(isset($_REQUEST['id'])){
 			if(db\orm::count('blogcats','id=?',[$_REQUEST['id']]) != 0){
+				$page_num = 1;
+				if(isset($_REQUEST['page'])){
+					$page_num = $_REQUEST['page'];
+				}
 				//get post from database
-				$all_posts = db\orm::find('blogposts','catalogue=? ORDER BY id DESC',[$_REQUEST['id']]);
+				$registry = core\registry::singleton();
+				//get post per page
+				$per_page = $registry->get('blog','post_per_page');
+				$start = ($page_num - 1) * $per_page;
+				$all_posts = db\orm::find('blogposts','catalogue=? ORDER BY id DESC limit ' . $start .',' . $per_page,[$_REQUEST['id']]);
+				$next_start = $start + $per_page;
+				$result = db\orm::getAll('SELECT id FROM blogposts WHERE catalogue=? limit ' . $next_start .',' . $per_page,[$_REQUEST['id']]);
+				$next_page_post_count = count($result);
+				$with_next = true;
+				$with_back = true;
+				if( $next_page_post_count == 0) $with_next = false;
+				if($page_num == 1) $with_back = false;
 				$posts_catalogue = db\orm::load('blogcats',$_REQUEST['id']);
 				$content = new \addon\plugin\content;
 				//get settings of blog plugin
-				$registry = core\registry::singleton();
+				
 				$posts = [];
 				foreach($all_posts as $post){
 					array_push($posts, $content->get_content($post->content));
 				}
-				return $this->view_show_cat($posts,$registry->get_plugin('blog'),$posts_catalogue,$all_posts);
+				return $this->view_show_cat($posts,$registry->get_plugin('blog'),$posts_catalogue,$all_posts,$with_next,$with_back,$page_num);
 			}
 		}
 		//not found

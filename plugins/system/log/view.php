@@ -31,8 +31,8 @@ class view{
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,3);
-		$row->add($btn_cancel,3);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
 		$form->add($row);                
 		return [_('PHP Error logs'),$form->draw()];
 	}

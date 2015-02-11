@@ -57,17 +57,16 @@ class page{
 		array_push($default_headers, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
 		array_push($default_headers, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
 		#load jquery
-		if(self::$settings['jquery'] == '1'){
-			array_push($default_headers, '<script src="./core/ect/scripts/jquery.js"></script>');
-			array_push($default_headers, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
-			array_push($default_headers, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
-			#load rtl bootstrap
-			if (self::is_rtl()){ 
-				array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
-			}
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
+		
+		array_push($default_headers, '<script src="./core/ect/scripts/jquery.js"></script>');
+		array_push($default_headers, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
+		array_push($default_headers, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
+		array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
+		#load rtl bootstrap
+		if (self::is_rtl()){ 
+			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
 		}
+		array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
 		#load style sheet pages (css)
 		//if(isset($_REQUEST['plugin'])){
 			if($_REQUEST['plugin'] != 'administrator'){
