@@ -6,6 +6,9 @@ bug fix:
 -bug fix on find home page of localize
 -bug fix on show catalogue
 -bug fix on client side connector and event holders
+-bug fox on show blog posts from administrator area for show in DESC mode
+-bug fix on show cataloues woth no post
+-bug fix on show help in textbox and combobox controlls
 
 news:
 -add tooltip otion to button and textbox controls

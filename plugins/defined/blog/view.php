@@ -363,7 +363,7 @@ class view{
 	}
 
 	//function for show blog post
-	protected function view_show($post_core,$post_data,$settings){
+	protected function view_show($post_core,$post_data,$settings,$comments){
 		
 		$content_post = [];
 		foreach($post_data as $post){
@@ -387,7 +387,66 @@ class view{
 		$raintpl->assign( "header", $content_post['header']);
 		$raintpl->assign( "post_url", core\general::create_url(['plugin','blog','action','show','id',$post_core->id]));
 		//draw and return back content
-		return [$content_post['header'],$raintpl->draw('blog_post', true )];
+		$blogPost = $raintpl->draw('blog_post', true );
+
+		$raintpl->assign( "leaveCommentLabel", _('Leave a comment!'));
+		$raintpl->assign( "canComment", TRUE);
+		$formBlogLeaveComment = new control\form('formBlogLeaveComment');
+
+		#show submit form for comments
+		$users = new \core\plugin\users\module;
+		$userInfo = $users->getInfo();
+
+		if($users->isLogedin()){
+			$hidId = new control\hidden('hidId');
+			$hidId->configure('VALUE',$userInfo->id);
+			$formBlogLeaveComment->add($hidId);
+			$lblUsername = new control\label(sprintf(_('You are logedin as %s.'),$userInfo->username));
+			$formBlogLeaveComment->add($lblUsername);
+		}
+		else{
+			$row = new control\row;
+			$row->configure('IN_TABLE',false);
+
+			$txtUsername = new control\textbox('txtUsername');
+			$txtUsername->configure('ADDON',_('Name'));
+			$row->add($txtUsername,6);
+
+			$txtEmail = new control\textbox('txtEmail');
+			$txtEmail->configure('ADDON',_('Email'));
+			$row->add($txtEmail,6);
+
+			$formBlogLeaveComment->add($row);
+		}
+
+		$txtComment = new control\textarea;
+		$txtComment->configure('EDITOR',FALSE);
+		$txtComment->configure('LABEL',_('Comment:'));
+		$txtComment->configure('ROWS',4);
+		$formBlogLeaveComment->add($txtComment);
+
+		$btnSubmit = new control\button('btnSubmit');
+		$btnSubmit->configure('LABEL',_('Submit'));
+		$btnSubmit->configure('TYPE','primary');
+		$btnSubmit->configure('P_ONCLICK_PLUGIN','blog');
+		$btnSubmit->configure('P_ONCLICK_FUNCTION','onclickBtnSubmitComment');
+		$formBlogLeaveComment->add($btnSubmit);
+
+		$raintpl->assign( "form", $formBlogLeaveComment->draw());
+		#perpare comments
+		$perComments = [];
+		$calendar = new calendar\calendar;
+		foreach($comments as $comment){
+			$com = [];
+			$com['comment'] = $comment->comment;
+			$com['username'] = $comment->username;
+			$com['date'] = $calendar->cdate($settings['post_date_format'],$comment->date );
+			array_push($perComments, $com);
+		}
+		$raintpl->assign( "comments",$perComments);
+		$blogPost .= $raintpl->draw('blog_comments', true );
+
+		return [$content_post['header'],$blogPost];
 	}
 
 	//function for show blog posts that stored in catalogue

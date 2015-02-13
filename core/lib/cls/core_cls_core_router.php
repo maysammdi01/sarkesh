@@ -195,6 +195,7 @@ class router{
 			$url = core\general::create_url($url);
 		}
 		header("Location:$url");
+		return ['',''];
 		/* Make sure that code below does not get executed when we redirect. */
 		exit;
 	}

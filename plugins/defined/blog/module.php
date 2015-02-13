@@ -221,7 +221,7 @@ class module extends view{
 	//this function show list of posts in administrator area
 	public function module_list_posts(){
 		if($this->users->has_permission('administrator_admin_panel')){
-			$result = db\orm::getAll("SELECT bp.id,cc.header,cc.date,cc.user,bc.name AS 'cat_name' FROM blogposts bp INNER JOIN contentcontent cc ON bp.content=cc.id INNER JOIN blogcats bc ON bc.id=bp.catalogue;");
+			$result = db\orm::getAll("SELECT bp.id,cc.header,cc.date,cc.user,bc.name AS 'cat_name' FROM blogposts bp INNER JOIN contentcontent cc ON bp.content=cc.id INNER JOIN blogcats bc ON bc.id=bp.catalogue ORDER BY bp.id DESC;");
 			$posts = db\orm::convertToBeans( 'post', $result );
 			return $this->view_list_posts($posts);
 		}
@@ -267,9 +267,11 @@ class module extends view{
 				$post_core = db\orm::load('blogposts',$_REQUEST['id']);
 				$content = new \addon\plugin\content;
 				$post_data = $content->get_content($post_core->content);
+				//get all comments
+				$comments = db\orm::find('blogcomments','blogpost=?',[$_REQUEST['id']]);
 				//get settings of blog plugin
 				$registry = core\registry::singleton();
-				return $this->view_show($post_core,$post_data,$registry->get_plugin('blog'));
+				return $this->view_show($post_core,$post_data,$registry->get_plugin('blog'),$comments);
 			}
 		}
 		//not found
@@ -289,23 +291,28 @@ class module extends view{
 				//get post per page
 				$per_page = $registry->get('blog','post_per_page');
 				$start = ($page_num - 1) * $per_page;
-				$all_posts = db\orm::find('blogposts','catalogue=? ORDER BY id DESC limit ' . $start .',' . $per_page,[$_REQUEST['id']]);
-				$next_start = $start + $per_page;
-				$result = db\orm::getAll('SELECT id FROM blogposts WHERE catalogue=? limit ' . $next_start .',' . $per_page,[$_REQUEST['id']]);
-				$next_page_post_count = count($result);
-				$with_next = true;
-				$with_back = true;
-				if( $next_page_post_count == 0) $with_next = false;
-				if($page_num == 1) $with_back = false;
-				$posts_catalogue = db\orm::load('blogcats',$_REQUEST['id']);
-				$content = new \addon\plugin\content;
-				//get settings of blog plugin
-				
-				$posts = [];
-				foreach($all_posts as $post){
-					array_push($posts, $content->get_content($post->content));
+				$postCount = db\orm::count('blogposts','catalogue=?;',[$_REQUEST['id']]);
+				if($postCount != 0){
+					$all_posts = db\orm::find('blogposts','catalogue=? ORDER BY id DESC limit ' . $start .',' . $per_page,[$_REQUEST['id']]);
+					$next_start = $start + $per_page;
+					$result = db\orm::getAll('SELECT id FROM blogposts WHERE catalogue=? limit ' . $next_start .',' . $per_page,[$_REQUEST['id']]);
+					$next_page_post_count = count($result);
+					$with_next = true;
+					$with_back = true;
+					if( $next_page_post_count == 0) $with_next = false;
+					if($page_num == 1) $with_back = false;
+					$posts_catalogue = db\orm::load('blogcats',$_REQUEST['id']);
+					$content = new \addon\plugin\content;
+					//get settings of blog plugin
+					
+					$posts = [];
+					foreach($all_posts as $post){
+						array_push($posts, $content->get_content($post->content));
+					}
+					return $this->view_show_cat($posts,$registry->get_plugin('blog'),$posts_catalogue,$all_posts,$with_next,$with_back,$page_num);
 				}
-				return $this->view_show_cat($posts,$registry->get_plugin('blog'),$posts_catalogue,$all_posts,$with_next,$with_back,$page_num);
+				$posts_catalogue = db\orm::load('blogcats',$_REQUEST['id']);
+				return [$posts_catalogue->name,''];
 			}
 		}
 		//not found

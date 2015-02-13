@@ -429,12 +429,24 @@ class view{
       }
 
        //This function show settings for control user register/login/view and ...
-		  public function view_settings($settings){
+		  public function view_settings($settings,$rolls){
 		  	$tab = new control\tabbar;
 
 		  	//---------------------- FORM FOR CONTROL REGISTER AND ECT ----------------------
 		  	$frm_reg_settings = new control\form('frm_reg_settings');
 		  	$frm_reg_settings->configure('LABEL',_('Registration and cancellation'));
+
+		  	//add default roll for new users
+		  	$cobNewRoll = new control\combobox('cobNewRoll');
+	        $cobNewRoll->configure('LABEL',_('Default users roll'));
+	        $cobNewRoll->configure('HELP',_('New users get roll that you select in above.'));
+	        $cobNewRoll->configure('TABLE',$rolls);
+	        $cobNewRoll->configure('COLUMN_VALUES','id');
+	        $cobNewRoll->configure('COLUMN_LABELS','name');
+	        $cobNewRoll->configure('SELECTED_INDEX',$settings['default_permation']);
+
+	        $cobNewRoll->configure('SIZE',3);
+	        $frm_reg_settings->add($cobNewRoll);
 
 		  	$rad_bot = new control\radiobuttons('rad_show_option');
 			$rad_bot->configure('LABEL',_('Who can register accounts? '));
@@ -545,13 +557,7 @@ class view{
 			$row->add($btn_cancel,3);
 			$frm_personal_settings->add($row);
 		  	$tab->add($frm_personal_settings);
-		  	//-------------------------------------------------------------------------------
-		  	$frm_email_settings = new control\form('frm_email_settings');
-		  	$frm_email_settings->configure('LABEL',_('Emails'));
-
-		  	$txt  = new control\textbox('ff');
-		  	$frm_email_settings->add($txt);
-		  	$tab->add($frm_email_settings);
+		  	
 		  	return [_('Account settings'),$tab->draw()];
 		  }
 

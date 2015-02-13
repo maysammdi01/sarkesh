@@ -27,9 +27,13 @@
 				>
 				</input>
 				{if="$addon != ''"}</div>{/if}
-				{if="$help!=''"}<span class="help-block">{$help}</span>{/if}
-{if="!$in_table"}
-		</div>	
+
+		</div>
+		{if="!$in_table"}	
+		
+	</div>
+	<div class="col-sm-12 col-xs-12 col-lg-12">
+		{if="$help!=''"}<span class="help-block">{$help}</span>{/if}
 	</div>
 </div>
 {/if}

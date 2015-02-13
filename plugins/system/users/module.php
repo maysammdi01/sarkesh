@@ -21,13 +21,28 @@ class module extends view{
 
 	}
 	/*
+	 * this function check user for that is loged in in system
+	 * @return boolean (TRUE:user logedin /FALSE: Guest)
+	 */
+	public function isLogedin(){
+		return $this->module_is_logedin();
+	}
+
+	/*
+	 * return user info in array
+	 * @return array of user info
+	*/
+	public function getInfo(){
+		return $this->module_get_info();
+	}
+	/*
 	 * this function show login form for input username and password
 	 * if user was logedin before return user profile
 	 * form
 	 */
 	protected function module_login_block($pos){
 		//checking for that is logedin before
-		if($this->module_is_logedin()){
+		if($this->isLogedin()){
 			//show user profile
 			//get user information
 			$user=$this->module_get_info();
@@ -45,7 +60,7 @@ class module extends view{
 	 * Tis function show register form 
 	 */
 	 protected function module_register(){
-		 if($this->module_is_logedin()){
+		 if($this->isLogedin()){
 			 header("Location:" . core\general::create_url(array('plugin','users','action','profile')));
 		 }
 		 elseif($this->settings['register'] == '0'){
@@ -235,7 +250,7 @@ class module extends view{
 			//first check for that what type of user info you want
 			if($username == ''){
 				//you want user information that now in loged in
-				if($this->is_logedin()){
+				if($this->isLogedin()){
 					$id = $this->validator->get_id('USERS_LOGIN');
 					if(db\orm::count('users','login_key = ?',array($id)) != 0){
 						return db\orm::findOne('users','login_key = ?', array($id));
@@ -384,7 +399,8 @@ class module extends view{
 						
 						//send register information to email
 						$email_title = _('Registration complete');
-						$email_body = sprintf(_('Your registration in %s was completed.'),[$local['name']]);
+						
+						$email_body = sprintf(_('Your registration in %s was completed.'),$local['name']);
 						if(!$mail->simple_send($e['txt_username']['VALUE'],$e['txt_email']['VALUE'],$email_title,$email_body)){
 							//user activated
 							//show register successful message for registeration in sarkesh
@@ -426,7 +442,7 @@ class module extends view{
 		 */
 		protected function module_ActiveAccount(){
 			//check for that user is loged in
-			if($this->module_is_logedin()){
+			if($this->isLogedin()){
 			 header("Location:" . SiteDomain);
 			 exit();
 			}
@@ -579,7 +595,9 @@ class module extends view{
 		  	
 		  	//check for permission to admin area
             if($this->module_has_permission('users_admin')){
-                return $this->view_settings($this->settings);
+            	//get all rolls
+            	$rolls = db\orm::find('permissions','name <> ?;',['Guest']);
+                return $this->view_settings($this->settings,$rolls);
             }
             //show access denied message
             return $this->module_no_permission();
@@ -598,7 +616,7 @@ class module extends view{
                 	$register_type = 2;
                 }
                	$this->registry->set('users','register',$register_type);
-            	
+            	$this->registry->set('users','default_permation',$e['cobNewRoll']['SELECTED']);
             	//save email verification setting
             	$verification_type = 0;
                 if($e['ckb_verification']['CHECKED'] == '1'){

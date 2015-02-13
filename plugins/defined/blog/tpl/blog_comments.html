@@ -1,0 +1,24 @@
+{if="$canComment"}
+<div class="well">
+    <h4>{$leaveCommentLabel}</h4>
+    {$form}
+</div>
+{/if}
+{loop="$comments"}
+ <!-- Comment -->
+ <div class="row">
+<div class="">
+  <div class="col-xs-2">
+    <a href="#">
+      <img class="media-object img-thumbnail" src="./plugins/defined/blog/images/noavatar32.png" alt="...">
+    </a>
+  </div>
+  <div class="col-xs-10 well">
+    <h4 class="media-heading">{$value.username}</h4><small>{$value.date}</small>
+    {$value.comment}
+  </div>
+</div>
+</div>
+<!-- Comment -->
+{/loop}
+
