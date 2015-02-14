@@ -495,8 +495,8 @@ class view{
 			
 			$row = new control\row;
 			$row->configure('IN_TABLE',false);
-			$row->add($btn_update,3);
-			$row->add($btn_cancel,3);
+			$row->add($btn_update,1);
+			$row->add($btn_cancel,11);
 			$frm_reg_settings->add($row);
 
 			$tab->add($frm_reg_settings);

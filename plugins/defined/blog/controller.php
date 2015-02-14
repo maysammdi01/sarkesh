@@ -111,6 +111,15 @@ class blog extends blog\module{
 		return $this->module_show_cat();		
 	}
 
+	/*
+	 * save comment in database
+	 * @param:elements on browser
+	 * return: elements
+	 */
+	public function onclickBtnSubmitComment($e){
+		return $this->ModuleOnclickBtnSubmitComment($e);
+	}
+
 	
 }
 

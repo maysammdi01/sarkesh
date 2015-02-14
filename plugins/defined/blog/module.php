@@ -4,6 +4,7 @@ use addon\plugin as plugin;
 use \core\plugin as coreplugin;
 use \core\cls\db as db;
 use \core\cls\core as core;
+use \core\cls\browser as browser;
 
 class module extends view{
 	private $users;
@@ -41,6 +42,11 @@ class module extends view{
 			$show_date = 0;
 			if($e['ckb_show_date']['CHECKED'] == '1') $show_date = 1;
 			$registry->set('blog','show_date',$show_date);
+
+			//save settings for that who can comment
+			$canComment = 0;
+			if($e['raditGuestCan']['CHECKED'] == 1) $canComment = 1;
+			$registry->set('blog','canComment',$canComment);
 			return $this->msg->successfull_modal($e,'N');
 		}
 		else{
@@ -268,7 +274,7 @@ class module extends view{
 				$content = new \addon\plugin\content;
 				$post_data = $content->get_content($post_core->content);
 				//get all comments
-				$comments = db\orm::find('blogcomments','blogpost=?',[$_REQUEST['id']]);
+				$comments = db\orm::find('blogcomments','blogpost=? ORDER BY id DESC',[$_REQUEST['id']]);
 				//get settings of blog plugin
 				$registry = core\registry::singleton();
 				return $this->view_show($post_core,$post_data,$registry->get_plugin('blog'),$comments);
@@ -317,6 +323,34 @@ class module extends view{
 		}
 		//not found
 		return core\router::jump_page(404);
+	}
+
+	/*
+	 * save comment in database
+	 * @param:elements on browser
+	 * return: elements
+	 */
+	public function ModuleOnclickBtnSubmitComment($e){
+		if(isset($e['hidPostID']['VALUE'])){
+			if(db\orm::count('blogcomments','blogpost=?',[$e['hidPostID']['VALUE']])){
+				if(isset($e['hidPostID'])){
+					$users = new coreplugin\users\module;
+					if($users->isLogedin()){
+						$userInfo = $users->getInfo();
+						$comment = db\orm::dispense('blogcomments');
+						$comment->username = $userInfo->username;
+						$comment->comment = $e['txtComment']['VALUE'];
+						$comment->email = $userInfo->email;
+						$comment->date = time();
+						$comment->blogpost = $e['hidPostID']['VALUE'];
+						db\orm::store($comment);
+						$e['RV']['MODAL'] = browser\page::show_block(_('Successfull'), _('Your comment successfuly submited.'), 'MODAL','type-success');
+						$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+					}
+				}
+			}
+		}
+		return $e;
 	}
 		
 }

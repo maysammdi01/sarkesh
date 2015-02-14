@@ -15,7 +15,8 @@ news:
 -add show author name and show date option in blog posts and show catalogues
 -add option to set number of posts per page in blog settings
 -translate more strings to persian 
-
+-add new base template to bootstrap
+-update bootstrap LTR and RTL to 3.2.0
 
 
 installation:

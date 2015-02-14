@@ -38,6 +38,25 @@ class view{
         $cob_per_page->configure('SELECTED_INDEX',$settings['post_per_page']);
         $cob_per_page->configure('SIZE',4);
         $form->add($cob_per_page);
+
+        $radCanComment = new control\radiobuttons('radCanComment');
+		$radCanComment->configure('LABEL',_('Who can comment on blog posts?'));
+
+		$raditJustUsers = new control\radioitem('raditJustUsers');
+		$raditJustUsers->configure('LABEL',_('Users only'));
+		if($settings['canComment'] == 0){
+			$raditJustUsers->configure('CHECKED',TRUE);
+		}
+		$radCanComment->add($raditJustUsers);
+			
+		$raditGuestCan  = new control\radioitem('raditGuestCan');
+		$raditGuestCan->configure('LABEL',_('Registered users and guests.(Administrators can manage guest comments)'));
+		if($settings['canComment'] == 1){
+			$raditGuestCan->configure('CHECKED',TRUE);
+		}
+		$radCanComment->add($raditGuestCan);
+		$form->add($radCanComment);
+
 		//show date of post
         $ckb_show_date = new control\checkbox('ckb_show_date');
 		$ckb_show_date->configure('LABEL',_('Show date') );
@@ -390,21 +409,28 @@ class view{
 		$blogPost = $raintpl->draw('blog_post', true );
 
 		$raintpl->assign( "leaveCommentLabel", _('Leave a comment!'));
-		$raintpl->assign( "canComment", TRUE);
 		$formBlogLeaveComment = new control\form('formBlogLeaveComment');
 
 		#show submit form for comments
 		$users = new \core\plugin\users\module;
 		$userInfo = $users->getInfo();
+		$showSubmitForm = false;
 
+		//save blog id in form
+		$hidFormID = new control\hidden('hidPostID');
+		$hidFormID->configure('VALUE',$post_core->id);
+		$formBlogLeaveComment->add($hidFormID);
 		if($users->isLogedin()){
-			$hidId = new control\hidden('hidId');
+			$showSubmitForm = true;
+			$hidId = new control\hidden('hidUserId');
 			$hidId->configure('VALUE',$userInfo->id);
 			$formBlogLeaveComment->add($hidId);
 			$lblUsername = new control\label(sprintf(_('You are logedin as %s.'),$userInfo->username));
 			$formBlogLeaveComment->add($lblUsername);
 		}
-		else{
+		elseif($settings['canComment'] == 1){
+			
+			$showSubmitForm = true;
 			$row = new control\row;
 			$row->configure('IN_TABLE',false);
 
@@ -418,20 +444,22 @@ class view{
 
 			$formBlogLeaveComment->add($row);
 		}
+		if($showSubmitForm){
 
-		$txtComment = new control\textarea;
-		$txtComment->configure('EDITOR',FALSE);
-		$txtComment->configure('LABEL',_('Comment:'));
-		$txtComment->configure('ROWS',4);
-		$formBlogLeaveComment->add($txtComment);
+			$txtComment = new control\textarea('txtComment');
+			$txtComment->configure('EDITOR',FALSE);
+			$txtComment->configure('LABEL',_('Comment:'));
+			$txtComment->configure('ROWS',4);
+			$formBlogLeaveComment->add($txtComment);
 
-		$btnSubmit = new control\button('btnSubmit');
-		$btnSubmit->configure('LABEL',_('Submit'));
-		$btnSubmit->configure('TYPE','primary');
-		$btnSubmit->configure('P_ONCLICK_PLUGIN','blog');
-		$btnSubmit->configure('P_ONCLICK_FUNCTION','onclickBtnSubmitComment');
-		$formBlogLeaveComment->add($btnSubmit);
-
+			$btnSubmit = new control\button('btnSubmit');
+			$btnSubmit->configure('LABEL',_('Submit'));
+			$btnSubmit->configure('TYPE','primary');
+			$btnSubmit->configure('P_ONCLICK_PLUGIN','blog');
+			$btnSubmit->configure('P_ONCLICK_FUNCTION','onclickBtnSubmitComment');
+			$formBlogLeaveComment->add($btnSubmit);
+		}
+		$raintpl->assign( "canComment", $showSubmitForm);
 		$raintpl->assign( "form", $formBlogLeaveComment->draw());
 		#perpare comments
 		$perComments = [];

@@ -7,17 +7,10 @@
 {loop="$comments"}
  <!-- Comment -->
  <div class="row">
-<div class="">
-  <div class="col-xs-2">
-    <a href="#">
-      <img class="media-object img-thumbnail" src="./plugins/defined/blog/images/noavatar32.png" alt="...">
-    </a>
-  </div>
-  <div class="col-xs-10 well">
-    <h4 class="media-heading">{$value.username}</h4><small>{$value.date}</small>
+  <div class="col-xs-12 well">
+    <h4 class="">{$value.username}<small>{$value.date}</small></h4>
     {$value.comment}
   </div>
-</div>
 </div>
 <!-- Comment -->
 {/loop}
