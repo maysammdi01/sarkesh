@@ -4,7 +4,7 @@ define ("DatabaseType","mysql");
 
 #mysql connect information
 define ("DatabaseUser","root");
-define ("DatabasePassword","");
+define ("DatabasePassword","136431");
 define ("DatabaseHost","localhost");
-define ("DatabaseName","sarkeshMVC");
+define ("DatabaseName","sarkeshmvc");
 ?>

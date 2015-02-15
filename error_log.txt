@@ -1,0 +1,19 @@
+[13-Feb-2015 23:25:09 Europe/Berlin] PHP Parse error:  syntax error, unexpected '}' in C:\xampp\htdocs\plugins\defined\blog\module.php on line 349
+[13-Feb-2015 23:35:53 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[13-Feb-2015 23:39:27 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:16:52 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:29:06 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:35:31 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:49:00 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:49:30 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:56:43 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:58:22 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:59:29 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 00:59:55 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 01:13:53 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 10:22:22 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 10:49:28 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 13:25:44 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 13:25:49 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 14:31:36 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
+[14-Feb-2015 18:32:27 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73

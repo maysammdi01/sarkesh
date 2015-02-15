@@ -1,27 +1,44 @@
 <?php
-	namespace core\cls\archive;
-	//this class is for working with tar.gz
-	class zip{
-		private $zip;
-		function __construct($file_name){
-			$this->zip = new ZipArchive;
-			if ($this->zip->open($file_name) === FALSE) {
-				exit( _('can not open zip archive files'));	
-			}
-		}
-		function __destruct(){
-			//close zip file
-			@$this->zip->close();
-		}
-		public function extract($address){
-			if(is_dir($address)){
-				$this->zip->extractTo($address);
-				return true;
-			}
-
-		}
+/*
+ * Class for working with databases
+ */
+namespace core\cls\archive;
+class zip{
+	/*
+	 * var object ZipArchive
+	 */
+	private $zip;
 	
+	/*
+	 * constructor
+	 * @fileName string,full file name with address
+	 */
+	function __construct($fileName){
+		$this->zip = new ZipArchive;
+		if ($this->zip->open($fileName) === FALSE) {
+			exit( _('Can not open zip archive files'));	
+		}
 	}
-
-
+	
+	/*
+	 * destructor
+	 */
+	function __destruct(){
+		//close zip file
+		@$this->zip->close();
+	}
+	
+	/*
+	 * extract zip archive
+	 * @adr string,address of folder
+	 * @return boolean(true:success , false:fail)
+	 */
+	public function extract($adr){
+		if(is_dir($adr)){
+			$this->zip->extractTo($adr);
+			return true;
+		}
+		return false;
+	}
+}
 ?>

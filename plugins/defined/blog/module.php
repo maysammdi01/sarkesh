@@ -332,22 +332,54 @@ class module extends view{
 	 */
 	public function ModuleOnclickBtnSubmitComment($e){
 		if(isset($e['hidPostID']['VALUE'])){
-			if(db\orm::count('blogcomments','blogpost=?',[$e['hidPostID']['VALUE']])){
-				if(isset($e['hidPostID'])){
-					$users = new coreplugin\users\module;
-					if($users->isLogedin()){
-						$userInfo = $users->getInfo();
-						$comment = db\orm::dispense('blogcomments');
-						$comment->username = $userInfo->username;
-						$comment->comment = $e['txtComment']['VALUE'];
-						$comment->email = $userInfo->email;
-						$comment->date = time();
-						$comment->blogpost = $e['hidPostID']['VALUE'];
-						db\orm::store($comment);
-						$e['RV']['MODAL'] = browser\page::show_block(_('Successfull'), _('Your comment successfuly submited.'), 'MODAL','type-success');
-						$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+			if($e['txtComment']['VALUE'] != ''){
+
+				if(db\orm::count('blogcomments','blogpost=?',[$e['hidPostID']['VALUE']])){
+					if(isset($e['hidPostID'])){
+						//is registered user
+						$users = new coreplugin\users\module;
+						if($users->isLogedin()){
+							$userInfo = $users->getInfo();
+							$comment = db\orm::dispense('blogcomments');
+							$comment->username = $userInfo->username;
+							$comment->comment = $e['txtComment']['VALUE'];
+							$comment->email = $userInfo->email;
+							$comment->date = time();
+							$comment->blogpost = $e['hidPostID']['VALUE'];
+							$comment->approve = 1;
+							db\orm::store($comment);
+							$e['RV']['MODAL'] = browser\page::show_block(_('Successfull'), _('Your comment successfuly submited.'), 'MODAL','type-success');
+							$e['RV']['JUMP_AFTER_MODAL'] = 'R';
+						}
+					}
+					elseif(isset($e['']) & isset($e[''])){
+						return $this->msg->not_complete_modal($e);
+						if($e['txtUsername']['VALUE'] != '' &&  $e['txtEmail']['VALUE'] != ''){
+							//user is guest
+							$registry = core\registry::singleton();
+							if($registry->get('blog','canComment') == '1'){
+								//guest can comment
+								$comment = db\orm::dispense('blogcomments');
+								$comment->blogpost = $comment->blogpost = $e['hidPostID']['VALUE'];
+								$comment->name = $e['txtUsername']['VALUE'];
+								$comment->username = 0;
+								$comment->email = $e['txtEmail']['VALUE'];
+								$comment->comment = $e['txtComment']['VALUE'];
+								$comment->date = time();
+								$comment->approve = 0;
+								db\orm::store($comment);
+								$e['RV']['MODAL'] = browser\page::show_block(_('Successfull'), _('Your comment was submited.waiting for administrators for approve that.'), 'MODAL','type-success');
+								$e['txtUsername']['VALUE'] = '';
+								$e['txtEmail']['VALUE'] = '';
+								$e['txtComment']['VALUE'] = '';
+							}
+						}
 					}
 				}
+			}
+			else{
+				//show fill blanks
+				return $this->msg->not_complete_modal($e);
 			}
 		}
 		return $e;
