@@ -57,19 +57,7 @@ class localize{
 		return $this->localize['language'];
 		}
 	}
-	//this function return language code that can use in tinymce editor and ect
-	public function convert_language_code($language){
-		switch ($language) {
-			case 'fa_IR':
-			    return 'fa';
-			    break;
-			case 'en_US':
-			    return "en";
-			    break;
-		}
 	
-	}
-
 	//this function return all localize that exists in system
 	public function get_all(){
 		return db\orm::findAll('localize');

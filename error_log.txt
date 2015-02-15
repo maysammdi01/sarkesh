@@ -16,4 +16,9 @@
 [14-Feb-2015 13:25:44 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
 [14-Feb-2015 13:25:49 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
 [14-Feb-2015 14:31:36 Europe/Berlin] PHP Notice:  Undefined index: plugin in C:\xampp\htdocs\core\lib\cls\core_cls_browser_page.php on line 73
-[14-Feb-2015 18:32:27 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73
+[15-Feb-2015 10:02:42 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73
+[15-Feb-2015 10:02:46 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73
+[15-Feb-2015 10:02:49 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73
+[15-Feb-2015 10:10:41 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73
+[15-Feb-2015 10:15:50 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73
+[15-Feb-2015 10:15:52 America/New_York] PHP Notice:  Undefined index: plugin in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 73

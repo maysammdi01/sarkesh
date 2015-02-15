@@ -1,38 +1,37 @@
 <?php
 /*
- * Class for working with databases
- */
+* Class for working with databases
+*/
 namespace core\cls\archive;
 class zip{
 	/*
-	 * var object ZipArchive
-	 */
+	* var object ZipArchive
+	*/
 	private $zip;
-	
 	/*
-	 * constructor
-	 * @fileName string,full file name with address
-	 */
+	* constructor
+	* @fileName string,full file name with address
+	*/
+	
 	function __construct($fileName){
 		$this->zip = new ZipArchive;
 		if ($this->zip->open($fileName) === FALSE) {
-			exit( _('Can not open zip archive files'));	
+			exit( _('Can not open zip archive files'));
 		}
 	}
 	
 	/*
-	 * destructor
-	 */
+	* destructor
+	*/
 	function __destruct(){
 		//close zip file
 		@$this->zip->close();
 	}
-	
 	/*
-	 * extract zip archive
-	 * @adr string,address of folder
-	 * @return boolean(true:success , false:fail)
-	 */
+	* extract zip archive
+	* @adr string,address of folder
+	* @return boolean(true:success , false:fail)
+	*/
 	public function extract($adr){
 		if(is_dir($adr)){
 			$this->zip->extractTo($adr);

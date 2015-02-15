@@ -12,13 +12,19 @@
  
  class calendar{
 	 
+	 /*
+	  * @var string,cerrent system calendar name
+	  */
 	 public $calendar;
 	 
+	 /*
+	  * construct
+	  */
 	 function __construct(){
 		 //get selected system calendar type;
 		 $localize = new core\localize;
-		 $localize_settings = $localize->get_localize(); 
-		 $this->calendar = $localize_settings['calendar'];
+		 $localSettings = $localize->get_localize(); 
+		 $this->calendar = $localSettings['calendar'];
 	 }
 	 
 	 
