@@ -128,7 +128,7 @@ public function rows_count(){
 //this function create pdo_obj to database
 private function connect(){
     $options = array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',\PDO::ATTR_PERSISTENT => true); 
-    $this->pdo_obj = new \PDO("mysql:host=" . DatabaseHost . ";dbname=" . DatabaseName , DatabaseUser, DatabasePassword,$options);
+    $this->pdo_obj = new \PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME , DB_USER, DB_PASS,$options);
     $this->pdo_obj->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
 }
 //this function disconnect from database
@@ -144,7 +144,7 @@ private function disconnect(){
 //          | =>1 There was a warning during the export
 //      | =>2 There was an error during export. Please check your values
 public function export_to_file(){
-    $command='mysqldump --opt -h' . DatabaseHost .' -u' . DatabaseUser .' -p' . DatabasePassword .' ' . DatabaseName .' > ' . AppPath . 'upload/buffer/database.sql';
+    $command='mysqldump --opt -h' . DB_HOST .' -u' . DB_USER .' -p' . DB_PASS .' ' . DB_NAME .' > ' . AppPath . 'upload/buffer/database.sql';
     //run mysqldump program
     exec($command,$output=array(),$result);
     return $result;
@@ -155,7 +155,7 @@ public function export_to_file(){
 //any change with this function can not undo
 public function import_from_file($filename){
     if(file_exists($filename)){
-        $command='mysql -h' . DatabaseHost .' -u' . DatabaseUser .' -p' . DatabasePassword .' ' . DatabaseName .' < ' . $filename ;
+        $command='mysql -h' . DB_HOST .' -u' . DB_USER .' -p' . DB_PASS .' ' . DB_NAME .' < ' . $filename ;
         //run mysql program
         exec($command,$output=array(),$result);
         return $result;

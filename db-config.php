@@ -3,8 +3,8 @@
 define ("DatabaseType","mysql");
 
 #mysql connect information
-define ("DatabaseUser","root");
-define ("DatabasePassword","136431");
-define ("DatabaseHost","localhost");
-define ("DatabaseName","sarkeshmvc");
+define ("DB_USER","root");
+define ("DB_PASS","136431");
+define ("DB_HOST","localhost");
+define ("DB_NAME","sarkeshmvc");
 ?>

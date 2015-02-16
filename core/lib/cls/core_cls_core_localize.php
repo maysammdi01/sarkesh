@@ -1,72 +1,81 @@
 <?php
+// this class is for control localize and multi language support in system
 namespace core\cls\core;
 use \core\cls\network as network;
 use \core\cls\db as db;
 use core\cls\patterns as patterns;
 
-// this class is for translate parameters in theme and plugins
 class localize{
 	use patterns\singleton;
-	private $db;
-	private $localize;
-	private $obj_cookie;
-	private $session;
+	/*
+	 * @var object of database
+	 */
+	private $orm;
 	
+	/*
+	 * @var object,localize class
+	 */
+	private $localize;
+	
+	/*
+	* construct
+	*/
 	function __construct(){
-		$this->obj_cookie = new network\cookie;
-		$this->obj_session = new network\session;
-		$this->db = db\mysql::singleton();
-		$this->db->do_query("select * from localize where main ='1';");
-		$this->localize = $this->db->get_first_row_array();
-		$this->get_language();
+		$this->orm = db\orm::singleton();
+		$this->localize = $this->orm->findOne('localize','main=?',[1]);
+		$this->language();
 	}
-	//this function return difined localize settings in cookie
-	public function get_localize($dif = false){
-		if($dif){
+	/*
+	* this function return difined localize settings in cookie
+	* @param boolean $default(default language:true, else:false)
+	* @return array
+	*/
+	public function localize($default = false){
+		if($default){
 			return $this->localize;
 		}
-		$local = db\orm::findOne('localize','language=?',[$this->get_language()]);
+		$local = $this->orm->findOne('localize','language=?',[$this->language()]);
 		return $local;
 	}
 
-	//this function set cms language on cookie
-	public function set_language($language){
-
+	/*
+	* set cms language on cookie
+	* @param strin $lang, language code
+	* @return boolean,(successful:true else:false)
+	*/
+	public function setLang($lang){
 		if($language != ''){
-			$this->obj_cookie->set('core_language' , $language);
-			$this->obj_session->set('core_language', $language);
+			core\cookie::set('core_language' , $lang);
+			core\session::set('core_language', $lang);
 			return true;
 		}
 		return false;
 	}
-	//this function get language name from cookie if that not defined return system default localize language
-	public function get_language(){
-
-		$obj_io = new network\io;
-		if($this->obj_session->is_set('core_language')){
-			
-			return $this->obj_session->get('core_language');		
-		}
-		elseif($this->obj_cookie->is_set('core_language')){
-			
-			return $obj_io->cin('core_language','cookie');
-		}
-		else{
-		//return difault language
-		
+	
+	/*
+	* get language name from cookie if that not defined return system default localize language
+	* @return void
+	*/
+	public function language(){
+		if(isset($_COOKIE['core_language'])) return $_COOKIE['core_language'];		
+		elseif(isset($_SESSION['core_language'])) return $_SESSION['core_language'];		
 		return $this->localize['language'];
-		}
 	}
 	
-	//this function return all localize that exists in system
-	public function get_all(){
-		return db\orm::findAll('localize');
+	/*
+	* return all localize that exists in system
+	* @return array dbRow object
+	*/
+	public function getAll(){
+		return $this->orm->findAll('localize');
 	}
 	
-	//this function return default language of system
-	public function get_default_language(){
-		return db\orm::findOne('localize','main=1');
+	/*
+	* return default language of system
+	* @return dbRow object
+	*/
+	public function defLanguage(){
+		return $this->localize;
 	}
-//END CLASS
 }
 ?>

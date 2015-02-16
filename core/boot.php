@@ -13,15 +13,14 @@ if(empty($sess_id)){ session_start();}
 if(file_exists(AppPath . "db-config.php")) {
 	//going to run sarkesh!
 	include_once(AppPath . "config.php");
-	// config and setup cls_orm // RedBeanphp
-	\core\cls\db\orm::run();
 	//LOAD INC Files
 	require_once( AppPath . 'core/defines.php');
 	require_once(AppPath . 'core/inc/localize.php');
 	
 	//check for blocked ips
+	$orm = \core\cls\db\orm::singleton();
 	if(!empty($_SERVER['REMOTE_ADDR'])){
-		if( \core\cls\db\orm::count('ipblock',"ip=?",[ip2long($_SERVER['REMOTE_ADDR'])]) != 0){
+		if( $orm->count('ipblock',"ip=?",[ip2long($_SERVER['REMOTE_ADDR'])]) != 0){
 			//show access denied message
 			header("HTTP/1.1 403 Unauthorized" );
 			$body = _("403! You are blocked by SarkeshMVC internal firewall.");

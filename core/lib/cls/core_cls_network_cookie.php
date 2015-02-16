@@ -1,31 +1,39 @@
 <?php
-#REQ = IO
 #this class is for control cookies
 namespace core\cls\network;
-use \core\cls\network as network;
 use \core\cls\core as core;
-class cookie{
-	private $obj_io;
-	function __construct(){
-		$this->obj_io = new network\io;
-	}
-	public function is_set($cookie_name){
 
-		if(isset($_COOKIE[$cookie_name])){return true;}
+class cookie {
+	
+	/*
+	* check fot cookie is exist
+	* @param string $cookie,name of cookie
+	* @return boolean (set:true, else:false)
+	*/
+	public static function check($cookie){
+		if(isset($_COOKIE[$cookie]))return true;
 		return false;
 	}
-	public function set($cookie_name, $cookie_value){
-		$boj_registry = new core\registry;
-		$settings = $boj_registry->get_plugin('administrator');
-		setcookie($cookie_name,$cookie_value,time() + $settings['cookie_max_time']);
-		return true;
+	/*
+	* set value in cookie
+	* @param string $cookie,name of cookie
+	* @param string $cookieValue,value of cookie
+	* @return void
+	*/
+	public static function set($cookie, $cookieValue){
+		$registry = core\registry::singleton();
+		$settings = $registry->get_plugin('administrator');
+		setcookie($cookie,$cookieValue,time() + $settings['cookie_max_time']);
 	}
-	public function get($cookie_name){
-		if(isset($_COOKIE[$cookie_name])){ 
-			return $this->obj_io->cin($cookie_name,'cookie');	
-		}
-		
+	/*
+	* get value from cookie
+	* @param string $cookie,name of cookie
+	* @return string,value of cookie(not set: null)
+	*/
+	public static function get($cookie){
+		if(isset($_COOKIE[$cookie]))
+			return $_COOKIE[$cookie];
+		return null;
 	}
 }
-
 ?>

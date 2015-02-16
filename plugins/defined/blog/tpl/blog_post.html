@@ -1,7 +1,0 @@
-{if="$show_header"}<a href="{$post_url}"><h2>{$header}</h2></a>{/if}
-<p>{if="$settings['show_date'] == '1'"}<span class="glyphicon glyphicon-time"></span> {$post_date}{/if} {if="$settings['show_author'] == '1'"}{$by} <a href="#">{$username}</a>{/if}</p>
-<!-- Post Content -->
-{loop="posts"}
-    {$value.value}
-{/loop}
-<hr>

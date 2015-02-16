@@ -7,9 +7,9 @@ use core\cls\patterns as patterns;
 class page{
 	use patterns\singleton;
 	//settings will be saved in this varible
-	private static $localize_settings;
+	private static $localSettings;
 	private static $settings ;
-	private static $page_tittle;
+	private static $pageTittle;
 	private static $blocks;
 	private static $plugin;
 	
@@ -17,30 +17,27 @@ class page{
 	static private $header_tags;
 	
 	function __construct(){
-		$obj_localize = core\localize::singleton();
-		self::$localize_settings = $obj_localize->get_localize();
+		$localize = core\localize::singleton();
+		self::$localSettings = $localize->localize();
 	}
 	
-	#if active language is RTL this function return true else return false
-	
+	/*
+	* if active language is RTL this function return true else return false
+	*/
 	static public function is_rtl(){
 		
-		if(self::$localize_settings['direction']=='RTL') {
-			return true;
-		}
-		else {
-			return false;
-		}
+		if(self::$localSettings->direction == 'RTL') return true;
+		else return false;	
 	}
 
-	static function difault_headers () {
+	static function defHeaders () {
 		
 		if(is_null(self::$settings)){
 			$registry = core\registry::singleton();
-			self::$settings = $registry->get_plugin('administrator');
-			$obj_localize = core\localize::singleton();
-			self::$localize_settings = $obj_localize->get_localize();
-			self::$page_tittle = self::$localize_settings['name'];
+			self::$settings = $registry->getPlugin('administrator');
+			$localize = core\localize::singleton();
+			self::$localSettings = $localize->localize();
+			self::$pageTittle = self::$localSettings->name;
 		}
 		if(is_null(self::$header_tags)){
 			self::$header_tags = array();
@@ -50,8 +47,8 @@ class page{
 		array_push($default_headers, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 		array_push($default_headers, '<meta name="generator" content=" Sarkesh CMF! - Open Source Content Management Framework" />');
 		//add default header tags
-		if(self::$localize_settings['header_tags'] != ''){
-			array_push($default_headers, '<meta name="description" content="' . self::$localize_settings['header_tags'] . '" />');
+		if(self::$localSettings->header_tags != ''){
+			array_push($default_headers, '<meta name="description" content="' . self::$localSettings->header_tags . '" />');
 		}
 		//cache control
 		array_push($default_headers, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
@@ -112,38 +109,33 @@ class page{
 	}
 	
 	static function load_headers($show=true){
-	      self::difault_headers();
+	      self::defHeaders();
 	      #show header tags
-		if($show){
-			foreach(self::$header_tags as $header){
-			      echo $header . "\n";
-			}
-		}
+		if($show) foreach(self::$header_tags as $header) echo $header . "\n";
 		else{
 			//return $header_tags
 			$str_header = '';
-			foreach(self::$header_tags as $header){
+			foreach(self::$header_tags as $header)
 			      $str_header .=  $header . "\n";
-			}
 			return $str_header;
 		}
 	}
 	//this function add recived string to page title
 	static public function set_page_tittle($tittle = ''){
 		//get site name in localize selected
-		if(is_null(self::$localize_settings)){
-			$obj_localize = core\localize::singleton();
-			self::$localize_settings = $obj_localize->get_localize();
-			self::$page_tittle = self::$localize_settings['name'];
+		if(is_null(self::$localSettings)){
+			$localize = core\localize::singleton();
+			self::$localSettings = $localize->get_localize();
+			self::$pageTittle = self::$localSettings->name;
 		}
-		self::$page_tittle = self::$localize_settings['name'] . ' | ' . $tittle;
-		return self::$page_tittle;
+		self::$pageTittle = self::$localSettings->name . ' | ' . $tittle;
+		return self::$pageTittle;
 		//now we want to send title to render function.
 	}
 	//this function return page title usually for runder.php
 	static public function get_page_tittle(){
 	
-		return self::$page_tittle;
+		return self::$pageTittle;
 	}
 	//this function atteche some tags to blocks and show that.
 	static public function show_block($header, $body, $view='NONE' ,$type = null, $result = 0){
@@ -226,8 +218,8 @@ class page{
 	}
 	//this function set and show blocks
 	static public function set_position($position){
-		$obj_localize = core\localize::singleton();
-		self::$localize_settings = $obj_localize->get_localize();
+		$localize = core\localize::singleton();
+		self::$localSettings = $localize->localize();
 		if(self::$blocks == null){
 			//load all blocks data from database
 			$db = db\mysql::singleton();
@@ -262,7 +254,7 @@ class page{
 					if(self::show_has_allow($block['b.name'])){
 						//checking that plugin is enabled
 						if(self::$plugin->is_enabled($block['p.name'])){
-							if($block['b.localize'] == 'all' || self::$localize_settings['language'] == $block['b.localize']){
+							if($block['b.localize'] == 'all' || self::$localSettings->language == $block['b.localize']){
 								$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
 								if(!file_exists(AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php')){
 									$ClassName = '\\addon\\plugin\\' . $block['p.name'] ;
@@ -326,8 +318,9 @@ class page{
 	static public function show_has_allow($block_name){
 		
 		//get block options
-		if(db\orm::count('blocks','name=?',[$block_name]) != 0){
-			$block_info = db\orm::findOne('blocks','name=?',[$block_name]);
+		$orm = db\orm::singleton();
+		if($orm->count('blocks','name=?',[$block_name]) != 0){
+			$block_info = $orm->findOne('blocks','name=?',[$block_name]);
 			if($block_info->pages != ''){
 				$pages = explode(',',$block_info->pages);
 				//check for show or not
@@ -340,7 +333,7 @@ class page{
 						}
 						elseif($page == 'frontpage'){
 							echo "page uri: " . $_SERVER['REQUEST_URI'];
-							if($_SERVER['REQUEST_URI'] == '/' . self::$localize_settings['home']){
+							if($_SERVER['REQUEST_URI'] == '/' . self::$localSettings->home){
 								return false;
 								break;
 							}
@@ -358,7 +351,7 @@ class page{
 							break;
 						}
 						elseif($page == 'frontpage'){
-							if($_SERVER['REQUEST_URI'] == '/' . self::$localize_settings['home']){
+							if($_SERVER['REQUEST_URI'] == '/' . self::$localSettings->home){
 								return true;
 								break;
 							}

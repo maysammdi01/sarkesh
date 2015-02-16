@@ -7,5 +7,3 @@ $registry = \core\cls\core\registry::singleton();
 require_once('./themes/' . $registry->get('administrator', 'active_theme') . '/index.php');
 ob_end_flush();
 ?>
-
-

@@ -1,5 +1,5 @@
 <?php
-namespace core\data\type;
+namespace core\data;
 /**
  * @author babak alizadeh
  * @copyright 2014 gnu gpl v3
