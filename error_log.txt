@@ -1,1 +1,19 @@
-[16-Feb-2015 19:14:39 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 07:49:59 America/New_York] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/sarkesh/www/core/lib/cls/core_cls_core_plugin.php on line 35
+[17-Feb-2015 07:52:40 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\router::setLastPage() in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 46
+[17-Feb-2015 07:56:25 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\router::setLastPage() in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 46
+[17-Feb-2015 07:56:34 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\router::setLastPage() in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 46
+[17-Feb-2015 07:57:11 America/New_York] PHP Fatal error:  Cannot use object of type core\data\dbRow as array in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 60
+[17-Feb-2015 07:57:12 America/New_York] PHP Fatal error:  Cannot use object of type core\data\dbRow as array in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 60
+[17-Feb-2015 07:57:13 America/New_York] PHP Fatal error:  Cannot use object of type core\data\dbRow as array in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 60
+[17-Feb-2015 07:59:54 America/New_York] PHP Fatal error:  Call to undefined method core\cls\browser\page::add_header() in /home/sarkesh/www/plugins/system/msg/view.php on line 22
+[17-Feb-2015 07:59:54 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\plugin::is_enabled() in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 287
+[17-Feb-2015 08:00:24 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:01:21 America/New_York] PHP Fatal error:  Call to undefined method core\cls\browser\page::show_dev_panel() in /home/sarkesh/www/core/boot.php on line 50
+[17-Feb-2015 08:01:54 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:02:08 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:02:09 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:02:10 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:02:11 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:02:15 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:03:38 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18
+[17-Feb-2015 08:04:08 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/core/lib/cls/core_cls_network_validator.php on line 26

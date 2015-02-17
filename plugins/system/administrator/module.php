@@ -58,7 +58,7 @@ class module extends view{
 		
 		//get administrator settings from registry
 		$registry = core\registry::singleton();
-		$registry = $registry->get_plugin('administrator');
+		$registry = $registry->getPlugin('administrator');
 		$obj_users = new plugin\users;
 		$user_info = $obj_users->get_info();
 		return $this->module_load(array(_('Administrator:') . $plugin_content[0],$this->view_main($menu,$plugin_content[1],$plugin_content[0],$user_info,$registry)));
@@ -199,7 +199,7 @@ class module extends view{
         $default_locale = db\orm::findOne('localize','main=1');
         //get description value from registry
         $registry = new core\registry;
-        return $this->view_basic_settings_edite($default_locale,$locales,$registry->get_plugin('administrator'));
+        return $this->view_basic_settings_edite($default_locale,$locales,$registry->getPlugin('administrator'));
     }
     
     //THIS FUNCTION STORE BASIC SETTINGS
@@ -232,7 +232,7 @@ class module extends view{
         //get all countneries
         //get default country
         $registry = new core\registry;
-        $admin_settings = $registry->get_plugin('administrator');
+        $admin_settings = $registry->getPlugin('administrator');
         $countries = db\orm::find('countries',"ORDER BY country_name=? DESC",[$admin_settings['default_country']]);
         
         //load default timezone
@@ -363,7 +363,7 @@ class module extends view{
 	protected function module_core_settings(){
 		//get settings
 		$registry = core\registry::singleton();
-		$settings = $registry->get_plugin('administrator');
+		$settings = $registry->getPlugin('administrator');
 		return $this->view_core_settings($settings);
 	}
 

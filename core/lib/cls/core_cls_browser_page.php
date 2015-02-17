@@ -49,7 +49,6 @@ class page{
 	* @return boolean(RTL:TRUE , ELSE:FALSE)
 	*/
 	static public function isRtl(){
-		
 		if(self::$localSettings->direction == 'RTL') return true;
 		else return false;	
 	}
@@ -129,7 +128,7 @@ class page{
 	* @param boolean $show,(echo:true,return:false)
 	* @return string,html header tags
 	*/
-	static function load_headers($show=true){
+	static function loadHeaders($show=true){
 		self::defHeaders();
 		#show header tags
 		if($show) foreach(self::$headerTags as $header) echo $header . "\n";
@@ -137,8 +136,12 @@ class page{
 		return  implode("\n",self::$headerTags);
 	}
 	
-	//this function add recived string to page title
-	static public function set_page_tittle($tittle = ''){
+	/*
+	* add recived string to page title
+	* @param string $tittle
+	* @return string page tittle
+	*/
+	static public function setPageTitle($tittle = ''){
 		//get site name in localize selected
 		if(is_null(self::$localSettings)){
 			$localize = core\localize::singleton();
@@ -147,15 +150,26 @@ class page{
 		}
 		self::$pageTittle = self::$localSettings->name . ' | ' . $tittle;
 		return self::$pageTittle;
-		//now we want to send title to render function.
 	}
-	//this function return page title usually for runder.php
-	static public function get_page_tittle(){
 	
+	/*
+	* return page tittle
+	* @return string,page tittle
+	*/
+	static public function getPageTitle(){
 		return self::$pageTittle;
 	}
-	//this function atteche some tags to blocks and show that.
-	static public function show_block($header, $body, $view='NONE' ,$type = null, $result = 0){
+	
+	/*
+	* this function atteche some tags to blocks and show that.
+	* @param string $header,header of block
+	* @param string $body, body of page
+	* $param string $view, view of page (NONE || BLOCK || MAIN || MSG || MODAL)
+	* @param string $type, type of block(success || info || primary || danger || warning || default)
+	* @param string $result, set value in block (if $view = MODAL then this work)
+	* @return string ,created block
+	*/
+	static public function showBlock($header, $body, $view='NONE' ,$type = null, $result = 0){
 		$content = '';
 		//create special value for access to that
 		if($view == 'BLOCK'){
@@ -230,11 +244,15 @@ class page{
 				$content .=  '</message>' . "\n";
 
 		}
-
 		return html_entity_decode($content);
 	}
-	//this function set and show blocks
-	static public function set_position($position){
+	
+	/*
+	* this function set and show blocks
+	* @param string $position, position that set from theme class
+	* @return string, block content
+	*/
+	static public function position($position){
 		$localize = core\localize::singleton();
 		self::$localSettings = $localize->localize();
 		if(self::$blocks == null){
@@ -247,29 +265,26 @@ class page{
 			self::$blocks = $db->get_array();
 			self::$plugin = core\plugin::singleton();
 		}
-		
-		
-		//search blocks for position matched
-		//if add 'MAIN' to cls_router::show_content that's show like main content that come with url
-		//and if add 'BLOCK' tag , sarkesh show that content like block
-		//and if Send 'NONE' sarkesh do not show that(just run without view
-		
-		//get showing permissions from block settings from localize
-		
+		/*
+		* search blocks for position matched
+		* if add 'MAIN' to cls_router::showContent that's show like main content that come with url
+		* and if add 'BLOCK' tag , sarkesh show that content like block
+		* and if Send 'NONE' sarkesh do not show that(just run without view
+		* get showing permissions from block settings from localize
+		*/
 		foreach( self::$blocks as $block){
-		
 			if($block['b.position'] == $position){
 				//going to process block
 				if($block['p.name'] == 'administrator' && $block['b.visual'] == '0'){
 					//going to show content;
 					$obj_router = core\router::singleton();
-					$obj_router->show_content();
+					$obj_router->showContent();
 				}
 				else{
 					//block is widget
-					if(self::show_has_allow($block['b.name'])){
+					if(self::HasAllow($block['b.name'])){
 						//checking that plugin is enabled
-						if(self::$plugin->is_enabled($block['p.name'])){
+						if(self::$plugin->enabled($block['p.name'])){
 							if($block['b.localize'] == 'all' || self::$localSettings->language == $block['b.localize']){
 								$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
 								echo AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php';
@@ -291,12 +306,8 @@ class page{
 									echo self::show_block($content[0], $content[1], 'BLOCK');
 								}
 								else{
-									if(is_array($content)){
-										echo $content[1];
-									}
-									else{
-										echo $content;
-									}
+									if(is_array($content)) echo $content[1];
+									else echo $content;
 								}
 							}
 							
@@ -308,19 +319,11 @@ class page{
 		
 		}
 	}
-	
-	//this function return content for show in custombox for show on page
-	static public function show_in_box($header, $content, $type = 'warning', $result = '0'){
-		$type = 'type-' . $type;
-		self::show_block(true, $header,$content,'MODAL', $type, $result);
-	
-	}
-	static public function show_message($header, $content, $type = 'warning', $result = '0'){
-		self::show_block(true, $header,$content,'MSG', $type, $result);
-	}
-	
-	//this function show developers options
-	public static function show_dev_panel(){
+		
+	/*
+	* this function show developers options
+	*/
+	public static function devPanel(){
 		echo _('Memory usage by system:') . memory_get_peak_usage() . '</br>';
 		echo _('Real usage by system:') . memory_get_usage() . '</br>';
 		echo _('CPU usage by system:');
@@ -332,16 +335,22 @@ class page{
 			echo $load[0];
 		}
 	}
-	static public function show_has_allow($block_name){
+	
+	/*
+	* check for that block has permission to show
+	* @param string $block ,name of block
+	* @return boolean (allow:true , else:false)
+	*/
+	static public function HasAllow($block_name){
 		
 		//get block options
 		$orm = db\orm::singleton();
 		if($orm->count('blocks','name=?',[$block_name]) != 0){
-			$block_info = $orm->findOne('blocks','name=?',[$block_name]);
-			if($block_info->pages != ''){
-				$pages = explode(',',$block_info->pages);
+			$blockInfo = $orm->findOne('blocks','name=?',[$block_name]);
+			if($blockInfo->pages != ''){
+				$pages = explode(',',$blockInfo->pages);
 				//check for show or not
-				if($block_info->pages_ad == '1'){
+				if($blockInfo->pages_ad == '1'){
 					//check for allowed pages
 					foreach($pages as $page){
 						if($page == $_SERVER['REQUEST_URI']){
@@ -349,7 +358,6 @@ class page{
 							break;
 						}
 						elseif($page == 'frontpage'){
-							echo "page uri: " . $_SERVER['REQUEST_URI'];
 							if($_SERVER['REQUEST_URI'] == '/' . self::$localSettings->home){
 								return false;
 								break;
@@ -358,11 +366,9 @@ class page{
 					}
 				}
 				else{
-					
 					//check for denied pages
 					//check for allowed pages
-					foreach($pages as $page){
-						
+					foreach($pages as $page){	
 						if($page == $_SERVER['REQUEST_URI']){
 							return true;
 							break;
@@ -379,8 +385,7 @@ class page{
 			}	
 		}
 		//somethig happen that we can not controll that
-		return true;
-		
+		return false;
 	}
 	
 }

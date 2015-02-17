@@ -26,6 +26,6 @@ define('S_Error_Log_Place',AppPath . 'error_log.txt');
 define('S_DEV_MODE',TRUE);
 
 #define static variable for show memory and cpu usage
-define('S_MEM_USAGE',FALSE);
+define('S_MEM_USAGE',TRUE);
 
 ?>

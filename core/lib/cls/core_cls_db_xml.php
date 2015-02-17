@@ -4,6 +4,11 @@ namespace core\cls\db;
  * This class is for working with xml data
  */
  class xml{
+	/*
+	* set child element in xml
+	* @param array $arr
+	* @param SimpleXMLElement $xml
+	*/ 
 	private function array_to_xml(array $arr, \SimpleXMLElement $xml){
 		foreach ($arr as $k => $v) {
 			is_array($v)
@@ -12,9 +17,13 @@ namespace core\cls\db;
 		}
 		return $xml;
 	}
-	// Thos function change array to xml
-	//$arr is input array and $root is root tag of xml data
-	public function simple_array_to_xml($arr, $root){
+	/*
+	* change array to xml
+	* @param array $arr
+	* @param string $root,root tag in xml file
+	* @return string in xml format
+	*/
+	public function arrayToXml($arr, $root){
 		return $this->array_to_xml($arr, new \SimpleXMLElement('<' . $root .'/>'))->asXML();
 	}
  }

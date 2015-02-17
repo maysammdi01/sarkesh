@@ -47,7 +47,7 @@ if(file_exists(AppPath . "db-config.php")) {
 	}
 	else{
 		if(S_MEM_USAGE){
-			echo core\cls\browser\page::show_dev_panel();
+			echo core\cls\browser\page::devPanel();
 		}
 		
 		#load system in gui normal mode
