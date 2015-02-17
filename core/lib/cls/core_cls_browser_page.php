@@ -6,30 +6,57 @@ use core\cls\core as core;
 use core\cls\patterns as patterns;
 class page{
 	use patterns\singleton;
-	//settings will be saved in this varible
+	/*
+	* @var array,administrator settings from registry
+	*/
+	private static $settings;
+
+	/*
+	* @var array,localize settings
+	*/
 	private static $localSettings;
-	private static $settings ;
+	
+	/*
+	* @var string,store page title
+	*/
 	private static $pageTittle;
+	
+	/*
+	* @var array,plugin blocks
+	*/
 	private static $blocks;
-	private static $plugin;
 	
-	//this varible store headers of page
-	static private $header_tags;
+	/*
+	* @var array,all header tags store in it
+	*/
+	static private $headerTags;
 	
+	/*
+	* @var object core\cls\core\plugin
+	*/
+	static private $plugin;
+	
+	/*
+	* construct
+	*/
 	function __construct(){
 		$localize = core\localize::singleton();
 		self::$localSettings = $localize->localize();
 	}
 	
 	/*
-	* if active language is RTL this function return true else return false
+	* check for that page ir right to left
+	* @return boolean(RTL:TRUE , ELSE:FALSE)
 	*/
-	static public function is_rtl(){
+	static public function isRtl(){
 		
 		if(self::$localSettings->direction == 'RTL') return true;
 		else return false;	
 	}
 
+	/*
+	* store default headers for attech all pages in  $headerTags
+	*/
 	static function defHeaders () {
 		
 		if(is_null(self::$settings)){
@@ -39,87 +66,77 @@ class page{
 			self::$localSettings = $localize->localize();
 			self::$pageTittle = self::$localSettings->name;
 		}
-		if(is_null(self::$header_tags)){
-			self::$header_tags = array();
+		if(is_null(self::$headerTags)){
+			self::$headerTags = array();
 		}
-		$default_headers = array();
-		#LOAD HEEFAL GENERATOR META TAG
-		array_push($default_headers, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-		array_push($default_headers, '<meta name="generator" content=" Sarkesh CMF! - Open Source Content Management Framework" />');
+		$defaultHeaders = [];
+		#LOAD Sarkesh GENERATOR META TAG
+		array_push($defaultHeaders, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+		array_push($defaultHeaders, '<meta name="generator" content=" Sarkesh CMF! - Open Source Content Management Framework" />');
 		//add default header tags
-		if(self::$localSettings->header_tags != ''){
-			array_push($default_headers, '<meta name="description" content="' . self::$localSettings->header_tags . '" />');
+		if(self::$localSettings->headerTags != ''){
+			array_push($defaultHeaders, '<meta name="description" content="' . self::$localSettings->header_tags . '" />');
 		}
 		//cache control
-		array_push($default_headers, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
-		array_push($default_headers, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
-		#load jquery
-		
-		array_push($default_headers, '<script src="./core/ect/scripts/jquery.js"></script>');
-		array_push($default_headers, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
-		array_push($default_headers, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
-		array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
-		array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-theme.min.css" />');
+		array_push($defaultHeaders, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
+		array_push($defaultHeaders, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+		#load jquery and bootstrap
+		array_push($defaultHeaders, '<script src="./core/ect/scripts/jquery.js"></script>');
+		array_push($defaultHeaders, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
+		array_push($defaultHeaders, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-theme.min.css" />');
 		#load rtl bootstrap
-		if (self::is_rtl()){ 
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
+		if (self::isRtl()){ 
+			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
 		}
-		array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
 		#load style sheet pages (css)
-		//if(isset($_REQUEST['plugin'])){
-			if($_REQUEST['plugin'] != 'administrator'){
-				$theme_name = self::$settings['active_theme'];
-				array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/style.css" />');
-				#load rtl stylesheets
-				if (self::is_rtl()){ 
-					array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/rtl-style.css" />');
-				}
-
-				#load favicon
-				if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
-					array_push($default_headers, '<link rel="shortcut icon" href="./themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
-					array_push($default_headers, '<link rel="icon" href="./themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
-				}
 		
+		if($_REQUEST['plugin'] != 'administrator'){
+			$theme_name = self::$settings['active_theme'];
+			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/style.css" />');
+			#load rtl stylesheets
+			if (self::isRtl())
+				array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/rtl-style.css" />');
+			#load favicon
+			if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
+				array_push($defaultHeaders, '<link rel="shortcut icon" href="./themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
+				array_push($defaultHeaders, '<link rel="icon" href="./themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
 			}
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/default.css" />');
-		//}
-		
-
-		//load first bootstrap skin
-		if(self::$settings['1st_template'] != '0'){
-			array_push($default_headers, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/' . self::$settings['1st_template'] . '.min.css" />');
 		}
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/default.css" />');
 		#load nessasery java script functions
-		array_push($default_headers, '<script src="./core/ect/scripts/functions.js"></script>');
+		array_push($defaultHeaders, '<script src="./core/ect/scripts/functions.js"></script>');
 		
-		self::$header_tags = $default_headers + self::$header_tags;
-		
-	}
-	//this function add headers to page
-	static public function add_header($header){
-		if(is_null(self::$header_tags)){
-			self::$header_tags = array();
-		}
-		if(!array_key_exists($header, self::$header_tags)){
-			self::$header_tags[$header] = $header;
-		}
-		
-		
+		self::$headerTags = $defaultHeaders + self::$headerTags;	
 	}
 	
-	static function load_headers($show=true){
-	      self::defHeaders();
-	      #show header tags
-		if($show) foreach(self::$header_tags as $header) echo $header . "\n";
-		else{
-			//return $header_tags
-			$str_header = '';
-			foreach(self::$header_tags as $header)
-			      $str_header .=  $header . "\n";
-			return $str_header;
-		}
+	/*
+	* for add headers to page
+	* @param string $header,html header tag
+	* @return void
+	*/
+	static public function addHeader($header){
+		if(is_null(self::$headerTags))
+			self::$headerTags = [];
+		if(!array_key_exists($header, self::$headerTags))
+			self::$headerTags[$header] = $header;	
 	}
+	
+	/*
+	* show headers or return all headers
+	* @param boolean $show,(echo:true,return:false)
+	* @return string,html header tags
+	*/
+	static function load_headers($show=true){
+		self::defHeaders();
+		#show header tags
+		if($show) foreach(self::$headerTags as $header) echo $header . "\n";
+		//return $headerTags
+		return  implode("\n",self::$headerTags);
+	}
+	
 	//this function add recived string to page title
 	static public function set_page_tittle($tittle = ''){
 		//get site name in localize selected
@@ -229,7 +246,6 @@ class page{
 			$db->do_query($query_string);
 			self::$blocks = $db->get_array();
 			self::$plugin = core\plugin::singleton();
-
 		}
 		
 		
@@ -256,6 +272,7 @@ class page{
 						if(self::$plugin->is_enabled($block['p.name'])){
 							if($block['b.localize'] == 'all' || self::$localSettings->language == $block['b.localize']){
 								$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
+								echo AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php';
 								if(!file_exists(AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php')){
 									$ClassName = '\\addon\\plugin\\' . $block['p.name'] ;
 								}

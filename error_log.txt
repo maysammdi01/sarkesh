@@ -1,1 +1,1 @@
-[16-Feb-2015 14:59:38 America/New_York] PHP Fatal error:  Call to undefined method core\cls\db\mysql::exec() in /home/sarkesh/www/core/lib/cls/core_cls_browser_page.php on line 237
+[16-Feb-2015 19:14:39 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/plugins/system/users/module.php on line 18

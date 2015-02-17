@@ -1,0 +1,29 @@
+<?php
+namespace core\plugin\msg;
+class module extends view{
+
+	function __construct(){
+		parent::__construct();
+	}
+	
+	protected function module_404(){
+		
+		$msg=$this->view_404();
+		if(isset($_GET['service'])){
+			return $msg[1];
+		}
+		return $msg;
+	}
+	
+	/*
+	 * INPUT:STRING:HEADER
+	 * INPUT:STRING:BODY OF MESSAGE
+	 * INPUT:STRING:TYPE(success,danger,warrning,info)
+	 * This function show custom mesage
+	 * OUTPUT:ELEMENTS
+	 */
+	 public function module_msg($header, $body, $type = 'success'){
+		 return $this->view_msg($header,$body,$type);
+	 }
+}
+?>
