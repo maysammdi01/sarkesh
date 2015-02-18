@@ -59,7 +59,7 @@ class router{
 			}
 			else{
 				// plugin not set jump to Home page
-				$this->jump_page($this->localize->home ,true);
+				$this->jump($this->localize->home ,true);
 			}
 		}
 		else{
@@ -102,7 +102,7 @@ class router{
 						$plugin = new plg\msg;
 						$content = call_user_func(array($plugin,'msg_404'));
 						//jump user to 404 page
-						$this->jump_page(array('service','1','plugin','msg','action','msg404'));	
+						$this->jump(array('service','1','plugin','msg','action','msg404'));	
 				 }
 				
 	      }
@@ -112,7 +112,7 @@ class router{
 			  $plugin = new plg\msg;
 			  $content = call_user_func(array($plugin,'msg_404'));
 			  //jump user to 404 page
-			  $this->jump_page(array('service','1','plugin','msg','action','msg404'));
+			  $this->jump(array('service','1','plugin','msg','action','msg404'));
 		  }
 	      browser\page::setPageTitle($content[0]);
           //show header in up of content or else

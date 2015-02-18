@@ -1,71 +1,64 @@
 <?php
+#this class is for auth data
 namespace core\cls\network;
+
 use \core\cls\core as core;
 use \core\cls\db as db;
 use \core\cls\network as network;
 
-
-#REQ = DATABASE , COOKIE , SESSION , GENERAL
-#this class is for auth user and ect
 class validator{
-private $db;
-private $obj_cookie;
-private $obj_session;
-private $obj_general;
-private $obj_io;
-private $settings;
-private $obj_registry;
+	/*
+	 * @var object from orm class
+	 */
+	private $orm;
+
+	/*
+	 * @var array store settings
+	 */
+	private $settings;
 
 	function __construct(){
-		$this->obj_io = new network\io;
+
 		$this->obj_general = new core\general;
-		$this->obj_session = new network\session;
-		$this->obj_cookie = new network\cookie;
-		$this->db = db\mysql::singleton();
-		$this->obj_registry = new core\registry;
-		$this->settings = $this->obj_registry->get_plugin('administrator');
-		$last_check_refresh = $this->settings['validator_max_time'] + $this->settings['validator_last_check'];
+		$this->orm = db\orm::singleton();
+		$registry = core\registry::singleton();
+		$this->settings = $registry->getPlugin('administrator');
+		$lastCheck = $this->settings['validator_max_time'] + $this->settings['validator_last_check'];
 		//we use this for save in database;
-		
-		if($last_check_refresh < time()){
+		if($lastCheck < time()){
 			#refresh database for delete old validator keys
-			//$this->refresh();
+			$this->refresh();
 		}
 	}
-	//this function set validator with source and save that in cookie and session
+	/*
+	 *  set validator with source and save that in cookie and session
+	 * @param string #source,name of source
+	 * @param boolean $cookie,for save in cookie
+	 * @param boolean $session,save is session
+	 * @param string $back(just return id:id, return special id:sid, else array of validator)
+	 * @return integer, id of validator
+	 */
 	public function set( $source,$cookie = false, $session = true, $back = 'id'){
 		//check for that is this source saved before
 		if(!$this->is_set($source)){
 
 			//not set before now we want to save that
 			//first create random spicial_id
-			$spicial_id=$this->obj_general->random_string();
+			$id=core\general::randomString();
 			//save source in session
-			if($session){
-				$this->obj_session->set($source,$spicial_id);
-			}
+			if($session) $this->obj_session->set($source,$id);
 			//set in cookie
-			if ($cookie){
-				$this->obj_cookie->set($source , $spicial_id);
-			}
+			if ($cookie) $this->obj_cookie->set($source , $id);
 			//save source in database
-			$this->db->do_query('INSERT INTO validator (source,valid_time,special_id) VALUES (?,?,?);' , array($source,time() + $this->settings['validator_max_time'], $spicial_id),false);
-			if($back == 'id'){
-				return  $this->db->last_insert_id(true);
-			}
-			elseif($back == 'sid'){
-				return $spicial_id; 
-			}
+			$this->orm->exec('INSERT INTO validator (source,valid_time,special_id) VALUES (?,?,?);' , [$source,time() + $this->settings['validator_max_time'], $id],NON_SELECT);
+			if($back == 'id') return  $this->orm->last_insert_id(true);
+			elseif($back == 'sid') return $id; 
 			else{
 				//RETURN ALL ROW
-				$this->db->do_query("SELECT * FROM validator WHERE special_id=?;" ,array($spicial_id));
-				return $this->db->get_first_row_array(); 
+				return $this->orm->findOne('validator', 'special_id=?;',[$id]);
 			}
-
 		}
 		else{
-			//going to update source
-			
 			//return updated id
 			return $this->get_id($source , $back);
 		}
@@ -80,8 +73,8 @@ private $obj_registry;
 			return false;
 		}
 		//now we want to check spicial id with database
-		$this->db->do_query("SELECT * FROM validator WHERE id=?;" ,array($id));
-		if($this->db->rows_count(true) != 0){
+		$this->orm->do_query("SELECT * FROM validator WHERE id=?;" ,array($id));
+		if($this->orm->rows_count(true) != 0){
 			//source is validated
 			$this->update($id);
 			return true;
@@ -94,7 +87,7 @@ private $obj_registry;
 		if($id == 0){ $id = $this->get_id($source); }
 		if($id != 0){
 			//going to delete that
-			return $this->db->do_query("DELETE FROM validator WHERE id=?;" ,array(trim($id)));
+			return $this->orm->do_query("DELETE FROM validator WHERE id=?;" ,array(trim($id)));
 
 		}
 		return false;
@@ -117,13 +110,13 @@ private $obj_registry;
 		}
 		if($id != '0'){
 		
-			$this->db->do_query("SELECT * FROM validator WHERE special_id=?;" ,array(trim($id)));
-			if($this->db->rows_count() == 0){
+			$this->orm->do_query("SELECT * FROM validator WHERE special_id=?;" ,array(trim($id)));
+			if($this->orm->rows_count() == 0){
 				//not found
 				return 0;
 			}
 			else{
-				$result = $this->db->get_first_row_array();
+				$result = $this->orm->get_first_row_array();
 				if($back == 'id'){
 					return $result['id']; 
 				}
@@ -140,19 +133,19 @@ private $obj_registry;
 		return 0;
 	}
 	//this function update source
-	private function update($spicial_id){
-		$this->db->do_query('UPDATE validator SET valid_time=? WHERE special_id=?;', array(time() + 3600 , $spicial_id)); 
+	private function update($id){
+		$this->orm->exec('UPDATE validator SET valid_time=? WHERE special_id=?;', [time() + 3600, $id], NON_SELECT); 
 		return true;
 	}
 	//this function refresh and delete invalid validator keys that stored in database
 	private function refresh(){
 		#clear old data from database
-		$this->db->do_query("delete from validator where valid_time<?;", array(time()));
+		$this->orm->exec("delete from validator where valid_time<?;", [time()], NON_SELECT);
 		#update next check for refresh database
-		$this->registery->set('core', 'validator_last_check' , time());
+		$registry = core\registry::singleton();
+		$registry->set('core', 'validator_last_check' , time());
 	}
-	#END CLASS
-	}
+}
 	
 
 ?>

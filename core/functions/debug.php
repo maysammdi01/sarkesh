@@ -43,7 +43,7 @@ function check_for_fatal()
 register_shutdown_function( "check_for_fatal" );
 set_error_handler( "log_error" );
 set_exception_handler( "log_exception" );
-ini_set( "display_errors",'On');
+ini_set( "display_errors",'Off');
 error_reporting( E_ALL );
 // ERROR_REPORTING defined in config file
 ini_set('error_log',S_Error_Log_Place);
