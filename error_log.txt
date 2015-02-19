@@ -1,5 +1,0 @@
-[18-Feb-2015 12:31:39 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\router::jump_page() in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 62
-[18-Feb-2015 12:32:35 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\router::jump_page() in /home/sarkesh/www/core/lib/cls/core_cls_core_router.php on line 62
-[18-Feb-2015 12:33:59 America/New_York] PHP Fatal error:  Call to undefined method core\cls\browser\page::add_header() in /home/sarkesh/www/plugins/system/msg/view.php on line 22
-[18-Feb-2015 12:34:00 America/New_York] PHP Fatal error:  Call to undefined method core\cls\core\registry::get_plugin() in /home/sarkesh/www/core/lib/cls/core_cls_network_validator.php on line 26
-[18-Feb-2015 13:00:48 America/New_York] PHP Fatal error:  Class 'core\cls\network\orm\orm' not found in /home/sarkesh/www/core/lib/cls/core_cls_network_validator.php on line 23
