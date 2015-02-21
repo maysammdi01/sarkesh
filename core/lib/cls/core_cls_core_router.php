@@ -49,12 +49,12 @@ class router{
 		//get localize
 		$localize = new core\localize;
 		$this->localize = $localize->localize();
-
+		exit(55555);
 		if($plugin == '' || $action == ''){
-			if(isset($_REQUEST['plugin'])){
-				$this->plugin = $_REQUEST['plugin'];
+			if(is_null(PLUGIN)){
+				$this->plugin = PLUGIN;
 				//now we check action
-				if(isset($_REQUEST['action'])) $this->action = $_REQUEST['action'];
+				if(is_null(ACTION)) $this->action = ACTION;
 				else $this->action = 'default';
 			}
 			else{
@@ -91,18 +91,14 @@ class router{
 				
 	     		 $plugin = new $PluginName;
 	     		 //run action directly
-	     		 if(method_exists($plugin,$this->action)){
+	     		 if(method_exists($plugin,$this->action))
 					 $content = call_user_func(array($plugin,$this->action),'content');
-				 }
 				 else{	
-					 if(method_exists($plugin,'default')){
-						$content = call_user_func(array($plugin,'default'),'content');
-					 }
-						//show 404 page not found page
-						$plugin = new plg\msg;
-						$content = call_user_func(array($plugin,'msg_404'));
-						//jump user to 404 page
-						$this->jump(array('service','1','plugin','msg','action','msg404'));	
+					//show 404 page not found page
+					$plugin = new plg\msg;
+					$content = call_user_func(array($plugin,'msg_404'));
+					//jump user to 404 page
+					$this->jump(array('service','1','plugin','msg','action','msg404'));	
 				 }
 				
 	      }

@@ -13,7 +13,7 @@ define('AppPath',dirname(__file__) . '/');
 #in this address sore plugins
 define('PluginsCenter','http://plugins.sarkesh.org/');
 
-//THIS URL SET SERVER FOR GET AVALABEL NEW VERSIONS AND SOME MORE INFORMATIONS
+#THIS URL SET SERVER FOR GET AVALABEL NEW VERSIONS AND SOME MORE INFORMATIONS
 define('S_SERVER_INFO','http://service.sarkesh.org/');
 
 #error reporting state. for more info about this variable see php documents
@@ -27,5 +27,8 @@ define('S_DEV_MODE',TRUE);
 
 #define static variable for show memory and cpu usage
 define('S_MEM_USAGE',TRUE);
+
+#with enable this option sarkesh use clean url in system
+define('CLEAN_URL',false);
 
 ?>

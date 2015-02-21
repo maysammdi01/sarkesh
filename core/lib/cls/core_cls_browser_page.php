@@ -277,8 +277,8 @@ class page{
 				//going to process block
 				if($block['p.name'] == 'administrator' && $block['b.visual'] == '0'){
 					//going to show content;
-					$obj_router = core\router::singleton();
-					$obj_router->showContent();
+					$router = core\router::singleton();
+					$router->showContent();
 				}
 				else{
 					//block is widget
