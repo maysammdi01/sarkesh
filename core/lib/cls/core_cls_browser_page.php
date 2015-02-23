@@ -80,33 +80,33 @@ class page{
 		array_push($defaultHeaders, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
 		array_push($defaultHeaders, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
 		#load jquery and bootstrap
-		array_push($defaultHeaders, '<script src="./core/ect/scripts/jquery.js"></script>');
-		array_push($defaultHeaders, '<script src="./core/ect/scripts/bootstrap.min.js"></script>');
-		array_push($defaultHeaders, '<script src="./core/ect/scripts/bootstrap-dialog.js"></script>');
-		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap.min.css" />');
-		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-theme.min.css" />');
+		array_push($defaultHeaders, '<script src="' . SiteDomain . '/core/ect/scripts/jquery.js"></script>');
+		array_push($defaultHeaders, '<script src="' . SiteDomain . '/core/ect/scripts/bootstrap.min.js"></script>');
+		array_push($defaultHeaders, '<script src="' . SiteDomain . '/core/ect/scripts/bootstrap-dialog.js"></script>');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/bootstrap.min.css" />');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/bootstrap-theme.min.css" />');
 		#load rtl bootstrap
 		if (self::isRtl()){ 
-			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-rtl.min.css" />');
+			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/bootstrap-rtl.min.css" />');
 		}
-		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/bootstrap-dialog.css" />');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/bootstrap-dialog.css" />');
 		#load style sheet pages (css)
 		
-		if($_REQUEST['plugin'] != 'administrator'){
+		if(PLUGIN != 'administrator'){
 			$theme_name = self::$settings['active_theme'];
-			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/style.css" />');
+			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/style.css" />');
 			#load rtl stylesheets
 			if (self::isRtl())
-				array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./themes/'  . $theme_name . '/rtl-style.css" />');
+				array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/rtl-style.css" />');
 			#load favicon
 			if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
-				array_push($defaultHeaders, '<link rel="shortcut icon" href="./themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
-				array_push($defaultHeaders, '<link rel="icon" href="./themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
+				array_push($defaultHeaders, '<link rel="shortcut icon" href="' . SiteDomain . '/themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
+				array_push($defaultHeaders, '<link rel="icon" href="' . SiteDomain . '/themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
 			}
 		}
-		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="./core/ect/styles/default.css" />');
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/default.css" />');
 		#load nessasery java script functions
-		array_push($defaultHeaders, '<script src="./core/ect/scripts/functions.js"></script>');
+		array_push($defaultHeaders, '<script src="' . SiteDomain . '/core/ect/scripts/functions.js"></script>');
 		
 		self::$headerTags = $defaultHeaders + self::$headerTags;	
 	}
@@ -255,16 +255,17 @@ class page{
 	static public function position($position){
 		$localize = core\localize::singleton();
 		self::$localSettings = $localize->localize();
+		
 		if(self::$blocks == null){
 			//load all blocks data from database
-			$db = db\mysql::singleton();
-			$query_string = "SELECT b.name AS 'b.name',";
-			$query_string .= "b.localize AS 'b.localize', b.position AS 'b.position', b.permissions AS 'b.permissions', b.visual AS 'b.visual', b.handel AS 'b.handel', b.value AS 'b.value',";
-			$query_string .= "b.pages AS 'b.pages', b.show_header AS 'b.show_header', b.plugin AS 'b.plugin', p.id AS 'p.id', p.name AS 'p.name', b.rank FROM blocks b INNER JOIN plugins p ON b.plugin = p.id ORDER BY b.rank DESC;";
-			$db->do_query($query_string);
-			self::$blocks = $db->get_array();
+			$orm = db\orm::singleton();
+			$query_string = "SELECT b.id as 'id' ,b.name AS 'name',";
+			$query_string .= "b.localize AS 'localize', b.position AS 'position', b.permissions AS 'permissions', b.visual AS 'visual', b.handel AS 'handel', b.value AS 'value',";
+			$query_string .= "b.pages AS 'pages', b.show_header AS 'show_header', b.plugin AS 'plugin', p.name AS 'p_name', b.rank FROM blocks b INNER JOIN plugins p ON b.plugin = p.id ORDER BY b.rank DESC;";
+			self::$blocks = $orm->exec($query_string);
 			self::$plugin = core\plugin::singleton();
 		}
+		
 		/*
 		* search blocks for position matched
 		* if add 'MAIN' to cls_router::showContent that's show like main content that come with url
@@ -272,37 +273,41 @@ class page{
 		* and if Send 'NONE' sarkesh do not show that(just run without view
 		* get showing permissions from block settings from localize
 		*/
+		//var_dump(self::$blocks);
+		
 		foreach( self::$blocks as $block){
-			if($block['b.position'] == $position){
+			if($block->position == $position){
+				
 				//going to process block
-				if($block['p.name'] == 'administrator' && $block['b.visual'] == '0'){
+				if($block->p_name == 'administrator' && $block->visual == '0'){
 					//going to show content;
 					$router = core\router::singleton();
 					$router->showContent();
 				}
 				else{
 					//block is widget
-					if(self::HasAllow($block['b.name'])){
+					if(self::HasAllow($block->name)){
+						echo 1;
 						//checking that plugin is enabled
-						if(self::$plugin->enabled($block['p.name'])){
-							if($block['b.localize'] == 'all' || self::$localSettings->language == $block['b.localize']){
-								$ClassName = '\\core\\plugin\\' . $block['p.name'] ;
-								echo AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php';
-								if(!file_exists(AppPath . 'plugins/system/' . $block['p.name'] . '/controller.php')){
-									$ClassName = '\\addon\\plugin\\' . $block['p.name'] ;
+						if(self::$plugin->enabled($block->p_name)){
+							if($block->localize == 'all' || self::$localSettings->language == $block->localize){
+								$ClassName = '\\core\\plugin\\' . $block->p_name ;
+								echo AppPath . 'plugins/system/' . $block->p_name . '/controller.php';
+								if(!file_exists(AppPath . 'plugins/system/' . $block->p_name . '/controller.php')){
+									$ClassName = '\\addon\\plugin\\' . $block->p_name ;
 								}
 								$plugin = new $ClassName; 
 								//run action method for show block
 								//all blocks name should be like  'blk_blockname'
 								$content = array();
 								if($block['b.visual'] == '0'){
-									$content = call_user_func(array($plugin, $block['b.name']),$position);
+									$content = call_user_func(array($plugin, $block->name),$position);
 								}
 								else{
 									//plugin is visual
-									$content = call_user_func(array($plugin, $block['b.handel']),$position,$block['b.value']);
+									$content = call_user_func(array($plugin, $block->handel),$position,$block->value);
 								}
-								if($block['b.show_header'] == 1){
+								if($block->show_header == 1){
 									echo self::show_block($content[0], $content[1], 'BLOCK');
 								}
 								else{

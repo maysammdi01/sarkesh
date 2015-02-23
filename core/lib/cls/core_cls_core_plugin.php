@@ -23,6 +23,7 @@
 		* @return boolean (enbaled:true , else:false)
 		*/
 		public function enabled($plugin){
+			echo $plugin;
 			if($this->orm->count('plugins',"enable = '1' and name = ?" ,[$plugin]) != 0)
 				return true;
 			return false;

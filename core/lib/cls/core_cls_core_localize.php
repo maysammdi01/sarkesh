@@ -23,7 +23,6 @@ class localize{
 	function __construct(){
 		$this->orm = db\orm::singleton();
 		$this->localize = $this->orm->findOne('localize','main=?',[1]);
-		$this->language();
 	}
 	/*
 	* this function return difined localize settings in cookie
@@ -31,11 +30,8 @@ class localize{
 	* @return array
 	*/
 	public function localize($default = false){
-		if($default){
-			return $this->localize;
-		}
-		$local = $this->orm->findOne('localize','language=?',[$this->language()]);
-		return $local;
+		if($default) return $this->localize;
+		return $this->orm->findOne('localize','language=?',[$this->language()]);
 	}
 
 	/*

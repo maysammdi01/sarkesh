@@ -136,9 +136,7 @@ class orm{
     private function run($table,$sql = NULL, $bindings = array()){
 		$queryString = 'SELECT * FROM ' . $table;
 		if(!is_null($sql)) $queryString .= ' WHERE ' . $sql;
-		$this->query = $this->pdoObj->prepare($queryString);
-		$this->query->setFetchMode(\PDO::FETCH_OBJ);
-		$this->query->execute($bindings);
+		$this->runWithSql($queryString,$bindings);
 	}
 	
 	 /*

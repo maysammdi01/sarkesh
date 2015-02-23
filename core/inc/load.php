@@ -25,19 +25,29 @@ try{
 	$localize = $orm->find('localize');
 	$activeLang = $localize[0];
 	$control = [];
-	if(count($localize) != 1){
-		$control = explode('/', $_GET['q'],4);
-		define('LOCALIZE',$control[0]);
-		define('PLUGIN',$control[1]);
-		define('ACTION',$control[2]);
-		if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
+	if(isset($_GET['q'])){
+		if(count($localize) != 1){
+			$control = explode('/', $_GET['q'],4);
+			define('LOCALIZE',$control[0]);
+			define('PLUGIN',$control[1]);
+			define('ACTION',$control[2]);
+			if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
+		}
+		else{
+			$control = explode('/', $_GET['q'],3);
+			$localize = \core\cls\core\localize::singleton();
+			define('LOCALIZE',$localize->language());
+			define('PLUGIN',$control[0]);
+			define('ACTION',$control[1]);
+			if(isset($control[2])) define('PLUGIN_OPTIONS',$control[2]);
+		}
 	}
 	else{
-		$control = explode('/', $_GET['q'],3);
-		define('LOCALIZE','');
-		define('PLUGIN',$control[1]);
-		define('ACTION',$control[2]);
-		if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
+		$localize = \core\cls\core\localize::singleton();
+		$defaultLocalize = $localize->localize();
+		var_dump($defaultLocalize);
+		header('Location:' . SiteDomain . $defaultLocalize->home);
+		exit();
 	}
 	
 }

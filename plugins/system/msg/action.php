@@ -4,6 +4,7 @@ namespace core\plugin\hello;
 class action{
 	
 	function __construct(){
+		parent::__construct();
 	}
 	
 	/*

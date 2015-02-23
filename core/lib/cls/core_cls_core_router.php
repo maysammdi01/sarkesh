@@ -47,14 +47,14 @@ class router{
 		//set last page that user see
 		$this->setLastPage();
 		//get localize
-		$localize = new core\localize;
+		$localize = core\localize::singleton();
 		$this->localize = $localize->localize();
-		exit(55555);
+		
 		if($plugin == '' || $action == ''){
-			if(is_null(PLUGIN)){
+			if(!is_null(PLUGIN)){
 				$this->plugin = PLUGIN;
 				//now we check action
-				if(is_null(ACTION)) $this->action = ACTION;
+				if(!is_null(ACTION)) $this->action = ACTION;
 				else $this->action = 'default';
 			}
 			else{
@@ -78,11 +78,12 @@ class router{
 	      // this function load plugin and run controller
 	      //checking for that plugin is enabled
 	      if($this->objPlugin->enabled($this->plugin)){
-				if(file_exists('./plugins/system/' . $this->plugin . '/controller.php')){
-					$PluginName = '\\core\\plugin\\' . $this->plugin;
+			  echo 'plugin is enabled';
+				if(file_exists('./plugins/system/' . $this->plugin . '/action.php')){
+					$PluginName = '\\core\\plugin\\' . $this->plugin . '\\action';
 				}
-				elseif(file_exists('./plugins/defined/' . $this->plugin . '/controller.php')){
-					$PluginName = '\\addon\\plugin\\' . $this->plugin;
+				elseif(file_exists('./plugins/defined/' . $this->plugin . '/action.php')){
+					$PluginName = '\\addon\\plugin\\' . $this->plugin . '\\action';
 				}
 				else{
 					//plugin not found
@@ -94,21 +95,14 @@ class router{
 	     		 if(method_exists($plugin,$this->action))
 					 $content = call_user_func(array($plugin,$this->action),'content');
 				 else{	
-					//show 404 page not found page
-					$plugin = new plg\msg;
-					$content = call_user_func(array($plugin,'msg_404'));
 					//jump user to 404 page
 					$this->jump(array('service','1','plugin','msg','action','msg404'));	
 				 }
 				
 	      }
 		  else{
-			  //plugin is not enabled
-			  //show 404 page not found page
-			  $plugin = new plg\msg;
-			  $content = call_user_func(array($plugin,'msg_404'));
 			  //jump user to 404 page
-			  $this->jump(array('service','1','plugin','msg','action','msg404'));
+			  exit('not found');
 		  }
 	      browser\page::setPageTitle($content[0]);
           //show header in up of content or else
@@ -186,7 +180,7 @@ class router{
 			$url = ['service','1','plugin','msg','action','msg_404'];
 		if(!$inner_url && $url != SiteDomain) $url= SiteDomain . $url;
 		elseif($url==SiteDomain) $url= SiteDomain;
-		elseif(is_array($url)) $url = core\general::create_url($url);
+		elseif(is_array($url)) $url = core\general::createUrl($url);
 		header("Location:$url");
 		return ['',''];
 		/* Make sure that code below does not get executed when we redirect. */
