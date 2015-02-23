@@ -78,7 +78,6 @@ class router{
 	      // this function load plugin and run controller
 	      //checking for that plugin is enabled
 	      if($this->objPlugin->enabled($this->plugin)){
-			  echo 'plugin is enabled';
 				if(file_exists('./plugins/system/' . $this->plugin . '/action.php')){
 					$PluginName = '\\core\\plugin\\' . $this->plugin . '\\action';
 				}

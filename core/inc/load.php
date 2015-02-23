@@ -45,7 +45,6 @@ try{
 	else{
 		$localize = \core\cls\core\localize::singleton();
 		$defaultLocalize = $localize->localize();
-		var_dump($defaultLocalize);
 		header('Location:' . SiteDomain . $defaultLocalize->home);
 		exit();
 	}
