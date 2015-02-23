@@ -25,6 +25,7 @@ try{
 	$localize = $orm->find('localize');
 	$activeLang = $localize[0];
 	$control = [];
+	//normal mode
 	if(isset($_GET['q'])){
 		if(count($localize) != 1){
 			$control = explode('/', $_GET['q'],4);

@@ -57,10 +57,6 @@ class router{
 				if(!is_null(ACTION)) $this->action = ACTION;
 				else $this->action = 'default';
 			}
-			else{
-				// plugin not set jump to Home page
-				$this->jump($this->localize->home ,true);
-			}
 		}
 		else{
 			$this->plugin = $plugin;
@@ -134,12 +130,14 @@ class router{
 	*/
 	public function runControl(){
 		//first create object from form elements
+		$this->plugin = $_REQUEST['plugin'];
+		$this->action = $_REQUEST['event'];
 		$options = str_replace('_a_n_d_','&',$_REQUEST['options']);
 		$elements = new core\uiobjects($options);
-		if(file_exists('./plugins/system/' . $this->plugin . '/controller.php'))
-					$PluginName = '\\core\\plugin\\' . $this->plugin;
-		elseif(file_exists('./plugins/defined/' . $this->plugin . '/controller.php'))
-			$PluginName = '\\addon\\plugin\\' . $this->plugin;
+		if(file_exists('./plugins/system/' . $this->plugin . '/event.php'))
+					$PluginName = '\\core\\plugin\\' . $this->plugin . '\\event';
+		elseif(file_exists('./plugins/defined/' . $this->plugin . '/event.php'))
+			$PluginName = '\\addon\\plugin\\' . $this->plugin . '\\event';
 		else
 			exit('plugin not found');
 		//run event,going to run function

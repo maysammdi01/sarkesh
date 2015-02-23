@@ -1,0 +1,42 @@
+<div class="row body_ctr_uploader_{$name} col-xs-12 col-sm-12 col-lg-{$size}">	
+	<div class="panel panel-{$type}">
+		<div class="panel-heading">
+			<div class="panel-tittle">
+				{$label} : <span>{$help}</span>
+			</div>
+		</div>
+		<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12">
+						<input form ="{$form}" name="{$name}" id="id_ctr_uploader_{$name}" class="ca_{$form}" type="hidden" value="" />
+						<form name="form_ctr_upload_{$name}" id="form_ctr_upload_{$name}" enctype="multipart/form-data" >
+						    
+			    			<input type="file" name ="uploader" form="form_ctr_upload" id ="ctr_uploader_{$name}" onchange="ctr_uploader_onchange(this.files, 'ctr_uploader_{$name}')"  class="file"/>
+	    				</form>
+	    			</div>
+    			</div>
+		</div>	
+	</div>
+</div>
+<script type="text/javascript">
+	$("#ctr_uploader_{$name}").fileinput({
+		{if="!$preview"}'showPreview':false,{/if}
+		'uploadUrl':'{$uploadUrl}',
+		'previewFileType':'any',
+		'browseLabel':'{$browse_label}',
+		'removeLabel':'{$remove_label}',
+		'uploadLabel':'{$upload_label}',
+		'uploadExtraData':{id:'{$file_system_id}'},
+		'allowedFileExtensions':[{$file_extensions}],
+		'uploadTitle':'{$label}',
+		'maxFileSize':'{$max_size}',
+		'msgSizeTooLarge':'{$msgSizeTooLarge}',
+		'msgInvalidFileExtension':'{$msgInvalidFileExtension}',
+		'msgLoading':'{$msgLoading}',
+		'msgProgress':'{$msgProgress}',
+		'dropZoneEnabled':'{$can_drag}',
+		'dropZoneTitle':'{$dropZoneTitle}'
+		
+		
+	});
+</script>
