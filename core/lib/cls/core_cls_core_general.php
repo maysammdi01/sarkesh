@@ -25,9 +25,10 @@ class general{
 	 * @return string url, (example 'http://sitedomain.com/?plugin=users&action=register
 	 */
 	static function createUrl($parameters){
-		$url = '?q=';
-		for($i = 1; $i<= (max(array_keys($parameters))+1) ; $i +=2){
-			if($i == (max(array_keys($parameters))+1))
+		$url = '';
+		if(!CLEAN_URL) $url = '?q=';
+		for($i = 0; $i<= max(array_keys($parameters)) ; $i ++){
+			if($i == max(array_keys($parameters)))
 				$url .= $parameters[$i];
 			else
 				$url .= $parameters[$i] . '/';

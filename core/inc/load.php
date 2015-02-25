@@ -2,7 +2,6 @@
 /*	this file is perpare application of user for start working
  *	in this file set functions for start and use in themes
 */
-
 require_once(AppPath . 'core/functions/render.php');
 //check for blocked ips
 if(!empty($_SERVER['REMOTE_ADDR'])){
@@ -26,21 +25,53 @@ try{
 	$activeLang = $localize[0];
 	$control = [];
 	//normal mode
-	if(isset($_GET['q'])){
+	if(isset($_REQUEST['q'])){
 		if(count($localize) != 1){
-			$control = explode('/', $_GET['q'],4);
-			define('LOCALIZE',$control[0]);
-			define('PLUGIN',$control[1]);
-			define('ACTION',$control[2]);
-			if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
+			$control = explode('/', $_REQUEST['q'],4);
+			if($control[0] == 'service'){
+				$control = explode('/', $_REQUEST['q'],5);
+				define('LOCALIZE',$control[1]);
+				define('SERVICE',$control[2]);
+				define('ACTION',$control[3]);
+				if(isset($control[4])) define('PLUGIN_OPTIONS',$control[3]);
+			}
+			elseif($control[0] == 'control'){
+				$control = explode('/', $_REQUEST['q'],5);
+				define('LOCALIZE',$control[1]);
+				define('CONTROL',$control[2]);
+				define('ACTION',$control[3]);
+				if(isset($control[4])) define('PLUGIN_OPTIONS',$control[3]);
+			}
+			else{
+				define('LOCALIZE',$control[0]);
+				define('PLUGIN',$control[1]);
+				define('ACTION',$control[2]);
+				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
+			}
 		}
 		else{
-			$control = explode('/', $_GET['q'],3);
+			$control = explode('/', $_REQUEST['q'],3);
 			$localize = \core\cls\core\localize::singleton();
-			define('LOCALIZE',$localize->language());
-			define('PLUGIN',$control[0]);
-			define('ACTION',$control[1]);
-			if(isset($control[2])) define('PLUGIN_OPTIONS',$control[2]);
+			if($control[0] == 'service'){
+				$control = explode('/', $_REQUEST['q'],4);
+				define('LOCALIZE',$localize->language());
+				define('SERVICE',$control[1]);
+				define('ACTION',$control[2]);
+				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[2]);
+			}
+			elseif($control[0] == 'control'){
+				$control = explode('/', $_REQUEST['q'],4);
+				define('LOCALIZE',$localize->language());
+				define('CONTROL',$control[1]);
+				define('ACTION',$control[2]);
+				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[2]);
+			}
+			else{
+				define('LOCALIZE',$localize->language());
+				define('PLUGIN',$control[0]);
+				define('ACTION',$control[1]);
+				if(isset($control[2])) define('PLUGIN_OPTIONS',$control[2]);
+			}
 		}
 	}
 	else{
@@ -54,8 +85,24 @@ try{
 catch(Exception $e){
 	exit(_('Internal error!'));
 }
-ob_start("render");
-$registry = \core\cls\core\registry::singleton();
-require_once(AppPath . 'themes/' . $registry->get('administrator', 'active_theme') . '/index.php');
-ob_end_flush();
+/*
+ * check for that start system in normal mode or service mode
+ */
+if(defined('SERVICE')){
+	#run system in service mode
+	$router = new \core\cls\core\router(SERVICE, ACTION);
+	$router->runService();
+}
+if(defined('CONTROL')){
+	#run system in service mode
+	$router = new \core\cls\core\router(CONTROL, ACTION);
+	$router->runControl();
+}
+else{
+	#run in normal mode
+	ob_start("render");
+	$registry = \core\cls\core\registry::singleton();
+	require_once(AppPath . 'themes/' . $registry->get('administrator', 'active_theme') . '/index.php');
+	ob_end_flush();
+}
 ?>

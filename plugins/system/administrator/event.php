@@ -2,18 +2,17 @@
 namespace core\plugin\hello;
 use \core\control as control;
 
-class service extends module{
+class event{
 	
 	function __construct(){
-		
 	}
 	
 	/*
 	 * action for show hello word
 	 * @return array content
 	 */
-	 public function sample(){
-		$result = $this->moduleSample();
-		return $result[1];
+	 public function sampleOnclickEvent($e){
+		 $e['txt_sample']['VALUE'] = 'YOU CLICKED ME!';
+		 return $e;
 	 }
 }

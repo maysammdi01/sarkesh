@@ -21,10 +21,10 @@ class view{
 		$this->raintpl->configure('tpl_dir','core/lib/controls/uploader/');
 		
 		//add headers to page//
-		browser\page::addHeader('<script src="./core/ect/scripts/events/functions.js"></script>');		
-		browser\page::addHeader('<script src="./core/lib/controls/uploader/fileinput.min.js"></script>');
-		browser\page::addHeader('<script src="./core/lib/controls/uploader/ctr_uploader.js"></script>');
-		browser\page::addHeader('<link rel="stylesheet" type="text/css" href="./core/lib/controls/uploader/fileinput.min.css" />');
+		browser\page::addHeader('<script src="' . SiteDomain . '/core/ect/scripts/events/functions.js"></script>');		
+		browser\page::addHeader('<script src="' . SiteDomain . '/core/lib/controls/uploader/fileinput.min.js"></script>');
+		browser\page::addHeader('<script src="' . SiteDomain . '/core/lib/controls/uploader/ctr_uploader.js"></script>');
+		browser\page::addHeader('<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/lib/controls/uploader/fileinput.min.css" />');
 		
 		if($config['SCRIPT_SRC'] != ''){browser\page::addHeader('<script src="' . $config['SCRIPT_SRC'] . '"></script>'); }		
 		if($config['CSS_FILE'] != ''){ browser\page::addHeader('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}

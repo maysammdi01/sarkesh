@@ -117,6 +117,7 @@ class page{
 	* @return void
 	*/
 	static public function addHeader($header){
+		echo $header;
 		if(is_null(self::$headerTags))
 			self::$headerTags = [];
 		if(!array_key_exists($header, self::$headerTags))
@@ -286,33 +287,33 @@ class page{
 				}
 				else{
 					//block is widget
-					if(self::HasAllow($block->name)){
-						echo 1;
+					if(self::hasAllow($block->name)){
 						//checking that plugin is enabled
 						if(self::$plugin->enabled($block->p_name)){
 							if($block->localize == 'all' || self::$localSettings->language == $block->localize){
-								$ClassName = '\\core\\plugin\\' . $block->p_name ;
-								echo AppPath . 'plugins/system/' . $block->p_name . '/controller.php';
-								if(!file_exists(AppPath . 'plugins/system/' . $block->p_name . '/controller.php')){
-									$ClassName = '\\addon\\plugin\\' . $block->p_name ;
+								
+								$ClassName = '\\core\\plugin\\' . $block->p_name . '\\widgets';
+								if(!file_exists(AppPath . 'plugins/system/' . $block->p_name . '/widgets.php')){
+									$ClassName = '\\addon\\plugin\\' . $block->p_name . '\\widgets' ;
 								}
 								$plugin = new $ClassName; 
 								//run action method for show block
 								//all blocks name should be like  'blk_blockname'
 								$content = array();
-								if($block['b.visual'] == '0'){
+								if($block->visual == '0'){
 									$content = call_user_func(array($plugin, $block->name),$position);
 								}
 								else{
 									//plugin is visual
 									$content = call_user_func(array($plugin, $block->handel),$position,$block->value);
 								}
-								if($block->show_header == 1){
-									echo self::show_block($content[0], $content[1], 'BLOCK');
-								}
-								else{
-									if(is_array($content)) echo $content[1];
-									else echo $content;
+								if(!is_null($content)){
+									if($block->show_header == 1)
+										echo self::showBlock($content[0], $content[1], 'BLOCK');
+									else{
+										if(is_array($content)) echo $content[1];
+										else echo $content;
+									}
 								}
 							}
 							
@@ -346,12 +347,12 @@ class page{
 	* @param string $block ,name of block
 	* @return boolean (allow:true , else:false)
 	*/
-	static public function HasAllow($block_name){
+	static public function hasAllow($blockName){
 		
 		//get block options
 		$orm = db\orm::singleton();
-		if($orm->count('blocks','name=?',[$block_name]) != 0){
-			$blockInfo = $orm->findOne('blocks','name=?',[$block_name]);
+		if($orm->count('blocks','name=?',[$blockName]) != 0){
+			$blockInfo = $orm->findOne('blocks','name=?',[$blockName]);
 			if($blockInfo->pages != ''){
 				$pages = explode(',',$blockInfo->pages);
 				//check for show or not
@@ -387,7 +388,8 @@ class page{
 					}
 					return false;
 				}
-			}	
+			}
+			return true;	
 		}
 		//somethig happen that we can not controll that
 		return false;

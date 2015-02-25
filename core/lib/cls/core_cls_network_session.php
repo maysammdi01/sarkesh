@@ -8,22 +8,22 @@ class session {
 	
 	}
 	
-	public function set($key,$value){
+	public static function set($key,$value){
 		$_SESSION[$key]=$value;
 	}
 	
-	public function get($key){
+	public static function get($key){
 		#return 0 mean not found
 		if (!isset($_SESSION[$key])){ return 0;}
 		return $_SESSION[$key];
 	}
 	
-	public function is_set($key){
+	public static function is_set($key){
 		if (isset($_SESSION[$key])){ return TRUE;}
 		return false;
 	}
 	
-	public function delete($key){
+	public static function delete($key){
 		#session key not found
 		if (!isset($_SESSION[$key])){ return TRUE;}
 		unset($_SESSION[$key]);

@@ -33,4 +33,18 @@ class tabbar extends control\tabbar\module{
 		$e['body'] = $form->draw();
 		array_push($this->tabs, $e);
 	}
+	
+	/*
+	 * function use for set configs like object
+	 * @param strin $key, key of config
+	 * @param string $value, value of config
+	 * @return boolean result
+	 */
+	public function __set($key,$value){
+		if(key_exists($key, $this->config)){		
+			$this->config[$key] = $value;
+			return TRUE;
+		}
+		return FALSE;
+	}
 }

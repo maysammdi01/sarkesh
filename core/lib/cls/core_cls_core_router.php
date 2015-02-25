@@ -49,7 +49,6 @@ class router{
 		//get localize
 		$localize = core\localize::singleton();
 		$this->localize = $localize->localize();
-		
 		if($plugin == '' || $action == ''){
 			if(!is_null(PLUGIN)){
 				$this->plugin = PLUGIN;
@@ -89,10 +88,6 @@ class router{
 	     		 //run action directly
 	     		 if(method_exists($plugin,$this->action))
 					 $content = call_user_func(array($plugin,$this->action),'content');
-				 else{	
-					//jump user to 404 page
-					$this->jump(array('service','1','plugin','msg','action','msg404'));	
-				 }
 				
 	      }
 		  else{
@@ -101,12 +96,13 @@ class router{
 		  }
 	      browser\page::setPageTitle($content[0]);
           //show header in up of content or else
+          $outputContent = null;
           if(sizeof($content) == 2)
             $outputContent = browser\page::showBlock($content[0],$content[1],'MAIN');
           elseif(sizeof($content) == 3 && $content[2] == true)
             $outputContent = browser\page::showBlock($content[0],$content[1],'BLOCK','default');
 		  //show content id show was set
-		  if($show) echo $outputContent;
+		  if($show && !is_null($outputContent)) echo $outputContent;
 		  return $content; 
 	}
 	
@@ -116,7 +112,7 @@ class router{
 	public function runService(){ 
 		 $result = _('Warning:Your requested service not found!');
 		 if($this->objPlugin->enabled($this->plugin)){
-	 	    	 $PluginName = '\\core\\plugin\\' . $this->plugin;
+	 	    	 $PluginName = '\\core\\plugin\\' . $this->plugin . '\\service';
 	     		 $plugin = new $PluginName;			
 	     		 if(method_exists($plugin,$this->action))
 					 $result = call_user_func(array($plugin,$this->action),'content');
@@ -129,9 +125,6 @@ class router{
 	* runing services from controls
 	*/
 	public function runControl(){
-		//first create object from form elements
-		$this->plugin = $_REQUEST['plugin'];
-		$this->action = $_REQUEST['event'];
 		$options = str_replace('_a_n_d_','&',$_REQUEST['options']);
 		$elements = new core\uiobjects($options);
 		if(file_exists('./plugins/system/' . $this->plugin . '/event.php'))
@@ -203,7 +196,7 @@ class router{
 	/*
 	* jump page that set in cookie
 	*/
-	public function jump_last_page(){
+	public function jumpLastPage(){
 		if(isset($_COOKIE['SYS_LAST_PAGE'])) header('Location: '. $_COOKIE['SYS_LAST_PAGE']);
 		else header('Location: ' . SiteDomain );
 	}
@@ -211,7 +204,7 @@ class router{
 	/*
 	* return last page that viewed
 	*/
-	public static function get_last_page(){
+	public static function getLastPage(){
 		$obj_io = new network\io;
 		if(isset($_COOKIE['SYS_LAST_PAGE'])) return  $obj_io->cin('SYS_LAST_PAGE','cookie');
 		return SiteDomain ;

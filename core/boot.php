@@ -22,15 +22,15 @@ if(file_exists(AppPath . "db-config.php")) {
 	//check for that want work with controls
 	elseif(isset($_REQUEST['control'])){
 		#run system in service mode
-		$obj_router = new \core\cls\core\router($_REQUEST['plugin'], $_REQUEST['event']);
-		$obj_router->runControl();
+		$router = new \core\cls\core\router($_REQUEST['plugin'], $_REQUEST['event']);
+		$router->runControl();
 	}
 	else{
 		//jump to home page
 		$localize = \core\cls\core\localize::singleton();
 		$local = $localize->localize();
-		
 		\core\cls\core\router::jump($local->home ,true);
+		exit();
 	}
 }
 else{

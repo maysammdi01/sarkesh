@@ -22,7 +22,7 @@ class cookie {
 	*/
 	public static function set($cookie, $cookieValue){
 		$registry = core\registry::singleton();
-		$settings = $registry->get_plugin('administrator');
+		$settings = $registry->getPlugin('administrator');
 		setcookie($cookie,$cookieValue,time() + $settings['cookie_max_time']);
 	}
 	/*

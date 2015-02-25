@@ -104,7 +104,7 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 		var formData = new FormData();
 		formData.append('options', options);
 		$.ajax({
-            url: "?control=1&plugin=" + p_event_p + "&event=" + p_event_f,
+            url: "/control/" + p_event_p + "/" + p_event_f,
 			type: 'POST',
             data: formData,
             cache: false,
