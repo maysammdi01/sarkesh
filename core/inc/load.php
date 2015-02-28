@@ -57,14 +57,14 @@ try{
 				define('LOCALIZE',$localize->language());
 				define('SERVICE',$control[1]);
 				define('ACTION',$control[2]);
-				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[2]);
+				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
 			}
 			elseif($control[0] == 'control'){
 				$control = explode('/', $_REQUEST['q'],4);
 				define('LOCALIZE',$localize->language());
 				define('CONTROL',$control[1]);
 				define('ACTION',$control[2]);
-				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[2]);
+				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);
 			}
 			else{
 				define('LOCALIZE',$localize->language());
@@ -80,7 +80,6 @@ try{
 		header('Location:' . SiteDomain . $defaultLocalize->home);
 		exit();
 	}
-	
 }
 catch(Exception $e){
 	exit(_('Internal error!'));
@@ -92,13 +91,16 @@ if(defined('SERVICE')){
 	#run system in service mode
 	$router = new \core\cls\core\router(SERVICE, ACTION);
 	$router->runService();
+	exit();
 }
 if(defined('CONTROL')){
 	#run system in service mode
 	$router = new \core\cls\core\router(CONTROL, ACTION);
 	$router->runControl();
+	exit();
 }
 else{
+	
 	#run in normal mode
 	ob_start("render");
 	$registry = \core\cls\core\registry::singleton();

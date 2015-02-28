@@ -29,6 +29,6 @@ define('S_DEV_MODE',TRUE);
 define('S_MEM_USAGE',TRUE);
 
 #with enable this option sarkesh use clean url in system
-define('CLEAN_URL',false);
+define('CLEAN_URL',TRUE);
 
 ?>

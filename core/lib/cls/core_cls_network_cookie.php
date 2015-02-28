@@ -35,5 +35,13 @@ class cookie {
 			return $_COOKIE[$cookie];
 		return null;
 	}
+	
+	/*
+	 * unset cookie
+	 * @param string $key;
+	 */
+	public function remove($key){
+		setcookie($cookie,0,time() - 316137);
+	}
 }
 ?>

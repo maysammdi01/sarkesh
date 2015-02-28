@@ -21,4 +21,13 @@ class action extends module{
 		return $this->moduleFrmLogin('content');
 	}
 	
+	/*
+	 * show register form
+	 * @return string, html content
+	 */
+	public function register(){
+		return $this->moduleFrmRegister();
+	}
+	
+	
 }

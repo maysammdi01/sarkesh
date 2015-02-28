@@ -55,7 +55,7 @@ class localize{
 	public function language(){
 		if(isset($_COOKIE['core_language'])) return $_COOKIE['core_language'];		
 		elseif(isset($_SESSION['core_language'])) return $_SESSION['core_language'];		
-		return $this->localize['language'];
+		return $this->localize->language;
 	}
 	
 	/*

@@ -119,7 +119,7 @@ class orm{
 			if($this->query->rowCount() == 0) return null;
 			$this->result = $this->query->fetchAll();
 		}
-		elseif($type == NON_SELECT) $this->result = $this->query->rowCount();
+		elseif($type == NON_SELECT) $this->result = $this->pdoObj->lastInsertId();
 		else{
 			//RETURN ONE ROW
 			if($this->query->rowCount() == 0) return null;

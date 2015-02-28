@@ -57,7 +57,7 @@ class page{
 	* store default headers for attech all pages in  $headerTags
 	*/
 	static function defHeaders () {
-		
+
 		if(is_null(self::$settings)){
 			$registry = core\registry::singleton();
 			self::$settings = $registry->getPlugin('administrator');
@@ -68,6 +68,7 @@ class page{
 		if(is_null(self::$headerTags)){
 			self::$headerTags = array();
 		}
+		
 		$defaultHeaders = [];
 		#LOAD Sarkesh GENERATOR META TAG
 		array_push($defaultHeaders, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -76,6 +77,7 @@ class page{
 		if(self::$localSettings->headerTags != ''){
 			array_push($defaultHeaders, '<meta name="description" content="' . self::$localSettings->header_tags . '" />');
 		}
+		
 		//cache control
 		array_push($defaultHeaders, '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">') ;
 		array_push($defaultHeaders, '<meta name="viewport" content="width=device-width, initial-scale=1.0">');
@@ -91,9 +93,8 @@ class page{
 		}
 		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/bootstrap-dialog.css" />');
 		#load style sheet pages (css)
-		
 		if(PLUGIN != 'administrator'){
-			$theme_name = self::$settings['active_theme'];
+			$theme_name = self::$settings->active_theme;
 			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/style.css" />');
 			#load rtl stylesheets
 			if (self::isRtl())
@@ -315,6 +316,7 @@ class page{
 										else echo $content;
 									}
 								}
+								
 							}
 							
 						}
@@ -394,5 +396,4 @@ class page{
 		//somethig happen that we can not controll that
 		return false;
 	}
-	
 }

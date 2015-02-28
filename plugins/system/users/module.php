@@ -39,12 +39,16 @@ class module{
 		if($count != 0){
 			//login data is cerrect
 			$validator = new network\validator;
-			if($e['ckbRemember']['CHECKED'] == 1) $validID = $validator->set('USERS_LOGIN',true,true);
+			if($e['ckbRemember']['CHECKED'] == '1'){
+				$validID = $validator->set('USERS_LOGIN',true,true);
+				$e['RV']['MODAL'] = browser\page::showBlock(_('Message'), _('Usernect!'), 'MODAL','type-warning');
+			}
 			else $validID = $validator->set('USERS_LOGIN',false,true);
 				
 			//INSERT VALID ID IN USER ROW
 			$user = $orm->load('users',$this->getUserID($e['username']['VALUE']));
 			$user->login_key = $validID;
+			$user->last_login = time();
 			$orm->store($user);
 			$e['RV']['URL'] = 'R';
 		}
@@ -55,5 +59,30 @@ class module{
 			$e['RV']['MODAL'] = browser\page::showBlock(_('Message'), _('Username or Password is incerrect!'), 'MODAL','type-warning');
 		}
 		return $e;
+	}
+	
+	/*
+	 * show minimal profile in widget mode
+	 * @return string, html content
+	 */
+	protected function moduleWidgetProfile(){
+		if($this->isLogedin()){
+			//get user info
+			$orm = db\orm::singleton();
+			$user = $this->getCurrentUserInfo();
+			if(!is_null($user))
+				return $this->viewWidgetProfile($user,true);
+		}
+		return null;
+	}
+	
+	/*
+	 * show register form
+	 * @return string, html content
+	 */
+	public function moduleFrmRegister(){
+		if(!$this->isLogedin())
+			return $this->viewFrmRegister();
+		return core\router::jump(['users','profile']);
 	}
 }

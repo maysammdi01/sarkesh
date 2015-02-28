@@ -65,4 +65,79 @@ trait view {
 		return [_('Sign in'),$form->draw()];		
 	}
 	
+	/*
+	 * show minimal profile in widget mode
+	 * @param object $user, user info
+	 * @param boolean $adminAccess, can user access to administrator area
+	 * @return string, html content
+	 */
+	protected function viewWidgetProfile($user,$adminAccess){
+		$form = new control\form('usersProfileWidget');
+		 $row = new control\row;
+		 $row->configure('IN_TABLE',FALSE);
+		 
+		 
+		 $row1 = new control\row;
+		 $btn_logout = new control\button;
+		 $btn_logout->configure('NAME','btn_logout');
+		 $btn_logout->configure('LABEL',_('Sign Out!'));
+		 $btn_logout->configure('TYPE','info');
+		 $btn_logout->configure('P_ONCLICK_PLUGIN','users');
+		 $btn_logout->configure('P_ONCLICK_FUNCTION','logout');
+		 $row1->add($btn_logout,6);
+		 
+		 if($adminAccess){
+			$btn_admin = new control\button;
+			$btn_admin->configure('NAME','JUMP_ADMIN');
+			$btn_admin->configure('LABEL',_('Admin panel'));
+			$btn_admin->configure('HREF',core\general::createUrl(['service','administrator','main','administrator','dashboard']));
+			$row1->add($btn_admin,6);
+		 }
+		 
+		 $form->add_array(array($row,$row1));
+		 return array(_('User Profile'),$form->draw());
+	}
+	
+	/*
+	 * show register form
+	 * @return string, html content
+	 */
+	public function viewFrmRegister(){
+		$form = new control\form('urmUsersRegister');
+		
+		$txtUsername = new control\textbox('txtUsername');
+		$txtUsername->label = _('Username:');
+		$txtUsername->size = 5;
+		$txtUsername->place_Holder = _('Username');
+		$txtUsername->help = _('Spaces are allowed; punctuation is not allowed except for periods, hyphens, apostrophes, and underscores.');
+		$form->add($txtUsername);
+		
+		$txtEmail = new control\textbox('txtEmail');
+		$txtEmail->label = _('Email:');
+		$txtEmail->help = _('A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.');
+		$txtEmail->size = 6;
+		$txtEmail->place_Holder = _('Email');
+		$form->add($txtEmail);
+		
+		
+		$btnSignup = new control\button('btn_signup');
+		$btnSignup->type = 'primary';
+		$btnSignup->label = _('Create new account');
+		$btnSignup->P_ONCLICK_PLUGIN = 'users';
+		$btnSignup->P_ONCLICK_FUNCTION = 'register';
+		 
+		$btnCancel = new control\button;
+		$btnCancel->configure('NAME','btn_cancel');
+		$btnCancel->configure('TYPE','warning');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF','?');
+		 
+		$row = new control\row();
+		$row->add($btnSignup,3);
+		$row->add($btnCancel,2);
+		$form->add($row);
+		
+		return [_('Register'),$form->draw()];
+	}
+	
 }

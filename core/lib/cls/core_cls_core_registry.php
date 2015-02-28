@@ -37,9 +37,11 @@ class registry{
 	* @return array string (no settings found:null)
 	*/ 
 	public function getPlugin($plugin){
-		$result = $this->orm->exec('SELECT r.a_key, r.value, p.name FROM registry r INNER JOIN plugins p ON p.id = r.plugin  WHERE p.name = ?;', array($plugin));
-		foreach($result as $row) $result[$row->a_key] = $row->value;
-		return $result;
+		$result = $this->orm->exec('SELECT r.a_key, r.value FROM registry r INNER JOIN plugins p ON p.id = r.plugin  WHERE p.name = ?;', array($plugin));
+		$resultObject = new \core\data\obj;
+		foreach($result as $row)
+			$resultObject->{$row->a_key} = $row->value;
+		return $resultObject;
 	}
 	
 	/*

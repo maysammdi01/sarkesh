@@ -10,8 +10,10 @@ class service extends module{
 	
 	/*
 	 * for load basic html panel
+	 * @param string $opt, option of action
 	 * @return string, html content
 	 */
-	public function load()
-		return $this->moduleLoad();
+	public function load(){
+		return $this->moduleLoad(PLUGIN_OPTIONS);
+	}
 }

@@ -17,5 +17,13 @@ class widgets extends module{
 	public function login(){
 		return $this->moduleFrmLogin('block');
 	}
+	
+	/*
+	 * show minimal profile in widget mode
+	 * @return string, html content
+	 */
+	public function profile(){
+		return $this->moduleWidgetProfile();
+	}
 
 }

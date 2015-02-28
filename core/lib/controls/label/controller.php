@@ -40,6 +40,7 @@ class label extends control\label\module{
 	 * @return boolean result
 	 */
 	public function __set($key,$value){
+		$key = strtoupper($key);
 		if(key_exists($key, $this->config)){		
 			$this->config[$key] = $value;
 			return TRUE;
