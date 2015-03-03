@@ -1,12 +1,8 @@
 <?php
-
+//start session system
+session_start();
 //this include file has autoload function
 require_once(AppPath . 'core/inc/autoload.php');
-
-//start session system
-$sess_id = session_id();
-if(empty($sess_id)){ session_start();}
-
 if(file_exists(AppPath . "db-config.php")) {
 	//going to run sarkesh!
 	include_once(AppPath . "config.php");
@@ -18,12 +14,6 @@ if(file_exists(AppPath . "db-config.php")) {
 	//load parts in action mode
 	if(isset($_REQUEST['q'])){
 		require_once(AppPath . 'core/inc/load.php');
-	}
-	//check for that want work with controls
-	elseif(isset($_REQUEST['control'])){
-		#run system in service mode
-		$router = new \core\cls\core\router($_REQUEST['plugin'], $_REQUEST['event']);
-		$router->runControl();
 	}
 	else{
 		//jump to home page

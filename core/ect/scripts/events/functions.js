@@ -12,7 +12,7 @@ function ctr_system_event(obj,type, j_before, p_events_p, p_event_f, j_after){
 	var form_elements = SystemGetFormArray(obj);
 	SystemEventsHandle(type,j_before, p_events_p, p_event_f,j_after,form_elements,options);
 }
-//this function return form in string
+//this function return form in string format
 //obj is an element for input
 function SystemGetFormString(obj){
 	 //run javascript click function
@@ -63,6 +63,8 @@ function SystemGetFormString(obj){
 			options += this.value;
 			options += "<!>LABEL<!>";
 			options += $(this).html();	
+			options += "<!>MSG<!>";
+			options += $('.' + this.id + '_msg').html();
 			options += "<!!>";
 		}
 	 });
@@ -128,6 +130,10 @@ function SystemEventsHandle(ctr_type,j_before,p_event_p, p_event_f,j_after,form_
 							
 							//It's under development
 							
+						}
+						else if(this.tagName.toLowerCase() == "msg"){
+							//show help message
+							$('.' + form_elements[window['Counter']].id + '_msg').html($(this).html());
 						}
 						else if(this.tagName.toLowerCase() == "checked"){
 							//it's from element like checkbox tag

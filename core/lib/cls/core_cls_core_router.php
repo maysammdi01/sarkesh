@@ -72,6 +72,7 @@ class router{
 	      //this function run from page class.
 	      // this function load plugin and run controller
 	      //checking for that plugin is enabled
+	      $content = browser\msg::pageNotFound();
 	      if($this->objPlugin->enabled($this->plugin)){
 				if(file_exists('./plugins/system/' . $this->plugin . '/action.php')){
 					$PluginName = '\\core\\plugin\\' . $this->plugin . '\\action';
@@ -79,21 +80,13 @@ class router{
 				elseif(file_exists('./plugins/defined/' . $this->plugin . '/action.php')){
 					$PluginName = '\\addon\\plugin\\' . $this->plugin . '\\action';
 				}
-				else{
-					//plugin not found
-					exit(_('plugin not found'));
-				}
-				
+
 	     		 $plugin = new $PluginName;
 	     		 //run action directly
 	     		 if(method_exists($plugin,$this->action))
 					 $content = call_user_func(array($plugin,$this->action),'content');
 				
 	      }
-		  else{
-			  //jump user to 404 page
-			  exit('not found');
-		  }
 	      browser\page::setPageTitle($content[0]);
           //show header in up of content or else
           $outputContent = null;

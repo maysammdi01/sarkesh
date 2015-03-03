@@ -73,28 +73,28 @@ trait view {
 	 */
 	protected function viewWidgetProfile($user,$adminAccess){
 		$form = new control\form('usersProfileWidget');
+		 
+		 $label = new control\label(sprintf(_('Hello %s !'),$user->username));
+		 $form->add($label);
+		 
 		 $row = new control\row;
-		 $row->configure('IN_TABLE',FALSE);
-		 
-		 
-		 $row1 = new control\row;
 		 $btn_logout = new control\button;
 		 $btn_logout->configure('NAME','btn_logout');
 		 $btn_logout->configure('LABEL',_('Sign Out!'));
 		 $btn_logout->configure('TYPE','info');
 		 $btn_logout->configure('P_ONCLICK_PLUGIN','users');
 		 $btn_logout->configure('P_ONCLICK_FUNCTION','logout');
-		 $row1->add($btn_logout,6);
+		 $row->add($btn_logout,6);
 		 
 		 if($adminAccess){
 			$btn_admin = new control\button;
 			$btn_admin->configure('NAME','JUMP_ADMIN');
 			$btn_admin->configure('LABEL',_('Admin panel'));
-			$btn_admin->configure('HREF',core\general::createUrl(['service','administrator','main','administrator','dashboard']));
-			$row1->add($btn_admin,6);
+			$btn_admin->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+			$row->add($btn_admin,6);
 		 }
 		 
-		 $form->add_array(array($row,$row1));
+		 $form->add($row);
 		 return array(_('User Profile'),$form->draw());
 	}
 	
@@ -103,19 +103,23 @@ trait view {
 	 * @return string, html content
 	 */
 	public function viewFrmRegister(){
-		$form = new control\form('urmUsersRegister');
+		$form = new control\form('frmUsersRegister');
 		
 		$txtUsername = new control\textbox('txtUsername');
 		$txtUsername->label = _('Username:');
 		$txtUsername->size = 5;
 		$txtUsername->place_Holder = _('Username');
-		$txtUsername->help = _('Spaces are allowed; punctuation is not allowed except for periods, hyphens, apostrophes, and underscores.');
+		$txtUsername->help = _('Only letters and digits allowed. special characters and space not allowed.');
+		$txtUsername->P_ONBLUR_PLUGIN = 'users';
+		$txtUsername->P_ONBLUR_FUNCTION = 'checkUsernameExists';
 		$form->add($txtUsername);
 		
 		$txtEmail = new control\textbox('txtEmail');
 		$txtEmail->label = _('Email:');
 		$txtEmail->help = _('A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.');
 		$txtEmail->size = 6;
+		$txtEmail->P_ONBLUR_PLUGIN = 'users';
+		$txtEmail->P_ONBLUR_FUNCTION = 'checkEmailExists';
 		$txtEmail->place_Holder = _('Email');
 		$form->add($txtEmail);
 		
@@ -130,7 +134,7 @@ trait view {
 		$btnCancel->configure('NAME','btn_cancel');
 		$btnCancel->configure('TYPE','warning');
 		$btnCancel->configure('LABEL',_('Cancel'));
-		$btnCancel->configure('HREF','?');
+		$btnCancel->configure('HREF',SiteDomain);
 		 
 		$row = new control\row();
 		$row->add($btnSignup,3);
@@ -140,4 +144,57 @@ trait view {
 		return [_('Register'),$form->draw()];
 	}
 	
+	/*
+	 * show active form
+	 * @param string $activator,activator code
+	 * @return string, html content
+	 */
+	protected function viewActiveAccount($msg = ''){
+		$form = new control\form('usersActiveAcount');
+		
+		$txtCode = new control\textbox('txtCode');
+		$txtCode->size = 4;
+		$txtCode->label = _('Activator code:');
+		$txtCode->help = _('Enter activator code that you get from your email');
+		$form->add($txtCode);
+		
+		$btnSubmit = new control\button('btnSubmit');
+		$btnSubmit->label = _('Active account');
+		$btnSubmit->type = 'primary';
+		$btnSubmit->P_ONCLICK_PLUGIN = 'users';
+		$btnSubmit->P_ONCLICK_FUNCTION = 'activeAcount';
+		
+		$form->add($btnSubmit);
+		
+		return [_('Active account'),$form->draw()];
+	}
+	
+	/*
+	 * show active form
+	 * @param string $activator,activator code
+	 * @return string, html content
+	 */
+	protected function viewResetPassword(){
+		$form = new control\form('UsersResetPassword');
+		
+		$txtCode = new control\textbox('txtEmail');
+		$txtCode->size = 5;
+		$txtCode->label = _('Email:');
+		$txtCode->help = _('Enter your email address that you register with that.');
+		$form->add($txtCode);
+		
+		$btnSubmit = new control\button('btnSubmit');
+		$btnSubmit->label = _('Send request');
+		$btnSubmit->type = 'primary';
+		$btnSubmit->P_ONCLICK_PLUGIN = 'users';
+		$btnSubmit->P_ONCLICK_FUNCTION = 'resetPassword';
+		
+		$form->add($btnSubmit);
+		
+		return [_('Reset password'),$form->draw()];
+	}
+	
+	protected function viewFailActiveAccount(){
+		return [_('Error!','Your enterd activator code is invalid or be expaird.')];
+	}
 }

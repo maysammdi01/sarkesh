@@ -4,6 +4,8 @@ namespace core\cls\browser;
 use core\cls\db as db;
 use core\cls\core as core;
 use core\cls\patterns as patterns;
+use \core\cls\template as template;
+
 class page{
 	use patterns\singleton;
 	/*
@@ -93,17 +95,16 @@ class page{
 		}
 		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/bootstrap-dialog.css" />');
 		#load style sheet pages (css)
-		if(PLUGIN != 'administrator'){
-			$theme_name = self::$settings->active_theme;
-			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/style.css" />');
-			#load rtl stylesheets
-			if (self::isRtl())
-				array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/rtl-style.css" />');
-			#load favicon
-			if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
-				array_push($defaultHeaders, '<link rel="shortcut icon" href="' . SiteDomain . '/themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
-				array_push($defaultHeaders, '<link rel="icon" href="' . SiteDomain . '/themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
-			}
+
+		$theme_name = self::$settings->active_theme;
+		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/style.css" />');
+		#load rtl stylesheets
+		if (self::isRtl())
+			array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/themes/'  . $theme_name . '/rtl-style.css" />');
+		#load favicon
+		if(file_exists("./themes/"  . $theme_name . "/favicon.ico")){ 
+			array_push($defaultHeaders, '<link rel="shortcut icon" href="' . SiteDomain . '/themes/'. $theme_name .'/favicon.ico" type="image/x-icon">');
+			array_push($defaultHeaders, '<link rel="icon" href="' . SiteDomain . '/themes/'.$theme_name .'/favicon.ico" type="image/x-icon">');
 		}
 		array_push($defaultHeaders, '<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/ect/styles/default.css" />');
 		#load nessasery java script functions
@@ -118,7 +119,6 @@ class page{
 	* @return void
 	*/
 	static public function addHeader($header){
-		echo $header;
 		if(is_null(self::$headerTags))
 			self::$headerTags = [];
 		if(!array_key_exists($header, self::$headerTags))
@@ -147,7 +147,7 @@ class page{
 		//get site name in localize selected
 		if(is_null(self::$localSettings)){
 			$localize = core\localize::singleton();
-			self::$localSettings = $localize->get_localize();
+			self::$localSettings = $localize->localize();
 			self::$pageTittle = self::$localSettings->name;
 		}
 		self::$pageTittle = self::$localSettings->name . ' | ' . $tittle;
@@ -396,4 +396,22 @@ class page{
 		//somethig happen that we can not controll that
 		return false;
 	}
+	
+	/*
+	 * function use for draw empty page with system headers
+	 * @param string $content, content of page
+	 * @param string $title,title of page
+	 * @return string, html content
+	 */
+	public static function simplePage($title,$content){
+		$raintpl = new template\raintpl;
+		$title = self::setPageTitle($title);
+		//configure raintpl //
+		$raintpl->configure('tpl_dir', AppPath . 'core/ect/tpl/');
+		$raintpl->assign( "headers", self::loadHeaders(false));
+		$raintpl->assign( "content", $content);
+		$raintpl->assign( "title", $title);
+		return $raintpl->draw('simplePage', true );
+	}
+	
 }

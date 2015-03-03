@@ -32,24 +32,28 @@ class validator{
 	 *  set validator with source and save that in cookie and session
 	 * @param string #source,name of source
 	 * @param boolean $cookie,for save in cookie
-	 * @param boolean $session,save is session
 	 * @param string $back(just return id:id, return special id:sid, else array of validator)
 	 * @return integer, id of validator
 	 */
-	public function set( $source,$cookie = false, $session = true){
+	public function set( $source,$cookie = false){
+		
 		$id=core\general::randomString();
 		//save source in session
-		if($session) session::set($source,$id);
-		elseif(array_key_exists($source,$_SESSION)) unset($_SESSION[$source]);
+		$_SESSION[$source] = $id;
+
 		//set in cookie
-		if ($cookie) $_COOKIE[$source] = $id;
-		elseif(array_key_exists($source,$_COOKIE)) cookie::remove($source);
+		if($cookie)
+			setcookie($source,$id,time() + $this->settings->validator_max_time,'/');
+		else
+			setcookie($source,$id,time() - $this->settings->validator_max_time,'/');
+		
 		//save source in database
 		$validObj = $this->orm->dispense('validator');
 		$validObj->source = $source;
 		$validObj->valid_time = time() + $this->settings->validator_max_time;
 		$validObj->special_id = $id;
-		return  $this->orm->store($validObj);
+		$this->orm->store($validObj);
+		return  $id;
 	}
 	
 	/* 
@@ -59,8 +63,7 @@ class validator{
 	 */
 	public function check($source){
 		$id = $this->getID($source);
-		if($id == '0') return false;
-		if($this->orm->count('validator','id=?',[$id]) != 0){
+		if($this->orm->count('validator','special_id=?',[$id]) != 0){
 			//source is validated
 			$this->update($id);
 			return true;
@@ -75,14 +78,11 @@ class validator{
 	 * @param string id, id of key
 	 * @return boolean
 	 */
-	public function delete($source, $id =0){
+	public function delete($source, $id = 0){
 		if($id == 0){ $id = $this->getID($source); }
-		if($id != 0){
-			//going to delete that
-			return $this->orm->exec("DELETE FROM validator WHERE id=?;" ,[trim($id)],NON_SELECT);
+		//going to delete that
+		$this->orm->exec("DELETE FROM validator WHERE special_id=?;" ,[$id],NON_SELECT);
 
-		}
-		return false;
 	}
 	/*
 	 * get spicial id from user client
@@ -92,18 +92,13 @@ class validator{
 	 */
 	public function getID($source){
 		$id = 0;
-		if(isset($_GET[$source])) $id = $_GET[$source];
-		elseif(isset($_SESSION[$source])) $id = session::get($source);
-		elseif(isset($_COOKIE[$source])) $id = $_COOKIE[$source];
-		
-		if($id != 0){
-			$orm = db\orm::singleton();
-			if($orm->count('validator','special_id=?',[trim($id)]) != 0){
-				$result = $orm->findOne('validator','special_id=?',[trim($id)]);
-				return $result->id;
-			}
-		}
-		return null;
+		if(array_key_exists($source,$_SESSION))
+			 $id = $_SESSION[$source];
+		elseif(array_key_exists($source,$_COOKIE))
+			 $id = $_COOKIE[$source];
+		$orm = db\orm::singleton();
+		if($orm->count('validator','special_id=?',[$id]) != 0)
+			return $id;
 	}
 	
 	/*
@@ -112,6 +107,18 @@ class validator{
 	 */
 	private function update($id){
 		$this->orm->exec('UPDATE validator SET valid_time=? WHERE special_id=?;', [time() + 3600, $id], NON_SELECT); 
+	}
+	
+	/*
+	 * check validator with special id with input value
+	 * @param string $sid, special id
+	 * @return boolean,(set:true,else:false)
+	 */
+	public function checkSid($sid){
+		$orm = db\orm::singleton();
+		if($orm->count('validator','special_id=?',[$sid]) == 0)
+			return false;
+		return true;
 	}
 	
 	/*
@@ -124,6 +131,7 @@ class validator{
 		$registry = core\registry::singleton();
 		$registry->set('core', 'validator_last_check' , time());
 	}
+	
 }
 	
 

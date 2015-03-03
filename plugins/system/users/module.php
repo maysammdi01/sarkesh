@@ -39,12 +39,9 @@ class module{
 		if($count != 0){
 			//login data is cerrect
 			$validator = new network\validator;
-			if($e['ckbRemember']['CHECKED'] == '1'){
-				$validID = $validator->set('USERS_LOGIN',true,true);
-				$e['RV']['MODAL'] = browser\page::showBlock(_('Message'), _('Usernect!'), 'MODAL','type-warning');
-			}
-			else $validID = $validator->set('USERS_LOGIN',false,true);
-				
+			if($e['ckbRemember']['CHECKED'] == '1') $validID = $validator->set('USERS_LOGIN',true);
+			else $validID = $validator->set('USERS_LOGIN',false);
+
 			//INSERT VALID ID IN USER ROW
 			$user = $orm->load('users',$this->getUserID($e['username']['VALUE']));
 			$user->login_key = $validID;
@@ -84,5 +81,30 @@ class module{
 		if(!$this->isLogedin())
 			return $this->viewFrmRegister();
 		return core\router::jump(['users','profile']);
+	}
+	
+	/*
+	 * show active form or active user
+	 * @return string, html content
+	 */
+	public function moduleActiveAcount(){
+		if(PLUGIN_OPTIONS == '')
+			return browser\msg::pageNotFound();
+		//going to active user account
+		$orm = db\orm::singleton();
+		$validator = new network\validator;
+		if($validator->checkSid(PLUGIN_OPTIONS) && $orm->count('users','state=?',['A:'. PLUGIN_OPTIONS]) != 0){
+			$user = $orm->findOne('users','state=?',['A:'. PLUGIN_OPTIONS]);
+			$user->permission = $this->settings->defaultPermission;
+			$user->state = '';
+			$orm->store($user);
+			//login user to system
+			$this->loginWithUsername($user->username);
+			//jump to change password form
+			return core\router::jump('users','changePassword','newUser');
+			
+		}
+		//show fail message
+		return $this->viewFailActiveAccount();
 	}
 }

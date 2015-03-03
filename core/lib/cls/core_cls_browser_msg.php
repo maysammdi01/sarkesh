@@ -26,6 +26,14 @@ class msg{
 		return $e;
 	}
 	
+	/*
+	 * show page not found page in action mode
+	 * @return array ['tittle','notfound message']
+	 */
+	public static function pageNotFound(){
+		return [_('404!'),_('Your requested page not found!')];
+	}
+	
 	
 }
 ?>

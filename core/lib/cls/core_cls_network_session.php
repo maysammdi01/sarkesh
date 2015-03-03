@@ -14,7 +14,7 @@ class session {
 	
 	public static function get($key){
 		#return 0 mean not found
-		if (!isset($_SESSION[$key])){ return 0;}
+		if (!isset($_SESSION[$key])){ return null;}
 		return $_SESSION[$key];
 	}
 	

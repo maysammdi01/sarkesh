@@ -22,15 +22,16 @@ class view {
 	 * @return string, html content
 	 */
 	protected function viewLoad($menus,$content,$user,$settings){
+		
 		$raintpl = template\raintpl::singleton();
 		//configure raintpl //
 		$raintpl->configure('tpl_dir', AppPath . '/plugins/system/administrator/tpl/');
 		
-		browser\page::addHeader('<link href="./plugins/system/administrator/style/core_content.css" rel="stylesheet">');
+		browser\page::addHeader('<link href="' . SiteDomain . '/plugins/system/administrator/style/core_content.css" rel="stylesheet">');
 		$localize = core\localize::singleton();
 		$local = $localize->localize();
 		if($local->direction = 'rtl'){
-			browser\page::addHeader('<link href="./plugins/system/administrator/style/rtl_core_content.css" rel="stylesheet">');
+			browser\page::addHeader('<link href="' . SiteDomain . '/plugins/system/administrator/style/rtl_core_content.css" rel="stylesheet">');
 		}
 		//Assign variables
 		$raintpl->assign( "menu", $menus);
@@ -39,7 +40,7 @@ class view {
 		
 		$raintpl->assign( "user_logout", _('Log Out')	);
 		$raintpl->assign( "user_logout_url", core\general::createUrl(array('plugin','users','action','btn_logout_onclick')	)	);
-		$raintpl->assign( "user_name", $user['username']	);
+		$raintpl->assign( "user_name", $user->username);
 		$raintpl->assign( "powered_by", _('Powered by SarkeshMVC')	);
 		$raintpl->assign( "view_site", _('View website')	);
 		$raintpl->assign( "view_site_url",SiteDomain);
@@ -52,8 +53,8 @@ class view {
 		$raintpl->assign( "sarkesh_admin", _('Sarkesh Administrator')	);
 		$raintpl->assign( "sarkesh_admin_url", core\general::createUrl(array('service','1','plugin','administrator','action','main','p','administrator','a','dashboard')	));
 		
-		//draw and return back menus
-		return $raintpl->draw('core_content', true );
+		return  browser\page::simplePage(1,$raintpl->draw('core_content', true ));
+
 	}
 	
 }

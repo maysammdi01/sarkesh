@@ -29,5 +29,25 @@ class action extends module{
 		return $this->moduleFrmRegister();
 	}
 	
+	/*
+	 * show active form or active user
+	 * @return string, html content
+	 */
+	public function activeAccount(){
+		if(defined('PLUGIN_OPTIONS'))
+			return $this->moduleActiveAccount();
+		return browser\msg::pageNotFound();
+	}
+	
+	/*
+	 * show resed password proccess
+	 * @return string, html content
+	 */
+	public function resetPassword(){
+		if(!$this->isLogedin())
+			return $this->viewResetPassword();
+		return browser\msg::pageNotFound();
+	}
+	
 	
 }
