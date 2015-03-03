@@ -2,9 +2,24 @@
 <head>
 {$headers}
 <title>{$title}</title>
+{if="$vertical"}
+<style>
+	.col-centered-v{
+		padding-top:10%;
+	}
+</style>
+{/if}
 </head>
-	<body> 
-		{$content}
+	<body>
+		<div class="container ">
+			<div class="row">
+				<div class=" col-centered {if="$vertical"}col-centered-v{/if} col-xs-12 col-sm-12 col-lg-{$width}">
+					
+					{$content}
+					
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
 

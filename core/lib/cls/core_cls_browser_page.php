@@ -401,16 +401,20 @@ class page{
 	 * function use for draw empty page with system headers
 	 * @param string $content, content of page
 	 * @param string $title,title of page
+	 * @param boolean $verticalAlign 
+	 * @param integer $width, width of page and can be between 1 and 12
 	 * @return string, html content
 	 */
-	public static function simplePage($title,$content){
+	public static function simplePage($title,$content,$width=12,$verticalAlign = false){
 		$raintpl = new template\raintpl;
 		$title = self::setPageTitle($title);
 		//configure raintpl //
 		$raintpl->configure('tpl_dir', AppPath . 'core/ect/tpl/');
 		$raintpl->assign( "headers", self::loadHeaders(false));
 		$raintpl->assign( "content", $content);
+		$raintpl->assign( "vertical", $verticalAlign);
 		$raintpl->assign( "title", $title);
+		$raintpl->assign( "width", $width);
 		return $raintpl->draw('simplePage', true );
 	}
 	

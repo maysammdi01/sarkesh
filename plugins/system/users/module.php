@@ -107,4 +107,13 @@ class module{
 		//show fail message
 		return $this->viewFailActiveAccount();
 	}
+	
+	/*
+	 * show login form in single page
+	 */
+	protected function moduleLoginSinglePage(){
+		$loginForm = $this->frmLogin();
+		$page = browser\page::simplePage($loginForm[0],browser\page::showBlock($loginForm[0],$loginForm[1],'BLOCK'),5,true);
+		return $page;
+	}
 }

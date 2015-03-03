@@ -30,9 +30,11 @@ class module extends view{
 	 * @return string, html content
 	 */
 	protected function moduleLoad($opt){
-		$opt = explode('/',$opt);
-		$registry = core\registry::singleton();
-
-		return $this->viewLoad($this->getMenus(),$opt,$this->getCurrentUserInfo(),$registry->getPlugin('administrator'));
+		if($this->isLogedin()){
+			$opt = explode('/',$opt);
+			$registry = core\registry::singleton();
+			return $this->viewLoad($this->getMenus(),$opt,$this->getCurrentUserInfo(),$registry->getPlugin('administrator'));
+		}
+		return core\router::jump(['service','users','login','service/administrator/load/administrator/dashboard']);
 	}
 }
