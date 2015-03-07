@@ -301,9 +301,8 @@ class page{
 								//run action method for show block
 								//all blocks name should be like  'blk_blockname'
 								$content = array();
-								if($block->visual == '0'){
+								if($block->visual == '0')
 									$content = call_user_func(array($plugin, $block->name),$position);
-								}
 								else{
 									//plugin is visual
 									$content = call_user_func(array($plugin, $block->handel),$position,$block->value);

@@ -1,18 +1,134 @@
 <?php
-namespace core\plugin\hello;
+namespace core\plugin\administrator;
 use \core\control as control;
+use \core\cls\core as core;
+use \core\cls\browser as browser;
+use \core\cls\db as db;
+use \core\data as data;
 
 class event{
+	use addons;
 	
 	function __construct(){
 	}
 	
-	/*
-	 * action for show hello word
-	 * @return array content
+	 /*
+	 * save core settings
+	 * @param array $e,form properties
+	 * @return array $e,form properties
 	 */
-	 public function sampleOnclickEvent($e){
-		 $e['txt_sample']['VALUE'] = 'YOU CLICKED ME!';
-		 return $e;
+	public function onclickCoreSettings($e){
+		if($this->hasAdminPanel()){
+			$registry = core\registry::singleton();
+			$val = 0;
+			if($e['ckbCleanUrl']['CHECKED'] == 1)
+				$val = 1;
+			$registry->set('administrator','cleanUrl',$val);
+			if(data\type::isNumber($e['txtValidateTime']['VALUE'])){
+				$registry->set('administrator','validator_max_time',$e['txtValidateTime']['VALUE']*3600);
+				$registry->set('administrator','cookie_max_time',$e['txtValidateTime']['VALUE']*3600);
+			}
+			else{
+				$e['txtValidateTime']['VALUE'] = '';
+				return browser\msg::modal($e,_('Data type error'),_('Validator expire time should be numberic.all settings expect this was saved.'),'warning');
+			}
+			return browser\msg::modalSuccessfull($e,'N');
+		}
+		return browser\msg::modalNoPermission($e);
 	 }
+	 
+	 /*
+	 * save core settings
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnBasicSettingsEdite($e){
+		if($this->hasAdminPanel()){
+			if(array_key_exists('hidID',$e)){
+				$orm = db\orm::singleton();
+				if($orm->count('localize','id=?',[$e['hidID']['VALUE']]) == 1){
+					$local = $orm->findOne('localize','id=?',[$e['hidID']['VALUE']]);
+					$local->name = $e['txtName']['VALUE'];
+					$local->slogan = $e['txtSlogan']['VALUE'];
+					$local->email = $e['txtEmail']['VALUE'];
+					$local->home = $e['txtHome']['VALUE'];
+					$local->header_tags = $e['txtDes']['VALUE'];
+					$orm->store($local);
+					return browser\msg::modalSuccessfull($e,'N');
+				}
+				return browser\msg::modalEventError($e);
+			}
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * insert or update static block
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnDoBlock($e){
+		if($this->hasAdminPanel()){
+			if($e['txtContent']['VALUE'] != ''){	
+				$orm = db\orm::singleton();
+				$plugin = $orm->findOne('plugins','name=?',['administrator']);
+				$block = $orm->dispense('blocks');
+				if(array_key_exists('hidID', $e)) $block = $orm->load('blocks',$e['hidID']['VALUE']);
+				else {
+					$block = $orm->dispense('blocks');
+					$block->position = 'Off';
+				}
+				$adminPlugin = $orm->findOne('plugins','name=?',['administrator']);
+				$block->name = $e['txtName']['VALUE'];
+				$block->plugin = $adminPlugin->id;
+				$block->value = $e['txtLabel']['VALUE'] . '<::::>' . $e['txtContent']['VALUE'];
+				$block->visual = 1;
+				$block->localize = 'all';
+				$block->handel = 'staticBlock';
+				$block->show_header = '0';
+				if($e['ckbShowHeader']['CHECKED'] == '1') $block->show_header = '1';
+				$orm->store($block);
+				return browser\msg::modalSuccessfull($e,['service','administrator','load','administrator','blocks']);
+			}
+			return browser\msg::modalNotComplete($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * insert or update static block
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnUpdateBlock($e){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			if($orm->count('blocks','id=?',[$e['hidID']['VALUE']]) != 0){
+				$block = $orm->findOne('blocks','id=?',[$e['hidID']['VALUE']]);
+				$block->rank = $e['cobRank']['SELECTED'];
+				$block->position = $e['cobPosition']['SELECTED'];
+				$block->localize = $e['cobLanguage']['SELECTED'];
+				$block->pages = $e['txtPages']['VALUE'];
+				$block->pages_ad = '0';
+				if($e['radItAllow']['CHECKED'] == '1'){
+					$block->pages_ad = '1';
+				}
+				
+				//SHOW HEADER SAVE
+				$block->show_header = '0';
+				if($e['ckbShowHeader']['CHECKED'] == '1'){
+					$block->show_header = '1';
+				}
+
+				//save changes
+				$orm->store($block);
+				return browser\msg::modalsuccessfull($e,['service','administrator','load','administrator','blocks']);
+				return $e;
+			}
+		}
+		return browser\msg::modalNoPermission($e);
+		
+		
+	}
+	 
 }

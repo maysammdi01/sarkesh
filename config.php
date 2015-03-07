@@ -28,7 +28,4 @@ define('S_DEV_MODE',TRUE);
 #define static variable for show memory and cpu usage
 define('S_MEM_USAGE',TRUE);
 
-#with enable this option sarkesh use clean url in system
-define('CLEAN_URL',TRUE);
-
 ?>

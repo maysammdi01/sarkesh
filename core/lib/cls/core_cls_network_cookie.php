@@ -23,7 +23,7 @@ class cookie {
 	public static function set($cookie, $cookieValue){
 		$registry = core\registry::singleton();
 		$settings = $registry->getPlugin('administrator');
-		setcookie($cookie,$cookieValue,time() + $settings['cookie_max_time']);
+		setcookie($cookie,$cookieValue,time() + $settings->cookie_max_time,'/');
 	}
 	/*
 	* get value from cookie

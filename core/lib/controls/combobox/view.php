@@ -45,8 +45,8 @@ class view{
 		else{
 			//want to bind control to table
 			foreach($config['TABLE'] as $keys => $source){
-				$elements[$keys]['label'] = $source[$config['COLUMN_LABELS']];
-				$elements[$keys]['value'] = $source[$config['COLUMN_VALUES']];
+				$elements[$keys]['label'] = $source->$config['COLUMN_LABELS'];
+				$elements[$keys]['value'] = $source->$config['COLUMN_VALUES'];
 			}
 		} 
 		

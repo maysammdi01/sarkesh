@@ -24,9 +24,11 @@ class general{
 	 * @param array $parameters,URL Parameters (example: ['plugin','users','action','register']
 	 * @return string url, (example 'http://sitedomain.com/?plugin=users&action=register
 	 */
-	static function createUrl($parameters){
+	static function createUrl($parameters,$language = null){
 		$url = '';
 		if(!CLEAN_URL) $url = '?q=';
+		if(!is_null($language)) $url .= $language . '/';
+		elseif(MULTI_LANG) $url .= $_SESSION['siteLanguage'] . '/';
 		for($i = 0; $i<= max(array_keys($parameters)) ; $i ++){
 			if($i == max(array_keys($parameters)))
 				$url .= $parameters[$i];

@@ -144,6 +144,32 @@ trait addons {
 	 * @return boolean
 	 */
 	public function hasPermission($permission,$username=null){
-		
+		$orm = db\orm::singleton();
+		if($username == ''){
+				//get cerrent user info
+				$user = $this->getCurrentUserInfo();
+				if($user == null){
+					//get guest info
+					$registry = core\registry::singleton();
+					$id = $registry->get('users','guestPermission');
+				}
+				else
+					$id = $user->permission;
+				$per = $orm->findOne('permissions',"id = ?", array($id));
+				if($per->$permission == '1'){return true;}
+				return false;
+			}
+			else{
+				//get permission with username
+				//check for that user exists
+				if($orm->count('users',"username = ?",array($username)) != 0){
+					//going to find permission
+					$res = $orm->getRow('SELECT * FROM users s INNER JOIN permissions p ON s.permission=p.id where s.username=?',array($username));
+					//checking for that permission is exist
+					if(array_key_exists($permission,$res))
+						if($res->$permission == '1')
+							return true;
+				}
+			}
 	}
 }

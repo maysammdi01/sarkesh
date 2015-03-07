@@ -20,7 +20,7 @@ class module extends view{
 		 $btn = new control\button('btn_ff');
 		 $btn->configure('P_ONCLICK_PLUGIN','hello');
 		 $btn->configure('P_ONCLICK_FUNCTION','sampleOnclickEvent');
-		 $form->add_array([$txt,$btn]);
+		 $form->addArray([$txt,$btn]);
 		 
 		 return [1,$form->draw()];
 		 

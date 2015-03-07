@@ -13,7 +13,7 @@ namespace theme;
 	
 	class basic{
 		
-		public function get_places(){
+		public static function getPlaces(){
 			return ['sidebar1','main_menu','slide_show','footer','top_footer1','top_footer2','top_footer3','top_footer4'];
 		}
 	}

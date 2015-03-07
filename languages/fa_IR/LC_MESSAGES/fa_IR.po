@@ -1,0 +1,1522 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: sarkesh persian language\n"
+"POT-Creation-Date: 2015-03-07 04:34-0500\n"
+"PO-Revision-Date: 2015-03-07 06:50-0500\n"
+"Last-Translator: babak alizadeh <alizadeh.babak@live.com>\n"
+"Language-Team: sarkesh dev <info@sarkesh.org>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: plugins/system/i18n/event.php:19
+msgid "message"
+msgstr "پیام"
+
+#: plugins/system/i18n/event.php:19
+msgid "changing language has some problem! Please try again later."
+msgstr "تغییر زبان با خطا مواجه شد.لطفا مجددا تلاش کنید."
+
+#: plugins/system/i18n/view.php:24
+msgid "Languages"
+msgstr "زبان ها"
+
+#: plugins/system/administrator/event.php:33
+msgid "Data type error"
+msgstr ""
+
+#: plugins/system/administrator/event.php:33
+msgid ""
+"Validator expire time should be numberic.all settings expect this was saved."
+msgstr ""
+
+#: plugins/system/administrator/module.php:21
+#: plugins/system/administrator/view.php:72
+msgid "Plugins"
+msgstr "افزونه‌ها"
+
+#: plugins/system/administrator/module.php:23
+#: plugins/system/administrator/view.php:70
+msgid "Regional and Languages"
+msgstr "نواحی و زبان‌ها"
+
+#: plugins/system/administrator/module.php:25
+#: plugins/system/administrator/view.php:69
+msgid "Basic Settings"
+msgstr "تنظیمات پایه"
+
+#: plugins/system/administrator/module.php:27
+msgid "Apperance"
+msgstr "ظاهر"
+
+#: plugins/system/administrator/module.php:29
+#: plugins/system/administrator/view.php:73
+#: plugins/system/administrator/view.php:223
+msgid "Blocks"
+msgstr "بلوک‌ها"
+
+#: plugins/system/administrator/module.php:31
+#, fuzzy
+msgid "Core Settings"
+msgstr "تنظیمات هسته"
+
+#: plugins/system/administrator/module.php:33
+#, fuzzy
+msgid "Update Center"
+msgstr "مرکز به روز رسانی"
+
+#: plugins/system/administrator/module.php:35
+msgid "Administrator"
+msgstr "مدیریت"
+
+#: plugins/system/administrator/module.php:185
+msgid "All languages"
+msgstr "همه زبان ها"
+
+#: plugins/system/administrator/view.php:40
+msgid "Log Out"
+msgstr "خروج"
+
+#: plugins/system/administrator/view.php:43
+msgid "Powered by SarkeshMVC"
+msgstr "نیروگرفته از SarkeshMVC"
+
+#: plugins/system/administrator/view.php:44
+msgid "View website"
+msgstr "نمایش وب سایت"
+
+#: plugins/system/administrator/view.php:46
+#: plugins/system/administrator/view.php:96
+msgid "Dashboard"
+msgstr "پیشخوان"
+
+#: plugins/system/administrator/view.php:47
+msgid "Profile"
+msgstr "نمایه کاربر"
+
+#: plugins/system/administrator/view.php:48
+#, php-format
+msgid "Version:%s"
+msgstr "نسخه: %s"
+
+#: plugins/system/administrator/view.php:49
+#, php-format
+msgid "Build Number:%s"
+msgstr "شماره ساخت: %s"
+
+#: plugins/system/administrator/view.php:52
+msgid "Sarkesh Administrator"
+msgstr "بخش مدیریت سرکش"
+
+#: plugins/system/administrator/view.php:71
+msgid "Appearance"
+msgstr "ظاهر"
+
+#: plugins/system/administrator/view.php:74
+msgid "Users and permissions"
+msgstr "کاربران و سطوح دسترسی"
+
+#: plugins/system/administrator/view.php:77
+msgid "Update center"
+msgstr "مرکز به روز رسانی"
+
+#: plugins/system/administrator/view.php:80
+msgid "New blog post"
+msgstr "ارسال مطلب جدید"
+
+#: plugins/system/administrator/view.php:83
+#: plugins/system/administrator/view.php:175
+msgid "Core settings"
+msgstr "تنظیمات هسته"
+
+#: plugins/system/administrator/view.php:108
+#, php-format
+msgid "Your system build number:%s"
+msgstr "شماره ساخت سیستم شما: %s"
+
+#: plugins/system/administrator/view.php:111
+#, php-format
+msgid "Last relased build number:%s"
+msgstr "شماره ساخت آخرین نسخه منتشر شده: %s"
+
+#: plugins/system/administrator/view.php:117
+msgid "Your system is update! noting to do."
+msgstr "خوشبختانه سیستم شما به روز است و کاری برای انجام دادن وجود ندارد."
+
+#: plugins/system/administrator/view.php:119
+#, php-format
+msgid "Your system is out of date.for get latest update go to sarkesh website"
+msgstr ""
+"به روز رسانی های جدیدی منتشر شده است. برای اطلاعات بیشتر درباره نحوه به روز "
+"رسانی و مطالعه یاداشت های انتشار به وب سایت سرکش مراجعه کنید."
+
+#: plugins/system/administrator/view.php:121
+msgid "Jump to release notes"
+msgstr "مطالعه یاداشت های انتشار"
+
+#: plugins/system/administrator/view.php:130
+msgid "Updates"
+msgstr "به روز رسانی ها"
+
+#: plugins/system/administrator/view.php:142
+msgid "Enable clean url"
+msgstr "فعال سازی آدرس کوتاه"
+
+#: plugins/system/administrator/view.php:144
+msgid ""
+"With this option,pages with parameters will be replaced with clean address."
+msgstr ""
+"با انتخاب این گذینه صفحات دارای پارمتر با آدرس های تمیز جایگزین می شوند."
+
+#: plugins/system/administrator/view.php:151
+msgid "Validation Expire time:"
+msgstr ""
+
+#: plugins/system/administrator/view.php:152
+#, fuzzy
+msgid "Thos option set external variables expire time."
+msgstr "با این گذینه می توانید برای پیوند یک برچسب انتخاب کنید."
+
+#: plugins/system/administrator/view.php:155
+msgid "Hour(s)"
+msgstr ""
+
+#: plugins/system/administrator/view.php:160
+#: plugins/system/administrator/view.php:361
+#: plugins/system/administrator/view.php:531
+msgid "Update"
+msgstr "بروز رسانی"
+
+#: plugins/system/administrator/view.php:166
+#: plugins/system/administrator/view.php:296
+#: plugins/system/administrator/view.php:367
+#: plugins/system/administrator/view.php:421
+#: plugins/system/administrator/view.php:537 plugins/system/users/view.php:142
+#: core/lib/cls/core_cls_browser_page.php:244
+msgid "Cancel"
+msgstr "انصراف"
+
+#: plugins/system/administrator/view.php:196
+#: plugins/system/administrator/view.php:255
+#: plugins/system/administrator/view.php:281
+msgid "Edite"
+msgstr "ویرایش"
+
+#: plugins/system/administrator/view.php:201
+#: plugins/system/administrator/view.php:209
+#: plugins/system/administrator/view.php:262
+#: plugins/system/administrator/view.php:281
+msgid "Delete"
+msgstr "حدف"
+
+#: plugins/system/administrator/view.php:209
+#: plugins/system/administrator/view.php:281
+msgid "ID"
+msgstr "ردیف"
+
+#: plugins/system/administrator/view.php:209
+#: plugins/system/administrator/view.php:281
+msgid "Name"
+msgstr "نام"
+
+#: plugins/system/administrator/view.php:209
+msgid "Edit"
+msgstr "ویرایش"
+
+#: plugins/system/administrator/view.php:217
+msgid "Locals"
+msgstr "نواحی و زبان ها"
+
+#: plugins/system/administrator/view.php:241
+msgid "Off"
+msgstr "خاموش"
+
+#: plugins/system/administrator/view.php:269
+msgid "Edite static"
+msgstr "ویرایش ایستا"
+
+#: plugins/system/administrator/view.php:281
+msgid "Place"
+msgstr "محل"
+
+#: plugins/system/administrator/view.php:281
+#: plugins/system/administrator/view.php:469
+msgid "Rank"
+msgstr "رتبه"
+
+#: plugins/system/administrator/view.php:281
+msgid "Static"
+msgstr "ایستا"
+
+#: plugins/system/administrator/view.php:290
+msgid "Add static block"
+msgstr "افزودن بلوک ایستا"
+
+#: plugins/system/administrator/view.php:302
+msgid "Manage Blocks"
+msgstr "مدیریت بلوک ها"
+
+#: plugins/system/administrator/view.php:318
+msgid "Site name"
+msgstr "نام سایت"
+
+#: plugins/system/administrator/view.php:325
+msgid "Slogan"
+msgstr "شعار سایت"
+
+#: plugins/system/administrator/view.php:327
+msgid "How this is used depends on your site's theme."
+msgstr "نحوه استفاده به پوسته استفاده شده سایت بستگی دارد."
+
+#: plugins/system/administrator/view.php:333
+msgid "Email address"
+msgstr "رایانامه"
+
+#: plugins/system/administrator/view.php:337
+msgid ""
+"The From address in automated e-mails sent during registration and new "
+"password requests, and other notifications. (Use an address ending in your "
+"site's domain to help prevent this e-mail being flagged as spam.)"
+msgstr ""
+
+#: plugins/system/administrator/view.php:341
+msgid "Front page"
+msgstr "صفحه ی نخست"
+
+#: plugins/system/administrator/view.php:345
+msgid ""
+"Optionally, specify a relative URL to display as the front page. be careful "
+"for that this address be correct!"
+msgstr ""
+
+#: plugins/system/administrator/view.php:352
+msgid "Description"
+msgstr "توضیحات"
+
+#: plugins/system/administrator/view.php:353
+msgid "your text show in header of page for use in search engines."
+msgstr ""
+"متنی که وارد می کنید در هدر صفحات برای استفاده موتور های جست و جو به نمایش "
+"در می اید.کاربران قادر به مشاهده متن نیستند."
+
+#: plugins/system/administrator/view.php:378
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: plugins/system/administrator/view.php:390
+msgid "Block name"
+msgstr "نام بلوک"
+
+#: plugins/system/administrator/view.php:393
+msgid "Block name not show in template"
+msgstr "نام بلوگ در خروجی نمایش داده نمی شود."
+
+#: plugins/system/administrator/view.php:396
+msgid "Block label"
+msgstr "برچسب بلوک"
+
+#: plugins/system/administrator/view.php:399
+msgid "if enable show header option this label will be show."
+msgstr "اگر این گذینه را انتخاب کنید این برچسب در بلوک نمایش داده می شود."
+
+#: plugins/system/administrator/view.php:402
+#: plugins/system/administrator/view.php:476
+msgid "Show header"
+msgstr "نمایش سربرگ"
+
+#: plugins/system/administrator/view.php:404
+#: plugins/system/administrator/view.php:481
+msgid "If this option checked,label of block will showed at the top of block."
+msgstr "با انتخاب این گذینه,سربرگ  در بالای بلوک نمایش داده خواهد شد."
+
+#: plugins/system/administrator/view.php:407
+msgid "content of block"
+msgstr "محتوای بلوک"
+
+#: plugins/system/administrator/view.php:411
+msgid ""
+"All of content that you will enter,show in block.you can use html and "
+"javascript codes and style with CSS."
+msgstr ""
+"تمام چیزی که وارد میکنید در داخل بلوک نمایش داده خواهد شد.برای مثال میتوانید "
+"از متون دستورات html ,javascript,css استفاده کنید."
+
+#: plugins/system/administrator/view.php:415
+msgid "Add block"
+msgstr "افزودن بلوک"
+
+#: plugins/system/administrator/view.php:427
+msgid "New static block"
+msgstr "افزودن بلوک ایستا"
+
+#: plugins/system/administrator/view.php:429
+#, fuzzy
+msgid "Update static block"
+msgstr "افزودن بلوک ایستا"
+
+#: plugins/system/administrator/view.php:443
+msgid "Edite block"
+msgstr "ویرایش بلوک"
+
+#: plugins/system/administrator/view.php:488
+msgid "Pages"
+msgstr "صفحات"
+
+#: plugins/system/administrator/view.php:489
+msgid ""
+"Use ',' for seperate page urls. for use home page enter 'frontpage' and "
+"start your internal urls with '\\'."
+msgstr ""
+"برای جدا سازی آدرس های اینترنتی از ',' استفاده کنید. برای ارجاع به صفحه اصلی "
+"میتوانید از frontpage استفاده کنید .همچنین توجه داشته باشید آدرس های درونی "
+"با علامت \\ شروع می شوند."
+
+#: plugins/system/administrator/view.php:496
+msgid "With this option you can select pages for show."
+msgstr ""
+"با این گذینه میتوانید صفحات برای نمایش بلوک مورد نظر خود را انتخاب کنید."
+
+#: plugins/system/administrator/view.php:498
+msgid "All pages espect that comes above."
+msgstr "در تمام صفحات به غیر از آنهایی که در بالا آمده است."
+
+#: plugins/system/administrator/view.php:503
+msgid "show in pages that comes above."
+msgstr "نمایش تنها در صفحاتی که در بالا آمده."
+
+#: plugins/system/administrator/view.php:510
+msgid "Localize block"
+msgstr "محلی سازی بلوک"
+
+#: plugins/system/administrator/view.php:511
+msgid "block will showed in selected localize."
+msgstr "بلوک تنها در مناطق محلی انتخاب شده نمایش داده می شود."
+
+#: plugins/system/administrator/view.php:522
+msgid "Position"
+msgstr "موقعیت"
+
+#: plugins/system/administrator/view.php:548
+msgid "Edite Block:"
+msgstr "ویرایش بلوک:"
+
+#: plugins/system/users/event.php:50
+msgid "Username most be more than 3 character!"
+msgstr ""
+
+#: plugins/system/users/event.php:52
+msgid "Only letters and digit allowed."
+msgstr ""
+
+#: plugins/system/users/event.php:54
+msgid "This username is taken by another.try again!"
+msgstr ""
+
+#: plugins/system/users/event.php:67
+#, fuzzy
+msgid "format of entered email in incerrect."
+msgstr "رایانامه وارد شده معتبر نیست."
+
+#: plugins/system/users/event.php:69
+msgid ""
+"This email is taken by another.if that's you,use that to login to your "
+"account."
+msgstr ""
+
+#: plugins/system/users/event.php:83 plugins/system/users/event.php:90
+#: plugins/system/users/module.php:59 core/lib/cls/core_cls_browser_msg.php:14
+msgid "Message"
+msgstr "پیام"
+
+#: plugins/system/users/event.php:83
+msgid "one or more of fileds invalid.please look at the messages of fileds."
+msgstr ""
+
+#: plugins/system/users/event.php:90
+msgid "Register new user on this site is disabled!"
+msgstr ""
+
+#: plugins/system/users/event.php:107 plugins/system/users/event.php:129
+#, fuzzy
+msgid "Successfull"
+msgstr "موفقیت"
+
+#: plugins/system/users/event.php:107
+msgid ""
+"Your account was created and we send email for you. for active your account "
+"please check your inbox."
+msgstr ""
+
+#: plugins/system/users/event.php:129
+msgid "Your account was activated.now you can login to your account."
+msgstr ""
+
+#: plugins/system/users/event.php:137
+msgid "Fail!"
+msgstr ""
+
+#: plugins/system/users/event.php:137
+msgid "Your entered key is invalid please try again!"
+msgstr ""
+
+#: plugins/system/users/module.php:59
+msgid "Username or Password is incerrect!"
+msgstr "کلید ورود یا گذرواژه اشتباه است!"
+
+#: plugins/system/users/view.php:22
+msgid "U"
+msgstr ""
+
+#: plugins/system/users/view.php:23
+msgid "Username or e-mail address"
+msgstr "نام کاربری یا رایانامه"
+
+#: plugins/system/users/view.php:27
+msgid "Password:"
+msgstr "گذرواژه:"
+
+#: plugins/system/users/view.php:29
+msgid "Password"
+msgstr "گذرواژه"
+
+#: plugins/system/users/view.php:33
+msgid "Remember me!"
+msgstr "مرا فراموش مکن!"
+
+#: plugins/system/users/view.php:36 plugins/system/users/view.php:71
+msgid "Sign in"
+msgstr "ورود"
+
+#: plugins/system/users/view.php:42
+msgid "Reset Password"
+msgstr "بازیابی گذرواژه"
+
+#: plugins/system/users/view.php:59
+msgid "Don't have account?"
+msgstr "حساب کاربری ندارید؟"
+
+#: plugins/system/users/view.php:62
+msgid "Sign up"
+msgstr "ثبت نام"
+
+#: plugins/system/users/view.php:83
+#, fuzzy, php-format
+msgid "Hello %s !"
+msgstr "سلام"
+
+#: plugins/system/users/view.php:89
+msgid "Sign Out!"
+msgstr "خروج!"
+
+#: plugins/system/users/view.php:98
+msgid "Admin panel"
+msgstr "محیط مدیریت"
+
+#: plugins/system/users/view.php:104
+msgid "User Profile"
+msgstr "نمایه کاربر"
+
+#: plugins/system/users/view.php:115
+msgid "Username:"
+msgstr "نام کاربری:"
+
+#: plugins/system/users/view.php:117
+msgid "Username"
+msgstr "نام کاربری"
+
+#: plugins/system/users/view.php:118
+msgid ""
+"Only letters and digits allowed. special characters and space not allowed."
+msgstr ""
+
+#: plugins/system/users/view.php:124 plugins/system/users/view.php:188
+msgid "Email:"
+msgstr "رایانامه:"
+
+#: plugins/system/users/view.php:125
+msgid ""
+"A valid e-mail address. All e-mails from the system will be sent to this "
+"address. The e-mail address is not made public and will only be used if you "
+"wish to receive a new password or wish to receive certain news or "
+"notifications by e-mail."
+msgstr ""
+"یک رایانامه معتبر وارد کنید. تمامی پیام ها از سامانه به این رایانامه ارسال "
+"خواهند شد. آدرس رایانامه شما منتشر نخواهد شد و فقط برای کار هایی مانند "
+"درخواست گذرواژه جدید یا درخواست دریافت اخبار و اطلاعیه استفاده خواهد شد."
+
+#: plugins/system/users/view.php:129
+msgid "Email"
+msgstr "رایانامه"
+
+#: plugins/system/users/view.php:135
+msgid "Create new account"
+msgstr "ایجاد حساب جدید"
+
+#: plugins/system/users/view.php:150
+msgid "Register"
+msgstr "ثبت نام"
+
+#: plugins/system/users/view.php:163
+#, fuzzy
+msgid "Activator code:"
+msgstr "کد فعال‌سازی"
+
+#: plugins/system/users/view.php:164
+#, fuzzy
+msgid "Enter activator code that you get from your email"
+msgstr "کد ی را که در ایمیل خود دریافت کرده اید را وارد کنید"
+
+#: plugins/system/users/view.php:168 plugins/system/users/view.php:175
+msgid "Active account"
+msgstr "فعال‌سازی حساب کاربری"
+
+#: plugins/system/users/view.php:189
+#, fuzzy
+msgid "Enter your email address that you register with that."
+msgstr "کد ی را که در ایمیل خود دریافت کرده اید را وارد کنید"
+
+#: plugins/system/users/view.php:193
+msgid "Send request"
+msgstr ""
+
+#: plugins/system/users/view.php:200
+msgid "Reset password"
+msgstr "بازیابی گذرواژه"
+
+#: plugins/system/users/view.php:204 core/lib/cls/core_cls_browser_msg.php:87
+msgid "Error!"
+msgstr "خطا!"
+
+#: core/inc/load.php:12
+msgid "403! You are blocked by SarkeshMVC internal firewall."
+msgstr "شما توسط دیوار اتش داخلی SarkeshMVC بلوک شده اید."
+
+#: core/inc/load.php:13
+msgid "SarkeshMVC Firewall!"
+msgstr "دیوار آتش سرکش"
+
+#: core/inc/load.php:93
+msgid "Internal error!"
+msgstr ""
+
+#: core/lib/controls/uploader/module.php:11
+msgid "Byte"
+msgstr "بایت"
+
+#: core/lib/controls/uploader/module.php:15
+msgid "KByte"
+msgstr "کیلوبایت"
+
+#: core/lib/controls/uploader/module.php:19
+msgid "MByte"
+msgstr "مگابایت"
+
+#: core/lib/controls/uploader/controller.php:24
+msgid "File uploader"
+msgstr "بارگزار فایل"
+
+#: core/lib/controls/uploader/controller.php:27
+msgid "Select file and click on upload button."
+msgstr "ابتدا فایل را انتخاب سپس روی دکمه بارگزاری کلیک کنید."
+
+#: core/lib/controls/uploader/view.php:33
+msgid "Browse ..."
+msgstr "انتخاب فایل"
+
+#: core/lib/controls/uploader/view.php:34
+#: core/lib/controls/uploader/view.php:59
+msgid "Upload"
+msgstr "بارگزاری"
+
+#: core/lib/controls/uploader/view.php:35
+msgid "Remove"
+msgstr "حذف"
+
+#: core/lib/controls/uploader/view.php:41
+msgid "File % is too large.max file size is:%s"
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:42
+#, php-format
+msgid "Invalid extension for file \"%s\". Only \"%s\" files are supported."
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:43
+#, php-format
+msgid "Loading file %s of %s …"
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:44
+#, php-format
+msgid "Loading file %s of %s - %s - %s %%  completed."
+msgstr ""
+
+#: core/lib/controls/uploader/view.php:47
+msgid "Drag & drop files here …"
+msgstr "فایل برای آپلود را اینجا بکشید"
+
+#: core/lib/controls/uploader/view.php:58
+msgid "File name"
+msgstr "نام فایل"
+
+#: core/lib/controls/uploader/view.php:60
+msgid "Select"
+msgstr "انتخاب"
+
+#: core/lib/controls/uploader/view.php:61
+msgid "Max Size"
+msgstr "حدکثر حجم"
+
+#: core/lib/controls/uploader/view.php:65
+msgid "Valid types"
+msgstr "فرمت های مجاز"
+
+#: core/lib/controls/checkbox/controller.php:60
+msgid "ON"
+msgstr "روشن"
+
+#: core/lib/controls/checkbox/controller.php:61
+msgid "OFF"
+msgstr "خاموش"
+
+#: core/lib/cls/core_cls_network_mail.php:3467
+msgid "best regards"
+msgstr "با احترام"
+
+#: core/lib/cls/core_cls_archive_zip.php:19
+#, fuzzy
+msgid "Can not open zip archive files"
+msgstr "فایل های آرشیو زیپ باز نمی شوند"
+
+#: core/lib/cls/core_cls_db_orm.php:47
+#, php-format
+msgid "Error in query execution!Reason: %s"
+msgstr ""
+
+#: core/lib/cls/core_cls_browser_page.php:238
+msgid "Ok"
+msgstr "قبول"
+
+#: core/lib/cls/core_cls_browser_page.php:241
+msgid "Back"
+msgstr "بازگشت"
+
+#: core/lib/cls/core_cls_browser_page.php:334
+msgid "Memory usage by system:"
+msgstr "استفاده از حافظه های سیستم:"
+
+#: core/lib/cls/core_cls_browser_page.php:335
+msgid "Real usage by system:"
+msgstr "حافظه واقعی مصرف شده:"
+
+#: core/lib/cls/core_cls_browser_page.php:336
+msgid "CPU usage by system:"
+msgstr "استفاده از پردازنده های سیستم:"
+
+#: core/lib/cls/core_cls_core_router.php:105
+msgid "Warning:Your requested service not found!"
+msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
+
+#: core/lib/cls/core_cls_browser_msg.php:14
+#, fuzzy
+msgid "Please fill all necessary places."
+msgstr "لطفا فیلد های لازم را تکمیل کنید."
+
+#: core/lib/cls/core_cls_browser_msg.php:25
+#, fuzzy
+msgid "Successful"
+msgstr "موفقیت"
+
+#: core/lib/cls/core_cls_browser_msg.php:25
+msgid "Your request successfully completed."
+msgstr "درخواست شما با موفقیت کامل شد."
+
+#: core/lib/cls/core_cls_browser_msg.php:37
+msgid "Access Denied!"
+msgstr "دسترسی غیرمجاز"
+
+#: core/lib/cls/core_cls_browser_msg.php:37
+msgid "You have no permission to do this operation!"
+msgstr "شما دسترسی لازم را ندارید."
+
+#: core/lib/cls/core_cls_browser_msg.php:47
+msgid "404!"
+msgstr ""
+
+#: core/lib/cls/core_cls_browser_msg.php:47
+#, fuzzy
+msgid "Your requested page not found!"
+msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
+
+#: core/lib/cls/core_cls_browser_msg.php:55
+#: core/lib/cls/core_cls_browser_msg.php:62
+msgid "503!"
+msgstr ""
+
+#: core/lib/cls/core_cls_browser_msg.php:55
+msgid "You have no permission to access this page."
+msgstr "شما مجوز کافی برای دسترسی به این صفحه را ندارید."
+
+#: core/lib/cls/core_cls_browser_msg.php:59
+msgid "Home"
+msgstr ""
+
+#: core/lib/cls/core_cls_browser_msg.php:70
+#, fuzzy
+msgid "Access denied!"
+msgstr "دسترسی غیرمجاز"
+
+#: core/lib/cls/core_cls_browser_msg.php:78
+msgid "Error"
+msgstr "خطا"
+
+#: core/lib/cls/core_cls_browser_msg.php:78
+#, fuzzy
+msgid "Some error was eccurred!"
+msgstr "خوشبختانه تاکنون خطایی رخ نداده است."
+
+#: core/lib/cls/core_cls_browser_msg.php:87
+msgid "Some error was eccurred! page will be refreshed."
+msgstr ""
+
+#: themes/basic/info.php:8
+msgid "Sarkesh Developers"
+msgstr "توسعه دهندگان سرکش"
+
+#: themes/basic/info.php:9
+msgid "Basic"
+msgstr "پایه"
+
+#~ msgid "plugin not found"
+#~ msgstr "افزونه پیدا نشد"
+
+#~ msgid "New Post"
+#~ msgstr "ایجاد مطلب"
+
+#~ msgid "Posts"
+#~ msgstr "مطالب"
+
+#~ msgid "Catalogues"
+#~ msgstr "فهرست"
+
+#~ msgid "Blog Settings"
+#~ msgstr "تنظیمات وبلاگ"
+
+#~ msgid "Blog"
+#~ msgstr "وبلاگ"
+
+#~ msgid "Blog catalogues"
+#~ msgstr "فهرست"
+
+#~ msgid "Content type"
+#~ msgstr "نوع محتوا"
+
+#~ msgid ""
+#~ "blog plugin work with selected content type that you set in this combobox."
+#~ "you can manage content types from content plugin."
+#~ msgstr ""
+#~ "پلاگین وبلاگ با نوع محتوایی که انتخاب می کنید کار میکند.شما میتوانید برای "
+#~ "مدیریت نوع محتواها از افزونه مدیریت محتوا استفاده کنید."
+
+#~ msgid "Show author"
+#~ msgstr "نمایش نام نویسنده"
+
+#~ msgid "If checked,author of post show in posts and catlogues."
+#~ msgstr ""
+#~ "اگر این گذینه را انتخاب کنید نام نویسنده در مطالب و بخش های منتشر شده "
+#~ "نمایش داده می شود."
+
+#~ msgid "Posts per page"
+#~ msgstr "تعداد مطالب در هر صفحه"
+
+#~ msgid "This option set number of post that can show per page."
+#~ msgstr ""
+#~ "از این گذینه میتوانید برای تعیین تعداد مطالب قابل نمایش در هر بخش استفاده "
+#~ "کنید."
+
+#~ msgid "Show date"
+#~ msgstr "نمایش تاریخ"
+
+#~ msgid "If checked,date will showed in post content."
+#~ msgstr "با انتخاب این گذینه تاریخ نشر مطلب نمایش داده می شود."
+
+#~ msgid "Blog settings"
+#~ msgstr "تنظیمات وبلاگ"
+
+#~ msgid "Localize"
+#~ msgstr "محلی سازی"
+
+#~ msgid "Add new catalogue"
+#~ msgstr "افزودن فهرست جدید"
+
+#~ msgid "Enter name of catalogue that you want to use that."
+#~ msgstr "نام فهرستی که قصد استفاده از آن را دارید را وارد کنید."
+
+#~ msgid "content of catalogue just show in selected localize."
+#~ msgstr "محتوای بخش تنها در زبان محلی انتخاب شده نمایش داده خواهد شد."
+
+#~ msgid "Insert"
+#~ msgstr "درج"
+
+#~ msgid "New catalogue"
+#~ msgstr "فهرست جدید"
+
+#~ msgid "Are you sure for delete %s ?"
+#~ msgstr "آیا برای حذف %s مطمئن هستید؟"
+
+#~ msgid "Delete catalogue"
+#~ msgstr "حذف فهرست"
+
+#~ msgid "Catalogue"
+#~ msgstr "فهرست"
+
+#~ msgid "you can seperate tags with \",\"."
+#~ msgstr "میتوانید برچسب ها را با \",\" از هم جدا کنید."
+
+#~ msgid "Publish"
+#~ msgstr "انتشار"
+
+#~ msgid "New post"
+#~ msgstr "ارسال جدید"
+
+#~ msgid "Header"
+#~ msgstr "سربرگ"
+
+#~ msgid "Blog posts"
+#~ msgstr "ارسال های وبلاگ"
+
+#~ msgid "by"
+#~ msgstr "توسط"
+
+#~ msgid "Posted on %s"
+#~ msgstr "ارسال شده در %s"
+
+#~ msgid "Older &rarr;"
+#~ msgstr "قدیمی تر &rarr;"
+
+#~ msgid "&larr; Newer"
+#~ msgstr "&larr; جدیدتر"
+
+#~ msgid "Manage catalogues"
+#~ msgstr "مدیریت فهرست ها"
+
+#~ msgid "Content"
+#~ msgstr "محتوا"
+
+#~ msgid "Please fill in all of the required fields"
+#~ msgstr "لطفا  تمام موارد مورد نیاز را پر کنید"
+
+#~ msgid ""
+#~ "Entered catalogue is exists before.please enter another one and try again."
+#~ msgstr "فهرست وارد شده تکراری است لطفا مورد دیگری را امتحان کنید."
+
+#~ msgid "Successfully saved."
+#~ msgstr "موفقیت ذخیره شد."
+
+#~ msgid "Update successful"
+#~ msgstr "به روز رسانی موفق"
+
+#~ msgid "Catalogue deleted successfuly."
+#~ msgstr "کاتالوگ با موفقیت حذف شد.."
+
+#~ msgid "Pattern deleted successfuly."
+#~ msgstr "الگو با موفقیت حذف شد."
+
+#~ msgid "Pattern updated successfuly."
+#~ msgstr "الگو با موفقیت به روز شد."
+
+#~ msgid "Pattern added successfuly."
+#~ msgstr "الگو با موفقیت اضافه شد."
+
+#~ msgid "%s by %s"
+#~ msgstr "%s توسط %s"
+
+#~ msgid "Manage patterns"
+#~ msgstr "مدیریت الگوها"
+
+#~ msgid "patterns"
+#~ msgstr "الگوها"
+
+#~ msgid "Update catalogue:"
+#~ msgstr "به روز رسانی فهرست"
+
+#~ msgid "Delete!"
+#~ msgstr "حذف!"
+
+#~ msgid "%s Patterns"
+#~ msgstr "الگوهای %s"
+
+#~ msgid "Type"
+#~ msgstr "نوع"
+
+#~ msgid "textarea"
+#~ msgstr "ناحیه متنی"
+
+#~ msgid "Add new"
+#~ msgstr "اضافه کردن جدید"
+
+#~ msgid "Delete pattern"
+#~ msgstr "حذف الگو"
+
+#~ msgid "Lable"
+#~ msgstr "برچسب"
+
+#~ msgid "Lable show to user in insert new content page"
+#~ msgstr "برچسب در صفحه درج محتوای جدید نمایش داده می شود."
+
+#~ msgid ""
+#~ "When set rank you can set position of pattern in content.ranks show from "
+#~ "DEC values"
+#~ msgstr ""
+#~ "به وسیله شاخص رتبه بندی میتوانید مکان الگو را در محتوا مشخص کنید.رتبه "
+#~ "بندی بر اساس نزولی است."
+
+#~ msgid "Editor"
+#~ msgstr "ویرایشگر"
+
+#~ msgid ""
+#~ "With this option you can enable or disable editor when user want to "
+#~ "insert new content."
+#~ msgstr ""
+#~ "با این گذینه شما می توانید در برای ارسال محتوا,ویرایشگر را فعال یا غیر "
+#~ "فعال کنید."
+
+#~ msgid "Edite pattern"
+#~ msgstr "ویرایش الگو"
+
+#~ msgid "Insert new pattern"
+#~ msgstr "الگوی جدید"
+
+#~ msgid "Insert new content:%s"
+#~ msgstr "درج محتوای جدید:%s"
+
+#~ msgid "Sarkesh Developers Team"
+#~ msgstr "تیم توسعه دهندگان سرکش"
+
+#~ msgid "With Core you can manage and controll base of system settings"
+#~ msgstr "با هسته شما می توانید تنظیمات پایه ی سیتم را مدیریت و کنترل کنید"
+
+#~ msgid "0.0.3"
+#~ msgstr "۰.۰.۳"
+
+#~ msgid "Administrator:"
+#~ msgstr "مدیریت:"
+
+#~ msgid "no access"
+#~ msgstr "دسترسی غیرمجاز"
+
+#~ msgid "you have no permission"
+#~ msgstr "شما دسترسی لازم را ندارید."
+
+#~ msgid "Change Theme"
+#~ msgstr "تغییر پوسته سایت"
+
+#~ msgid "Successfuly changed!"
+#~ msgstr "با موفقیت تغییر کرد."
+
+#~ msgid "Change Plugin state"
+#~ msgstr "تغییر وضعیت افزونه"
+
+#~ msgid "System message"
+#~ msgstr "پیام سیستم !"
+
+#~ msgid "Please fill all fields that marked with * ."
+#~ msgstr "لطفا فیلد های که دارای ستاره هستند را پر کنید"
+
+#~ msgid "All changes saved successfuly."
+#~ msgstr "تمام تغییرات ذخیره شده اند!"
+
+#~ msgid "Update Block"
+#~ msgstr "به روز رسانی بلوک"
+
+#~ msgid "Successfuly Updated."
+#~ msgstr "به روز رسانی با موفقیت انجام شد."
+
+#~ msgid "Themes"
+#~ msgstr "پوسته‌ها"
+
+#~ msgid "Active this"
+#~ msgstr "فعال کردن"
+
+#~ msgid "Author"
+#~ msgstr "نویسنده"
+
+#~ msgid "Options"
+#~ msgstr "تنظیمات"
+
+#~ msgid "Install"
+#~ msgstr "نصب"
+
+#~ msgid "Active"
+#~ msgstr "فعال کردن"
+
+#~ msgid "Disactive"
+#~ msgstr "غیرفعال کردن"
+
+#~ msgid "Default country"
+#~ msgstr "کشور پیش فرض"
+
+#~ msgid "Default Localize"
+#~ msgstr "ناحیه پیشفرض"
+
+#~ msgid "Default Timezone"
+#~ msgstr "ساعت زمانی پیشفرض"
+
+#~ msgid "Regional and languages"
+#~ msgstr "نواحی و زبان‌ها"
+
+#~ msgid ""
+#~ "Be careful! after delete this local setting all content that has relation "
+#~ "with this,will be removed."
+#~ msgstr ""
+#~ "مراقب باشید! بعد از حذف منطقه محلی , تمام محتواهای منتشر شده در آن از "
+#~ "دسترس خارج و حذف می شوند."
+
+#~ msgid "Delete local"
+#~ msgstr "حذف منطقه محلی"
+
+#~ msgid "Delete Static block"
+#~ msgstr "حذف بلوک ایستا"
+
+#~ msgid "System message !"
+#~ msgstr "پیام سیستم !"
+
+#~ msgid "File not found!"
+#~ msgstr "پیدا نشد!"
+
+#~ msgid "Hello is a sample plugin for developers."
+#~ msgstr "پلاگین سلام یک پلاگین نمونه برای توسعه دهندگان است."
+
+#~ msgid "System Reports"
+#~ msgstr "گزارشات سیستم"
+
+#~ msgid "PHP errors"
+#~ msgstr "خطاهای پی اچ پی"
+
+#~ msgid "Available updates"
+#~ msgstr "به روز رسانی ها"
+
+#~ msgid "Reports"
+#~ msgstr "گزارشات"
+
+#~ msgid "PHP Errors"
+#~ msgstr "خطاهای پی اچ پی"
+
+#~ msgid "Clear logs"
+#~ msgstr "پاک کردن تاریخچه"
+
+#~ msgid "PHP error logs cleared successfuly"
+#~ msgstr "خطاهای PHP با موفقیت پاک شد."
+
+#~ msgid "Clear Errors"
+#~ msgstr "پاک کردن خطاها"
+
+#~ msgid "PHP Error logs"
+#~ msgstr "تاریخچه خطاهای php"
+
+#~ msgid "New Menu"
+#~ msgstr "منو جدید"
+
+#~ msgid "List Menus"
+#~ msgstr "لیست منوها"
+
+#~ msgid "Menus"
+#~ msgstr "فهرست"
+
+#~ msgid "Menu name"
+#~ msgstr "نام فهرست"
+
+#~ msgid "Header label"
+#~ msgstr "برچسب سربرگ"
+
+#~ msgid "This text show above of menu in template."
+#~ msgstr "این متن در بالای منو در قالب وب سایت نمایش داده خواهد شد."
+
+#~ msgid "Show header label"
+#~ msgstr "نمایش برچسب سربرگ"
+
+#~ msgid "This option use for show or hide label of menu."
+#~ msgstr "این گذینه قابلیت نمایش یا مخفی کردن برچسب فهرست را دارد."
+
+#~ msgid "Created menu just will showed in selected localize."
+#~ msgstr "فهرست ایجاد  شده فقط در ناحیه محلی انتخاب شده نمایش داده خواهد شد."
+
+#~ msgid "Horizontal menu"
+#~ msgstr "فهرست افقی"
+
+#~ msgid "if this option checked,menu show in horizontal mode."
+#~ msgstr "اگر این گزینه را فعال کنید,فهرست به صورت افقی نمایش داده خواهد شد."
+
+#~ msgid "Add"
+#~ msgstr "افزودن"
+
+#~ msgid "New menu"
+#~ msgstr "فهرست جدید"
+
+#~ msgid "Add link"
+#~ msgstr "افزودن پیوند"
+
+#~ msgid "Manage links"
+#~ msgstr "مدیریت پیوند ها"
+
+#~ msgid "Manage"
+#~ msgstr "مدیریت"
+
+#~ msgid "List of menus"
+#~ msgstr "لیست فهرست ها"
+
+#~ msgid "Link label"
+#~ msgstr "برچسب پیوند"
+
+#~ msgid "URL"
+#~ msgstr "آدرس اینترنتی"
+
+#~ msgid "This option set address of link."
+#~ msgstr "این گذینه آدرس پیوند را مشخص می کند."
+
+#~ msgid "Enable link"
+#~ msgstr "فعالی سازی پیوند"
+
+#~ msgid "With this, you can show or hide link in menu."
+#~ msgstr "با این گذینه می توانید نمایش لینک در منو را فعال یا غیر فعال کنید."
+
+#~ msgid "use for set position of link in menu."
+#~ msgstr "برای تنظیم محل نمایش پیوند در فهرست از این گذینه استفاده کنید."
+
+#~ msgid "Save"
+#~ msgstr "ذخیره"
+
+#~ msgid "New link"
+#~ msgstr "افزودن پیوند"
+
+#~ msgid "List of links"
+#~ msgstr "لیست پیوند ها"
+
+#~ msgid "Are you sure for delete menu?"
+#~ msgstr "آیا برای حذف این منو مطمئن هستید؟"
+
+#~ msgid "Menu name: %s"
+#~ msgstr "نام فهرست : %s"
+
+#~ msgid "Delete menu"
+#~ msgstr "حذف فهرست"
+
+#~ msgid "Completed"
+#~ msgstr "کامل شد"
+
+#~ msgid "An error has occurred in system.please try again."
+#~ msgstr "خطایی در سیستم به وجود آمده است. لطفا مجددا تلاش کنید."
+
+#~ msgid "Some error was happen!"
+#~ msgstr "خطایی رخ داده است!"
+
+#~ msgid "Sorry</br>Page Not Found!"
+#~ msgstr "متاسفیم</br>صفحه یافت نشد!"
+
+#~ msgid "404 !"
+#~ msgstr "404!"
+
+#~ msgid "Go to Home"
+#~ msgstr "صفحه نخست"
+
+#~ msgid "Not Found!"
+#~ msgstr "پیدا نشد!"
+
+#~ msgid "People"
+#~ msgstr "افراد"
+
+#~ msgid "Groups"
+#~ msgstr "گروه ها"
+
+#~ msgid "Account settings"
+#~ msgstr "تنظیمات حساب کاربری"
+
+#~ msgid "IP address blocking"
+#~ msgstr "بلوک کردن IP"
+
+#~ msgid "Users"
+#~ msgstr "کاربران"
+
+#~ msgid "Please enter your username or email!"
+#~ msgstr "لطفا نام کاربری یا رایانامه خود را وارد کنید."
+
+#~ msgid "Please fill out all the field that are marked with an asterisk (*)."
+#~ msgstr "لطفا تمام فیلد هایی را که با (*) علامت گذاری شده اند، پر کنید."
+
+#~ msgid "Users and permations controlled with this plugin."
+#~ msgstr "کاربران و سطوح دسترسی توسط این پلاگین کنترل می شوند"
+
+#~ msgid "Your reset password code is:%s"
+#~ msgstr "کد بازیابی گذرواژه شما: %s"
+
+#~ msgid "Email is already taken by another user."
+#~ msgstr "ایمیل وارد شده قبلا ثبت شده است."
+
+#~ msgid "Your usernameis too short."
+#~ msgstr "نام‌کاربری کوتاه است."
+
+#~ msgid "The new passwords you entered do not match."
+#~ msgstr "کلمه‌های عبور وارد شده با هم مطابقت ندارند."
+
+#~ msgid "Your password is to short."
+#~ msgstr "طول کلمه‌عبور کوتاه است."
+
+#~ msgid "Your activation code is:%s"
+#~ msgstr "کد فعال‌سازی شما: %s"
+
+#~ msgid " first go to link that comes below and enter your activation code."
+#~ msgstr "ابتدا به پیوند زیر مراجعه کرده،سپس کد فعال‌سازی خود را وارد کنید."
+
+#~ msgid "Registration complete"
+#~ msgstr "عضویت کامل شد"
+
+#~ msgid "Your registration in %s was completed."
+#~ msgstr "عضویت شما در %s با موفقیت به پایان رسید."
+
+#~ msgid ""
+#~ "We sent an email with an activation code to activate your account, check "
+#~ "your email for more information."
+#~ msgstr ""
+#~ "ما یک نامه حاوی کد فعال‌سازی جهت تکمیل فرآیند عضویت به رایانامه شما ارسال "
+#~ "کردیم.برای اطلاعات بیشتر صندوق ورودی خود را چک کنید."
+
+#~ msgid "Registration completed!"
+#~ msgstr "عضویت کامل شد!"
+
+#~ msgid ""
+#~ "Your registration was successful.now you can login to system with your "
+#~ "login information that you entered"
+#~ msgstr ""
+#~ "عضویت شما با موفقیت انجام شد.هم‌اکنون میتوانید با اطلاعاتی که در زمان "
+#~ "ثبت‌نام وارد کرده‌اید وارد شوید."
+
+#~ msgid "New password"
+#~ msgstr "گذرواژه جدید"
+
+#~ msgid "Your new password is: %s"
+#~ msgstr "گذرواژه جدید شما: %s"
+
+#~ msgid "Please after login to portal change your password"
+#~ msgstr "لطفا بعد از ورود به پورتال کلمه‌عبور خود را تغییر دهید."
+
+#~ msgid "Password changed"
+#~ msgstr "گذرواژه با موفقیت تغییر کرد."
+
+#~ msgid ""
+#~ "Your new password was send to your email. check your email for get that."
+#~ msgstr "برای اطلاع از گذرواژه خویش، ایمیل خود را چک کنید."
+
+#~ msgid ""
+#~ "Error in sending new password to your email. please tell with "
+#~ "administrator"
+#~ msgstr ""
+#~ "خطا در ارسال رمز عبور جدید به ایمیل شما. لطفا با مدیر سایت تماس بگیرید."
+
+#~ msgid "Warning"
+#~ msgstr "هشدار"
+
+#~ msgid ""
+#~ "Code that you entered is invalid.please enter code that you got from your "
+#~ "email."
+#~ msgstr ""
+#~ "کد وارد شده اشتباه است.لطفا کدی که از طریق صندوق پست الکترونیکی خود "
+#~ "دریافت کرده‌اید را وارد کنید."
+
+#~ msgid "successfully updated"
+#~ msgstr "به روز رسانی با موفقیت انجام شد."
+
+#~ msgid "Settings was successfully updated."
+#~ msgstr "تنظیمات به‌روز شد"
+
+#~ msgid "Permission denied"
+#~ msgstr "دسترسی غیرمجاز"
+
+#~ msgid "You do't have permission to do this action."
+#~ msgstr "شما دسترسی لازم را ندارید."
+
+#~ msgid "Delete IP"
+#~ msgstr "حذف آی پی"
+
+#~ msgid "Requested IP successfully deleted."
+#~ msgstr "آی پی درخواستی با موفقیت حذف شد."
+
+#~ msgid "Add IP"
+#~ msgstr "افزودن آی پی"
+
+#~ msgid "IP Added to block list successfully."
+#~ msgstr "آی پی با موفقیت به لیست سیاه اضافه شد."
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid ""
+#~ "Spaces are allowed; punctuation is not allowed except for periods, "
+#~ "hyphens, apostrophes, and underscores."
+#~ msgstr ""
+#~ "شما مجاز به استفاده از فاصله هستید؛ ولی مجاز به استفاده از نشانه های "
+#~ "سجاوندی به جز نقطه، خط تیره، آپاستروف و زیرخط (_) نیستید."
+
+#~ msgid "Confirm password :"
+#~ msgstr "تأیید گذرواژه: "
+
+#~ msgid "Request reset password"
+#~ msgstr "درخواست گذرواژه جدید"
+
+#~ msgid "Enter your Alternate Email Address or username"
+#~ msgstr "نام کاربری یا رایانامه جایگزین خود را وارد کنید"
+
+#~ msgid "Send password reset code"
+#~ msgstr "ارسال کد بازیابی گذرواژه"
+
+#~ msgid "Enter reset code"
+#~ msgstr "کد بازیابی گذرواژه را وارد کنید."
+
+#~ msgid "Reset code"
+#~ msgstr "کد تنظیم مجدد"
+
+#~ msgid "Code"
+#~ msgstr "کد"
+
+#~ msgid "Change password"
+#~ msgstr "تغییر گذرواژه"
+
+#~ msgid "Your code in here!"
+#~ msgstr "کد شما در اینجا!"
+
+#~ msgid ""
+#~ "Enter code that you got it in your email in box below for active your "
+#~ "account."
+#~ msgstr "کد فعال‌سازی که از طریق رایانامه خود دریافت کرده‌اید را وارد کنید."
+
+#~ msgid "Last login:"
+#~ msgstr "آخرین ورود:"
+
+#~ msgid "Register date:"
+#~ msgstr "تاریخ عضویت"
+
+#~ msgid "Edite Profile"
+#~ msgstr "ویرایش نمایه"
+
+#~ msgid "%s's profile"
+#~ msgstr "نمایه %s"
+
+#~ msgid "Group"
+#~ msgstr "گروه"
+
+#~ msgid "Register Date"
+#~ msgstr "تاریخ عضویت"
+
+#~ msgid "User Groups"
+#~ msgstr "گروه های کاربری"
+
+#~ msgid "Count"
+#~ msgstr "تعداد"
+
+#~ msgid "New Group"
+#~ msgstr "گروه جدید"
+
+#~ msgid "Registration and cancellation"
+#~ msgstr "عضویت و غیرفعال سازی"
+
+#~ msgid "Who can register accounts? "
+#~ msgstr "چه کسانی میتوانند ثبت نام کنند."
+
+#~ msgid "Administrators only"
+#~ msgstr "فقط مدیران سایت"
+
+#~ msgid "Visitors"
+#~ msgstr "ببینندگان"
+
+#~ msgid "Visitors, but administrator approval is required"
+#~ msgstr "بینندگان,اما نیازمندان تایید مدیران است."
+
+#~ msgid "Require e-mail verification when a visitor creates an account."
+#~ msgstr "نیاز به تایید پست الکترونیکی در زمان عضویت."
+
+#~ msgid "Personalization"
+#~ msgstr "شخصی سازی"
+
+#~ msgid "Enable signatures."
+#~ msgstr "فعال سازی امضا کاربران"
+
+#~ msgid ""
+#~ "With enable this option user signature show in content that published by "
+#~ "user."
+#~ msgstr ""
+#~ "با فعال سازی این گذینه کاربران می توانند متن امضا خود را در محتواهایی که "
+#~ "منتشر می کنند نمایش دهند."
+
+#~ msgid "Enable user pictures. "
+#~ msgstr "فعال کردن تصاویر کاربر."
+
+#~ msgid "With this option,site users can upload personal avatars."
+#~ msgstr ""
+#~ "با فعال سازی این گذینه کاربران میتوانند برای خود تصویر معرف دلخواه انتخاب "
+#~ "کنند."
+
+#~ msgid "Picture upload max file size"
+#~ msgstr "حداکثر حجم تصویر"
+
+#~ msgid "KiloByte"
+#~ msgstr "کیلوبایت"
+
+#~ msgid "Picture guidelines"
+#~ msgstr "راهنمای تصویر"
+
+#~ msgid ""
+#~ "This text is displayed at the picture upload form in addition to the "
+#~ "default guidelines. It's useful for helping or instructing your users."
+#~ msgstr ""
+#~ "این متن در فرم ارسال تصویر علاوه بر دستورالعمل به طور پیش فرض نمایش داده "
+#~ "می شود. که می تواند برای کمک یا راهنمایی کاربران شما مفید باشد."
+
+#~ msgid "Emails"
+#~ msgstr "رایانامه"
+
+#~ msgid "Blocked IPs"
+#~ msgstr "آی پی های مسدود شده"
+
+#~ msgid "IP number"
+#~ msgstr "ادرس آی پی"
+
+#~ msgid "IP Address"
+#~ msgstr "ادرس آی پی"
+
+#~ msgid "Enter ip that you want will be blocked by system. "
+#~ msgstr "آی پی که قصد مسدود کردن آن را دارید را وارد کنید."
+
+#~ msgid "Block new ip"
+#~ msgstr "مسدود کردن آی پی جدید"
+
+#~ msgid "simple"
+#~ msgstr "ساده"
+
+#~ msgid "Textarea"
+#~ msgstr "ناحیه متنی"
+
+#~ msgid "Guest"
+#~ msgstr "مهمان"
+
+#~ msgid "Add Content"
+#~ msgstr "اضافه کردن محتوا"
+
+#~ msgid "ADD"
+#~ msgstr "افزودن"
+
+#~ msgid "Applay"
+#~ msgstr "اعمال"
+
+#~ msgid "Use ',' for seperate page urls."
+#~ msgstr "برای جدا کردن صفحات از کاما استفاده کنید."
+
+#~ msgid "Settings"
+#~ msgstr "تنظیمات"
+
+#~ msgid "Save Changes"
+#~ msgstr "ذخیره تغییرات"

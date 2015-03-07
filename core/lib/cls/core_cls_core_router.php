@@ -49,7 +49,7 @@ class router{
 		//get localize
 		$localize = core\localize::singleton();
 		$this->localize = $localize->localize();
-		if($plugin == '' || $action == ''){
+		if($plugin == '' && $action == ''){
 			if(!is_null(PLUGIN)){
 				$this->plugin = PLUGIN;
 				//now we check action
@@ -69,23 +69,22 @@ class router{
 	* @return string,requested content
 	*/
 	public function showContent($show = true){
-	      //this function run from page class.
-	      // this function load plugin and run controller
-	      //checking for that plugin is enabled
-	      $content = browser\msg::pageNotFound();
-	      if($this->objPlugin->enabled($this->plugin)){
-				if(file_exists('./plugins/system/' . $this->plugin . '/action.php')){
-					$PluginName = '\\core\\plugin\\' . $this->plugin . '\\action';
-				}
-				elseif(file_exists('./plugins/defined/' . $this->plugin . '/action.php')){
-					$PluginName = '\\addon\\plugin\\' . $this->plugin . '\\action';
-				}
+		//this function run from page class.
+	    // this function load plugin and run controller
+	    //checking for that plugin is enabled
+	    $content = browser\msg::pageNotFound();
+	    if($this->objPlugin->enabled($this->plugin)){
+			if(file_exists('./plugins/system/' . $this->plugin . '/action.php')){
+				$PluginName = '\\core\\plugin\\' . $this->plugin . '\\action';
+			}
+			elseif(file_exists('./plugins/defined/' . $this->plugin . '/action.php')){
+				$PluginName = '\\addon\\plugin\\' . $this->plugin . '\\action';
+			}
 
-	     		 $plugin = new $PluginName;
-	     		 //run action directly
-	     		 if(method_exists($plugin,$this->action))
-					 $content = call_user_func(array($plugin,$this->action),'content');
-				
+	     	$plugin = new $PluginName;
+	     	//run action directly
+			if(method_exists($plugin,$this->action))
+			$content = call_user_func(array($plugin,$this->action),'content');	
 	      }
 	      browser\page::setPageTitle($content[0]);
           //show header in up of content or else

@@ -47,7 +47,10 @@ class module{
 			$user->login_key = $validID;
 			$user->last_login = time();
 			$orm->store($user);
-			$e['RV']['URL'] = 'R';
+			if(array_key_exists('hidJump',$e))
+				$e['RV']['URL'] = core\general::createUrl([$e['hidJump']['VALUE']]);
+			else
+				$e['RV']['URL'] = 'R';
 		}
 		else{
 			//username or password is incerrect
@@ -67,8 +70,9 @@ class module{
 			//get user info
 			$orm = db\orm::singleton();
 			$user = $this->getCurrentUserInfo();
+			
 			if(!is_null($user))
-				return $this->viewWidgetProfile($user,true);
+				return $this->viewWidgetProfile($user,$this->hasPermission('adminPanel'));
 		}
 		return null;
 	}

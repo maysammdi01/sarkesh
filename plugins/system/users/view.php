@@ -11,6 +11,12 @@ trait view {
 	 */
 	protected function frmLogin($position = 'block'){
 		$form = new control\form('frmUsersLogin');
+		if(defined('PLUGIN_OPTIONS')){
+			$jump = new control\hidden('hidJump');
+			$jump->value = PLUGIN_OPTIONS;
+			$form->add($jump);
+		}
+		
 		$username = new control\textbox('username');
 		$username->INLINE = TRUE;
 		$username->ADDON = _('U');
@@ -44,7 +50,7 @@ trait view {
 		$form = new control\form;
 		$form->NAME = 'usersLoginFrm';
 		if($position == 'block') $form->NAME = 'usersLoginWidget';
-		$form->add_array([$username,$password,$remember,$r]);
+		$form->addArray([$username,$password,$remember,$r]);
 		//users can register?
 		$registry = core\registry::singleton();
 		

@@ -42,7 +42,7 @@ class form extends control\form\module{
 		//key not exists//
 		return FALSE;
 	}
-	public function add_array($element){
+	public function addArray($element){
 		foreach($element as $control){
 			$this->add($control);
 		}

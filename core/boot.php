@@ -19,7 +19,7 @@ if(file_exists(AppPath . "db-config.php")) {
 		//jump to home page
 		$localize = \core\cls\core\localize::singleton();
 		$local = $localize->localize();
-		\core\cls\core\router::jump($local->home ,true);
+		\core\cls\core\router::jump(\core\cls\core\general::createUrl([$local->home],$local->language) ,true);
 		exit();
 	}
 }

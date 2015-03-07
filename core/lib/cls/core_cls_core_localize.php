@@ -40,9 +40,9 @@ class localize{
 	* @return boolean,(successful:true else:false)
 	*/
 	public function setLang($lang){
-		if($language != ''){
-			core\cookie::set('core_language' , $lang);
-			core\session::set('core_language', $lang);
+		if($lang != ''){
+			network\cookie::set('siteLanguage' , $lang);
+			network\session::set('siteLanguage', $lang);
 			return true;
 		}
 		return false;
@@ -53,8 +53,9 @@ class localize{
 	* @return void
 	*/
 	public function language(){
-		if(isset($_COOKIE['core_language'])) return $_COOKIE['core_language'];		
-		elseif(isset($_SESSION['core_language'])) return $_SESSION['core_language'];		
+		if(defined('LOCALIZE')) return LOCALIZE;
+		elseif(isset($_SESSION['siteLanguage'])) return $_SESSION['siteLanguage'];		
+		elseif(isset($_COOKIE['siteLanguage'])) return $_COOKIE['siteLanguage'];		
 		return $this->localize->language;
 	}
 	
