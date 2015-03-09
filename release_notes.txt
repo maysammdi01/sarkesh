@@ -1,0 +1,42 @@
+Release note
+SarkeshMVC 0.7.1
+Buld number:940101
+Date:21 March 2015
+
+System requirements:
+- OS: Linux +3.5.2
+- Apache: +2.0
+- PHP: +5.3
+- mysql: +4
+
+Additions
+	-add have been parsing MVC internal standard for develop plugins.
+	-i18n plugin
+	-core\data\obj class
+	-core\data\str class
+Removals
+	-Menus plugin
+	-msg plugin
+	-language plugin
+	-content plugin
+	-blog plugin
+	-remove install theme and plugin parts from administrator plugin
+Changes
+	-administrator plugin
+	-all lib classes
+	-registry key names
+Fixes
+	-event holders for get clicked element values
+	-change theme\info.php file from array to class with 2 universal static function
+
+installation:
+	-create blank database
+	-upload system to your host
+	-import install\import.sql to your database
+	-edite db_config.php for connect to your database
+
+
+Enjoy from sarkeshMVC
+Babak alizadeh
+
+
