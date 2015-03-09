@@ -127,8 +127,65 @@ class event{
 			}
 		}
 		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * insert or update static block
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnDeleteBlock($e){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			if($orm->count('blocks','id=? and visual=?',[$e['hidID']['VALUE'],1]) != 0){
+				$orm->exec('DELETE FROM blocks WHERE id=?',[$e['hidID']['VALUE']],NON_SELECT);
+				//save changes
+				return browser\msg::modalsuccessfull($e,['service','administrator','load','administrator','blocks']);
+			}
+		}
+		return browser\msg::modalNoPermission($e);
 		
 		
 	}
+	
+	/*
+	 * change plugin state
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnChangePlugin($e){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			if($orm->count('plugins','id=?',[$e['CLICK']['VALUE']]) != 0){
+				$plugin = $orm->findOne('plugins','id=?',[$e['CLICK']['VALUE']]);
+				$state = 0;
+				if($plugin->enable == 0) $state = 1;
+				$plugin->enable = $state;
+				$orm->store($plugin);
+				//save changes
+				return browser\msg::modalsuccessfull($e,['service','administrator','load','administrator','plugins']);
+			}
+			return browser\msg::modalEventError($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
 	 
+	 
+	 /*
+	 * change change theme of system
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnChangeTheme($e){
+		if($this->hasAdminPanel()){
+			if(file_exists(AppPath . '/themes/' . $e['CLICK']['VALUE'] . '/info.php')){
+				$registry = core\registry::singleton();
+				$registry->set('administrator','active_theme',$e['CLICK']['VALUE']);
+				//save changes
+				return browser\msg::modalsuccessfull($e,['service','administrator','load','administrator','themes']);
+			}
+			return browser\msg::modalEventError($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
 }

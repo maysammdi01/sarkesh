@@ -30,12 +30,11 @@ try{
 	* this statics load plugin and action and localize;
 	*/
 	$orm = \core\cls\db\orm::singleton();
-	$localize = $orm->find('localize');
-	$activeLang = $localize[0];
+	$localize = \core\cls\core\localize::singleton();
 	$control = [];
 	//normal mode
 	if(isset($_REQUEST['q'])){
-		if(count($localize) != 1){
+		if($localize->isMultiLang()){
 			$control = explode('/', $_REQUEST['q'],4);
 			if($control[1] == 'service'){
 				$control = explode('/', $_REQUEST['q'],5);
@@ -46,6 +45,7 @@ try{
 			}
 			elseif($control[0] == 'control'){
 				$control = explode('/', $_REQUEST['q'],3);
+				define('LOCALIZE',$localize->language());
 				define('CONTROL',$control[1]);
 				define('ACTION',$control[2]);
 				if(isset($control[3])) define('PLUGIN_OPTIONS',$control[3]);

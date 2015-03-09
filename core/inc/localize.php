@@ -12,13 +12,10 @@ else
 	
 $localize = \core\cls\core\localize::singleton();
 $language = $localize->language();
-$codeset = 'UTF8';
-putenv("LANG=" . $language . '.' . $codeset);
-putenv("LANGUAGE=" . $language . '.' . $codeset);
-setlocale(LC_ALL, $language . '.' . $codeset);
+putenv("LANG=" . $language );
+setlocale(LC_ALL, $language );
 bindtextdomain($language, AppPath . "languages/");
 textdomain($language);
-echo $language;
 //SET DEFINES STATIC VARIABLES
 define('SITE_LANG',$language);
 ?>

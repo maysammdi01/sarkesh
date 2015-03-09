@@ -28,7 +28,10 @@ class general{
 		$url = '';
 		if(!CLEAN_URL) $url = '?q=';
 		if(!is_null($language)) $url .= $language . '/';
-		elseif(MULTI_LANG) $url .= $_SESSION['siteLanguage'] . '/';
+		elseif(MULTI_LANG){
+			if(array_key_exists('siteLanguage',$_SESSION)) $url .= $_SESSION['siteLanguage'] . '/';
+			else $url .= SITE_LANG . '/';
+		}
 		for($i = 0; $i<= max(array_keys($parameters)) ; $i ++){
 			if($i == max(array_keys($parameters)))
 				$url .= $parameters[$i];

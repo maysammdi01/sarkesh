@@ -12,7 +12,7 @@ class event{
 	 */
 	public function changeLanguage($e){
 		$localize = core\localize::singleton();
-		$local = $localize->localize();
+		$local = $localize->getLocal($e['lang']['SELECTED']);
 		if($localize->setLang($e['lang']['SELECTED']))
 			$e['RV']['URL'] = core\general::createUrl([$local->home],$e['lang']['SELECTED']);
 		else

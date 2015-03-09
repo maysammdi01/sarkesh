@@ -33,6 +33,15 @@ class localize{
 		if($default) return $this->localize;
 		return $this->orm->findOne('localize','language=?',[$this->language()]);
 	}
+	
+	/*
+	* this function return difined localize settings in cookie
+	* @param string $language,language code like en_US or fa_IR
+	* @return array
+	*/
+	public function getLocal($lang){
+		return $this->orm->findOne('localize','language=?',[$this->language()]);
+	}
 
 	/*
 	* set cms language on cookie
@@ -53,8 +62,8 @@ class localize{
 	* @return void
 	*/
 	public function language(){
-		if(defined('LOCALIZE')) return LOCALIZE;
-		elseif(isset($_SESSION['siteLanguage'])) return $_SESSION['siteLanguage'];		
+		if(isset($_SESSION['siteLanguage'])) return $_SESSION['siteLanguage'];
+		elseif(defined('LOCALIZE')) return LOCALIZE;	
 		elseif(isset($_COOKIE['siteLanguage'])) return $_COOKIE['siteLanguage'];		
 		return $this->localize->language;
 	}
@@ -74,5 +83,17 @@ class localize{
 	public function defLanguage(){
 		return $this->localize;
 	}
+	
+	/*
+	 * check for that website is multi language
+	 * @return boolean(multilanguage: true, else false)
+	 */
+	public function isMultiLang(){
+		$orm = db\orm::singleton();
+		if($orm->count('localize') != 1)
+			return true;
+		return false;
+	}
+	
 }
 ?>

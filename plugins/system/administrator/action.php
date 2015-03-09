@@ -85,5 +85,29 @@ class action extends module{
 		return $this->moduleEditeStaticBlock();
 	}
 	
+	/*
+	 * show delete message
+	 * @return string, html content
+	 */
+	public function sureDeleteBlock(){
+		return $this->moduleSureDeleteBlock();
+	}
+	
+	/*
+	 * show form for manage plugins
+	 * @return string, html content
+	 */
+	public function plugins(){
+		return $this->modulePlugins();
+	}
+	
+	/*
+	 * show form for manage themes
+	 * @return string, html content
+	 */
+	public function themes(){
+		return $this->moduleThemes();
+	}
+	
 	
 }

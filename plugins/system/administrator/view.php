@@ -292,10 +292,10 @@ class view {
 		$btn_static_block->configure('TYPE','primary');
 		$row->add($btn_static_block,2);
 		//add cancel buttons
-		$btn_cancel = new control\button('btn_cancel');
-		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
-		$row->add($btn_cancel,1);
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+		$row->add($btnCancel,1);
 
 		$form->add($row); 
 		
@@ -314,47 +314,47 @@ class view {
         $hid_id->configure('VALUE',$local->id);
         $form->add($hid_id);
         
-        $txt_sitename = new control\textbox('txtName');
-        $txt_sitename->configure('LABEL',_('Site name'));
-        $txt_sitename->configure('VALUE',$local->name);
-        $txt_sitename->configure('ADDON','*');
-        $txt_sitename->configure('SIZE',3);
-        $form->add($txt_sitename);
+        $txtSiteName = new control\textbox('txtName');
+        $txtSiteName->configure('LABEL',_('Site name'));
+        $txtSiteName->configure('VALUE',$local->name);
+        $txtSiteName->configure('ADDON','*');
+        $txtSiteName->configure('SIZE',3);
+        $form->add($txtSiteName);
         
-        $txt_slogan = new control\textbox('txtSlogan');
-        $txt_slogan->configure('LABEL',_('Slogan'));
-        $txt_slogan->configure('VALUE',$local->slogan);
-        $txt_slogan->configure('HELP',_("How this is used depends on your site's theme."));
-        $txt_slogan->configure('ADDON','O'); //O -> OPTIONAL
-        $txt_slogan->configure('SIZE',3);
-        $form->add($txt_slogan);
+        $txtSlogan = new control\textbox('txtSlogan');
+        $txtSlogan->configure('LABEL',_('Slogan'));
+        $txtSlogan->configure('VALUE',$local->slogan);
+        $txtSlogan->configure('HELP',_("How this is used depends on your site's theme."));
+        $txtSlogan->configure('ADDON','O'); //O -> OPTIONAL
+        $txtSlogan->configure('SIZE',3);
+        $form->add($txtSlogan);
         
-        $txt_email = new control\textbox('txtEmail');
-        $txt_email->configure('LABEL',_('Email address'));
-        $txt_email->configure('VALUE',$local->email);
-        $txt_email->configure('ADDON','*');
-        $txt_email->configure('SIZE',5);
-        $txt_email->configure('HELP',_("The From address in automated e-mails sent during registration and new password requests, and other notifications. (Use an address ending in your site's domain to help prevent this e-mail being flagged as spam.)"));
-        $form->add($txt_email);
+        $txtEmail = new control\textbox('txtEmail');
+        $txtEmail->configure('LABEL',_('Email address'));
+        $txtEmail->configure('VALUE',$local->email);
+        $txtEmail->configure('ADDON','*');
+        $txtEmail->configure('SIZE',5);
+        $txtEmail->configure('HELP',_("The From address in automated e-mails sent during registration and new password requests, and other notifications. (Use an address ending in your site's domain to help prevent this e-mail being flagged as spam.)"));
+        $form->add($txtEmail);
         
-        $txt_frontpage = new control\textbox('txtHome');
-        $txt_frontpage->configure('LABEL',_('Front page'));
-        $txt_frontpage->configure('VALUE',$local->home);
-        $txt_frontpage->configure('ADDON',SiteDomain . '/');
-        $txt_frontpage->configure('SIZE',5);
-        $txt_frontpage->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
-        $form->add($txt_frontpage);
+        $txtHome = new control\textbox('txtHome');
+        $txtHome->configure('LABEL',_('Front page'));
+        $txtHome->configure('VALUE',$local->home);
+        $txtHome->configure('ADDON',SiteDomain . '/');
+        $txtHome->configure('SIZE',5);
+        $txtHome->configure('HELP',_("Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"));
+        $form->add($txtHome);
 
         //add description to head of page
-        $txt_des = new control\textarea('txtDes');
-        $txt_des->configure('EDITOR',FALSE);
-        $txt_des->configure('VALUE',$local->header_tags);
-        $txt_des->configure('LABEL',_('Description'));
-        $txt_des->configure('HELP',_('your text show in header of page for use in search engines.'));
-        $txt_des->configure('EDITOR',FALSE);
-        $txt_des->configure('ROWS',5);
-		$txt_des->configure('SIZE',7);
-        $form->add($txt_des);
+        $txtDes = new control\textarea('txtDes');
+        $txtDes->configure('EDITOR',FALSE);
+        $txtDes->configure('VALUE',$local->header_tags);
+        $txtDes->configure('LABEL',_('Description'));
+        $txtDes->configure('HELP',_('your text show in header of page for use in search engines.'));
+        $txtDes->configure('EDITOR',FALSE);
+        $txtDes->configure('ROWS',5);
+		$txtDes->configure('SIZE',7);
+        $form->add($txtDes);
         
         //add update and cancel buttons
 		$btn_update = new control\button('btn_update');
@@ -363,15 +363,15 @@ class view {
 		$btn_update->configure('P_ONCLICK_FUNCTION','onclickBtnBasicSettingsEdite');
 		$btn_update->configure('TYPE','primary');
 
-		$btn_cancel = new control\button('btn_cancel');
-		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','basicSettings']));
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','basicSettings']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
 		$row->add($btn_update,1);
-		$row->add($btn_cancel,11);
+		$row->add($btnCancel,11);
 		$form->add($row);                
         
         
@@ -417,9 +417,9 @@ class view {
 		$btn_do->configure('P_ONCLICK_FUNCTION','onclickBtnDoBlock');
 		$btn_do->configure('TYPE','primary');
 		
-		$btn_cancel = new control\button('btnCancel');
-		$btn_cancel->configure('LABEL',_('Cancel'));
-		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','blocks']));
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','blocks']));
 		
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
@@ -444,7 +444,7 @@ class view {
 		}
  		$form->addArray([$txt_block_name,$txt_block_label,$ckb_show_header,$txt_content]);
 		$row->add($btn_do,1);
-		$row->add($btn_cancel,11);
+		$row->add($btnCancel,11);
 		$form->add($row); 
 		return [$header,$form->draw()];	
 	}
@@ -511,10 +511,8 @@ class view {
 		$cobLocalize->configure('HELP',_('block will showed in selected localize.'));
 		$cobLocalize->configure('SIZE',4);
 		$cobLocalize->configure('SELECTED_INDEX',$block->localize);
-		$cobLocalize->configure('TABLE',$locals);
-
-		$cobLocalize->configure('COLUMN_VALUES',0);
-		$cobLocalize->configure('COLUMN_LABELS',1);
+		$cobLocalize->configure('SOURCE',$locals);
+		
 		$form->add($cobLocalize);
 
 		//create combobox for positions
@@ -546,6 +544,141 @@ class view {
 		
 		
 		return [_('Edite Block:').$block->name,$form->draw()];
+	}
+	
+	/*
+	 * show delete message
+	 * @param object $block, block information
+	 * @return string, html content
+	 */
+	public function viewSureDeleteBlock($block){
+		$form = new control\form('administartor_sure_delete_blocks');
+
+		$hidID = new control\hidden('hidID');
+		$hidID->configure('VALUE',$block->id);
+
+		$lblMsg = new control\label;
+		$lblMsg->configure('LABEL',sprintf(_('Are you sure for delete %s ?'),$block->name));
+	
+		$btnDelete = new control\button('btnDelete');
+		$btnDelete->configure('LABEL',_('Delete'));
+		$btnDelete->configure('TYPE','danger');
+		$btnDelete->configure('P_ONCLICK_PLUGIN','administrator');
+		$btnDelete->configure('P_ONCLICK_FUNCTION','onclickBtnDeleteBlock');
+		
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','blocks']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btnDelete,1);
+		$row->add($btnCancel,11);
+
+		$form->addArray([$hidID,$lblMsg,$row]);
+		return [_('Delete Static block'),$form->draw()];
+	}
+	
+	/*
+	 * show form for manage plugins
+	 * $param array $plugins, all plugins options
+	 * @return array, html content
+	 */
+	public function viewPlugins($plugins){
+		$form = new control\form("core_manage_plugins");
+		$form->configure('LABEL',_('Plugins'));
+		$table = new control\table;
+		$counter = 0;
+		foreach($plugins as $key=>$plugin){
+			$counter ++ ;
+			$row = new control\row;
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($counter);
+			$row->add($lbl_id,1);
+			
+			//add plugin name
+			$lbl_plugin_name = new control\label($plugin->name);
+			$row->add($lbl_plugin_name,2);
+			$btnActive = new control\button;		
+			//add plugin state			
+			if($plugin->enable != 1){
+				$btnActive->configure('LABEL',_('Active'));
+				$btnActive->configure('TYPE','success');	
+			}
+			else{
+				$btnActive->configure('LABEL',_('Disactive'));
+				$btnActive->configure('TYPE','danger');			
+			}
+			$btnActive->configure('VALUE',$plugin->id);
+			$btnActive->configure('P_ONCLICK_PLUGIN','administrator');
+			$btnActive->configure('P_ONCLICK_FUNCTION','onclickBtnChangePlugin');
+			$row->add($btnActive,1);
+			$table->add_row($row);
+			
+		}
+		
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,5,3,3]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);		
+		return array(_('Plugins'),$form->draw());
+	}
+	
+	/*
+	 * show form for manage themes
+	 * @param array $themes ,theme names
+	 * @param string $activeTheme, current active theme
+	 * @return string, html content
+	 */
+	public function viewThemes($themes,$activeTheme){
+		$form = new control\form("core_manage_themes");
+		$form->configure('LABEL',_('Themes'));
+		$table = new control\table;
+		
+		foreach($themes as $key=>$theme){
+			$themeInfo = call_user_func(['theme\\' . $theme,'getInfo']);
+			$row = new control\row;
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($key+1);
+			$row->add($lbl_id,1);
+			
+			//add theme name
+			$lblThemeName = new control\label($themeInfo->name);
+			$row->add($lblThemeName,2);
+			
+			//add author of theme
+			$lblAuthor = new control\label($themeInfo->author);
+			$row->add($lblAuthor,2);
+			
+			
+			
+			//add active theme button
+			if($theme !== $activeTheme){
+				$btnActive = new control\button;
+				$btnActive->configure('LABEL',_('Active this'));
+				$btnActive->configure('TYPE','success');
+				$btnActive->configure('VALUE',$theme);
+				$btnActive->configure('P_ONCLICK_PLUGIN','administrator');
+				$btnActive->configure('P_ONCLICK_FUNCTION','onclickBtnChangeTheme');
+				$row->add($btnActive,1);
+			}
+            
+			$table->add_row($row);
+			
+		}
+		
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Author'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,5,3,3]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,FALSE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+		return array(_('Appearance'),$form->draw());
 	}
 	
 }

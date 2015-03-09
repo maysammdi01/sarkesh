@@ -40,7 +40,7 @@ class module extends view{
 	/*
 	 * load basic administrator panel
 	 * @param string $opt, option of action
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleLoad($opt){
 		if($this->isLogedin()){
@@ -59,7 +59,7 @@ class module extends view{
 	
 	/*
 	 * show dashboard administrator form
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleDashboard(){
 		if($this->hasAdminPanel())
@@ -69,7 +69,7 @@ class module extends view{
 	
 	/*
 	 * check for updates
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleCheckUpdate(){
 		if($this->hasAdminPanel()){
@@ -81,7 +81,7 @@ class module extends view{
 	
 	/*
 	 * show core settings page
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleCoreSettings(){
 		if($this->hasAdminPanel()){
@@ -93,7 +93,7 @@ class module extends view{
 	
 	/*
 	 * show manage block form
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleBlocks(){
 		if($this->hasAdminPanel()){
@@ -115,7 +115,7 @@ class module extends view{
 	
 	/*
 	 * show manage block form
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleBasicSettings(){
 		if($this->hasAdminPanel()){
@@ -129,7 +129,7 @@ class module extends view{
 	
 	/*
 	 * edite localize settings
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleBasicSettingsEdite(){
 		$options = explode('/',PLUGIN_OPTIONS);
@@ -146,7 +146,7 @@ class module extends view{
 	
 	/*
 	 * show form for add new static block
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleNewStaticBlock(){
 		if($this->hasAdminPanel()){
@@ -157,9 +157,9 @@ class module extends view{
 	
 	/*
 	 * show form for edite
-	 * @return string, html content
+	 * @return array, html content
 	 */
-	public function moduleEditeBlock(){
+	protected function moduleEditeBlock(){
 		$options = explode('/',PLUGIN_OPTIONS);
 		if(count($options) == 3){
 			if($this->hasAdminPanel()){
@@ -180,9 +180,9 @@ class module extends view{
 					$locals = $orm->findAll('localize');
 					$languages = [];
 					foreach ($locals as $key => $local)
-						array_push($languages, [$local->language,$local->language_name]);
+						array_push($languages, [$local->language_name,$local->language]);
 					//add all block
-					array_push($languages, ['all',_('All languages')]);
+					array_push($languages, [_('All languages'),'all']);
 					return $this->viewEditeBlock($block,$places,$languages);
 				}
 				return browser\msg::pageNotFound();
@@ -194,10 +194,10 @@ class module extends view{
 	
 	/*
 	 * edite static block
-	 * @return string, html content
+	 * @return array, html content
 	 */
 	protected function moduleEditeStaticBlock(){
-				$options = explode('/',PLUGIN_OPTIONS);
+		$options = explode('/',PLUGIN_OPTIONS);
 		if(count($options) == 3){
 			if($this->hasAdminPanel()){
 				//check for that is id cerrect
@@ -209,5 +209,58 @@ class module extends view{
 			return browser\msg::pageAccessDenied();	
 		}
 		return browser\msg::pageError();
+	}
+	
+	/*
+	 * show delete message
+	 * @return array, html content
+	 */
+	protected function moduleSureDeleteBlock(){
+		$options = explode('/',PLUGIN_OPTIONS);
+		if(count($options) == 3){
+			if($this->hasAdminPanel()){
+				//check for that is id cerrect
+				$orm = db\orm::singleton();
+				if($orm->count('blocks','id=? and visual=?',[$options[2],1]) != 0)
+					return $this->viewSureDeleteBlock($orm->findOne('blocks','id=?',[$options[2]]));
+				return browser\msg::pageNotFound();
+			}
+			return browser\msg::pageAccessDenied();	
+		}
+		return browser\msg::pageError();
+	}
+	
+	/*
+	 * show form for manage plugins
+	 * @return array, html content
+	 */
+	protected function modulePlugins(){
+		if($this->hasAdminPanel()){
+			//get all localize from database
+			$orm = db\orm::singleton();
+			$plugins = $orm->find('plugins','can_edite != 0');
+			return $this->viewPlugins($plugins);
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * show form for manage themes
+	 * @return string, html content
+	 */
+	public function moduleThemes(){
+		if($this->hasAdminPanel()){
+			//Get all themes that exists
+			$directory = scandir(AppPath. '/themes/');
+			$themes = (array) null;
+			foreach($directory as $files)
+				if(is_dir(AppPath . 'themes/' . $files) && $files != '.' && $files != '..')
+					array_push($themes,$files);
+			//get current active theme
+			$activeTheme = $this->activeTheme();
+			//send to view for show themes
+			return $this->viewThemes($themes,$activeTheme);
+		}
+		return browser\msg::pageAccessDenied();
 	}
 }
