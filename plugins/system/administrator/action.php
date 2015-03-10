@@ -109,5 +109,12 @@ class action extends module{
 		return $this->moduleThemes();
 	}
 	
+	/*
+	 * manage regional and languages settings
+	 * @return string, html content
+	 */
+	public function regAndLang(){
+		return $this->moduleRegAndLang();
+	}
 	
 }

@@ -117,7 +117,7 @@ class view {
 		$lblUpdateMsg->label = _('Your system is update! noting to do.');
 		if($siteBuildNumber<$lastBuildNumber){
 			$lblUpdateMsg->label = sprintf(_('Your system is out of date.for get latest update go to sarkesh website'),$lastBuildNumber);
-			$btnJump = new control\button('btn_update');
+			$btnJump = new control\button('btnUpdate');
 			$btnJump->label = _('Jump to release notes');
 			$btnJump->type = 'success';
 			$btnJump->href = S_SERVER_INFO . 'release_notes/' . $lastBuildNumber . '.txt';
@@ -357,11 +357,11 @@ class view {
         $form->add($txtDes);
         
         //add update and cancel buttons
-		$btn_update = new control\button('btn_update');
-		$btn_update->configure('LABEL',_('Update'));
-		$btn_update->configure('P_ONCLICK_PLUGIN','administrator');
-		$btn_update->configure('P_ONCLICK_FUNCTION','onclickBtnBasicSettingsEdite');
-		$btn_update->configure('TYPE','primary');
+		$btnUpdate = new control\button('btnUpdate');
+		$btnUpdate->configure('LABEL',_('Update'));
+		$btnUpdate->configure('P_ONCLICK_PLUGIN','administrator');
+		$btnUpdate->configure('P_ONCLICK_FUNCTION','onclickBtnBasicSettingsEdite');
+		$btnUpdate->configure('TYPE','primary');
 
 		$btnCancel = new control\button('btnCancel');
 		$btnCancel->configure('LABEL',_('Cancel'));
@@ -370,7 +370,7 @@ class view {
 		$row = new control\row;
 		$row->configure('IN_TABLE',false);
 		
-		$row->add($btn_update,1);
+		$row->add($btnUpdate,1);
 		$row->add($btnCancel,11);
 		$form->add($row);                
         
@@ -595,12 +595,12 @@ class view {
 			$row = new control\row;
 			
 			//add id to table for count rows
-			$lbl_id = new control\label($counter);
-			$row->add($lbl_id,1);
+			$lblID = new control\label($counter);
+			$row->add($lblID,1);
 			
 			//add plugin name
-			$lbl_plugin_name = new control\label($plugin->name);
-			$row->add($lbl_plugin_name,2);
+			$lblPluginName = new control\label($plugin->name);
+			$row->add($lblPluginName,2);
 			$btnActive = new control\button;		
 			//add plugin state			
 			if($plugin->enable != 1){
@@ -644,8 +644,8 @@ class view {
 			$row = new control\row;
 			
 			//add id to table for count rows
-			$lbl_id = new control\label($key+1);
-			$row->add($lbl_id,1);
+			$lblID = new control\label($key+1);
+			$row->add($lblID,1);
 			
 			//add theme name
 			$lblThemeName = new control\label($themeInfo->name);
@@ -654,9 +654,7 @@ class view {
 			//add author of theme
 			$lblAuthor = new control\label($themeInfo->author);
 			$row->add($lblAuthor,2);
-			
-			
-			
+
 			//add active theme button
 			if($theme !== $activeTheme){
 				$btnActive = new control\button;
@@ -679,6 +677,62 @@ class view {
 		$table->configure('BORDER',true);
 		$form->add($table);
 		return array(_('Appearance'),$form->draw());
+	}
+	
+		/*
+	 * show form for manage themes
+	 * @return string, html content
+	 */
+	public function viewRegAndLang($countries,$timezones,$locals,$local){
+		 $form = new control\form('administrator_regandlang_settings');
+        
+        //show default countries
+        $cobCountries = new control\combobox('cobContries');
+        $cobCountries->configure('LABEL',_('Default country'));
+        $cobCountries->configure('TABLE',$countries);
+        $cobCountries->configure('COLUMN_VALUES','country_name');
+        $cobCountries->configure('COLUMN_LABELS','country_name');
+        $cobCountries->configure('SIZE',3);
+        $form->add($cobCountries);
+        
+        //default language
+        $cobLanguage = new control\combobox('cobLanguage');
+        $cobLanguage->configure('LABEL',_('Default Localize'));
+        $cobLanguage->configure('TABLE',$locals);
+        $cobLanguage->configure('SELECTED_INDEX',$local->id);
+        $cobLanguage->configure('COLUMN_VALUES','id');
+        $cobLanguage->configure('COLUMN_LABELS','language_name');
+        $cobLanguage->configure('SIZE',3);
+        $form->add($cobLanguage);
+         
+        //show default timezones
+        $cobTimezone = new control\combobox('cobTimezones');
+        $cobTimezone->configure('LABEL',_('Default Timezone'));
+        $cobTimezone->configure('TABLE',$timezones);
+        $cobTimezone->configure('COLUMN_VALUES','timezone_name');
+        $cobTimezone->configure('COLUMN_LABELS','timezone_name');
+        $cobTimezone->configure('SIZE',3);
+        $form->add($cobTimezone);
+        
+        //add update and cancel buttons
+		$btnUpdate = new control\button('btnUpdate');
+		$btnUpdate->configure('LABEL',_('Update'));
+		$btnUpdate->configure('P_ONCLICK_PLUGIN','administrator');
+		$btnUpdate->configure('P_ONCLICK_FUNCTION','onclickBtnUpdateRegandlang');
+		$btnUpdate->configure('TYPE','primary');
+		
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btnUpdate,1);
+		$row->add($btnCancel,11);
+		$form->add($row);   
+        
+        return[_('Regional and languages'),$form->draw()];
 	}
 	
 }

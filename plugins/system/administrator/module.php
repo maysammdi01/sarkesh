@@ -263,4 +263,30 @@ class module extends view{
 		}
 		return browser\msg::pageAccessDenied();
 	}
+	
+	/*
+	 * manage regional and languages settings
+	 * @return string, html content
+	 */
+	public function moduleRegAndLang(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			//get default country
+			$registry = new core\registry;
+			$settings = $registry->getPlugin('administrator');
+			//get all countneries
+			$countries = $orm->exec('SELECT * FROM countries ORDER BY country_name=? DESC',[$settings->default_country]);
+			
+			//load default timezone
+			$timezones = $orm->exec('SELECT * FROM  timezones ORDER BY timezone_name=? DESC',[$settings->default_timezone]);
+			
+			//get localize
+			$localize = new core\localize;
+			$locals = $localize->getAll();
+			
+			return $this->viewRegAndLang($countries,$timezones,$locals,$localize->localize(true));
+			
+		}
+		return browser\msg::pageAccessDenied();
+	}
 }

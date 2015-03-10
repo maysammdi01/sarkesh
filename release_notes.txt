@@ -8,6 +8,7 @@ System requirements:
 - Apache: +2.0
 - PHP: +5.3
 - mysql: +4
+Warrning: multi language and some other options not working on windows XP/VISTA/7/2002/2008/2008 R2/2014 Server/8/8.1/10 :)
 
 Additions
 	-add have been parsing MVC internal standard for develop plugins.

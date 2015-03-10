@@ -188,4 +188,33 @@ class event{
 		}
 		return browser\msg::modalNoPermission($e);
 	}
+	
+	/*
+	 * change change of regional and language settings
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnUpdateRegandlang($e){
+		if($this->hasAdminPanel()){
+			//save default country
+			$registry = core\registry::singleton();
+			$registry->set('administrator','default_country',$e['cobContries']['SELECTED']);
+			//SAVE DEFAULT TIMEZONE
+			$registry->set('administrator','default_timezone',$e['cobTimezones']['SELECTED']);
+			
+			//save default localize
+			//disactive old localize
+			$orm = db\orm::singleton();
+			$localize = $orm->findOne('localize','main=\'1\'');
+			$localize->main = 0;
+			$orm->store($localize);
+			//active new localize
+			$localize = $orm->findOne('localize','id=?',[$e['cobLanguage']['SELECTED']]);
+			$localize->main = 1;
+			$orm->store($localize);
+			return browser\msg::modalsuccessfull($e,['service','administrator','load','administrator','dashboard']);
+			
+		}
+		return browser\msg::modalNoPermission($e);
+	}
 }
