@@ -26,7 +26,7 @@ class general{
 	 */
 	static function createUrl($parameters,$language = null){
 		$url = '';
-		if(!CLEAN_URL) $url = '?q=';
+		if(defined('CLEAN_URL')) if(!CLEAN_URL) $url = '?q=';
 		if(!is_null($language)) $url .= $language . '/';
 		elseif(MULTI_LANG){
 			if(array_key_exists('siteLanguage',$_SESSION)) $url .= $_SESSION['siteLanguage'] . '/';
