@@ -7,7 +7,7 @@ if(file_exists(AppPath . "db-config.php")) {
 	//going to run sarkesh!
 	include_once(AppPath . "config.php");
 	//LOAD INC Files
-	//require_once( AppPath . 'core/functions/debug.php');
+	require_once( AppPath . 'core/functions/debug.php');
 	require_once( AppPath . 'core/defines.php');
 	require_once(AppPath . 'core/inc/localize.php');
 	

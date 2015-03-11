@@ -45,4 +45,11 @@ trait addons {
 		$registry = core\registry::singleton();
 		return $registry->get('administrator','active_theme');
 	}
+	
+	/*
+	 * this function search plugin directory and install new plugins in database and remove deleted plugins
+	 */
+	public function refreshPlugins(){
+		//Warrning under development
+	}
 }

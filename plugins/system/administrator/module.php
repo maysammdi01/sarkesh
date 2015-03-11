@@ -236,6 +236,8 @@ class module extends view{
 	 */
 	protected function modulePlugins(){
 		if($this->hasAdminPanel()){
+			//refresh plugins
+			$this->refreshPlugins();
 			//get all localize from database
 			$orm = db\orm::singleton();
 			$plugins = $orm->find('plugins','can_edite != 0');
