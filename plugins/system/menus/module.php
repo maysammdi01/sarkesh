@@ -50,14 +50,47 @@ class module extends view{
 			else{
 				//edite menu
 				$orm = db\orm::singleton();
-				echo $options[2];
 				if($orm->count('menus','id=?',[$options[2]]) != 0){
 					$menu = $orm->findOne('menus','id=?',[$options[2]]);
 					return $this->viewDoMenu($localize->getAll(),$menu);
 				}
-				
 			}
-			
+		}
+		return browser\msg::pageAccessDenied();	
+	}
+	
+	/*
+	 * Show message for delete menu
+	 * @return array [title,content]
+	 */
+	public function moduleSureDeleteMenu(){
+		$options = explode('/',PLUGIN_OPTIONS);
+		if($this->hasAdminPanel()){
+			if(count($options) == 3){
+				$orm = db\orm::singleton();
+				if($orm->count('menus','id=?',[$options[2]]) != 0)
+					return $this->viewSureDeleteMenu($orm->load('menus',$options[2]));
+				return browser\msg::pageNotFound();
+			}
+			return browser\msg::pageError();
+		}
+		return browser\msg::pageAccessDenied();	
+	}
+	
+	/*
+	 * show list of links in menu
+	 * @return array [title,content]
+	 */
+	public function moduleListLinks(){
+		$options = explode('/',PLUGIN_OPTIONS);
+		if($this->hasAdminPanel()){
+			if(count($options) == 3){
+				$orm = db\orm::singleton();
+				if($orm->count('menus','id=?',[$options[2]]) != 0)
+					return $this->viewListLinks($orm->find('links','ref_id=?',[$options[2]]),$options[2]);
+				return browser\msg::pageNotFound();
+			}
+			return browser\msg::pageError();
 		}
 		return browser\msg::pageAccessDenied();	
 	}
