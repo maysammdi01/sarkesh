@@ -4,6 +4,7 @@ use \core\cls\browser as browser;
 use \core\cls\network as network;
 use \core\cls\core as core;
 use \core\cls\db as db;
+use \core\data as data;
 
 class event extends module{
 	
@@ -138,6 +139,36 @@ class event extends module{
 		return $e;
 	}
 	
-	
-	
+	/*
+	 * Delete ip from black list
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnDeleteIp($e){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			$orm->exec('DELETE FROM ipblock WHERE id=?',[$e['CLICK']['VALUE']],NON_SELECT);
+			return browser\msg::modalsuccessfull($e,'R');
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	/*
+	 * Delete ip from black list
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnAddIp($e){
+		if($this->hasAdminPanel()){
+			if(data\type::isIp($e['txtIp']['VALUE']) == FALSE){
+				$e['txtIp']['VALUE'] = '';
+				return browser\msg::modal($e,_('Error!'),_('Entered ip is invalid please try another one.'),'warning');
+			}
+			$orm = db\orm::singleton();
+			$ip = $orm->dispense('ipblock');
+            $ip->ip = ip2long(trim($e['txtIp']['VALUE']));
+            $orm->store($ip);
+            return browser\msg::modalSuccessfull($e,['service','administrator','load','users','ipBlockList']);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
 }

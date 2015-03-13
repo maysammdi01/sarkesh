@@ -23,7 +23,8 @@ class msg{
 	 */
 	public static function modalSuccessfull($e,$page='N'){
 		$e['RV']['MODAL'] = page::showBlock(_('Successful'),_('Your request successfully completed.'),'MODAL','type-success');
-		if($page != 'N') $e['RV']['JUMP_AFTER_MODAL'] = core\general::createUrl($page);
+		if($page == 'R') $e['RV']['JUMP_AFTER_MODAL'] = 'R';
+		elseif($page != 'N') $e['RV']['JUMP_AFTER_MODAL'] = core\general::createUrl($page);
 		return $e;
 	}
 	

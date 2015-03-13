@@ -200,6 +200,98 @@ trait view {
 		return [_('Reset password'),$form->draw()];
 	}
 	
+	/*
+	 * show list of blocked ips
+	 * @param array $ips, list of all blocked ips that fetch from database
+	 * @return string, html content
+	 */
+	public function viewIpBlockList($ips){
+		$form = new control\form("users_list_ip_blocked");
+		$form->configure('LABEL',_('Blocked IPs'));
+				
+		$table = new control\table;
+		$key=1;
+		foreach($ips as $key=>$ip){
+			$row = new control\row;
+					
+			//add id to table for count rows
+			$lbl_id = new control\label($key);
+			$key++;
+			$row->add($lbl_id,1);
+					
+			//add ip
+			$lbl_ip = new control\label(long2ip($ip->ip));
+			$row->add($lbl_ip,2);
+		            
+
+			//add edite button
+			$btn_remove = new control\button;
+			$btn_remove->configure('LABEL',_('Delete'));
+			$btn_remove->configure('TYPE','info');
+			$btn_remove->configure('VALUE',$ip->id);
+			$btn_remove->configure('P_ONCLICK_PLUGIN','users');
+			$btn_remove->configure('P_ONCLICK_FUNCTION','onclickBtnDeleteIp');
+			$row->add($btn_remove,1);
+			$table->add_row($row);
+					
+		}
+				
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('IP number'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,5,2]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+
+		//update and cancel buttons
+		$btn_update = new control\button('btn_add_new');
+		$btn_update->configure('LABEL',_('Add IP'));
+		$btn_update->configure('HREF',core\general::createUrl(['service','administrator','load','users','newIpBlock']));
+		$btn_update->configure('TYPE','primary');
+				
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+				
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
+		return [_('Blocked IPs'),$form->draw()];
+	}
+	
+	/*
+	 * add new ip to block list
+	 * @return string, html content
+	 */
+	public function viewNewIpBlock(){
+		$form = new control\form('frm_new_ip_block');
+	  	$txtIp = new control\textbox('txtIp');
+	  	$txtIp->configure('LABEL',_('IP Address'));
+	  	$txtIp->configure('ADDON',_('*'));
+	  	$txtIp->configure('SIZE',4);
+		$txtIp->configure('HELP',_('Enter ip that you want will be blocked by system. '));
+		$form->add($txtIp);
+		//update and cancel buttons
+		$btnUpdate = new control\button('btnUpdate');
+		$btnUpdate->configure('LABEL',_('Add'));
+		$btnUpdate->configure('P_ONCLICK_PLUGIN','users');
+		$btnUpdate->configure('P_ONCLICK_FUNCTION','onclickBtnAddIp');
+		$btnUpdate->configure('TYPE','primary');
+		
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','users','ipBlockList']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		$row->add($btnUpdate,1);
+		$row->add($btnCancel,11);
+		$form->add($row);
+	  	return [_('Block new ip'),$form->draw()];
+	}
+	
 	protected function viewFailActiveAccount(){
 		return [_('Error!','Your enterd activator code is invalid or be expaird.')];
 	}

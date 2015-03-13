@@ -12,8 +12,25 @@ class module{
 	/*
 	 * construct
 	 */
-	function __construct(){
-		
+	function __construct(){}
+	
+	//this function return back menus for use in admin area
+	public static function coreMenu(){
+		$menu = array();
+		$url = core\general::createUrl(['service','administrator','load','users','listPeople']);
+		array_push($menu,[$url, _('People')]);
+		$url = core\general::createUrl(['service','administrator','load','users','listGroups']);
+		array_push($menu,[$url, _('Groups')]);
+		$url = core\general::createUrl(['service','administrator','load','users','listPermissions']);
+		array_push($menu,[$url, _('Permissions')]);
+		$url = core\general::createUrl(['service','administrator','load','users','accountSettings']);
+		array_push($menu,[$url, _('Account settings')]);
+		$url = core\general::createUrl(['service','administrator','load','users','ipBlockList']);
+		array_push($menu,[$url, _('IP address blocking')]);
+		$ret = array();
+		array_push($ret, ['<span class="glyphicon glyphicon-user" aria-hidden="true"></span>' , _('Users')]);
+		array_push($ret,$menu);
+		return $ret;
 	}
 	
 	/*
@@ -119,5 +136,28 @@ class module{
 		$loginForm = $this->frmLogin();
 		$page = browser\page::simplePage($loginForm[0],browser\page::showBlock($loginForm[0],$loginForm[1],'BLOCK'),5,true);
 		return $page;
+	}
+	
+	/*
+	 * show list of blocked ips
+	 * @return string, html content
+	 */
+	public function moduleIpBlockList(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			return $this->viewIpBlockList($orm->getAll('ipblock'));
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * add new ip to block list
+	 * @return string, html content
+	 */
+	public function moduleNewIpBlock(){
+		if($this->hasAdminPanel()){
+			return $this->viewNewIpBlock();
+		}
+		return browser\msg::pageAccessDenied();
 	}
 }

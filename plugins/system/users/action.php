@@ -49,5 +49,21 @@ class action extends module{
 		return browser\msg::pageNotFound();
 	}
 	
+	/*
+	 * show list of blocked ips
+	 * @return string, html content
+	 */
+	public function ipBlockList(){
+		return $this->moduleIpBlockList();	
+	}
+	
+	/*
+	 * add new ip to block list
+	 * @return string, html content
+	 */
+	public function newIpBlock(){
+		return $this->moduleNewIpBlock();	
+	}
+	
 	
 }

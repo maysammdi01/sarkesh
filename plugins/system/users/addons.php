@@ -5,7 +5,7 @@ use \core\cls\network as network;
 use \core\cls\db as db;
 
 trait addons {
-	
+	use \core\plugin\administrator\addons;
 	/*
 	 * check for that user is logedin or not
 	 * @return boolean (logedin:true, else:false)

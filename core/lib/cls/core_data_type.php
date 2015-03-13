@@ -13,5 +13,16 @@ class type{
 			return true;
 		return false;
 	}
+	
+	/*
+	 * check for that string is a valid ip
+	 * @param string $ip, input ip address
+	 * @return boolean
+	 */
+	public static function isIp($ip){
+		if(filter_var($ip, FILTER_VALIDATE_IP) === false)
+			return false;
+		return true;
+	}
 }
 ?>
