@@ -92,6 +92,56 @@ class module extends view{
 			}
 			return browser\msg::pageError();
 		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * Show message for delete links
+	 * @return array [title,content]
+	 */
+	public function moduleSureDeleteLink(){
+		$options = explode('/',PLUGIN_OPTIONS);
+		if($this->hasAdminPanel()){
+			if(count($options) == 3){
+				$orm = db\orm::singleton();
+				if($orm->count('links','id=?',[$options[2]]) != 0)
+					return $this->viewSureDeleteLink($orm->load('links',$options[2]));
+				return browser\msg::pageNotFound();
+			}
+			return browser\msg::pageError();
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * draw menu in theme
+	 * @param string $menuID, menu id in database
+	 * @return array [title,content]
+	 */
+	public function moduleDrawMenu($menuID){
+		$orm = db\orm::singleton();
+		$links = $orm->exec('SELECT l.id,l.label,l.url,l.rank,l.enable,m.name,m.show_header,m.header,m.horiz FROM links l INNER JOIN menus m ON l.ref_id=m.id WHERE m.id=?',[$menuID]);
+		return self::viewDrawMenu($links);
+	}
+	
+	/*
+	 * insert or update link
+	 * @return array [title,content]
+	 */
+	public function moduleDoLink(){
+		$options = explode('/',PLUGIN_OPTIONS);
+		if($this->hasAdminPanel()){
+			if(count($options) == 4){
+				$orm = db\orm::singleton();
+				if($orm->count('links','id=?',[$options[3]]) != 0)
+					return $this->viewDoLink($orm->load('links',$options[3]),$options[2]);
+				return browser\msg::pageNotFound();
+			}
+			elseif(count($options) == 3){
+				return $this->viewDoLink(null,$options[2]);
+			}
+			return browser\msg::pageError();
+		}
 		return browser\msg::pageAccessDenied();	
 	}
 	

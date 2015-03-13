@@ -2,6 +2,7 @@
 namespace core\plugin\menus;
 use \core\control as control;
 use \core\cls\core as core;
+use \core\cls\template as template;
 
 class view {
 	
@@ -36,7 +37,7 @@ class view {
 			$btnAddLink = new control\button;
 			$btnAddLink->configure('LABEL',_('Add link'));
 			$btnAddLink->configure('TYPE','success');
-			$btnAddLink->configure('HREF',core\general::createUrl(['service','administrator','load','menus','addLink',$menu->id]));
+			$btnAddLink->configure('HREF',core\general::createUrl(['service','administrator','load','menus','doLink',$menu->id]));
 			$row->add($btnAddLink,1);
 
 			$btnManageLinks = new control\button;
@@ -259,5 +260,132 @@ class view {
 		$row->add($btnCancel,11);
 		$form->add($row);
 		return [_('List of links'),$form->draw()];
+	}
+	
+	/*
+	 * Show message for delete link
+	 * @param object $link, link information that fetch from database
+	 * @return array [title,content]
+	 */
+	public function viewSureDeleteLink($link){
+		$form = new control\form('menus_sure_delete_menu');
+
+		$hidID = new control\hidden('hidID');
+		$hidID->configure('VALUE',$link->id);
+		$form->add($hidID);
+
+		$lbl = new control\label;
+		$lbl->configure('LABEL',_('Are you sure for delete this link?'));
+		$lbl_menu_name = new control\label;
+		$lbl_menu_name->configure('LABEL',sprintf(_('link name: %s'),$link->label));
+		$form->add($lbl);
+		$form->add($lbl_menu_name);
+
+		//add update and cancel buttons
+		$btnDelete = new control\button('btnDelete');
+		$btnDelete->configure('LABEL',_('Delete'));
+		$btnDelete->configure('P_ONCLICK_PLUGIN','menus');
+		$btnDelete->configure('P_ONCLICK_FUNCTION','onclickBtnDeleteLink');
+		$btnDelete->configure('TYPE','danger');
+		
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','menus','listLinks',$link->ref_id]));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btnDelete,1);
+		$row->add($btnCancel,11);
+		$form->add($row);
+		return [_('Delete link'),$form->draw()];
+	}
+	
+	/*
+	 * draw menu in theme
+	 * @param array $links, links informations
+	 * @return array [title,content]
+	 */
+	public function viewDrawMenu($links){
+		//create an object from raintpl class//
+		$raintpl = new template\raintpl;
+		//configure raintpl //
+		$raintpl->configure('tpl_dir','plugins/system/menus/tpl/');
+
+		$raintpl->assign( "horiz", $links[0]->horiz);
+		$raintpl->assign( "show_header", $links[0]->show_header);
+		$raintpl->assign( "header", $links[0]->header);
+		$raintpl->assign( "links", $links);
+		//draw and return back content
+		return ['',$raintpl->draw('menu', true )];
+	}
+	
+	/*
+	 * insert or update link
+	 * @param object $link, link information
+	 * @param integer $menuID, id of menu for update or insert new link
+	 * @return array [title,content]
+	 */
+	public function viewDoLink($link=null,$menuID){
+		$form = new control\form('menus_add_link');
+
+		$hidMenuID = new control\hidden('hidMenuID');
+		$hidMenuID->configure('VALUE',$menuID);
+
+		$txtLinkLabel = new control\textbox('txtLabel');
+		$txtLinkLabel->configure('LABEL',_('Link label'));
+		$txtLinkLabel->configure('HELP',_('This option set label for link.'));
+		$txtLinkLabel->configure('ADDON','*');
+		$txtLinkLabel->configure('SIZE',3);
+		
+		$txtLinkUrl = new control\textbox('txtUrl');
+		$txtLinkUrl->configure('LABEL',_('URL'));
+		$txtLinkUrl->configure('HELP',_('This option set address of link.'));
+		$txtLinkUrl->configure('ADDON','*');
+		$txtLinkUrl->configure('SIZE',4);
+
+		$ckbEnable = new control\checkbox('ckbEnable');
+		$ckbEnable->configure('LABEL',_('Enable link'));
+		$ckbEnable->configure('HELP',_('With this, you can show or hide link in menu.'));
+
+		//create combobox for ranking
+		$cobRank = new control\combobox('cobRank');
+        $cobRank->configure('LABEL',_('Rank'));
+        $cobRank->configure('SOURCE',[0,1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20]);
+        $cobRank->configure('HELP',_('use for set position of link in menu.'));
+        $cobRank->configure('SIZE',3);
+
+		//add update and cancel buttons
+		$btnDo = new control\button('btnDo');
+		$btnDo->configure('LABEL',_('Add'));
+		$btnDo->configure('P_ONCLICK_PLUGIN','menus');
+		$btnDo->configure('P_ONCLICK_FUNCTION','onclickBtnDoLink');
+		$btnDo->configure('TYPE','primary');
+		
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','menus','listLinks',$menuID]));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btnDo,1);
+		$row->add($btnCancel,11);
+
+		if(!is_null($link)){
+			//edite mode
+			if($link->enable == 1) $ckbEnable->checked = true;
+			$txtLinkLabel->configure('VALUE',$link->label);
+			$txtLinkUrl->configure('VALUE',$link->url);
+			$hidID = new control\hidden('hidID');
+			$hidID->configure('VALUE',$link->id);
+			$btnDo->configure('LABEL',_('Save'));
+			$cobRank->configure('SELECTED_INDEX',$link->rank);
+			$form->add($hidID);
+
+		}
+		$form->addArray([$txtLinkLabel,$txtLinkUrl,$hidMenuID,$cobRank,$ckbEnable]);
+		$form->add($row);   
+		return [('Add new link'),$form->draw()];
 	}
 }

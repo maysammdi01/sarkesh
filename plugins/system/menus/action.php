@@ -36,4 +36,20 @@ class action extends module{
 		return $this->moduleListLinks();
 	}
 	
+	/*
+	 * Show message for delete links
+	 * @return array [title,content]
+	 */
+	public function sureDeleteLink(){
+		return $this->moduleSureDeleteLink();
+	}
+	
+	/*
+	 * insert or update link
+	 * @return array [title,content]
+	 */
+	public function doLink(){
+		return $this->moduleDoLink();
+	}
+	
 }

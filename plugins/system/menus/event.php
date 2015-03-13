@@ -24,9 +24,8 @@ class event{
 						$menu = $orm->findOne('menus','id=?',[$e['hidID']['VALUE']]);
 						$update = true;
 					}
-					else{
-						return $this->msg->error_message_modal(true,$e);
-					}
+					else
+						return browser\msg::modalEventError($e);
 				}
 				
 				$menu->name = $e['txtName']['VALUE'];
@@ -53,7 +52,7 @@ class event{
 						$block->visual = 1;
 						$block->position = 'Off';
 						$block->show_header = 0;
-						$block->handel = 'draw_menu';
+						$block->handel = 'drawMenu';
 						$orm->store($block);
 
 				}
@@ -67,7 +66,7 @@ class event{
 	}
 	
 	/*
-	 * Delet emnu from database
+	 * Delet menu from database
 	 * @param array $e,form properties
 	 * @return array $e,form properties
 	 */
@@ -86,4 +85,52 @@ class event{
 		return browser\msg::modalNoPermission($e);
 	}
 	
+	/*
+	 * Delet link from database
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnDeleteLink($e){
+		if($this->hasAdminPanel()){
+			//first delete block
+			$orm = db\orm::singleton();
+			$orm->exec("DELETE FROM links WHERE ref_id=?;",[$e['hidID']['VALUE']],NON_SELECT);
+			return browser\msg::modalSuccessfull($e,['service','administrator','load','menus','listMenus']);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	/*
+	 * insert or update link
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnDoLink($e){
+		if($this->hasAdminPanel()){
+			if($e['txtLabel']['VALUE'] != '' && $e['txtUrl']['VALUE'] != '' ){
+				$orm = db\orm::singleton();
+				$link = $orm->dispense('links');
+				if(array_key_exists('hidID', $e)){
+					//edite mode
+					if($orm->count('links','id=?',[$e['hidID']['VALUE']]) != 0)
+						$link = $orm->findOne('links','id=?',[$e['hidID']['VALUE']]);
+					else
+						return browser\msg::modalEventError($e);
+				}
+				
+				$link->label = $e['txtLabel']['VALUE'];
+				$link->url = $e['txtUrl']['VALUE'];
+				$link->ref_id = $e['hidMenuID']['VALUE'];
+				$link->enable = 0;
+				if($e['ckbEnable']['CHECKED'] == 1){
+					$link->enable = 1;
+				}
+				$link->rank = $e['cobRank']['SELECTED'];
+				$orm->store($link);
+				return browser\msg::modalSuccessfull($e,['service','administrator','load','menus','listLinks',$e['hidMenuID']['VALUE']]);
+			}
+			
+			return browser\msg::modalNotComplete($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}	
 }
