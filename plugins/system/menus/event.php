@@ -75,7 +75,7 @@ class event{
 			//first delete block
 			$orm = db\orm::singleton();
 			$plugin = $orm->findOne('plugins',"name='menus'");
-			$orm->exec("DELETE FROM blocks WHERE plugin=? and handel='draw_menu' and value=?;",[$plugin->id,$e['hidID']['VALUE']],NON_SELECT);
+			$orm->exec("DELETE FROM blocks WHERE plugin=? and handel='drawMenu' and value=?;",[$plugin->id,$e['hidID']['VALUE']],NON_SELECT);
 			//DELETE MENU
 			$orm->exec("DELETE FROM menus WHERE id=?;",[$e['hidID']['VALUE']],NON_SELECT);
 			//DELETE LINKS
