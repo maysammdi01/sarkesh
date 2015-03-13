@@ -7,7 +7,6 @@ class image extends control\image\module{
 	private $config;
 	function __construct(){
 		parent::__construct();
-		$this->e = [];
 		$this->config = [];
 		$this->config['LABEL'] = '';
 		$this->config['ALT'] = '';
@@ -55,7 +54,7 @@ class image extends control\image\module{
 	 */
 	public function __set($key,$value){
 		$key = strtoupper($key);
-		if(key_exists($key, $this->config)){		
+		if(array_key_exists($key, $this->config)){		
 			$this->config[$key] = $value;
 			return TRUE;
 		}

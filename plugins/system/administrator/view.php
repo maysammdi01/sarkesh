@@ -104,6 +104,10 @@ class view {
 	 */
 	public function viewCheckUpdate($siteBuildNumber,$lastBuildNumber){
 		$form = new control\form('frmAdministratorCheckupdates');
+		$logo = new control\image('imgLogo');
+		$logo->src = SiteDomain . '/core/ect/images/sarkesh_128.png';
+		$form->add($logo);
+		
 		$lblCurrent = new control\label;
 		$lblCurrent->label = sprintf(_('Your system build number:%s'),$siteBuildNumber);
 		
