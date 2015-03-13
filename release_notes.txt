@@ -24,11 +24,13 @@ Removals
 	-remove install theme and plugin parts from administrator plugin
 Changes
 	-administrator plugin
+	-menus plugin
 	-all lib classes
 	-registry key names
 Fixes
 	-event holders for get clicked element values
 	-change theme\info.php file from array to class with 2 universal static function
+	-\core\cls\core\general::createUrl bug fix
 
 installation:
 	-create blank database
