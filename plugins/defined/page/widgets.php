@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\page;
 class widgets extends module{
 	
 }

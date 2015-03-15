@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\page;
 use \core\cls\browser as browser;
 use \core\cls\core as core;
 

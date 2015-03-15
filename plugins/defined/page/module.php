@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\page;
 use core\cls\browser as browser;
 use core\cls\network as network;
 use core\cls\core as core;
@@ -17,12 +17,17 @@ class module{
 	//this function return back menus for use in admin area
 	public static function coreMenu(){
 		$menu = array();
-		$url = core\general::createUrl(['service','administrator','load','reports','ports']);
-		array_push($menu,[$url, _('File upload ports')]);
-		$url = core\general::createUrl(['service','administrator','load','reports','places']);
-		array_push($menu,[$url, _('Places of files')]);
+		$url = core\general::createUrl(['service','administrator','load','page','newPage']);
+		array_push($menu,[$url, _('New Page')]);
+		$url = core\general::createUrl(['service','administrator','load','page','listPages']);
+		array_push($menu,[$url, _('List Pages')]);
+		$url = core\general::createUrl(['service','administrator','load','page','catalogues']);
+		array_push($menu,[$url, _('Catalogues')]);
+		$url = core\general::createUrl(['service','administrator','load','page','settings']);
+		array_push($menu,[$url, _('Page Settings')]);
+
 		$ret = [];
-		array_push($ret, ['<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>' , _('Files')]);
+		array_push($ret, ['<span class="glyphicon glyphicon-book" aria-hidden="true"></span>' , _('Pages')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

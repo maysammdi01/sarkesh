@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\slideshow;
 use \core\cls\core as core;
 use \core\cls\browser as browser;
 

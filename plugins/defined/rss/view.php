@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\rss;
 use \core\control as control;
 use \core\cls\core as core;
 

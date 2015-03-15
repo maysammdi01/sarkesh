@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\rss;
 use core\cls\browser as browser;
 use core\cls\network as network;
 use core\cls\core as core;
@@ -17,12 +17,13 @@ class module{
 	//this function return back menus for use in admin area
 	public static function coreMenu(){
 		$menu = array();
-		$url = core\general::createUrl(['service','administrator','load','reports','ports']);
-		array_push($menu,[$url, _('File upload ports')]);
-		$url = core\general::createUrl(['service','administrator','load','reports','places']);
-		array_push($menu,[$url, _('Places of files')]);
+		$url = core\general::createUrl(['service','administrator','load','rss','newFeed']);
+		array_push($menu,[$url, _('New Feed')]);
+		$url = core\general::createUrl(['service','administrator','load','rss','listFeeds']);
+		array_push($menu,[$url, _('List feeds')]);
+
 		$ret = [];
-		array_push($ret, ['<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>' , _('Files')]);
+		array_push($ret, ['<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' , _('RssReader')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

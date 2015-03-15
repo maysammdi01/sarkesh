@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\slideshow;
 use core\cls\browser as browser;
 use core\cls\network as network;
 use core\cls\core as core;
@@ -17,12 +17,12 @@ class module{
 	//this function return back menus for use in admin area
 	public static function coreMenu(){
 		$menu = array();
-		$url = core\general::createUrl(['service','administrator','load','reports','ports']);
-		array_push($menu,[$url, _('File upload ports')]);
-		$url = core\general::createUrl(['service','administrator','load','reports','places']);
-		array_push($menu,[$url, _('Places of files')]);
+		$url = core\general::createUrl(['service','administrator','load','slideshow','newWidget']);
+		array_push($menu,[$url, _('New widget')]);
+		$url = core\general::createUrl(['service','administrator','load','slideshow','listWidgets']);
+		array_push($menu,[$url, _('List Widgets')]);
 		$ret = [];
-		array_push($ret, ['<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>' , _('Files')]);
+		array_push($ret, ['<span class="glyphicon glyphicon-book" aria-hidden="true"></span>' , _('Slideshow')]);
 		array_push($ret,$menu);
 		return $ret;
 	}

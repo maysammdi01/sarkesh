@@ -15,12 +15,8 @@ class module extends view{
 	 public function moduleSample(){
 		 $form = new control\form('text_form');
 		 
-		 $txt = new control\textbox('txt_sample');
-		 
-		 $btn = new control\button('btn_ff');
-		 $btn->configure('P_ONCLICK_PLUGIN','hello');
-		 $btn->configure('P_ONCLICK_FUNCTION','sampleOnclickEvent');
-		 $form->addArray([$txt,$btn]);
+		 $uploader = new control\uploader('hello_uploader');
+		 $form->add($uploader);
 		 
 		 return [1,$form->draw()];
 		 

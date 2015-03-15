@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\page;
 use \core\cls\core as core;
 use \core\cls\network as network;
 use \core\cls\db as db;

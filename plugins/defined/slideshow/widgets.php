@@ -1,5 +1,5 @@
 <?php
-namespace core\plugin\files;
+namespace addon\plugin\slideshow;
 class widgets extends module{
 	
 }
