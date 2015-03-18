@@ -35,7 +35,7 @@ class uploader extends control\uploader\module{
 		$this->config['MAX_FILE_SIZE'] = 1024 * 8 * 8; //Byte
 		
 		//this id for set id that plugin get from file system
-		$this->config['FILE_SYSTEM_ID'] = '0'; //Byte
+		$this->config['FILE_SYSTEM_ID'] = '0'; 
 
 		//if you  enable this option drag and drop will enabled in system
 		$this->config['CAN_DRAG'] = false;

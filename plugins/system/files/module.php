@@ -28,20 +28,19 @@ class module{
 	}
 	
 	/*
-	 * show php error log
-	 * @return 2D array [title,content]
+	 * function for do upload file operation
+	 * @return string xml content
 	 */
-	public function modulePhpErrors(){
-		if($this->hasAdminPanel()){
-			if(file_exists(S_Error_Log_Place)){
-				//get errors
-				$file = file(S_Error_Log_Place);
-				return $this->viewPhpErrors($file);
-			}
-			//log not found this mean no error was acoured or error log file is empty
-			return [_('PHP Errors'),_('No error was ecured.')];
+	public function moduleDoUpload(){
+		if(array_key_exists('uploads',$_FILES)){
+			$orm = db\orm::singleton();
+			$activePlace = $orm->findOne('file_places','state=1');
+			$targetDir = AppPath . $activePlace->options;
+			$fileName = $targetDir . core\general::randomString(10,'NC') . $_FILES["uploads"]["name"])
+			move_uploaded_file($_FILES["uploads"]["tmp_name"],$targetDir . core\general::randomString(10,'NC') . $_FILES["uploads"]["name"]);
+			$orm->disponse('files');
+			echo 'successssful';
 		}
-		return browser\msg::pageAccessDenied();	
 	}
 	
 }

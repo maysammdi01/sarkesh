@@ -1,11 +1,22 @@
 <?php
 namespace core\control\uploader;
+use \core\cls\db as db;
+
 class module extends view{
 	function __construct(){
 		parent::__construct();
 	}
 	
 	protected function module_draw($config){
+		//save places
+		$orm = db\orm::singleton();
+		if($orm->count('file_ports','name=?',[$config['FORM'] . $config['NAME']]) == 0){
+			$port = $orm->dispense('file_ports');
+			$port->name = $config['FORM'] .	 $config['NAME'];
+			$port->types = $config['FILE_TYPES'];
+			$port->maxFileSize = $config['MAX_FILE_SIZE'];
+			$orm->store($port);
+		}
 		//set file size unit
 		if($config['MAX_FILE_SIZE'] < 1023){
 			$config['FILE_UNIT'] = _('Byte');
