@@ -1,4 +1,5 @@
-function ctr_uploader_onchange(obj,uploadUrl,port){
+function ctr_uploader_onchange(obj,uploadUrl,port,uploadName){
+	alert($(uploadName).val());
     var files = obj.files;
     
     // Create a new FormData object.

@@ -9,11 +9,17 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<input form ="{$form}" name="{$name}" id="id_ctr_uploader_{$name}" class="ca_{$form}" type="hidden" value="" />
-						<form name="form_ctr_upload_{$name}" id="form_ctr_upload_{$name}" enctype="multipart/form-data" >
-			    			<input type="file" name ="uploader" form="form_ctr_upload_{$name}" id ="ctr_uploader_{$name}" class ="ctr_uploader_{$name}" onchange="ctr_uploader_onchange(this,'{$uploadUrl}','{$filePort}')" hidden />
-	    				</form>
+						<div class="input-group">
+						  <span class="input-group-btn">
+							<button class="btn btn-default" type="button" onclick="document.getElementById('ctr_uploader_{$name}').click();">{$strSelect}</button>
+						  </span>
+						  <input type="text" readonly class="form-control" placeholder="{$strFileName}">
+						</div><!-- /input-group -->
 	    			</div>
     			</div>
 		</div>	
 	</div>
 </div>
+<form name="form_ctr_upload_{$name}" id="form_ctr_upload_{$name}" enctype="multipart/form-data" >
+	<input type="file" name ="uploader" form="form_ctr_upload_{$name}" id ="ctr_uploader_{$name}" class ="ctr_uploader_{$name} uploader_selector" onchange="ctr_uploader_onchange(this,'{$uploadUrl}','{$filePort},'#ctr_uploader_{$name}'')" style="display: none;"/>
+</form>

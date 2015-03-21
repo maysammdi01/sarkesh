@@ -14,4 +14,12 @@ class service extends module{
 	public function doUpload(){
 		return $this->moduleDoUpload();
 	}
+	
+	/*
+	 * this service return back and show file
+	 * @return image file and ...
+	 */
+	public function load(){
+		return $this->moduleLoad();
+	}
 }

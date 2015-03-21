@@ -24,6 +24,7 @@ class view{
 		//add headers to page//
 		browser\page::addHeader('<script src="' . SiteDomain . '/core/ect/scripts/events/functions.js"></script>');		
 		browser\page::addHeader('<script src="' . SiteDomain . '/core/lib/controls/uploader/ctr_uploader.js"></script>');
+		browser\page::addHeader('<link rel="stylesheet" type="text/css" href="' . SiteDomain . '/core/lib/controls/uploader/ctr_uploader.css" />');
 		
 		if($config['SCRIPT_SRC'] != ''){browser\page::addHeader('<script src="' . $config['SCRIPT_SRC'] . '"></script>'); }		
 		if($config['CSS_FILE'] != ''){ browser\page::addHeader('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}
@@ -34,6 +35,7 @@ class view{
 		$this->raintpl->assign( "name", $config['NAME']);
 		$this->raintpl->assign( "label", $config['LABEL']);
 		$this->raintpl->assign( "help", $config['HELP']);
+		$this->raintpl->assign( "strSelect", _('Select file'));
 		$this->raintpl->assign( "size", $config['SIZE']);
 		$this->raintpl->assign( "type", $config['TYPE']);
 		//return control

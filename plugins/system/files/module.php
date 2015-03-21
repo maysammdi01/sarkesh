@@ -31,16 +31,70 @@ class module{
 	 * function for do upload file operation
 	 * @return string xml content
 	 */
-	public function moduleDoUpload(){
+	protected function moduleDoUpload(){
 		if(array_key_exists('uploads',$_FILES)){
 			$orm = db\orm::singleton();
-			$activePlace = $orm->findOne('file_places','state=1');
-			$targetDir = AppPath . $activePlace->options;
-			$fileName = $targetDir . core\general::randomString(10,'NC') . $_FILES["uploads"]["name"])
-			move_uploaded_file($_FILES["uploads"]["tmp_name"],$targetDir . core\general::randomString(10,'NC') . $_FILES["uploads"]["name"]);
-			$orm->disponse('files');
-			echo 'successssful';
+			$port = $orm->findOne('file_ports','name=?',[$_REQUEST['port']]);
+			//check file size
+			if($_FILES["uploads"]["size"] < $port->maxFileSize){
+				$activePlace = $orm->findOne('file_places','state=1');
+				$targetDir = AppPath . $activePlace->options;
+				$fileName = $targetDir . core\general::randomString(10,'NC') . $_FILES["uploads"]["name"];
+				move_uploaded_file($_FILES["uploads"]["tmp_name"],$fileName);
+				$file = $orm->dispense('files');
+				$file->name = $fileName;
+				$file->place = $activePlace->id;
+				$file->date = time();
+				$file->size = $_FILES["uploads"]["size"];
+				$user = $this->getCurrentUserInfo();
+				$userID = null;
+				if(!is_null($user)) $userID = $user->id;
+				$file->user = $userID;
+				$file->address = $fileName;
+				$orm->store($file);
+				echo 'successssful';
+			}
 		}
+	}
+	
+	/*
+	 * this service return back and show file
+	 * @return image file and ...
+	 */
+	protected function moduleLoad(){
+		$orm = db\orm::singleton();
+		if($orm->count('files','id=?',[PLUGIN_OPTIONS]) != 0){
+			$file = $orm->load('files',PLUGIN_OPTIONS);
+			return $this->moduleLoadFile($file);
+		}
+	}
+	
+	/*
+	 * find file extention and send back on browser
+	 * @return null
+	 */
+	protected function moduleLoadFile($file){
+		$fileInfo = pathinfo($file->name);
+		//check and send back files
+		if($fileInfo['extension'] == 'png'){
+			//show png picture
+			header('Content-Type: image/png');
+		}
+		elseif($fileInfo['extension'] == 'jpg' || $fileInfo['extension'] == 'jpeg'){
+			//show jpg image
+			header('Content-Type: image/jpeg');
+		}
+		elseif($fileInfo['extension'] == 'gif'){
+			//show jpg image
+			header('Content-Type: image/gif');
+		}
+		
+		else{
+			//download file
+			header("Content-type: application/octet-stream");
+			header("Content-Disposition: attachment, filename=" . $file->name );
+		}
+		readfile($file->name);
 	}
 	
 }

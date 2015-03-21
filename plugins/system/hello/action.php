@@ -15,4 +15,9 @@ class action extends module{
 	 public function sample(){
 		return $this->moduleSample();
 	 }
+	 
+	 public function ali(){
+		 $a = new control\textbox('txt');
+		 return ['ali',$a->draw()];
+	 }
 }

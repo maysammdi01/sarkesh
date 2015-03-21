@@ -29,6 +29,7 @@ Changes
 	-all lib classes
 	-registry key names
 	-change sarkesh logo
+	-rebuild file system
 Fixes
 	-event holders for get clicked element values
 	-change theme\info.php file from array to class with 2 universal static function
