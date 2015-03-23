@@ -46,7 +46,7 @@ class uploader extends control\uploader\module{
 		
 		//for set type of files that user can upload set this config
 		//file types should be seperate with (,) 
-		$this->config['FILE_TYPES'] = "'jpg', 'gif', 'png'";
+		$this->config['FILE_TYPES'] = "jpg, gif, png";
 		
 		//if user want to upload picture. it's better for show preview of picture to user.
 		//this config is boolean and default of that is false (not enabled by default)

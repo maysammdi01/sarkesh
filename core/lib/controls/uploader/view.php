@@ -30,12 +30,15 @@ class view{
 		if($config['CSS_FILE'] != ''){ browser\page::addHeader('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}
 
 		$this->raintpl->assign( "uploadUrl", core\general::createUrl(['service','files','doUpload']));
+		$this->raintpl->assign( "removeUrl", core\general::createUrl(['service','files','removeFile']));
 		$this->raintpl->assign( "filePort", $config['FORM'] . $config['NAME']);
 		$this->raintpl->assign( "form", $config['FORM']);
 		$this->raintpl->assign( "name", $config['NAME']);
 		$this->raintpl->assign( "label", $config['LABEL']);
 		$this->raintpl->assign( "help", $config['HELP']);
 		$this->raintpl->assign( "strSelect", _('Select file'));
+		$this->raintpl->assign( "strRemove", _('Remove'));
+		$this->raintpl->assign( "strFileName", _('File name ...'));
 		$this->raintpl->assign( "size", $config['SIZE']);
 		$this->raintpl->assign( "type", $config['TYPE']);
 		//return control

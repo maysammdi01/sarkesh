@@ -22,4 +22,13 @@ class service extends module{
 	public function load(){
 		return $this->moduleLoad();
 	}
+	
+	/*
+	 * this service remove file
+	 * @param string $sid, special file id
+	 * @return image file and ...
+	 */
+	public function removeFile(){
+		return $this->moduleRemoveFile();
+	}
 }

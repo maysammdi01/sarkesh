@@ -32,14 +32,26 @@ class module{
 	 * @return string xml content
 	 */
 	protected function moduleDoUpload(){
+		//create roll back object
+		$ret = [];
+		$ret['msg'] = '0';
+		$ret['fileID'] = null;
+		$xml = new db\xml($ret);
 		if(array_key_exists('uploads',$_FILES)){
 			$orm = db\orm::singleton();
 			$port = $orm->findOne('file_ports','name=?',[$_REQUEST['port']]);
 			//check file size
-			if($_FILES["uploads"]["size"] < $port->maxFileSize){
+			$typeValid = false;
+			$types = explode(',' , $port->types);
+			$fileInfo = new \SplFileInfo($_FILES["uploads"]["name"]);
+			$fileExtension = $fileInfo->getExtension();
+			foreach($types as $type)
+				if(trim($type) == trim($fileExtension) ) $typeValid = true;
+			if($_FILES["uploads"]["size"] < $port->maxFileSize && $typeValid){
 				$activePlace = $orm->findOne('file_places','state=1');
-				$targetDir = AppPath . $activePlace->options;
-				$fileName = $targetDir . core\general::randomString(10,'NC') . $_FILES["uploads"]["name"];
+				$targetDir = $activePlace->options;
+				$rndID = core\general::randomString(32,'NC');
+				$fileName = $targetDir . $rndID . $_FILES["uploads"]["name"];
 				move_uploaded_file($_FILES["uploads"]["tmp_name"],$fileName);
 				$file = $orm->dispense('files');
 				$file->name = $fileName;
@@ -51,10 +63,17 @@ class module{
 				if(!is_null($user)) $userID = $user->id;
 				$file->user = $userID;
 				$file->address = $fileName;
+				$file->sid = $rndID;
 				$orm->store($file);
-				echo 'successssful';
+				//create roll back object
+				$ret['msg'] = $ret['msg'] = browser\page::showBlock(_('Upload successful!'),_('Your file uploaded successfuly.'),'MODAL','type-success');
+				$ret['fileID'] = $rndID;
+			}
+			else{
+				$ret['msg'] = browser\page::showBlock(_('File upload fail!'),_('File size or extension is not match with this type.'),'MODAL','type-warning');
 			}
 		}
+		return $xml->arrayToXml($ret, "root");
 	}
 	
 	/*
@@ -63,8 +82,8 @@ class module{
 	 */
 	protected function moduleLoad(){
 		$orm = db\orm::singleton();
-		if($orm->count('files','id=?',[PLUGIN_OPTIONS]) != 0){
-			$file = $orm->load('files',PLUGIN_OPTIONS);
+		if($orm->count('files','sid=?',[PLUGIN_OPTIONS]) != 0){
+			$file = $orm->findOne('files','sid=?',[PLUGIN_OPTIONS]);
 			return $this->moduleLoadFile($file);
 		}
 	}
@@ -74,7 +93,7 @@ class module{
 	 * @return null
 	 */
 	protected function moduleLoadFile($file){
-		$fileInfo = pathinfo($file->name);
+		$fileInfo = pathinfo(AppPath . $file->name);
 		//check and send back files
 		if($fileInfo['extension'] == 'png'){
 			//show png picture
@@ -95,6 +114,26 @@ class module{
 			header("Content-Disposition: attachment, filename=" . $file->name );
 		}
 		readfile($file->name);
+		return null;
+	}
+	
+	/*
+	 * this service remove file
+	 * @param string $sid, special file id
+	 * @return image file and ...
+	 */
+	protected function moduleRemoveFile(){
+		if(array_key_exists('sid',$_REQUEST)){
+			$orm = db\orm::singleton();
+			if($orm->count('files','sid=?',[$_REQUEST['sid']]) != 0){
+				$file = $orm->findOne('files','sid=?',[$_REQUEST['sid']]);
+				if(file_exists(AppPath . $file->name))
+					unlink(AppPath . $file->name);
+				$orm->exec('DELETE FROM files WHERE sid=?',[$_REQUEST['sid']],NON_SELECT);
+				return 'OK';
+			}
+		}
+		return 'fail';
 	}
 	
 }
