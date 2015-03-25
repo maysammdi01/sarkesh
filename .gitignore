@@ -18,3 +18,4 @@ nbproject
 
 #ignore error logs
 error_log.txt
+db-config.php
