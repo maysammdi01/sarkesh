@@ -15,6 +15,7 @@ nbproject
 .buildpath
 .project
 .settings
+.idea/**
 
 #ignore error logs
 error_log.txt
