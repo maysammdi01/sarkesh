@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sarkesh\n"
-"POT-Creation-Date: 2015-03-13 13:03-0500\n"
-"PO-Revision-Date: 2015-03-13 15:39-0400\n"
-"Last-Translator: morrning <alizadeh.babak@gmail.com>\n"
+"POT-Creation-Date: 2015-03-23 17:29-0500\n"
+"PO-Revision-Date: 2015-03-23 17:29-0500\n"
+"Last-Translator: Babak alizadeh <alizadeh.babak@live.com>\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: crowdin.com\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -48,10 +48,6 @@ msgstr "خطا در اجرای پرس و جو!دلیل: %s"
 #: /home/babak/WWW/core/lib/cls/core_cls_core_router.php:105
 msgid "Warning:Your requested service not found!"
 msgstr "هشدار:سرویس درخواستی شما وجود ندارد!"
-
-#: /home/babak/WWW/core/lib/cls/core_cls_network_mail.php:3467
-msgid "best regards"
-msgstr "با احترام"
 
 #: /home/babak/WWW/core/lib/cls/core_cls_browser_msg.php:14
 #: /home/babak/WWW/plugins/system/users/event.php:84
@@ -140,13 +136,18 @@ msgstr "بازگشت"
 #: /home/babak/WWW/plugins/system/menus/view.php:253
 #: /home/babak/WWW/plugins/system/menus/view.php:292
 #: /home/babak/WWW/plugins/system/menus/view.php:366
-#: /home/babak/WWW/plugins/system/administrator/view.php:166
-#: /home/babak/WWW/plugins/system/administrator/view.php:296
-#: /home/babak/WWW/plugins/system/administrator/view.php:367
-#: /home/babak/WWW/plugins/system/administrator/view.php:421
-#: /home/babak/WWW/plugins/system/administrator/view.php:535
-#: /home/babak/WWW/plugins/system/administrator/view.php:570
-#: /home/babak/WWW/plugins/system/administrator/view.php:725
+#: /home/babak/WWW/plugins/system/reports/view.php:31
+#: /home/babak/WWW/plugins/system/administrator/view.php:170
+#: /home/babak/WWW/plugins/system/administrator/view.php:300
+#: /home/babak/WWW/plugins/system/administrator/view.php:371
+#: /home/babak/WWW/plugins/system/administrator/view.php:425
+#: /home/babak/WWW/plugins/system/administrator/view.php:539
+#: /home/babak/WWW/plugins/system/administrator/view.php:574
+#: /home/babak/WWW/plugins/system/administrator/view.php:729
+#: /home/babak/WWW/plugins/system/files/view.php:31
+#: /home/babak/WWW/plugins/defined/slideshow/view.php:31
+#: /home/babak/WWW/plugins/defined/page/view.php:31
+#: /home/babak/WWW/plugins/defined/rss/view.php:31
 msgid "Cancel"
 msgstr "انصراف"
 
@@ -174,67 +175,29 @@ msgstr "بارگزار فایل"
 msgid "Select file and click on upload button."
 msgstr "ابتدا فایل را انتخاب سپس روی دکمه بارگزاری کلیک کنید."
 
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:33
-msgid "Browse ..."
-msgstr "انتخاب ..."
+#: /home/babak/WWW/core/lib/controls/uploader/view.php:39
+#, fuzzy
+msgid "Select file"
+msgstr "انتخاب"
 
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:34
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:59
-msgid "Upload"
-msgstr "بارگزاری"
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:35
+#: /home/babak/WWW/core/lib/controls/uploader/view.php:40
 msgid "Remove"
 msgstr "حذف"
 
 #: /home/babak/WWW/core/lib/controls/uploader/view.php:41
-msgid "File % is too large.max file size is:%s"
-msgstr "File % is too large.max file size is:%s"
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:42
-#, php-format
-msgid "Invalid extension for file \"%s\". Only \"%s\" files are supported."
-msgstr "پسوند غیر معتبر برای فایل \"%s\". فقط فایل های \"%s\" پشتیبانی می شوند."
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:43
-#, php-format
-msgid "Loading file %s of %s …"
-msgstr "در حال بارگذاری فایل %s از %s ..."
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:44
-#, php-format
-msgid "Loading file %s of %s - %s - %s %%  completed."
-msgstr "Loading file %s of %s - %s - %s %%  completed."
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:47
-msgid "Drag & drop files here …"
-msgstr "کشیدن و انداختن فایل ها در اینجا ..."
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:58
-msgid "File name"
+#, fuzzy
+msgid "File name ..."
 msgstr "نام فایل"
 
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:60
-msgid "Select"
-msgstr "انتخاب"
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:61
-msgid "Max Size"
-msgstr "حدکثر حجم"
-
-#: /home/babak/WWW/core/lib/controls/uploader/view.php:65
-msgid "Valid types"
-msgstr "فرمت های مجاز"
-
-#: /home/babak/WWW/core/lib/controls/uploader/module.php:11
+#: /home/babak/WWW/core/lib/controls/uploader/module.php:22
 msgid "Byte"
 msgstr "بایت"
 
-#: /home/babak/WWW/core/lib/controls/uploader/module.php:15
+#: /home/babak/WWW/core/lib/controls/uploader/module.php:26
 msgid "KByte"
 msgstr "کیلوبایت"
 
-#: /home/babak/WWW/core/lib/controls/uploader/module.php:19
+#: /home/babak/WWW/core/lib/controls/uploader/module.php:30
 msgid "MByte"
 msgstr "مگابایت"
 
@@ -263,12 +226,18 @@ msgid "format of entered email in incerrect."
 msgstr "فرمت ایمیل وارد شده اشتباه است."
 
 #: /home/babak/WWW/plugins/system/users/event.php:70
-msgid "This email is taken by another.if that's you,use that to login to your account."
-msgstr "این رایانامه توسط فرد دیگری استفاده می شود. اگر آن شما هستید، از آن برای ورود استفاده کنید."
+msgid ""
+"This email is taken by another.if that's you,use that to login to your "
+"account."
+msgstr ""
+"این رایانامه توسط فرد دیگری استفاده می شود. اگر آن شما هستید، از آن برای "
+"ورود استفاده کنید."
 
 #: /home/babak/WWW/plugins/system/users/event.php:84
 msgid "one or more of fileds invalid.please look at the messages of fileds."
-msgstr "یکی یا چندتا از فیلد ها نا معتبرند. لطفا به پیام های مربوط به فیلد ها نگاهی بندازید."
+msgstr ""
+"یکی یا چندتا از فیلد ها نا معتبرند. لطفا به پیام های مربوط به فیلد ها نگاهی "
+"بندازید."
 
 #: /home/babak/WWW/plugins/system/users/event.php:91
 msgid "Register new user on this site is disabled!"
@@ -280,8 +249,12 @@ msgid "Successfull"
 msgstr "موفق"
 
 #: /home/babak/WWW/plugins/system/users/event.php:108
-msgid "Your account was created and we send email for you. for active your account please check your inbox."
-msgstr "Your account was created and we send email for you. for active your account please check your inbox."
+msgid ""
+"Your account was created and we send email for you. for active your account "
+"please check your inbox."
+msgstr ""
+"Your account was created and we send email for you. for active your account "
+"please check your inbox."
 
 #: /home/babak/WWW/plugins/system/users/event.php:130
 msgid "Your account was activated.now you can login to your account."
@@ -363,7 +336,8 @@ msgid "Username"
 msgstr "نام کاربری"
 
 #: /home/babak/WWW/plugins/system/users/view.php:118
-msgid "Only letters and digits allowed. special characters and space not allowed."
+msgid ""
+"Only letters and digits allowed. special characters and space not allowed."
 msgstr "فقط حروف و اعداد مجازهستند.  نویسه های خاص و فضای خالی مجاز نیست."
 
 #: /home/babak/WWW/plugins/system/users/view.php:124
@@ -372,8 +346,15 @@ msgid "Email:"
 msgstr "رایانامه:"
 
 #: /home/babak/WWW/plugins/system/users/view.php:125
-msgid "A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail."
-msgstr "یک رایانامه معتبر وارد کنید. تمامی پیام ها از سامانه به این رایانامه ارسال خواهند شد. آدرس رایانامه شما منتشر نخواهد شد و فقط برای کار هایی مانند درخواست گذرواژه جدید یا درخواست دریافت اخبار و اطلاعیه استفاده خواهد شد."
+msgid ""
+"A valid e-mail address. All e-mails from the system will be sent to this "
+"address. The e-mail address is not made public and will only be used if you "
+"wish to receive a new password or wish to receive certain news or "
+"notifications by e-mail."
+msgstr ""
+"یک رایانامه معتبر وارد کنید. تمامی پیام ها از سامانه به این رایانامه ارسال "
+"خواهند شد. آدرس رایانامه شما منتشر نخواهد شد و فقط برای کار هایی مانند "
+"درخواست گذرواژه جدید یا درخواست دریافت اخبار و اطلاعیه استفاده خواهد شد."
 
 #: /home/babak/WWW/plugins/system/users/view.php:129
 msgid "Email"
@@ -426,21 +407,21 @@ msgstr "آی پی های مسدود شده"
 #: /home/babak/WWW/plugins/system/menus/view.php:230
 #: /home/babak/WWW/plugins/system/menus/view.php:240
 #: /home/babak/WWW/plugins/system/menus/view.php:286
-#: /home/babak/WWW/plugins/system/administrator/view.php:201
-#: /home/babak/WWW/plugins/system/administrator/view.php:209
-#: /home/babak/WWW/plugins/system/administrator/view.php:262
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
-#: /home/babak/WWW/plugins/system/administrator/view.php:564
+#: /home/babak/WWW/plugins/system/administrator/view.php:205
+#: /home/babak/WWW/plugins/system/administrator/view.php:213
+#: /home/babak/WWW/plugins/system/administrator/view.php:266
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
+#: /home/babak/WWW/plugins/system/administrator/view.php:568
 msgid "Delete"
 msgstr "حدف"
 
 #: /home/babak/WWW/plugins/system/users/view.php:240
 #: /home/babak/WWW/plugins/system/menus/view.php:66
 #: /home/babak/WWW/plugins/system/menus/view.php:240
-#: /home/babak/WWW/plugins/system/administrator/view.php:209
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
-#: /home/babak/WWW/plugins/system/administrator/view.php:623
-#: /home/babak/WWW/plugins/system/administrator/view.php:674
+#: /home/babak/WWW/plugins/system/administrator/view.php:213
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
+#: /home/babak/WWW/plugins/system/administrator/view.php:627
+#: /home/babak/WWW/plugins/system/administrator/view.php:678
 msgid "ID"
 msgstr "ردیف"
 
@@ -449,8 +430,8 @@ msgid "IP number"
 msgstr "شماره آی پی"
 
 #: /home/babak/WWW/plugins/system/users/view.php:240
-#: /home/babak/WWW/plugins/system/administrator/view.php:623
-#: /home/babak/WWW/plugins/system/administrator/view.php:674
+#: /home/babak/WWW/plugins/system/administrator/view.php:627
+#: /home/babak/WWW/plugins/system/administrator/view.php:678
 msgid "Options"
 msgstr "تنظیمات"
 
@@ -522,18 +503,18 @@ msgstr "مدیریت پیوندها"
 #: /home/babak/WWW/plugins/system/menus/view.php:145
 #: /home/babak/WWW/plugins/system/menus/view.php:224
 #: /home/babak/WWW/plugins/system/menus/view.php:240
-#: /home/babak/WWW/plugins/system/administrator/view.php:196
-#: /home/babak/WWW/plugins/system/administrator/view.php:255
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
+#: /home/babak/WWW/plugins/system/administrator/view.php:200
+#: /home/babak/WWW/plugins/system/administrator/view.php:259
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
 msgid "Edite"
 msgstr "ویرایش"
 
 #: /home/babak/WWW/plugins/system/menus/view.php:66
 #: /home/babak/WWW/plugins/system/menus/view.php:240
-#: /home/babak/WWW/plugins/system/administrator/view.php:209
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
-#: /home/babak/WWW/plugins/system/administrator/view.php:623
-#: /home/babak/WWW/plugins/system/administrator/view.php:674
+#: /home/babak/WWW/plugins/system/administrator/view.php:213
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
+#: /home/babak/WWW/plugins/system/administrator/view.php:627
+#: /home/babak/WWW/plugins/system/administrator/view.php:678
 msgid "Name"
 msgstr "نام"
 
@@ -589,6 +570,7 @@ msgid "if this option checked,menu show in horizontal mode."
 msgstr "if this option checked,menu show in horizontal mode."
 
 #: /home/babak/WWW/plugins/system/menus/view.php:130
+#, php-format
 msgid "Edite: %s"
 msgstr "ویرایش: %s"
 
@@ -652,8 +634,8 @@ msgid "With this, you can show or hide link in menu."
 msgstr "With this, you can show or hide link in menu."
 
 #: /home/babak/WWW/plugins/system/menus/view.php:353
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
-#: /home/babak/WWW/plugins/system/administrator/view.php:469
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
+#: /home/babak/WWW/plugins/system/administrator/view.php:473
 msgid "Rank"
 msgstr "رتبه"
 
@@ -685,13 +667,55 @@ msgstr "تغییر زبان با خطا مواجه شد.لطفا مجددا تل
 msgid "Languages"
 msgstr "زبان ها"
 
+#: /home/babak/WWW/plugins/system/reports/view.php:25
+#: /home/babak/WWW/plugins/system/files/view.php:25
+#: /home/babak/WWW/plugins/defined/slideshow/view.php:25
+#: /home/babak/WWW/plugins/defined/page/view.php:25
+#: /home/babak/WWW/plugins/defined/rss/view.php:25
+msgid "Clear Errors"
+msgstr ""
+
+#: /home/babak/WWW/plugins/system/reports/view.php:40
+#: /home/babak/WWW/plugins/system/files/view.php:40
+#: /home/babak/WWW/plugins/defined/slideshow/view.php:40
+#: /home/babak/WWW/plugins/defined/page/view.php:40
+#: /home/babak/WWW/plugins/defined/rss/view.php:40
+msgid "PHP Error logs"
+msgstr ""
+
+#: /home/babak/WWW/plugins/system/reports/module.php:21
+msgid "PHP errors"
+msgstr ""
+
+#: /home/babak/WWW/plugins/system/reports/module.php:23
+msgid "Reports"
+msgstr ""
+
+#: /home/babak/WWW/plugins/system/reports/module.php:40
+#: /home/babak/WWW/plugins/defined/slideshow/module.php:42
+#: /home/babak/WWW/plugins/defined/page/module.php:47
+#: /home/babak/WWW/plugins/defined/rss/module.php:43
+#, fuzzy
+msgid "PHP Errors"
+msgstr "خطا"
+
+#: /home/babak/WWW/plugins/system/reports/module.php:40
+#: /home/babak/WWW/plugins/defined/slideshow/module.php:42
+#: /home/babak/WWW/plugins/defined/page/module.php:47
+#: /home/babak/WWW/plugins/defined/rss/module.php:43
+#, fuzzy
+msgid "No error was ecured."
+msgstr "یک سری خطا اتفاق افتاد!"
+
 #: /home/babak/WWW/plugins/system/administrator/event.php:33
 msgid "Data type error"
 msgstr "خطای نوع داده"
 
 #: /home/babak/WWW/plugins/system/administrator/event.php:33
-msgid "Validator expire time should be numberic.all settings expect this was saved."
-msgstr "Validator expire time should be numberic.all settings expect this was saved."
+msgid ""
+"Validator expire time should be numberic.all settings expect this was saved."
+msgstr ""
+"Validator expire time should be numberic.all settings expect this was saved."
 
 #: /home/babak/WWW/plugins/system/administrator/view.php:40
 msgid "Log Out"
@@ -739,19 +763,19 @@ msgid "Regional and Languages"
 msgstr "نواحی و زبان‌ها"
 
 #: /home/babak/WWW/plugins/system/administrator/view.php:71
-#: /home/babak/WWW/plugins/system/administrator/view.php:679
+#: /home/babak/WWW/plugins/system/administrator/view.php:683
 msgid "Appearance"
 msgstr "ظاهر"
 
 #: /home/babak/WWW/plugins/system/administrator/view.php:72
-#: /home/babak/WWW/plugins/system/administrator/view.php:590
-#: /home/babak/WWW/plugins/system/administrator/view.php:628
+#: /home/babak/WWW/plugins/system/administrator/view.php:594
+#: /home/babak/WWW/plugins/system/administrator/view.php:632
 #: /home/babak/WWW/plugins/system/administrator/module.php:21
 msgid "Plugins"
 msgstr "افزونه‌ها"
 
 #: /home/babak/WWW/plugins/system/administrator/view.php:73
-#: /home/babak/WWW/plugins/system/administrator/view.php:223
+#: /home/babak/WWW/plugins/system/administrator/view.php:227
 #: /home/babak/WWW/plugins/system/administrator/module.php:29
 msgid "Blocks"
 msgstr "بلوک‌ها"
@@ -769,265 +793,291 @@ msgid "New blog post"
 msgstr "پست جدید وبلاگ"
 
 #: /home/babak/WWW/plugins/system/administrator/view.php:83
-#: /home/babak/WWW/plugins/system/administrator/view.php:175
+#: /home/babak/WWW/plugins/system/administrator/view.php:179
 msgid "Core settings"
 msgstr "تنظیمات هسته"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:108
+#: /home/babak/WWW/plugins/system/administrator/view.php:112
 #, php-format
 msgid "Your system build number:%s"
 msgstr "Your system build number:%s"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:111
+#: /home/babak/WWW/plugins/system/administrator/view.php:115
 #, php-format
 msgid "Last relased build number:%s"
 msgstr "Last relased build number:%s"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:117
+#: /home/babak/WWW/plugins/system/administrator/view.php:121
 msgid "Your system is update! noting to do."
 msgstr "سیستم شما به روز و مجهز به آخرین نسخه است."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:119
+#: /home/babak/WWW/plugins/system/administrator/view.php:123
 #, php-format
 msgid "Your system is out of date.for get latest update go to sarkesh website"
 msgstr "Your system is out of date.for get latest update go to sarkesh website"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:121
+#: /home/babak/WWW/plugins/system/administrator/view.php:125
 msgid "Jump to release notes"
 msgstr "پرش به  یادداشت های انتشار"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:130
+#: /home/babak/WWW/plugins/system/administrator/view.php:134
 msgid "Updates"
 msgstr "بروزرسانی‌ها"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:142
+#: /home/babak/WWW/plugins/system/administrator/view.php:146
 msgid "Enable clean url"
 msgstr "فعال کردن آدرس دهی تمیز"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:144
-msgid "With this option,pages with parameters will be replaced with clean address."
-msgstr "با فعال سازی این گذینه آدرس دهی های این وب سایت به صورت تمیز و سر راست نمایش داده می شوند."
+#: /home/babak/WWW/plugins/system/administrator/view.php:148
+msgid ""
+"With this option,pages with parameters will be replaced with clean address."
+msgstr ""
+"با فعال سازی این گذینه آدرس دهی های این وب سایت به صورت تمیز و سر راست نمایش "
+"داده می شوند."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:151
+#: /home/babak/WWW/plugins/system/administrator/view.php:155
 msgid "Validation Expire time:"
 msgstr "زمان معتبر بودن کنترل کننده ها:"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:152
+#: /home/babak/WWW/plugins/system/administrator/view.php:156
 msgid "Thos option set external variables expire time."
 msgstr "این گذینه زمان برای معتبر بودن کنترل کننده ها را تنظیم میکند."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:155
+#: /home/babak/WWW/plugins/system/administrator/view.php:159
 msgid "Hour(s)"
 msgstr "ساعت"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:160
-#: /home/babak/WWW/plugins/system/administrator/view.php:361
-#: /home/babak/WWW/plugins/system/administrator/view.php:529
-#: /home/babak/WWW/plugins/system/administrator/view.php:719
+#: /home/babak/WWW/plugins/system/administrator/view.php:164
+#: /home/babak/WWW/plugins/system/administrator/view.php:365
+#: /home/babak/WWW/plugins/system/administrator/view.php:533
+#: /home/babak/WWW/plugins/system/administrator/view.php:723
 msgid "Update"
 msgstr "بروز رسانی"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:209
+#: /home/babak/WWW/plugins/system/administrator/view.php:213
 msgid "Edit"
 msgstr "ویرایش"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:217
+#: /home/babak/WWW/plugins/system/administrator/view.php:221
 msgid "Locals"
 msgstr "محلی"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:241
+#: /home/babak/WWW/plugins/system/administrator/view.php:245
 msgid "Off"
 msgstr "خاموش"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:269
+#: /home/babak/WWW/plugins/system/administrator/view.php:273
 msgid "Edite static"
 msgstr "ویرایش ایستا"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
 msgid "Place"
 msgstr "محل"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:281
+#: /home/babak/WWW/plugins/system/administrator/view.php:285
 msgid "Static"
 msgstr "ایستا"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:290
+#: /home/babak/WWW/plugins/system/administrator/view.php:294
 msgid "Add static block"
 msgstr "اضافه کردن بلوک استاتیک"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:302
+#: /home/babak/WWW/plugins/system/administrator/view.php:306
 msgid "Manage Blocks"
 msgstr "مدیریت بلوک ها"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:318
+#: /home/babak/WWW/plugins/system/administrator/view.php:322
 msgid "Site name"
 msgstr "نام سایت"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:325
+#: /home/babak/WWW/plugins/system/administrator/view.php:329
 msgid "Slogan"
 msgstr "شعار سایت"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:327
+#: /home/babak/WWW/plugins/system/administrator/view.php:331
 msgid "How this is used depends on your site's theme."
 msgstr "نحوه استفاده به پوسته استفاده شده سایت بستگی دارد."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:333
+#: /home/babak/WWW/plugins/system/administrator/view.php:337
 msgid "Email address"
 msgstr "رایانامه"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:337
-msgid "The From address in automated e-mails sent during registration and new password requests, and other notifications. (Use an address ending in your site's domain to help prevent this e-mail being flagged as spam.)"
-msgstr "آدرس فرستنده در ایمیل های خودکاری که در زمان ثبت نام، درخواست رمز عبور جدید، و سایر اطلاعیه ها ارسال می شوند (برای کمک به جلوگیری از علامت گذاری این ایمیل بعنوان هرزنامه یا Spam از آدرسی استفاده کنید که به دامنه سایت شما ختم می شود)."
-
 #: /home/babak/WWW/plugins/system/administrator/view.php:341
+msgid ""
+"The From address in automated e-mails sent during registration and new "
+"password requests, and other notifications. (Use an address ending in your "
+"site's domain to help prevent this e-mail being flagged as spam.)"
+msgstr ""
+"آدرس فرستنده در ایمیل های خودکاری که در زمان ثبت نام، درخواست رمز عبور جدید، "
+"و سایر اطلاعیه ها ارسال می شوند (برای کمک به جلوگیری از علامت گذاری این "
+"ایمیل بعنوان هرزنامه یا Spam از آدرسی استفاده کنید که به دامنه سایت شما ختم "
+"می شود)."
+
+#: /home/babak/WWW/plugins/system/administrator/view.php:345
 msgid "Front page"
 msgstr "صفحه ی نخست"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:345
-msgid "Optionally, specify a relative URL to display as the front page. be careful for that this address be correct!"
-msgstr "به صورت اختیاری، یک آدرس نسبی اینترنتی مشخص کنید تا در صفحه اول نمایش داده شود. مراقب باشید که این آدرس درست باشد!"
+#: /home/babak/WWW/plugins/system/administrator/view.php:349
+msgid ""
+"Optionally, specify a relative URL to display as the front page. be careful "
+"for that this address be correct!"
+msgstr ""
+"به صورت اختیاری، یک آدرس نسبی اینترنتی مشخص کنید تا در صفحه اول نمایش داده "
+"شود. مراقب باشید که این آدرس درست باشد!"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:352
+#: /home/babak/WWW/plugins/system/administrator/view.php:356
 msgid "Description"
 msgstr "توضیحات"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:353
+#: /home/babak/WWW/plugins/system/administrator/view.php:357
 msgid "your text show in header of page for use in search engines."
-msgstr "متنی که وارد می کنید در هدر صفحات برای استفاده موتور های جست و جو به نمایش در می اید.کاربران قادر به مشاهده متن نیستند."
+msgstr ""
+"متنی که وارد می کنید در هدر صفحات برای استفاده موتور های جست و جو به نمایش "
+"در می اید.کاربران قادر به مشاهده متن نیستند."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:378
+#: /home/babak/WWW/plugins/system/administrator/view.php:382
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:390
+#: /home/babak/WWW/plugins/system/administrator/view.php:394
 msgid "Block name"
 msgstr "نام بلوک"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:393
+#: /home/babak/WWW/plugins/system/administrator/view.php:397
 msgid "Block name not show in template"
 msgstr "نام بلوک در قالب نمایش داده نمی شود"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:396
+#: /home/babak/WWW/plugins/system/administrator/view.php:400
 msgid "Block label"
 msgstr "برچسب بلوک"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:399
+#: /home/babak/WWW/plugins/system/administrator/view.php:403
 msgid "if enable show header option this label will be show."
 msgstr "if enable show header option this label will be show."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:402
-#: /home/babak/WWW/plugins/system/administrator/view.php:476
+#: /home/babak/WWW/plugins/system/administrator/view.php:406
+#: /home/babak/WWW/plugins/system/administrator/view.php:480
 msgid "Show header"
 msgstr "نمایش سربرگ"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:404
-#: /home/babak/WWW/plugins/system/administrator/view.php:481
+#: /home/babak/WWW/plugins/system/administrator/view.php:408
+#: /home/babak/WWW/plugins/system/administrator/view.php:485
 msgid "If this option checked,label of block will showed at the top of block."
 msgstr "If this option checked,label of block will showed at the top of block."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:407
+#: /home/babak/WWW/plugins/system/administrator/view.php:411
 msgid "content of block"
 msgstr "محتوای بلوک"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:411
-msgid "All of content that you will enter,show in block.you can use html and javascript codes and style with CSS."
-msgstr "All of content that you will enter,show in block.you can use html and javascript codes and style with CSS."
-
 #: /home/babak/WWW/plugins/system/administrator/view.php:415
+msgid ""
+"All of content that you will enter,show in block.you can use html and "
+"javascript codes and style with CSS."
+msgstr ""
+"All of content that you will enter,show in block.you can use html and "
+"javascript codes and style with CSS."
+
+#: /home/babak/WWW/plugins/system/administrator/view.php:419
 msgid "Add block"
 msgstr "افزودن بلوک"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:427
+#: /home/babak/WWW/plugins/system/administrator/view.php:431
 msgid "New static block"
 msgstr "New static block"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:429
+#: /home/babak/WWW/plugins/system/administrator/view.php:433
 #, fuzzy
 msgid "Update static block"
 msgstr "Update static block"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:443
+#: /home/babak/WWW/plugins/system/administrator/view.php:447
 msgid "Edite block"
 msgstr "ویرایش بلوک"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:488
+#: /home/babak/WWW/plugins/system/administrator/view.php:492
+#: /home/babak/WWW/plugins/defined/page/module.php:30
 msgid "Pages"
 msgstr "صفحات"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:489
-msgid "Use ',' for seperate page urls. for use home page enter 'frontpage' and start your internal urls with '\\'."
-msgstr "Use ',' for seperate page urls. for use home page enter 'frontpage' and start your internal urls with '\\'."
+#: /home/babak/WWW/plugins/system/administrator/view.php:493
+msgid ""
+"Use ',' for seperate page urls. for use home page enter 'frontpage' and "
+"start your internal urls with '\\'."
+msgstr ""
+"Use ',' for seperate page urls. for use home page enter 'frontpage' and "
+"start your internal urls with '\\'."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:496
+#: /home/babak/WWW/plugins/system/administrator/view.php:500
 msgid "With this option you can select pages for show."
-msgstr "با این گذینه میتوانید صفحات برای نمایش بلوک مورد نظر خود را انتخاب کنید."
+msgstr ""
+"با این گذینه میتوانید صفحات برای نمایش بلوک مورد نظر خود را انتخاب کنید."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:498
+#: /home/babak/WWW/plugins/system/administrator/view.php:502
 msgid "All pages espect that comes above."
 msgstr "در تمام صفحات به غیر از آنهایی که در بالا آمده است."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:503
+#: /home/babak/WWW/plugins/system/administrator/view.php:507
 msgid "show in pages that comes above."
 msgstr "نمایش تنها در صفحاتی که در بالا آمده."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:510
+#: /home/babak/WWW/plugins/system/administrator/view.php:514
 msgid "Localize block"
 msgstr "Localize block"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:511
+#: /home/babak/WWW/plugins/system/administrator/view.php:515
 msgid "block will showed in selected localize."
 msgstr "block will showed in selected localize."
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:520
+#: /home/babak/WWW/plugins/system/administrator/view.php:524
 msgid "Position"
 msgstr "موقعیت"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:546
+#: /home/babak/WWW/plugins/system/administrator/view.php:550
 msgid "Edite Block:"
 msgstr "ویرایش بلوک:"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:561
+#: /home/babak/WWW/plugins/system/administrator/view.php:565
 #, php-format
 msgid "Are you sure for delete %s ?"
 msgstr "آیا برای حذف %s مطمئن هستید؟"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:580
+#: /home/babak/WWW/plugins/system/administrator/view.php:584
 msgid "Delete Static block"
 msgstr "Delete Static block"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:607
+#: /home/babak/WWW/plugins/system/administrator/view.php:611
 msgid "Active"
 msgstr "فعال کردن"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:611
+#: /home/babak/WWW/plugins/system/administrator/view.php:615
 msgid "Disactive"
 msgstr "غیرفعال کردن"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:639
+#: /home/babak/WWW/plugins/system/administrator/view.php:643
 msgid "Themes"
 msgstr "پوسته‌ها"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:661
+#: /home/babak/WWW/plugins/system/administrator/view.php:665
 msgid "Active this"
 msgstr "فعال کردن"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:674
+#: /home/babak/WWW/plugins/system/administrator/view.php:678
 msgid "Author"
 msgstr "نویسنده"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:691
+#: /home/babak/WWW/plugins/system/administrator/view.php:695
 msgid "Default country"
 msgstr "کشور پیش فرض"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:700
+#: /home/babak/WWW/plugins/system/administrator/view.php:704
 msgid "Default Localize"
 msgstr "ناحیه پیشفرض"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:710
+#: /home/babak/WWW/plugins/system/administrator/view.php:714
 msgid "Default Timezone"
 msgstr "ساعت زمانی پیشفرض"
 
-#: /home/babak/WWW/plugins/system/administrator/view.php:735
+#: /home/babak/WWW/plugins/system/administrator/view.php:739
 msgid "Regional and languages"
 msgstr "نواحی و زبان‌ها"
 
@@ -1051,3 +1101,111 @@ msgstr "مدیریت"
 msgid "All languages"
 msgstr "همه زبان ها"
 
+#: /home/babak/WWW/plugins/system/files/module.php:21
+#, fuzzy
+msgid "File upload ports"
+msgstr "بارگزار فایل"
+
+#: /home/babak/WWW/plugins/system/files/module.php:23
+msgid "Places of files"
+msgstr ""
+
+#: /home/babak/WWW/plugins/system/files/module.php:25
+msgid "Files"
+msgstr "t"
+
+#: /home/babak/WWW/plugins/system/files/module.php:69
+#, fuzzy
+msgid "Upload successful!"
+msgstr "موفقت آمیز"
+
+#: /home/babak/WWW/plugins/system/files/module.php:69
+#, fuzzy
+msgid "Your file uploaded successfuly."
+msgstr "درخواست شما با موفقیت انجام شد."
+
+#: /home/babak/WWW/plugins/system/files/module.php:73
+#, fuzzy
+msgid "File upload fail!"
+msgstr "بارگزار فایل"
+
+#: /home/babak/WWW/plugins/system/files/module.php:73
+msgid "File size or extension is not match with this type."
+msgstr ""
+
+#: /home/babak/WWW/plugins/defined/slideshow/module.php:21
+msgid "New widget"
+msgstr ""
+
+#: /home/babak/WWW/plugins/defined/slideshow/module.php:23
+#, fuzzy
+msgid "List Widgets"
+msgstr "لیست منوها"
+
+#: /home/babak/WWW/plugins/defined/slideshow/module.php:25
+msgid "Slideshow"
+msgstr ""
+
+#: /home/babak/WWW/plugins/defined/page/module.php:21
+#, fuzzy
+msgid "New Page"
+msgstr "منوی جدید"
+
+#: /home/babak/WWW/plugins/defined/page/module.php:23
+#, fuzzy
+msgid "List Pages"
+msgstr "لیست منوها"
+
+#: /home/babak/WWW/plugins/defined/page/module.php:25
+msgid "Catalogues"
+msgstr ""
+
+#: /home/babak/WWW/plugins/defined/page/module.php:27
+#, fuzzy
+msgid "Page Settings"
+msgstr "تنظیمات هسته"
+
+#: /home/babak/WWW/plugins/defined/rss/module.php:21
+#, fuzzy
+msgid "New Feed"
+msgstr "منوی جدید"
+
+#: /home/babak/WWW/plugins/defined/rss/module.php:23
+#, fuzzy
+msgid "List feeds"
+msgstr "لیست منوها"
+
+#: /home/babak/WWW/plugins/defined/rss/module.php:26
+msgid "RssReader"
+msgstr ""
+
+#~ msgid "best regards"
+#~ msgstr "با احترام"
+
+#~ msgid "Browse ..."
+#~ msgstr "انتخاب ..."
+
+#~ msgid "Upload"
+#~ msgstr "بارگزاری"
+
+#~ msgid "File % is too large.max file size is:%s"
+#~ msgstr "File % is too large.max file size is:%s"
+
+#~ msgid "Invalid extension for file \"%s\". Only \"%s\" files are supported."
+#~ msgstr ""
+#~ "پسوند غیر معتبر برای فایل \"%s\". فقط فایل های \"%s\" پشتیبانی می شوند."
+
+#~ msgid "Loading file %s of %s …"
+#~ msgstr "در حال بارگذاری فایل %s از %s ..."
+
+#~ msgid "Loading file %s of %s - %s - %s %%  completed."
+#~ msgstr "Loading file %s of %s - %s - %s %%  completed."
+
+#~ msgid "Drag & drop files here …"
+#~ msgstr "کشیدن و انداختن فایل ها در اینجا ..."
+
+#~ msgid "Max Size"
+#~ msgstr "حدکثر حجم"
+
+#~ msgid "Valid types"
+#~ msgstr "فرمت های مجاز"
