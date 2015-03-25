@@ -108,7 +108,7 @@ class module{
 	 * show active form or active user
 	 * @return string, html content
 	 */
-	public function moduleActiveAcount(){
+	public function moduleActiveAccount(){
 		if(PLUGIN_OPTIONS == '')
 			return browser\msg::pageNotFound();
 		//going to active user account
@@ -117,7 +117,7 @@ class module{
 		if($validator->checkSid(PLUGIN_OPTIONS) && $orm->count('users','state=?',['A:'. PLUGIN_OPTIONS]) != 0){
 			$user = $orm->findOne('users','state=?',['A:'. PLUGIN_OPTIONS]);
 			$user->permission = $this->settings->defaultPermission;
-			$user->state = '';
+			$user->state = 'E';
 			$orm->store($user);
 			//login user to system
 			$this->loginWithUsername($user->username);

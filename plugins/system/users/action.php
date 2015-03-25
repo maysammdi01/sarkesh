@@ -64,6 +64,5 @@ class action extends module{
 	public function newIpBlock(){
 		return $this->moduleNewIpBlock();	
 	}
-	
-	
+
 }

@@ -101,21 +101,27 @@ class event extends module{
 		$user->password = md5($userPassword);
 		$user->permission = $this->settings->notActivePermission;
 		$user->registerDate = time();
-		$user->state = 'A:' . $validator->set('USERS_ACTIVE',false,false);
-		$orm->store($user);
+		
 		//send email to user
 		if($settings->register == 1){
             //ACTIVE WITH EMAIL
+            $activeCode = $validator->set('USERS_ACTIVE',false,false);
+            $user->state = 'A:' . $activeCode;
+            $header = _('Active account');
+            $body = '<strong>' . _("your account created and you can active that by visit url that's comes below:") . '</strong></br>';
+            $body .= sprintf('<a href="%s">%s</a>',core\general::createUrl(['users','activeAccount',$activeCode]),_('For active your account click here!'));
+            $e['RV']['MODAL'] = browser\page::showBlock(_('Successfull'),_('Your account was created and we send email for you. for active your account please check your inbox.'),'MODAL','type-success');
         }
         else{
             //ACTIVE AND SEND PASSWORD TO USER
-            $mail = new network\mail;
-
-
+            $user->state = 'E';
+            $header = sprintf(_('%s Registeration'),$local->name);
+            $body = sprintf(_('<strong>your account was created and your information is</strong></br>password:%s'),$userPassword);
+            $e['RV']['MODAL'] = browser\page::showBlock(_('Successfull'),_('Your account was created and we send password to your email.please check your email.'),'MODAL','type-success');
         }
-		//send successfull message
-		$e['RV']['MODAL'] = browser\page::showBlock(_('Successfull'),_('Your account was created and we send email for you. for active your account please check your inbox.'),'MODAL','type-success');
-		$e['RV']['JUMP_AFTER_MODAL'] = core\general::createUrl(['users','activeAccount']);
+        $e['RV']['JUMP_AFTER_MODAL'] = SiteDomain;
+        network\mail::simpleSend($user->username,$user->email,$header,$body);
+        $orm->store($user);
 		return $e;
 		
 	}

@@ -621,23 +621,19 @@ class mail
      * @param string $body, body of message
      * @RETURN boolean
      */
-    public function simpleSend($name,$email,$subject,$body){
+    public static function simpleSend($name,$email,$subject,$body){
         $mail = new mail();
         //get site localize
         $localize = core\localize::singleton();
         $local = $localize->localize();
-
-        $mail->setTo('youremail@gmail.com', 'Your Email')
+        $mail->setTo($email, $name)
             ->setSubject($subject)
-            ->setFrom('alizadeh.babak@gmail.com', 'alizadeh.babak@gmail.com')
-            ->addMailHeader('Reply-To', 'alizadeh.babak@gmail.com', 'gmail.com')
-            ->addMailHeader('Cc', 'alizadeh.babak@gmail.com', 'Bill Gates')
+            ->setFrom($local->email, $local->name)
             ->addGenericHeader('X-Mailer', 'PHP/' . phpversion())
             ->addGenericHeader('Content-Type', 'text/html; charset="utf-8"')
-            ->setMessage('<strong>This is a test message.</strong>')
+            ->setMessage($body)
             ->setWrap(100);
-        ECHO $local->email;
-        if($mail->send()) echo 22;
+       return $mail->send();
     }
 }
 ?>

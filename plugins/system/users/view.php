@@ -295,6 +295,22 @@ trait view {
 	}
 	
 	protected function viewFailActiveAccount(){
-		return [_('Error!','Your enterd activator code is invalid or be expaird.')];
+		$form = new control\form('frmFailActive');
+		$lblMsg = new control\label('<strong>' . _('Your enterd activator code is invalid or be expaird.') . '</strong>');
+		
+		$row = new control\row;
+		$btnResend = new control\button('btnResendActivator');
+		$btnResend->label = _('Request new activator code');
+		$btnResend->href = core\general::createUrl(['users','requestActivator']);
+		$btnResend->type = 'success';
+		$row->add($btnResend,2);
+		
+		$btnHome = new control\button('btnHome');
+		$btnHome->href = SiteDomain;
+		$btnHome->label = _('Home');
+		$row->add($btnHome,10);
+		
+		$form->addArray([$lblMsg,$row]);
+		return [_('Error!'),$form->draw()];
 	}
 }
