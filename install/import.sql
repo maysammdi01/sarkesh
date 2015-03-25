@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2015 at 12:55 PM
+-- Generation Time: Mar 25, 2015 at 06:07 AM
 -- Server version: 5.5.41-MariaDB-1ubuntu0.14.10.1
--- PHP Version: 5.5.12-2ubuntu4.2
+-- PHP Version: 5.5.12-2ubuntu4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,7 +51,7 @@ INSERT INTO `blocks` (`id`, `name`, `value`, `plugin`, `position`, `permissions`
 (7, 'login', '0', 2, 'sidebar1', NULL, '', '0', 1, NULL, 1, 'all', '0'),
 (8, 'profile', '0', 2, 'sidebar1', NULL, '', '0', 2, NULL, 1, 'all', '0'),
 (15, 'selectLanguage', '0', 5, 'sidebar1', NULL, '', '0', 0, NULL, 1, 'all', '0'),
-(16, 'test', '20', 6, 'main_menu', NULL, '', '1', 0, 'drawMenu', 0, 'all', '1');
+(16, 'main menu', '20', 6, 'main_menu', NULL, '', '1', 0, 'drawMenu', 0, 'en_US', '1');
 
 -- --------------------------------------------------------
 
@@ -321,25 +321,21 @@ INSERT INTO `countries` (`id`, `country_code`, `country_name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `files` (
 `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `sid` varchar(32) NOT NULL,
+  `name` varchar(1024) NOT NULL,
   `place` int(11) NOT NULL,
   `address` varchar(300) NOT NULL,
   `date` varchar(11) NOT NULL,
-  `user` int(11) NOT NULL,
+  `user` int(11) DEFAULT NULL,
   `size` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
 
 --
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`id`, `name`, `place`, `address`, `date`, `user`, `size`) VALUES
-(5, 'sorkhpost.jpg', 1, 'http://localhostupload/files/sorkhpost.jpg', '1412063025', 0, 173942),
-(6, '84825656190514sorkhpost.jpg', 1, 'http://localhostupload/files/84825656190514sorkhpost.jpg', '1412063103', 0, 173942),
-(7, '1713023707270sorkhpost.jpg', 1, 'http://localhostupload/files/1713023707270sorkhpost.jpg', '1412063110', 0, 173942),
-(8, '90723523637279sorkhpost.jpg', 1, 'http://localhostupload/files/90723523637279sorkhpost.jpg', '1412754683', 0, 173942),
-(9, 'libcairo-2.dll', 1, 'http://localhostupload/files/libcairo-2.dll', '1420189744', 0, 921369),
-(10, '149241685libcairo-2.dll', 1, 'http://localhostupload/files/149241685libcairo-2.dll', '1420189744', 0, 921369);
+INSERT INTO `files` (`id`, `sid`, `name`, `place`, `address`, `date`, `user`, `size`) VALUES
+(92, 'dypu6iakqguy1unzfyco3gcyvbzcwzit', 'upload/files/dypu6iakqguy1unzfyco3gcyvbzcwzitUntitled.png', 1, 'upload/files/dypu6iakqguy1unzfyco3gcyvbzcwzitUntitled.png', '1427116048', NULL, 2431);
 
 -- --------------------------------------------------------
 
@@ -361,6 +357,26 @@ CREATE TABLE IF NOT EXISTS `file_places` (
 
 INSERT INTO `file_places` (`id`, `name`, `class_name`, `options`, `state`) VALUES
 (1, 'Local Strong', 'files_local', 'upload/files/', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file_ports`
+--
+
+CREATE TABLE IF NOT EXISTS `file_ports` (
+`id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `maxFileSize` int(11) NOT NULL,
+  `types` varchar(50) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `file_ports`
+--
+
+INSERT INTO `file_ports` (`id`, `name`, `maxFileSize`, `types`) VALUES
+(6, 'text_formuploader', 43434343, 'jpg, gif, png');
 
 -- --------------------------------------------------------
 
@@ -393,18 +409,14 @@ CREATE TABLE IF NOT EXISTS `links` (
   `url` text NOT NULL,
   `enable` tinyint(4) NOT NULL DEFAULT '1',
   `rank` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `links`
 --
 
 INSERT INTO `links` (`id`, `ref_id`, `label`, `url`, `enable`, `rank`) VALUES
-(6, 18, 'Documents', 'https://github.com/morrning/sarkesh/wiki', 1, 0),
-(7, 18, 'Download', 'https://github.com/morrning/sarkesh', 1, 0),
-(8, 19, 'دریافت', 'https://github.com/morrning/sarkesh', 1, 0),
-(9, 20, 'مستندات', 'https://github.com/morrning/sarkesh/wiki', 1, 0),
-(10, 18, '2222', 'http://simple.com2222', 1, 2);
+(11, 20, 'Project on github', 'https://github.com/sarkeshltd/sarkesh', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -455,9 +467,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `header`, `show_header`, `localize`, `horiz`) VALUES
-(18, 'MAIN_MENU', 'MAIN MENU', 0, 'en_US', 1),
-(19, 'منو اصلی', 'منو اصلی', 0, 'fa_IR', 1),
-(20, 'test', 'test', 0, 'en_US', 1);
+(20, 'main menu', 'Main Menu', 0, 'en_US', 1);
 
 -- --------------------------------------------------------
 
@@ -497,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `name` varchar(45) NOT NULL,
   `enable` tinyint(1) NOT NULL,
   `can_edite` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `plugins`
@@ -508,7 +518,12 @@ INSERT INTO `plugins` (`id`, `name`, `enable`, `can_edite`) VALUES
 (3, 'administrator', 1, 0),
 (4, 'hello', 1, 0),
 (5, 'i18n', 1, 0),
-(6, 'menus', 1, 0);
+(6, 'menus', 1, 0),
+(7, 'reports', 1, 0),
+(8, 'files', 1, 0),
+(9, 'rss', 1, 1),
+(10, 'page', 1, 1),
+(11, 'slideshow', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -597,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `registerDate`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `state`) VALUES
-(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1426245814, 'hckho0dtnw', 5, NULL),
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6', 'info@test.org', 1, 1412751997, 55, '', 1426950939, 'yfg03e6dv8', 5, NULL),
 (18, 'admin', '7b31530f62d2b401033487cf53156561', 'alizadeh.babak@gmail.com', 0, 1423816019, NULL, NULL, NULL, NULL, 0, 'E'),
 (20, 'teste', '545907f31fba0d254aed6e616d50bc21', 'igyg@hh.conm', 1, 1425287217, NULL, NULL, NULL, NULL, 0, '4'),
 (21, 'teste1', 'e37b3db0d39f138ebdd7fc7dd3d727ec', 'igyg@hh.conm1', 1, 1425290787, NULL, NULL, NULL, NULL, 0, 'rewq'),
@@ -615,7 +630,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `source` varchar(45) NOT NULL,
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Indexes for dumped tables
@@ -643,6 +658,12 @@ ALTER TABLE `files`
 -- Indexes for table `file_places`
 --
 ALTER TABLE `file_places`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `file_ports`
+--
+ALTER TABLE `file_ports`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -723,12 +744,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=243;
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT for table `file_places`
 --
 ALTER TABLE `file_places`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `file_ports`
+--
+ALTER TABLE `file_ports`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ipblock`
 --
@@ -738,7 +764,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `links`
 --
 ALTER TABLE `links`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `localize`
 --
@@ -758,7 +784,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `plugins`
 --
 ALTER TABLE `plugins`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `registry`
 --
@@ -778,7 +804,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 -- AUTO_INCREMENT for table `validator`
 --
 ALTER TABLE `validator`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
