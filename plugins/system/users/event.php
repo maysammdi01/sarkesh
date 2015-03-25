@@ -97,13 +97,22 @@ class event extends module{
 		$user = $orm->dispense('users');
 		$user->username = trim($e['txtUsername']['VALUE']);
 		$user->email = trim($e['txtEmail']['VALUE']);
-		$user->password = md5(core\general::randomString(10,'NC'));
+        $userPassword = core\general::randomString(10,'NC');
+		$user->password = md5($userPassword);
 		$user->permission = $this->settings->notActivePermission;
 		$user->registerDate = time();
 		$user->state = 'A:' . $validator->set('USERS_ACTIVE',false,false);
 		$orm->store($user);
 		//send email to user
-		
+		if($settings->register == 1){
+            //ACTIVE WITH EMAIL
+        }
+        else{
+            //ACTIVE AND SEND PASSWORD TO USER
+            $mail = new network\mail;
+
+
+        }
 		//send successfull message
 		$e['RV']['MODAL'] = browser\page::showBlock(_('Successfull'),_('Your account was created and we send email for you. for active your account please check your inbox.'),'MODAL','type-success');
 		$e['RV']['JUMP_AFTER_MODAL'] = core\general::createUrl(['users','activeAccount']);

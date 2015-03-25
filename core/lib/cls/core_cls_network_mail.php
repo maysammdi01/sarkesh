@@ -1,7 +1,7 @@
 <?php
 namespace core\cls\network;
 use core\cls\core as core;
-<?php
+
 /**
  * Simple Mail
  *
@@ -611,6 +611,33 @@ class mail
     public function getWrapMessage()
     {
         return wordwrap($this->_message, $this->_wrap);
+    }
+
+    /*
+     * function for simple send message
+     * @param string $userName , name of reciver
+     * @param string $email,email of reciver
+     * @param string $subject , subject of message
+     * @param string $body, body of message
+     * @RETURN boolean
+     */
+    public function simpleSend($name,$email,$subject,$body){
+        $mail = new mail();
+        //get site localize
+        $localize = core\localize::singleton();
+        $local = $localize->localize();
+
+        $mail->setTo('youremail@gmail.com', 'Your Email')
+            ->setSubject($subject)
+            ->setFrom('alizadeh.babak@gmail.com', 'alizadeh.babak@gmail.com')
+            ->addMailHeader('Reply-To', 'alizadeh.babak@gmail.com', 'gmail.com')
+            ->addMailHeader('Cc', 'alizadeh.babak@gmail.com', 'Bill Gates')
+            ->addGenericHeader('X-Mailer', 'PHP/' . phpversion())
+            ->addGenericHeader('Content-Type', 'text/html; charset="utf-8"')
+            ->setMessage('<strong>This is a test message.</strong>')
+            ->setWrap(100);
+        ECHO $local->email;
+        if($mail->send()) echo 22;
     }
 }
 ?>

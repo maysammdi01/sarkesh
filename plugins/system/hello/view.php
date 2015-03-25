@@ -13,7 +13,7 @@ class view {
 	 * @return array content
 	 */
 	 public function viewSample(){
-		
+
 		 $uploader = new control\uploader('hello_uploader');
 
 		 return [1,$uploader->draw()];

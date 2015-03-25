@@ -25,12 +25,13 @@ trait view {
 		$password = new control\textbox('password');
 		$password->INLINE = TRUE;
 		$password->label = _('Password:');
-		$password->ADDON = 'P';
+		$password->ADDON = _('P');
 		$password->PLACE_HOLDER = _('Password');
 		$password->PASSWORD = true;
 		
 		$remember = new control\checkbox('ckbRemember');
 		$remember->LABEL = _('Remember me!');
+        $remember->size=12;
 		
 		$login = new control\button('btnLogin');
 		$login->LABEL = _('Sign in');
@@ -42,10 +43,11 @@ trait view {
 		$forget->LABEL = _('Reset Password');
 		$forget->HREF = core\general::createUrl(['users','resetPassword']);
 		$forget->TYPE = 'link';
-		
+		$forget->size=12;
+
 		$r = new control\row;
-		$r->add($login,3);
-		$r->add($forget,9);
+		$r->add($login,2);
+		$r->add($forget,10);
 		
 		$form = new control\form;
 		$form->NAME = 'usersLoginFrm';
