@@ -1,6 +1,7 @@
 <?php
 namespace core\cls\network;
-use core\cls\core as core;
+use \core\cls\template as template;
+use \core\cls\core as core;
 
 /**
  * Simple Mail
@@ -623,15 +624,21 @@ class mail
      */
     public static function simpleSend($name,$email,$subject,$body){
         $mail = new mail();
+        $raintpl = new template\raintpl();
+        $raintpl->configure('tpl_dir','core/ect/tpl/');
         //get site localize
         $localize = core\localize::singleton();
         $local = $localize->localize();
+        $raintpl->assign( "title", $subject);
+        $raintpl->assign( "body", $body);
+        $raintpl->assign( "endMsg", _('Best Regards.'));
+        $raintpl->assign( "thanksMsg", $local->name . ' - ' . $local->slogon);
         $mail->setTo($email, $name)
             ->setSubject($subject)
             ->setFrom($local->email, $local->name)
             ->addGenericHeader('X-Mailer', 'PHP/' . phpversion())
             ->addGenericHeader('Content-Type', 'text/html; charset="utf-8"')
-            ->setMessage($body)
+            ->setMessage($raintpl->draw('emailTemplate',true))
             ->setWrap(100);
        return $mail->send();
     }

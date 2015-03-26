@@ -51,4 +51,3 @@ function SysShowModal(data , jump_page){
 		}]
 	});  
 }
-

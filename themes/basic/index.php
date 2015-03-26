@@ -4,7 +4,7 @@
 </#HEADERS#/>
 <title></#PAGE_TITTLE#/></title>
 </head>
-<body> 
+<body>
 <div class="navbar navbar-default">
   <div class="container">
     <a class="navbar-brand" href="/"></#SITE_NAME#/></a>
