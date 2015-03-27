@@ -2,7 +2,7 @@
 	<div class="col-xs-{$size}">
 		<div class="row {if="$VERTICAL_ALIGN"}vertical-align{/if}">
 			{loop="$e"}
-				<div class="col-xs-{$value.width} col-centered">
+				<div class="col-xs-{$value.width} col-md-offset-{$value.offset} {$value.center}">
 					{$value.body}
 				</div>
 			{/loop}

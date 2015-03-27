@@ -121,7 +121,7 @@ trait addons {
 	 */
 	public function loginWithUsername($username){
 		$orm = db\orm::singleton();
-		$count = $orm->count('users',"username = ? or email=? and password = ?", array($e['username']['VALUE'],$e['username']['VALUE'],md5($e['password']['VALUE'])));
+		$count = $orm->count('users',"username = ?", [$username]);
 		if($count != 0){
 			//login data is cerrect
 			$validator = new network\validator;

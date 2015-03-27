@@ -7,6 +7,7 @@ use \core\cls\db as db;
 use \core\data as data;
 
 class event extends module{
+	use \core\plugin\administrator\addons;
 	
 	private $settings;
 	
@@ -183,6 +184,110 @@ class event extends module{
             $ip->ip = ip2long(trim($e['txtIp']['VALUE']));
             $orm->store($ip);
             return browser\msg::modalSuccessfull($e,['service','administrator','load','users','ipBlockList']);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	
+	/*
+	 * change user password
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function onclickBtnChangePassword($e){
+		if($this->isLogedin()){
+			if(strlen($e['txtPassword']['VALUE']) < 6 || strlen($e['txtRePassword']['VALUE']) < 6)
+				return browser\msg::modal($e,('Warning') ,_('Selected password is too short! password most be more than 6 characters.'),'warning');
+			elseif($e['txtPassword']['VALUE'] != $e['txtRePassword']['VALUE'])
+				return browser\msg::modal($e,('Warning'),_('Entered passwords are not match'),'warning');
+			$user = $this->getCurrentUserInfo();
+			$orm = db\orm::singleton();
+			$user->password = md5($e['txtPassword']['VALUE']);
+			$orm->store($user);
+            return browser\msg::modalSuccessfull($e,['users','profile']);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * RESET USER PASSWORD
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function btnOnclickResetPassword($e){
+		if($e['txtEmail']['VALUE'] == '')
+			return browser\msg::modalNotComplete($e);
+		elseif(!data\type::isEmail($e['txtEmail']['VALUE']))
+			return browser\msg::modal($e,('Warning'),_('Format of entered email is incerrect!'),'warning');
+		$orm = db\orm::singleton();
+		if($orm->count('users','email=?',[$e['txtEmail']['VALUE']]) != 0){
+			$validator = new network\validator;
+			$localize = core\localize::singleton();
+			$local = $localize->localize();
+			$user = $orm->findOne('users','email=?',[$e['txtEmail']['VALUE']]);
+			$user->forget = $validator->set('USERS_RESET',false,false);
+			$orm->store($user);
+			//send email to user
+            $header = sprintf(_('%s:Reset password'),$local->name);
+            //set body of email
+            $body = '<strong>' . $user->name . '</string></br>';
+            $body .= sprintf(_('We received a request to reset the password for your account at %s site.'),$local->name);
+            $body .= _("Here's a one-time login link for you to use to access your account and set a new password.");
+            $body .= '<a href="' . core\general::createUrl(['users','resetPassword',$user->forget]) . '">' . _('for login your account please click here!') . '</a></br>';
+            $body .= _("if you didn't request new login info, don't worry, this link will expire after a day and noting will happen if it's not used.");
+            
+            $e['RV']['MODAL'] = browser\page::showBlock(_('Successfull'),_('further instructions have been send to your email address.'),'MODAL','type-success');
+			$e['RV']['JUMP_AFTER_MODAL'] = SiteDomain;
+			network\mail::simpleSend($user->username,$user->email,$header,$body);
+			return $e;
+        }
+		return browser\msg::modal($e,_('Warning'), sprintf(_('Sorry, %s is not recognized as a e-mail address.'),$e['txtEmail']['VALUE']),'warning');
+		$e['txtEmail']['VALUE'] = '';
+	}
+	
+	/*
+	 * save user avatar
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function btnOnclickSaveAvatar($e){
+		if($this->isLogedin()){
+			$registry = core\registry::singleton();
+			$settings = $registry->getPlugin('users');
+			if($settings->usersCanUploadAvatar == 1){
+				if($e['userAvatar']['VALUE'] == '')
+					return browser\msg::modal($e,_('Error!'),_('Please first upload your avatar.'),'warning');
+				$user = $this->getCurrentUserInfo();
+				$this->fileRemove($user->photo);
+				$user->photo = $e['userAvatar']['VALUE'];
+				$orm = db\orm::singleton();
+				$orm->store($user);
+				return browser\msg::modalSuccessfull($e,['users','profile']);
+			}
+		}
+	}
+	
+	/*
+	 * save user avatar
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function btnOnclickRegisterSettings($e){
+		if($this->hasAdminPanel()){
+			//save register type
+            $register_type = 0;
+            if($e['rad_it_visitors']['CHECKED'] == '1')
+                $register_type = 1;
+            $registry = core\registry::singleton();
+			$registry->set('users','register',$register_type);
+			$registry->set('users','defaultPermission',$e['cobNewRoll']['SELECTED']);
+			//save email verification setting
+			$verification_type = 0;
+			if($e['ckb_verification']['CHECKED'] == '1')
+				$verification_type = 1;
+			$registry->set('users','active_from_email',$verification_type);
+			
+			return browser\msg::modalSuccessfull($e);
 		}
 		return browser\msg::modalNoPermission($e);
 	}

@@ -31,7 +31,10 @@ class tile extends control\tile\module{
 		if($place != ''){
 			array_push($this->places, $place);
 		}
-		array_push($this->items,$item);
+		if(is_string($item))
+			array_push($this->items,$item);
+		else
+			array_push($this->items,$item->draw());
 	}
 	
 	//this function configure control//

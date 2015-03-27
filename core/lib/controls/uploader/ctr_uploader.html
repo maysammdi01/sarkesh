@@ -8,7 +8,7 @@
 		<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-12">
-						<input form ="{$form}" name="{$name}" id="id_ctr_uploader_{$name}" class="ca_{$form}" type="hidden" value="" />
+						<input type="hidden" id="id_ctr_uploader_{$name}" class="ca_{$form}" name="{$name}" form="{$form}" value="" ></input>
 						<div class="input-group">
 						  <span class="input-group-btn">
 							<button class="btn btn-primary btn_select_file_{$name}" type="button" onclick="document.getElementById('ctr_uploader_{$name}').click();">{$strSelect}</button>

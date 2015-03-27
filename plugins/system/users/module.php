@@ -8,6 +8,7 @@ use core\cls\db as db;
 class module{
 	use view;
 	use addons;
+	use \core\plugin\files\addons;
 	
 	/*
 	 * construct
@@ -98,9 +99,13 @@ class module{
 	 * show register form
 	 * @return string, html content
 	 */
-	public function moduleFrmRegister(){
-		if(!$this->isLogedin())
-			return $this->viewFrmRegister();
+	protected function moduleFrmRegister(){
+		if(!$this->isLogedin()){
+			$registry = core\registry::singleton();
+			if($registry->get('users','register') == '1')
+				return $this->viewFrmRegister();
+			return browser\msg::pageNotFound();
+		}
 		return core\router::jump(['users','profile']);
 	}
 	
@@ -108,21 +113,24 @@ class module{
 	 * show active form or active user
 	 * @return string, html content
 	 */
-	public function moduleActiveAccount(){
+	protected function moduleActiveAccount(){
 		if(PLUGIN_OPTIONS == '')
 			return browser\msg::pageNotFound();
 		//going to active user account
 		$orm = db\orm::singleton();
 		$validator = new network\validator;
 		if($validator->checkSid(PLUGIN_OPTIONS) && $orm->count('users','state=?',['A:'. PLUGIN_OPTIONS]) != 0){
+			ECHO 555;
 			$user = $orm->findOne('users','state=?',['A:'. PLUGIN_OPTIONS]);
-			$user->permission = $this->settings->defaultPermission;
+			$registry = core\registry::singleton();
+			$settings = $registry->getPlugin('users');
+			$user->permission = $settings->defaultPermission;
 			$user->state = 'E';
 			$orm->store($user);
 			//login user to system
 			$this->loginWithUsername($user->username);
 			//jump to change password form
-			return core\router::jump('users','changePassword','newUser');
+			return core\router::jump(['users','changePassword','newUser']);
 			
 		}
 		//show fail message
@@ -142,7 +150,7 @@ class module{
 	 * show list of blocked ips
 	 * @return string, html content
 	 */
-	public function moduleIpBlockList(){
+	protected function moduleIpBlockList(){
 		if($this->hasAdminPanel()){
 			$orm = db\orm::singleton();
 			return $this->viewIpBlockList($orm->getAll('ipblock'));
@@ -154,9 +162,85 @@ class module{
 	 * add new ip to block list
 	 * @return string, html content
 	 */
-	public function moduleNewIpBlock(){
+	protected function moduleNewIpBlock(){
 		if($this->hasAdminPanel()){
 			return $this->viewNewIpBlock();
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * reset code defined proccess to define new password
+	 * @return string, html content
+	 */
+	protected function moduleResetPassword(){
+		$validator = new network\validator;
+		if($validator->checkSid(PLUGIN_OPTIONS)){
+			$orm = db\orm::singleton();
+			if($orm->count('users','forget=?',[PLUGIN_OPTIONS]) != 0){
+				$user = $orm->findOne('users','forget=?',[PLUGIN_OPTIONS]);
+				$user->forget = '';
+				$orm->store($user);
+				$this->loginWithUsername($user->username);
+				return core\router::jump(['users','changePassword']);
+			}
+		}
+		return $this->viewResetPasswordExpire();
+	}
+	
+	/*
+	 * show user profile
+	 * @return string, html content
+	 */
+	protected function moduleProfile(){
+		if(!defined('PLUGIN_OPTIONS')){
+			//SHOW USER OWN PROFILE
+			if($this->isLogedin()){
+				$user = $this->getCurrentUserInfo();
+				if(is_null($user->photo))
+					$user->photo = SiteDomain . '/plugins/system/users/images/def_avatar_128.png';
+				else
+					$user->photo = $this->getFileAddress($user->photo);
+				return $this->viewOwnProfile($user);
+			}
+			return core\router::jump(['users','login']);
+		}
+	}
+	/*
+	 * show page to user for select new or change avatar
+	 * @return array, [title,body]
+	 */
+	protected function moduleChangeAvatar(){
+		$registry = core\registry::singleton();
+		$settings = $registry->getPlugin('users');
+		if($settings->usersCanUploadAvatar == 1){
+			return $this->viewChangeAvatar();
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * show list of people in administrator area
+	 * @return array, [title,body]
+	 */
+	protected function moduleListPeople(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			return $this->viewListPeople($orm->findAll('users'),$orm->findAll('permissions'));
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * SHOW USER PLUGIN SETTINGS
+	 * @return array, [title,body]
+	 */
+	protected function moduleAccountSettings(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			$registry = core\registry::singleton();
+			$settings = $registry->getPlugin('users');
+			return $this->viewAccountSettings($settings,$orm->find('permissions','name <> ?;',['Guest']));
 		}
 		return browser\msg::pageAccessDenied();
 	}

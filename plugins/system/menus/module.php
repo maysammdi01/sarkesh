@@ -13,7 +13,7 @@ class module extends view{
 	 */
 	public static function coreMenu(){
 		$menu = array();
-		$url = core\general::createUrl(['service','administrator','load','menus','newMenu']);
+		$url = core\general::createUrl(['service','administrator','load','menus','doMenu']);
 		array_push($menu,[$url, _('New menu')]);
 		$url = core\general::createUrl(['service','administrator','load','menus','listMenus']);
 		array_push($menu,[$url, _('List menus')]);

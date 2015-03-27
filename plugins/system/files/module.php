@@ -8,6 +8,7 @@ use core\cls\db as db;
 class module{
 	use view;
 	use addons;
+	use \core\plugin\users\addons;
 	
 	/*
 	 * construct
@@ -125,15 +126,9 @@ class module{
 	protected function moduleRemoveFile(){
 		if(array_key_exists('sid',$_REQUEST)){
 			$orm = db\orm::singleton();
-			if($orm->count('files','sid=?',[$_REQUEST['sid']]) != 0){
-				$file = $orm->findOne('files','sid=?',[$_REQUEST['sid']]);
-				if(file_exists(AppPath . $file->name))
-					unlink(AppPath . $file->name);
-				$orm->exec('DELETE FROM files WHERE sid=?',[$_REQUEST['sid']],NON_SELECT);
+			if($this->fileRemove($_REQUEST['sid']))
 				return 'OK';
-			}
 		}
 		return 'fail';
 	}
-	
 }

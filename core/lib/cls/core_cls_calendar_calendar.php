@@ -9,9 +9,10 @@
  
  namespace core\cls\calendar;
  use \core\cls\core as core;
+ use core\cls\patterns as patterns;
  
  class calendar{
-	 
+	 use patterns\singleton;
 	 /*
 	  * @var string,cerrent system calendar name
 	  */
@@ -23,8 +24,8 @@
 	 function __construct(){
 		 //get selected system calendar type;
 		 $localize = new core\localize;
-		 $localSettings = $localize->get_localize(); 
-		 $this->calendar = $localSettings['calendar'];
+		 $localSettings = $localize->localize(); 
+		 $this->calendar = $localSettings->calendar;
 	 }
 	 
 	 

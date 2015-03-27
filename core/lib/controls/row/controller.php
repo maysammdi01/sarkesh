@@ -25,6 +25,7 @@ class row extends control\row\module{
 			}
 			$e['width'] = $c['width'];
 			$e['offset'] = $c['offset'];
+			$e['center'] = $c['center'];
 			$e['body'] = call_user_func(array($c['object'],"draw"));
 			array_push($this->e, $e);
 		}
@@ -42,12 +43,13 @@ class row extends control\row\module{
 		return FALSE;
 	}
 
-	public function add($element,$width=1,$offset=0){
+	public function add($element,$width=1,$offset=0,$center=true){
 		
 		$e['width'] = $width;
 		$e['object'] = $element;
 		$e['offset'] = $offset;
-		
+		$e['center'] = null;
+		if($center) $e['center'] = 'col-centered';
 		array_push($this->controls, $e);
 
 	}

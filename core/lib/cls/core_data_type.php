@@ -24,5 +24,16 @@ class type{
 			return false;
 		return true;
 	}
+	
+	/*
+	 * check for that entered string is in email format
+	 * @param string $email, email
+	 * @return boolean
+	 */
+	public static function isEmail($email){
+		if(filter_var($email,FILTER_VALIDATE_EMAIL))
+			return true;
+		return false;
+	}
 }
 ?>

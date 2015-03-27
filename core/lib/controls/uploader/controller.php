@@ -4,11 +4,12 @@ use \core\control as control;
 class uploader extends control\uploader\module{
 	private $config;
 	
-	function __construct(){
+	function __construct($name = null){
 		parent::__construct();
 		
 		//this config save name of control
 		$this->config['NAME'] = 'uploader';
+		if(!is_null($name)) $this->config['NAME'] = $name;
 		
 		//for add class for change style of control use this config
 		$this->config['CLASS'] = '';

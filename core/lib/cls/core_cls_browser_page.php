@@ -76,7 +76,7 @@ class page{
 		array_push($defaultHeaders, '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 		array_push($defaultHeaders, '<meta name="generator" content=" Sarkesh CMF! - Open Source Content Management Framework" />');
 		//add default header tags
-		if(self::$localSettings->headerTags != ''){
+		if(self::$localSettings->header_tags != ''){
 			array_push($defaultHeaders, '<meta name="description" content="' . self::$localSettings->header_tags . '" />');
 		}
 		
