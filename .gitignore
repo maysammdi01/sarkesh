@@ -1,6 +1,5 @@
 #upload buffer
-upload/buffer/**
-upload/files/**
+
 
 # windows thumbnail cache
 Thumbs.db

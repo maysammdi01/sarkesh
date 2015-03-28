@@ -17,6 +17,7 @@ Additions
 	-reports plugin
 	-users control plugin from administrator area
 	-add index option to checkbox control for use checkbox in tables
+	-add new control(wall)
 Removals
 	-old Menus plugin
 	-msg plugin
