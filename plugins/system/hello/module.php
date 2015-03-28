@@ -15,9 +15,16 @@ class module extends view{
 	 public function moduleSample(){
          
 		 $form = new control\form('text_form');
-		 $uploader = new control\uploader('hello_uploader');
-		 $form->add($uploader);
+		 $txt = new control\checkbox('txt_you');
+		 $txt->index = 0;
+		 $form->add($txt);
+		 $txt->index = 1;
+		 $form->add($txt);
 		 
+		 $button = new control\button('btn');
+		 $button->p_onclick_function = 'hello';
+		 $button->p_onclick_plugin = 'hello';
+		 $form->add($button);
 		 return ['test uploader',$form->draw()];
 		 
 	 }

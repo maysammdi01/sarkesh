@@ -2,6 +2,7 @@
 namespace core\plugin\users;
 use \core\control as control;
 use \core\cls\core as core;
+use \core\cls\db as db;
 use \core\cls\calendar as calendar;
 
 trait view {
@@ -452,11 +453,15 @@ trait view {
 	
 	/*
 	 * show page to user for select new or change avatar
+	 * @param array $settings , plugin settings
 	 * @return array, [title,body]
 	 */
-	protected function viewChangeAvatar(){
+	protected function viewChangeAvatar($settings){
 		$form = new control\form('usersChangeAvatar');
 		$uploader = new control\uploader('userAvatar');
+		$uploader->MAX_FILE_SIZE = $settings->max_file_size * 8;
+		$uploader->label = _('Upload avatar');
+		$uploader->help = _('first upload your avatar and click on save button');
 		$form->add($uploader);
 		
 		//update and cancel buttons
@@ -524,8 +529,7 @@ trait view {
             $btn_active->configure('LABEL',_('Edite'));
             $btn_active->configure('TYPE','success');
             $btn_active->configure('VALUE',$user->id);
-			$btn_active->configure('P_ONCLICK_PLUGIN','users');
-			$btn_active->configure('P_ONCLICK_FUNCTION','btn_edite_user');
+			$btn_active->configure('HREF',core\general::createUrl(['service','administrator','load','users','editeUser',$user->id]));
 			$row->add($btn_active,1);
 			
 			$table->add_row($row);
@@ -548,125 +552,220 @@ trait view {
 	 * @return array, [title,body]
 	 */
 	protected function viewAccountSettings($settings,$rolls){
-			$tab = new control\tabbar;
 
-		  	//---------------------- FORM FOR CONTROL REGISTER AND ECT ----------------------
-		  	$frm_reg_settings = new control\form('frm_reg_settings');
-		  	$frm_reg_settings->configure('LABEL',_('Registration settings'));
+	  	$form = new control\form('form');
+		$form->configure('LABEL',_('Registration settings'));
 
-		  	//add default roll for new users
-		  	$cobNewRoll = new control\combobox('cobNewRoll');
-	        $cobNewRoll->configure('LABEL',_('Default users roll'));
-	        $cobNewRoll->configure('HELP',_('New users get roll that you select in above.'));
-	        $cobNewRoll->configure('TABLE',$rolls);
-	        $cobNewRoll->configure('COLUMN_VALUES','id');
-	        $cobNewRoll->configure('COLUMN_LABELS','name');
-	        $cobNewRoll->configure('SELECTED_INDEX',$settings->defaultPermission);
-	        $cobNewRoll->configure('SIZE',3);
-	        $frm_reg_settings->add($cobNewRoll);
+		//add default roll for new users
+		$cobNewRoll = new control\combobox('cobNewRoll');
+	    $cobNewRoll->configure('LABEL',_('Default users roll'));
+	    $cobNewRoll->configure('HELP',_('New users get roll that you select in above.'));
+	    $cobNewRoll->configure('TABLE',$rolls);
+	    $cobNewRoll->configure('COLUMN_VALUES','id');
+	    $cobNewRoll->configure('COLUMN_LABELS','name');
+	    $cobNewRoll->configure('SELECTED_INDEX',$settings->defaultPermission);
+	    $cobNewRoll->configure('SIZE',3);
+	    $form->add($cobNewRoll);
 
-		  	$rad_bot = new control\radiobuttons('rad_show_option');
-			$rad_bot->configure('LABEL',_('Who can register accounts? '));
-			$radit_admin_only = new control\radioitem('rad_it_adminonly');
-			$radit_admin_only->configure('LABEL',_('Administrators only'));
-			if($settings->register == 0){
-				$radit_admin_only->configure('CHECKED',TRUE);
-			}
-			$rad_bot->add($radit_admin_only);
+		$rad_bot = new control\radiobuttons('rad_show_option');
+		$rad_bot->configure('LABEL',_('Who can register accounts? '));
+		$radit_admin_only = new control\radioitem('rad_it_adminonly');
+		$radit_admin_only->configure('LABEL',_('Administrators only'));
+		if($settings->register == 0)
+			$radit_admin_only->configure('CHECKED',TRUE);
+		$rad_bot->add($radit_admin_only);
 			
-			$radit_visitors  = new control\radioitem('rad_it_visitors');
-			$radit_visitors->configure('LABEL',_('Visitors'));
-			if($settings->register == 1){
-				$radit_visitors->configure('CHECKED',TRUE);
-			}
-			$rad_bot->add($radit_visitors);
-			$frm_reg_settings->add($rad_bot);
+		$radit_visitors  = new control\radioitem('rad_it_visitors');
+		$radit_visitors->configure('LABEL',_('Visitors'));
+		if($settings->register == 1)
+			$radit_visitors->configure('CHECKED',TRUE);
+		$rad_bot->add($radit_visitors);
+		$form->add($rad_bot);
 
-			//veriflication settings
-			$ckb_verification = new control\checkbox('ckb_verification');
-			$ckb_verification->configure('LABEL',_('Require e-mail verification when a visitor creates an account.') );
-			$ckb_verification->configure('HELP',_('New users will be required to validate their e-mail address prior to logging into the site, and will be assigned a system-generated password. With this setting disabled, users will be logged in immediately upon registering, and may select their own passwords during registration.'));
-			if($settings->active_from_email == 1){
-				$ckb_verification->configure('CHECKED',TRUE);
-			}
-			$frm_reg_settings->add($ckb_verification);
+		//veriflication settings
+		$ckb_verification = new control\checkbox('ckb_verification');
+		$ckb_verification->configure('LABEL',_('Require e-mail verification when a visitor creates an account.') );
+		$ckb_verification->configure('HELP',_('New users will be required to validate their e-mail address prior to logging into the site, and will be assigned a system-generated password. With this setting disabled, users will be logged in immediately upon registering, and may select their own passwords during registration.'));
+		if($settings->active_from_email == 1)
+			$ckb_verification->configure('CHECKED',TRUE);
+		$form->add($ckb_verification);
 
-		  	//update and cancel buttons
-			$btn_update = new control\button('btn_update');
-			$btn_update->configure('LABEL',_('Update'));
-			$btn_update->configure('P_ONCLICK_PLUGIN','users');
-			$btn_update->configure('P_ONCLICK_FUNCTION','btnOnclickRegisterSettings');
-			$btn_update->configure('TYPE','primary');
-			
-			$btn_cancel = new control\button('btn_cancel');
-			$btn_cancel->configure('LABEL',_('Cancel'));
-			$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
-			
-			$row = new control\row;
-			$row->configure('IN_TABLE',false);
-			$row->add($btn_update,1);
-			$row->add($btn_cancel,11);
-			$frm_reg_settings->add($row);
-
-			$tab->add($frm_reg_settings);
-		  	//-------------------------------------------------------------------------------
-		  	$frm_personal_settings = new control\form('frm_personal_settings');
-		  	$frm_personal_settings->configure('LABEL',_('Personalization'));
-
-		  	//enable sign
-			$ckb_signatures = new control\checkbox('ckb_signatures');
-			$ckb_signatures->configure('LABEL',_('Enable signatures.'));
-			$ckb_signatures->configure('HELP',_('With enable this option user signature show in content that published by user.'));
-			if($settings->signatures == 1){
-				$ckb_signatures->configure('CHECKED',TRUE);
-			}
-			$frm_personal_settings->add($ckb_signatures);
-
-			//enable user picture
-			$ckb_user_pic = new control\checkbox('ckb_user_pic');
-			$ckb_user_pic->configure('LABEL',_('Enable user pictures. ') );
-			$ckb_user_pic->configure('HELP',_('With this option,site users can upload personal avatars.'));
-			if($settings->usersCanUploadAvatar == 1){
-				$ckb_user_pic->configure('CHECKED',TRUE);
-			}
-			$frm_personal_settings->add($ckb_user_pic);
+		//enable user picture
+		$ckb_user_pic = new control\checkbox('ckb_user_pic');
+		$ckb_user_pic->configure('LABEL',_('Enable user pictures. ') );
+		$ckb_user_pic->configure('HELP',_('With this option,site users can upload personal avatars.'));
+		if($settings->usersCanUploadAvatar == 1)
+			$ckb_user_pic->configure('CHECKED',TRUE);	
+		$form->add($ckb_user_pic);
 		  	
-		  	//max_file_size
-		  	$txt_max_file_size = new control\textbox('txt_max_file_size');
-		  	$txt_max_file_size->configure('LABEL',_('Picture upload max file size'));
-		  	$txt_max_file_size->configure('ADDON',_('KiloByte'));
-		  	$txt_max_file_size->configure('VALUE',$settings->max_file_size);
-		  	$txt_max_file_size->configure('SIZE',3);
-			$txt_max_file_size->configure('HELP',_('Maximum allowed file size for uploaded pictures. Upload size is normally limited only by the PHP maximum post and file upload settings, and images are automatically scaled down to the dimensions specified above.'));
-			$frm_personal_settings->add($txt_max_file_size);
+		//max_file_size
+		$txt_max_file_size = new control\textbox('txt_max_file_size');
+		$txt_max_file_size->configure('LABEL',_('Picture upload max file size'));
+		$txt_max_file_size->configure('ADDON',_('KiloByte'));
+		$txt_max_file_size->configure('VALUE',$settings->max_file_size);
+		$txt_max_file_size->configure('SIZE',3);
+		$txt_max_file_size->configure('HELP',_('Maximum allowed file size for uploaded pictures. Upload size is normally limited only by the PHP maximum post and file upload settings, and images are automatically scaled down to the dimensions specified above.'));
+		$form->add($txt_max_file_size);
 
-			//avatar Picture guidelines
-			$txt_picture_guidlines = new control\textarea('txt_picture_guidlines');
-			$txt_picture_guidlines->configure('LABEL',_('Picture guidelines'));
-			$txt_picture_guidlines->configure('VALUE',$settings->avatar_guidline);
-			$txt_picture_guidlines->configure('EDITOR',FALSE);
-			$txt_picture_guidlines->configure('ROWS',5);
-			$txt_picture_guidlines->configure('HELP',_("This text is displayed at the picture upload form in addition to the default guidelines. It's useful for helping or instructing your users."));
-			$frm_personal_settings->add($txt_picture_guidlines);
-
-		  	//update and cancel buttons
-			$btn_update = new control\button('btn_update');
-			$btn_update->configure('LABEL',_('Update'));
-			$btn_update->configure('P_ONCLICK_PLUGIN','users');
-			$btn_update->configure('P_ONCLICK_FUNCTION','btn_onclick_register_personal');
-			$btn_update->configure('TYPE','primary');
+		//update and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','users');
+		$btn_update->configure('P_ONCLICK_FUNCTION','btnOnclickRegisterSettings');
+		$btn_update->configure('TYPE','primary');
 			
-			$btn_cancel = new control\button('btn_cancel');
-			$btn_cancel->configure('LABEL',_('Cancel'));
-			$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
 			
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
+  	
+		return [_('Account settings'),$form->draw()];
+	}
+	
+	/*
+	 * edite user information
+	 * @param object $user, user information
+	 * @param array $permissions, all permissions data
+	 * @param array $settings, plugin settings
+	 * @return array, [title,body]
+	 */
+	protected function viewEditeUser($user, $permissions,$settings){
+		$form = new control\form('frmUsersEditeUser');
+		
+		//set user id
+		$hidID = new control\hidden('hidID');
+		$hidID->value = $user->id;
+		$form->add($hidID);
+		
+		//change user roll
+		$cobNewRoll = new control\combobox('cobUserRoll');
+	    $cobNewRoll->configure('LABEL',_('Users roll'));
+	    $cobNewRoll->configure('HELP',_('Be carefull about change user roll.'));
+	    $cobNewRoll->configure('TABLE',$permissions);
+	    $cobNewRoll->configure('COLUMN_VALUES','id');
+	    $cobNewRoll->configure('COLUMN_LABELS','name');
+	    $cobNewRoll->configure('SELECTED_INDEX',$settings->defaultPermission);
+	    $cobNewRoll->configure('SIZE',3);
+	    $form->add($cobNewRoll);
+	    
+	    //update and cancel buttons
+		$btn_update = new control\button('btn_update');
+		$btn_update->configure('LABEL',_('Update'));
+		$btn_update->configure('P_ONCLICK_PLUGIN','users');
+		$btn_update->configure('P_ONCLICK_FUNCTION','btnOnclickEditeUser');
+		$btn_update->configure('TYPE','primary');
+			
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','users','listPeople']));
+			
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		$row->add($btn_update,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
+	    return [sprintf(_('Edite %s information and rolls'),$user->username),$form->draw()];
+	}
+	
+	/*
+	 * show list of groups
+	 * @param array $permissions, all exists permissions
+	 * @return array, [title,body]
+	 */
+	protected function viewListGroups($permissions){
+        $form = new control\form("users_list_people");
+		$form->configure('LABEL',_('User Groups'));
+		
+		$table = new control\table;
+		$orm = db\orm::singleton();
+		foreach($permissions as $key=>$group){
 			$row = new control\row;
-			$row->configure('IN_TABLE',false);
-			$row->add($btn_update,3);
-			$row->add($btn_cancel,3);
-			$frm_personal_settings->add($row);
-		  	$tab->add($frm_personal_settings);
-		  	
-		  	return [_('Account settings'),$tab->draw()];
+			
+			//add id to table for count rows
+			$lbl_id = new control\label($key+1);
+			$row->add($lbl_id,1);
+			
+			//add group name
+			$lbl_group_name = new control\label($group->name);
+			$row->add($lbl_group_name,2);
+            
+            $user_number = new control\label($orm->count('users','permission=?',[$group->id]));	
+			$row->add($user_number,2);
+
+			//add edite button
+            $btn_active = new control\button;
+            $btn_active->configure('LABEL',_('Edite'));
+            $btn_active->configure('TYPE','success');
+			$btn_active->configure('HREF',core\general::createUrl(['service','administrator','load','users','editeGroup',$group->id]));
+			$row->add($btn_active,1);
+			$table->add_row($row);
+		}
+		//add headers to table
+		$table->configure('HEADERS',array(_('ID'),_('Name'),_('Count'),_('Options')));
+		$table->configure('HEADERS_WIDTH',[1,7,2,2]);
+		$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE]);
+		$table->configure('BORDER',true);
+		$form->add($table);
+		
+		$btn_insert_group = new control\button('btn_insert_group');
+		$btn_insert_group->configure('LABEL',_('New Group'));
+		$btn_insert_group->configure('TYPE','primary');
+		$btn_insert_group->configure('HREF',core\general::createUrl(['service','administrator','load','users','newGroup']));
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_insert_group,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
+		return array(_('Groups'),$form->draw());
+	}
+	
+	/*
+	 * show form for add new group
+	 * @return array, [title,body]
+	 */
+	protected function viewNewGroup(){
+		$form = new control\form('frmUsersNewGroup');
+		
+		$txtName = new control\textbox('txtName');
+		$txtName->label = _('Group name');
+		$txtName->place_holder = _('Group name');
+		$txtName->help = _('Group name show in users profile and you can control user permissions of this group with this.');
+		$txtName->size = 4;
+		$form->add($txtName);
+		
+		$ckbAdminPanel = new control\checkbox('ckbAdminPanel');
+		$ckbAdminPanel->configure('LABEL',_('Admin area?') );
+		$ckbAdminPanel->configure('HELP',_('If you check this option,users of this group can access to administrator area.'));
+		$ckbAdminPanel->configure('CHECKED',FALSE);
+		$form->add($ckbAdminPanel);
+		
+		$btn_insert_group = new control\button('btn_insert_group');
+		$btn_insert_group->configure('LABEL',_('New Group'));
+		$btn_insert_group->configure('TYPE','primary');
+		$btn_insert_group->p_onclick_plugin = 'users';
+		$btn_insert_group->p_onclick_function = 'btnOnclickNewGroup';
+		
+		$btn_cancel = new control\button('btn_cancel');
+		$btn_cancel->configure('LABEL',_('Cancel'));
+		$btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','users','listGroups']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btn_insert_group,1);
+		$row->add($btn_cancel,11);
+		$form->add($row);
+		return [_('New group'),$form->draw()];
 	}
 }

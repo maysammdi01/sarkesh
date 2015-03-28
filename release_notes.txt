@@ -1,7 +1,6 @@
 Release note
-SarkeshMVC 0.7.1
-Buld number:940101
-Date:21 March 2015
+SarkeshMVC 0.9.3.1
+Build number:940115
 
 System requirements:
 - OS: Linux +3.5.2
@@ -16,8 +15,10 @@ Additions
 	-core\data\obj class
 	-core\data\str class
 	-reports plugin
+	-users control plugin from administrator area
+	-add index option to checkbox control for use checkbox in tables
 Removals
-	-Menus plugin
+	-old Menus plugin
 	-msg plugin
 	-language plugin
 	-content plugin
@@ -25,16 +26,18 @@ Removals
 	-remove install theme and plugin parts from administrator plugin
 Changes
 	-administrator plugin
-	-menus plugin
+	-new menus plugin
 	-all lib classes
 	-registry key names
 	-change sarkesh logo
 	-rebuild file system
 	-rebuild mail class for send emails
+	-database file and fix some bugs in columns
 Fixes
 	-event holders for get clicked element values
 	-change theme\info.php file from array to class with 2 universal static function
 	-\core\cls\core\general::createUrl bug fix
+	-bug fix on show description in \core\cls\browser\page::defaultHeaders()
 
 installation:
 	-create blank database

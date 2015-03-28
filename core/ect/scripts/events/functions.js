@@ -31,11 +31,14 @@ function SystemGetFormString(obj){
 			options += "<!!>NAME<!>";
 			options += this.name;
 		}
+		var inTable = $(this).attr('index');
+		if(inTable !== undefined){
+			options += '.' + inTable;
+		}
 		//seperate controls
 		if(this.type == 'select-one'){
 			options += "<!>SELECTED<!>";
 			options += this.value;
-			options += "<!!>";
 		}
 		else if(this.type == 'radio'){
 			options += "<!>CHECKED<!>";
@@ -45,7 +48,6 @@ function SystemGetFormString(obj){
 			else{
 				options += '0';
 			}
-			options += "<!!>";
 		}
 		else if(this.type == 'checkbox'){
 			options += "<!>CHECKED<!>";
@@ -55,18 +57,16 @@ function SystemGetFormString(obj){
 			else{
 				options += '0';
 			}
-			options += "<!!>";
 		}
 		else{
-			
 			options += "<!>VALUE<!>";
 			options += this.value;
 			options += "<!>LABEL<!>";
 			options += $(this).html();	
 			options += "<!>MSG<!>";
 			options += $('.' + this.id + '_msg').html();
-			options += "<!!>";
 		}
+		options += "<!!>";
 	 });
 	//create return element
 	options += "control";

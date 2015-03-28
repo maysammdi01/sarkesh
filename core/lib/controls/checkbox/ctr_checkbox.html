@@ -7,7 +7,8 @@
 					<input
 						{if="$checked"}checked="checked"{/if}
 						type="checkbox"
-						name="{$id}" 
+						name="{$id}"
+						{if="$index != -1"}index="{$index}"{/if}
 						id="{$id}" 
 						form="{$form}"
 						value="{$value}"

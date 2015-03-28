@@ -104,7 +104,7 @@ class event extends module{
 		$user->registerDate = time();
 		
 		//send email to user
-		if($settings->register == 1){
+		if($settings->active_from_email == 1){
             //ACTIVE WITH EMAIL
             $activeCode = $validator->set('USERS_ACTIVE',false,false);
             $user->state = 'A:' . $activeCode;
@@ -116,7 +116,7 @@ class event extends module{
         else{
             //ACTIVE AND SEND PASSWORD TO USER
             $user->state = 'E';
-            $header = sprintf(_('%s Registeration'),$local->name);
+            $header = _('%s Registeration');
             $body = sprintf(_('<strong>your account was created and your information is</strong></br>password:%s'),$userPassword);
             $e['RV']['MODAL'] = browser\page::showBlock(_('Successfull'),_('Your account was created and we send password to your email.please check your email.'),'MODAL','type-success');
         }
@@ -268,7 +268,7 @@ class event extends module{
 	}
 	
 	/*
-	 * save user avatar
+	 * save user plugin settings
 	 * @param array $e,form properties
 	 * @return array $e,form properties
 	 */
@@ -281,6 +281,12 @@ class event extends module{
             $registry = core\registry::singleton();
 			$registry->set('users','register',$register_type);
 			$registry->set('users','defaultPermission',$e['cobNewRoll']['SELECTED']);
+			$registry->set('users','max_file_size',$e['txt_max_file_size']['VALUE']);
+			//save email verification setting
+            $user_can_upload = 0;
+            if($e['ckb_user_pic']['CHECKED'] == '1')
+                	$user_can_upload = 1;
+            $registry->set('users','usersCanUploadAvatar',$user_can_upload);
 			//save email verification setting
 			$verification_type = 0;
 			if($e['ckb_verification']['CHECKED'] == '1')
@@ -288,6 +294,47 @@ class event extends module{
 			$registry->set('users','active_from_email',$verification_type);
 			
 			return browser\msg::modalSuccessfull($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * save user plugin settings
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function btnOnclickEditeUser($e){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			if($orm->count('users','id=?',[$e['hidID']['VALUE']]) != 0){
+				$orm->exec('UPDATE users SET permission=? WHERE id=?',[$e['cobUserRoll']['SELECTED'],$e['hidID']['VALUE']],NON_SELECT);
+				return browser\msg::modalSuccessfull($e,['service','administrator','load','users','listPeople']);
+			}
+			return browser\msg::modalEventError($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * save user plugin settings
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function btnOnclickNewGroup($e){
+		if($this->hasAdminPanel()){
+			if($e['txtName']['VALUE'] == '')
+				return browser\msg::modalNotComplete($e);
+			$orm = db\orm::singleton();
+			if($orm->count('permissions','name=?',[$e['txtName']['VALUE']]) != 0){
+				$e['txtName']['VALUE'] = '';
+				return browser\msg::modal($e,_('Group exists'),_('Entered group is exists before.please try another name.'),'warning');
+			}
+			$permission = $orm->dispense('permissions');
+			$permission->name = $e['txtName']['VALUE'];
+			$permission->AdminPanel = 0;
+			if($e['ckbAdminPanel']['CHECKED']) $permission->AdminPanel = 1;
+			$orm->store($permission);
+			return browser\msg::modalSuccessfull($e,['service','administrator','load','users','listGroups']);
 		}
 		return browser\msg::modalNoPermission($e);
 	}

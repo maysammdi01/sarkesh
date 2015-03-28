@@ -22,8 +22,6 @@ class module{
 		array_push($menu,[$url, _('People')]);
 		$url = core\general::createUrl(['service','administrator','load','users','listGroups']);
 		array_push($menu,[$url, _('Groups')]);
-		$url = core\general::createUrl(['service','administrator','load','users','listPermissions']);
-		array_push($menu,[$url, _('Permissions')]);
 		$url = core\general::createUrl(['service','administrator','load','users','accountSettings']);
 		array_push($menu,[$url, _('Account settings')]);
 		$url = core\general::createUrl(['service','administrator','load','users','ipBlockList']);
@@ -214,7 +212,7 @@ class module{
 		$registry = core\registry::singleton();
 		$settings = $registry->getPlugin('users');
 		if($settings->usersCanUploadAvatar == 1){
-			return $this->viewChangeAvatar();
+			return $this->viewChangeAvatar($settings);
 		}
 		return browser\msg::pageAccessDenied();
 	}
@@ -242,6 +240,47 @@ class module{
 			$settings = $registry->getPlugin('users');
 			return $this->viewAccountSettings($settings,$orm->find('permissions','name <> ?;',['Guest']));
 		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * edite user information
+	 * @return array, [title,body]
+	 */
+	protected function moduleEditeUser(){
+		if($this->hasAdminPanel()){
+			$options = explode('/',PLUGIN_OPTIONS);
+			if(count($options == 3)){
+				$orm = db\orm::singleton();
+				if($orm->count('users','id=?',[$options[2]]) != 0){
+					$registry = core\registry::singleton();
+					return $this->viewEditeUser($orm->load('users',$options[2]), $orm->find('permissions','name <> ?;',['Guest']),$registry->getPlugin('users'));
+				}
+			}
+			return browser\msg::pageNotFound();
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * show list of groups
+	 * @return array, [title,body]
+	 */
+	protected function moduleListGroups(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			return $this->viewListGroups($orm->findAll('permissions'));
+		}
+		return browser\msg::pageAccessDenied();
+	}
+	
+	/*
+	 * show form for add new group
+	 * @return array, [title,body]
+	 */
+	protected function moduleNewGroup(){
+		if($this->hasAdminPanel())
+			return $this->viewNewGroup();
 		return browser\msg::pageAccessDenied();
 	}
 }

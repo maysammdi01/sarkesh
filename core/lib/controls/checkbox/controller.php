@@ -18,6 +18,9 @@ class checkbox extends checkbox\module{
 			$this->config['NAME'] = 'ctr_checkbox';
 		}
 		
+		// for use in table
+		$this->config['INDEX'] = '-1';
+		
 		//this config show abow of element
 		$this->config['LABEL'] = 'checkbox';
 

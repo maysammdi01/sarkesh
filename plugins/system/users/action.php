@@ -115,4 +115,34 @@ class action extends module{
 		return core\router::jump(['service','users','login','service/administrator/load/users/listPeople']);
 	}
 	
+	/*
+	 * edite user information
+	 * @return array, [title,body]
+	 */
+	public function editeUser(){
+		if($this->isLogedin())
+			return $this->moduleEditeUser();
+		return core\router::jump(['service','users','login','service/administrator/load/users/listPeople']);
+	}
+	
+	/*
+	 * show list of groups
+	 * @return array, [title,body]
+	 */
+	public function listGroups(){
+		if($this->isLogedin())
+			return $this->moduleListGroups();
+		return core\router::jump(['service','users','login','service/administrator/load/users/listGroups']);
+	}
+	
+	/*
+	 * show form for add new group
+	 * @return array, [title,body]
+	 */
+	public function newGroup(){
+		if($this->isLogedin())
+			return $this->moduleNewGroup();
+		return core\router::jump(['service','users','login','service/administrator/load/users/newGroup']);
+	}
+	
 }
