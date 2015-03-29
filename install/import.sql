@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2015 at 03:06 AM
+-- Generation Time: Mar 29, 2015 at 10:39 AM
 -- Server version: 5.5.41-MariaDB-1ubuntu0.14.10.1
 -- PHP Version: 5.5.12-2ubuntu4.3
 
@@ -488,17 +488,18 @@ INSERT INTO `menus` (`id`, `name`, `header`, `show_header`, `localize`, `horiz`)
 CREATE TABLE IF NOT EXISTS `permissions` (
 `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `adminPanel` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `adminPanel` tinyint(4) NOT NULL DEFAULT '0',
+  `enable` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `name`, `adminPanel`) VALUES
-(1, 'Administrators', 1),
-(2, 'users', 0),
-(4, 'guest', 0);
+INSERT INTO `permissions` (`id`, `name`, `adminPanel`, `enable`) VALUES
+(1, 'Administrators', 1, 1),
+(2, 'users', 0, 1),
+(4, 'guest', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -540,7 +541,7 @@ CREATE TABLE IF NOT EXISTS `registry` (
   `plugin` int(11) NOT NULL,
   `a_key` varchar(45) NOT NULL,
   `value` text
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `registry`
@@ -549,26 +550,22 @@ CREATE TABLE IF NOT EXISTS `registry` (
 INSERT INTO `registry` (`id`, `plugin`, `a_key`, `value`) VALUES
 (1, 3, 'validator_last_check', '1387753577'),
 (2, 3, 'validator_max_time', '432000'),
-(5, 3, 'editor', '0'),
 (6, 2, 'register', '1'),
 (8, 2, 'active_from_email', '1'),
 (9, 2, 'defaultPermission', '2'),
-(13, 2, 'register_captcha', '1'),
 (15, 3, 'default_timezone', '0.00 - UTC'),
 (16, 3, 'active_theme', 'basic'),
 (18, 2, 'registerDateFormat', 'Y/m/d'),
 (20, 3, 'default_country', 'United States'),
-(21, 3, 'header_tags', 'Sarkesh is best cms!'),
-(23, 2, 'signatures', '0'),
 (24, 2, 'usersCanUploadAvatar', '1'),
-(25, 2, 'avatar_guidline', ''),
 (26, 2, 'max_file_size', '500'),
 (28, 3, 'core_version', '0.9.3.1'),
 (29, 3, 'build_num', '940115'),
 (34, 3, 'cookie_max_time', '432000'),
 (35, 2, 'notActivePermission', '2'),
 (36, 2, 'guestPermission', '4'),
-(38, 3, 'cleanUrl', '1');
+(38, 3, 'cleanUrl', '1'),
+(39, 3, 'sendReports', '1');
 
 -- --------------------------------------------------------
 
@@ -609,14 +606,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login_key` varchar(11) DEFAULT NULL,
   `photo` varchar(90) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `permission`, `registerDate`, `validator`, `forget`, `last_login`, `login_key`, `photo`, `state`) VALUES
-(32, 'admin', 'f6fdffe48c908deb0f4c3bd36c032e72', 'admin@sarkesh.org', 1, 1427407898, NULL, '', 1427582048, 'k9b5fiv3pt', '1h330ni296vzsurbbj711pqafhwqtlv5', 'E');
+(32, 'admin', 'f6fdffe48c908deb0f4c3bd36c032e72', 'admin@sarkesh.org', 1, 1427407898, NULL, '', 1427606167, '5ags2g3nzm', '1h330ni296vzsurbbj711pqafhwqtlv5', 'E');
 
 -- --------------------------------------------------------
 
@@ -629,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `validator` (
   `source` varchar(45) NOT NULL,
   `special_id` varchar(45) NOT NULL,
   `valid_time` varchar(45) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
 
 --
 -- Dumping data for table `validator`
@@ -641,8 +638,7 @@ INSERT INTO `validator` (`id`, `source`, `special_id`, `valid_time`) VALUES
 (36, 'USERS_RESET', '4woi3p5gao', '1427877175'),
 (47, 'USERS_ACTIVE', 'clbpmovd9a', '1427957505'),
 (48, 'USERS_ACTIVE', '6relbz613l', '1427957879'),
-(54, 'USERS_LOGIN', '0rttrnrxkw', '1427585552'),
-(55, 'USERS_LOGIN', 'k9b5fiv3pt', '1427585669');
+(56, 'USERS_LOGIN', '5ags2g3nzm', '1427611176');
 
 --
 -- Indexes for dumped tables
@@ -791,7 +787,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `plugins`
 --
@@ -801,7 +797,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `registry`
 --
 ALTER TABLE `registry`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `timezones`
 --
@@ -811,12 +807,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `validator`
 --
 ALTER TABLE `validator`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
 --
 -- Constraints for dumped tables
 --

@@ -107,6 +107,7 @@ class event extends module{
 		if($settings->active_from_email == 1){
             //ACTIVE WITH EMAIL
             $activeCode = $validator->set('USERS_ACTIVE',false,false);
+            $user->permission = $this->settings->notActivePermission;
             $user->state = 'A:' . $activeCode;
             $header = _('Active account');
             $body = '<strong>' . _("your account created and you can active that by visit url that's comes below:") . '</strong></br>';
@@ -115,6 +116,7 @@ class event extends module{
         }
         else{
             //ACTIVE AND SEND PASSWORD TO USER
+            $user->permission = $this->settings->defaultPermission;
             $user->state = 'E';
             $header = _('%s Registeration');
             $body = sprintf(_('<strong>your account was created and your information is</strong></br>password:%s'),$userPassword);
@@ -333,6 +335,8 @@ class event extends module{
 			$permission->name = $e['txtName']['VALUE'];
 			$permission->AdminPanel = 0;
 			if($e['ckbAdminPanel']['CHECKED']) $permission->AdminPanel = 1;
+			$permission->enable = 0;
+			if($e['ckbActiveGroup']['CHECKED']) $permission->enable = 1;
 			$orm->store($permission);
 			return browser\msg::modalSuccessfull($e,['service','administrator','load','users','listGroups']);
 		}

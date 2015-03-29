@@ -744,6 +744,12 @@ trait view {
 		$txtName->size = 4;
 		$form->add($txtName);
 		
+		$ckbActiveGroup = new control\checkbox('ckbActiveGroup');
+		$ckbActiveGroup->configure('LABEL',_('active group') );
+		$ckbActiveGroup->configure('HELP',_('with this option you can select access to site for users of this group.'));
+		$ckbActiveGroup->configure('CHECKED',TRUE);
+		$form->add($ckbActiveGroup);
+		
 		$ckbAdminPanel = new control\checkbox('ckbAdminPanel');
 		$ckbAdminPanel->configure('LABEL',_('Admin area?') );
 		$ckbAdminPanel->configure('HELP',_('If you check this option,users of this group can access to administrator area.'));
