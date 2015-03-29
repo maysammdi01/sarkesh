@@ -144,5 +144,15 @@ class action extends module{
 			return $this->moduleNewGroup();
 		return core\router::jump(['service','users','login','service/administrator/load/users/newGroup']);
 	}
+
+    /*
+	 * show form edite group
+	 * @return array, [title,body]
+	 */
+    public function editeGroup(){
+        if($this->isLogedin())
+            return $this->moduleEditeGroup();
+        return core\router::jump(['service','users','login','service/administrator/load/users/newGroup']);
+    }
 	
 }

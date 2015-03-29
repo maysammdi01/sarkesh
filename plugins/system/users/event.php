@@ -318,7 +318,7 @@ class event extends module{
 	}
 	
 	/*
-	 * save user plugin settings
+	 * insert new group
 	 * @param array $e,form properties
 	 * @return array $e,form properties
 	 */
@@ -342,4 +342,30 @@ class event extends module{
 		}
 		return browser\msg::modalNoPermission($e);
 	}
+
+    /*
+	 * edite exists group
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+    public function btnOnclickEditeGroup($e){
+        if($this->hasAdminPanel()){
+            if($e['txtName']['VALUE'] == '')
+                return browser\msg::modalNotComplete($e);
+            $orm = db\orm::singleton();
+            if($orm->count('permissions','id=?',[$e['hidID']['VALUE']]) != 0){
+                $permission = $orm->load('permissions',$e['hidID']['VALUE']);
+                $permission->name = $e['txtName']['VALUE'];
+                $permission->AdminPanel = 0;
+                if($e['ckbAdminPanel']['CHECKED']) $permission->AdminPanel = 1;
+                $permission->enable = 0;
+                if($e['ckbActiveGroup']['CHECKED']) $permission->enable = 1;
+                $orm->store($permission);
+                return browser\msg::modalSuccessfull($e,['service','administrator','load','users','listGroups']);
+            }
+            return browser\msg::modalEventError($e);
+        }
+        return browser\msg::modalNoPermission($e);
+    }
+
 }

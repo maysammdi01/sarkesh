@@ -774,4 +774,59 @@ trait view {
 		$form->add($row);
 		return [_('New group'),$form->draw()];
 	}
+
+    /*
+	 * show form edite group
+     * @param object $group, group information
+	 * @return array, [title,body]
+	 */
+    protected function viewEditeGroup($group){
+        $form = new control\form('frmUsersNewGroup');
+
+        $hidID = new control\hidden('hidID');
+        $hidID->value = $group->id;
+        $form->add($hidID);
+
+        $txtName = new control\textbox('txtName');
+        $txtName->label = _('Group name');
+        $txtName->value = $group->name;
+        $txtName->place_holder = _('Group name');
+        $txtName->help = _('Group name show in users profile and you can control user permissions of this group with this.');
+        $txtName->size = 4;
+        $form->add($txtName);
+
+        $ckbActiveGroup = new control\checkbox('ckbActiveGroup');
+        $ckbActiveGroup->configure('LABEL',_('active group') );
+        $ckbActiveGroup->configure('HELP',_('with this option you can select access to site for users of this group.'));
+        $ckbActiveGroup->configure('CHECKED',TRUE);
+        if($group->enable == 0)
+            $ckbActiveGroup->configure('CHECKED',FALSE);
+        $form->add($ckbActiveGroup);
+
+        $ckbAdminPanel = new control\checkbox('ckbAdminPanel');
+        $ckbAdminPanel->configure('LABEL',_('Admin area?') );
+        $ckbAdminPanel->configure('HELP',_('If you check this option,users of this group can access to administrator area.'));
+        $ckbAdminPanel->configure('CHECKED',FALSE);
+          if($group->adminPanel == 1)
+              $ckbAdminPanel->configure('CHECKED',TRUE);
+        $form->add($ckbAdminPanel);
+
+        $btnEditeGroup = new control\button('btnEditeGroup');
+        $btnEditeGroup->configure('LABEL',_('New Group'));
+        $btnEditeGroup->configure('TYPE','primary');
+        $btnEditeGroup->p_onclick_plugin = 'users';
+        $btnEditeGroup->p_onclick_function = 'btnOnclickEditeGroup';
+
+        $btn_cancel = new control\button('btn_cancel');
+        $btn_cancel->configure('LABEL',_('Cancel'));
+        $btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','users','listGroups']));
+
+        $row = new control\row;
+        $row->configure('IN_TABLE',false);
+
+        $row->add($btnEditeGroup,1);
+        $row->add($btn_cancel,11);
+        $form->add($row);
+        return [sprintf(_('Edite %s group'),$group->name),$form->draw()];
+    }
 }

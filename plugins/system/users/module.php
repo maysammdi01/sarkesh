@@ -283,4 +283,26 @@ class module{
 			return $this->viewNewGroup();
 		return browser\msg::pageAccessDenied();
 	}
+
+    /*
+	 * show form edite group
+	 * @return array, [title,body]
+	 */
+    protected function moduleEditeGroup(){
+        if($this->hasAdminPanel()){
+            //get group data
+            $options = explode('/',PLUGIN_OPTIONS);
+            if(count($options) == 3){
+                $orm = db\orm::singleton();
+                if($orm->count('permissions','id=?',[$options[2]]) != 0){
+                    $group = $orm->load('permissions',$options[2]);
+                    return $this->viewEditeGroup($group);
+                }
+                return browser\msg::pageNotFound();
+            }
+            return browser\msg::pageError();
+        }
+            return $this->viewNewGroup();
+        return browser\msg::pageAccessDenied();
+    }
 }
