@@ -13,6 +13,7 @@ class action extends module{
 	 * @return array content
 	 */
 	 public function sample(){
+		 echo \addon\plugin\page\setup::install();
 		return $this->moduleSample();
 	 }
 	 

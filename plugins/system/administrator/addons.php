@@ -50,6 +50,37 @@ trait addons {
 	 * this function search plugin directory and install new plugins in database and remove deleted plugins
 	 */
 	public function refreshPlugins(){
-		//Warrning under development
+		$orm = db\orm::singleton();
+		$pluginsDB = $orm->findAll('plugins');
+		$dir = AppPath . 'plugins/defined';
+		$dh  = opendir($dir);
+		while (false !== ($filename = readdir($dh))) {
+			if(is_dir(AppPath . 'plugins/defined/' . $filename) && $filename != '.' && $filename != '..'){
+				$files[] = $filename;
+			}
+		}
+		$newPlugins = [];
+		
+		foreach($files as $file){
+			$isExists = false;
+			foreach($pluginsDB as $pluginDB){
+				if($file == $pluginDB->name) $isExists = true;
+			}
+			if(! $isExists) array_push($newPlugins,$file);
+		}
+		//install new plugins
+		foreach($newPlugins as $plugin){
+			$fileAdr = AppPath . 'plugins/defined/' . $plugin . '/setup.php';
+			if(file_exists($fileAdr)){
+				if(method_exists('\\addon\\plugin\\' . $plugin . '\\setup' ,'install')){
+					$newPlugin = $orm->dispense('plugins');
+					$newPlugin->name = $plugin;
+					$newPlugin->enable = 0;
+					$newPlugin->can_edite = 1;
+					$orm->store($newPlugin);
+					call_user_func(array('\\addon\\plugin\\' . $plugin . '\\setup' ,'install'));
+				}
+			}
+		}
 	}
 }

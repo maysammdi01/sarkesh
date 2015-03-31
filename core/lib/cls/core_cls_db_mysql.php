@@ -153,7 +153,7 @@ public function export_to_file(){
 //this function import sql file to database
 //warning: first of all check permission for use this function
 //any change with this function can not undo
-public function import_from_file($filename){
+public function import_from_file(&$filename){
     if(file_exists($filename)){
         $command='mysql -h' . DB_HOST .' -u' . DB_USER .' -p' . DB_PASS .' ' . DB_NAME .' < ' . $filename ;
         //run mysql program
