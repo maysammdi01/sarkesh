@@ -14,10 +14,20 @@ class action extends module{
 	}
 	
 	/*
-	 * show php error log
-	 * @return 2D array [title,content]
+	 * show page with id
+	 * @RETURN html content [title,body]
 	 */
-	public function phpErrors(){
-		return $this->modulePhpErrors();
+	public function show(){
+		return $this->moduleShow();
+	}
+	
+	/*
+	 * show list of catalogues
+	 * @RETURN html content [title,body]
+	 */
+	public function catalogues(){
+		if($this->isLogedin())
+			return $this->moduleCatalogues();
+		return core\router::jump(['service','users','login','service/administrator/load/page/catalogues']);
 	}
 }

@@ -1,71 +1,68 @@
 <?php
 namespace addon\plugin\page;
+use \core\cls\core as core;
 use \core\cls\db as db;
 class setup{
 	
 	public static function install(){
 		$orm = db\orm::singleton();
-		$strQuery = '-- phpMyAdmin SQL Dump
--- version 4.2.6deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Mar 31, 2015 at 02:53 PM
--- Server version: 5.5.41-MariaDB-1ubuntu0.14.10.1
--- PHP Version: 5.5.12-2ubuntu4.3
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+		$strQuery = "CREATE TABLE IF NOT EXISTS `page_catalogue` (
+					`id` int(11) NOT NULL,
+					  `name` varchar(50) NOT NULL,
+					  `canComment` tinyint(4) NOT NULL DEFAULT '1',
+					  `localize` varchar(20) NOT NULL,
+					  `adr` varchar(100) NOT NULL
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+					CREATE TABLE IF NOT EXISTS `page_comments` (
+					`id` int(11) NOT NULL,
+					  `username` varchar(10) NOT NULL,
+					  `post` varchar(20) NOT NULL,
+					  `email` varchar(100) NOT NULL,
+					  `body` text NOT NULL,
+					  `date` varchar(20) NOT NULL,
+					  `approve` tinyint(4) NOT NULL DEFAULT '1'
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Database: `import`
---
+					CREATE TABLE IF NOT EXISTS `page_posts` (
+					`id` int(11) NOT NULL,
+					  `username` int(11) DEFAULT NULL,
+					  `photo` varchar(30) NOT NULL,
+					  `title` varchar(500) NOT NULL,
+					  `intro` text NOT NULL,
+					  `body` text NOT NULL,
+					  `catalogue` varchar(20) NOT NULL,
+					  `date` varchar(30) NOT NULL,
+					  `adr` text NOT NULL,
+					  `canComment` tinyint(4) NOT NULL DEFAULT '1',
+					  `publish` tinyint(4) NOT NULL DEFAULT '1',
+					  `tags` text NOT NULL
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
+					ALTER TABLE `page_catalogue`
+					 ADD PRIMARY KEY (`id`);
 
---
--- Table structure for table `page_posts`
---
+					ALTER TABLE `page_comments`
+					 ADD PRIMARY KEY (`id`);
 
-CREATE TABLE IF NOT EXISTS `page_posts` (
-`id` int(11) NOT NULL,
-  `username` int(11) DEFAULT NULL,
-  `title` varchar(500) NOT NULL,
-  `body` text NOT NULL,
-  `date` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+					ALTER TABLE `page_posts`
+					 ADD PRIMARY KEY (`id`);
 
---
--- Indexes for dumped tables
---
+					ALTER TABLE `page_catalogue`
+					MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Indexes for table `page_posts`
---
-ALTER TABLE `page_posts`
- ADD PRIMARY KEY (`id`);
+					ALTER TABLE `page_comments`
+					MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for dumped tables
---
+					ALTER TABLE `page_posts`
+					MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
---
--- AUTO_INCREMENT for table `page_posts`
---
-ALTER TABLE `page_posts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-';
-
-		return $orm->exec($strQuery,[],NON_SELECT);
+		$orm->exec($strQuery,[],NON_SELECT);
+		
+		//save registry keys
+		$registry =  core\registry::singleton();
+		$registry->newKey('page','postDateFormat','Y:m:d');
 	}
 	
 	

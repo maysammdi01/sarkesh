@@ -77,8 +77,8 @@ class view {
 		$raintpl->assign( "system_update", _('Update center'));
 		$raintpl->assign( "url_system_update", core\general::createUrl(['service','administrator','load','administrator','checkUpdate']));
 
-		$raintpl->assign( "blog_new_post", _('New blog post'));
-		$raintpl->assign( "url_blog_new_post", core\general::createUrl(['service','administrator','load','blog','newPost']));
+		$raintpl->assign( "blog_new_post", _('New post'));
+		$raintpl->assign( "url_blog_new_post", core\general::createUrl(['service','administrator','load','page','newPost']));
 
 		$raintpl->assign( "core_settings", _('Core settings'));
 		$raintpl->assign( "url_core_settings", core\general::createUrl(['service','administrator','load','administrator','coreSettings']));

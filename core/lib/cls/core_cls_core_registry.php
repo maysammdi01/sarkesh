@@ -72,5 +72,27 @@ class registry{
 		$this->orm->exec('DELETE FROM registry WHERE plugin=?;', [$plugin],NON_SELECT); 
 	}
 	
+	/*
+	 * save new keys in registry
+	 * @param string $plugin, name of plugin
+	 * @param string $key,name of key
+	 * @param string $value, default value of key
+	 * @return boolean
+	 */
+	public function newKey($plugin,$key,$value){
+		$orm = db\orm::singleton();
+		if($orm->count('plugins','name=?',[$plugin]) != 0){
+			$plugin = $orm->findOne('plugins','name=?',[$plugin]);
+			if($orm->count('registry','plugin=? and a_key=?',[$plugin->id,$key]) == 0){
+				$record = $orm->dispense('registry');
+				$record->plugin = $plugin->id;
+				$record->a_key = $key;
+				$record->value = $value;
+				$orm->store($record);
+				return true;
+			}
+		}
+		return false;
+	}
 }
 ?>

@@ -33,18 +33,30 @@ class module{
 	}
 	
 	/*
-	 * show php error log
-	 * @return 2D array [title,content]
+	 * show page with id
+	 * @RETURN html content [title,body]
 	 */
-	public function modulePhpErrors(){
-		if($this->hasAdminPanel()){
-			if(file_exists(S_Error_Log_Place)){
-				//get errors
-				$file = file(S_Error_Log_Place);
-				return $this->viewPhpErrors($file);
+	protected function moduleShow(){	
+		if(defined('PLUGIN_OPTIONS')){
+			$orm = db\orm::singleton();
+			if($orm->count('page_posts','adr=?',[PLUGIN_OPTIONS]) != 0){
+				$post = $orm->exec('SELECT u.username,p.title,p.body,p.date FROM page_posts p INNER JOIN users u ON u.id = p.username WHERE p.adr=?',[PLUGIN_OPTIONS],SELECT_ONE_ROW);
+				$registry = core\registry::singleton();
+				return $this->viewShow($post,$registry->getPlugin('page'));
 			}
-			//log not found this mean no error was acoured or error log file is empty
-			return [_('PHP Errors'),_('No error was ecured.')];
+		}
+		return browser\msg::pageNotFound();
+	}
+	
+	/*
+	 * show list of catalogues
+	 * @RETURN html content [title,body]
+	 */
+	protected function moduleCatalogues(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			$cats = $orm->exec("SELECT c.id,l.language_name,c.name,c.canComment,c.adr FROM page_catalogue c INNER JOIN localize l ON c.localize = l.id;",[],SELECT);
+			return $this->viewCatalogues($cats);
 		}
 		return browser\msg::pageAccessDenied();	
 	}
