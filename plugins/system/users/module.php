@@ -51,7 +51,7 @@ class module{
 	 */
 	protected function onclickLogin($e){
 		$orm = db\orm::singleton();
-		$count = $orm->count('users',"username = ? or email=? and password = ?", array($e['username']['VALUE'],$e['username']['VALUE'],md5($e['password']['VALUE'])));
+		$count = $orm->count('users',"(username = ? or email=?) and password = ?", array($e['username']['VALUE'],$e['username']['VALUE'],md5($e['password']['VALUE'])));
 		if($count != 0){
 			//login data is cerrect
 			$validator = new network\validator;
