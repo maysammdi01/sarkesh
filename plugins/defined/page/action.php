@@ -30,4 +30,14 @@ class action extends module{
 			return $this->moduleCatalogues();
 		return core\router::jump(['service','users','login','service/administrator/load/page/catalogues']);
 	}
+
+    /*
+	 * show form for add new catalogue
+	 * @RETURN html content [title,body]
+	 */
+    public function newCat(){
+        if($this->isLogedin())
+            return $this->moduleNewCat();
+        return core\router::jump(['service','users','login','service/administrator/load/page/newCat']);
+    }
 }

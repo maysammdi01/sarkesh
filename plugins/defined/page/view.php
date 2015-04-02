@@ -33,49 +33,107 @@ trait view {
 		$form = new control\form('blog_cat_table');
 		$table = new control\table('blog_cat_table');
 		$counter = 0;
-		foreach($cats as $key=>$cat){
-			$counter += 1;
-			$row = new control\row('blog_cat_row');
-			
-			$lbl_id = new control\label('lbl');
-			$lbl_id->configure('LABEL',$counter);
-			$row->add($lbl_id,1);
-			
-			$lbl_cat = new control\label('lbl');
-			$lbl_cat->configure('LABEL',$cat->name);
-			$row->add($lbl_cat,1);
+        if(!is_null($cats)) {
+            foreach ($cats as $key => $cat) {
+                $counter += 1;
+                $row = new control\row('blog_cat_row');
 
-			$lbl_cat = new control\label('lbl');
-			$lbl_cat->configure('LABEL',$cat->language_name);
-			$row->add($lbl_cat,1);
-			
-			$btn_edite = new control\button('btn_content_cats_edite');
-			$btn_edite->configure('LABEL',_('Edit'));
-			$btn_edite->configure('VALUE',$cat->id);
-			$btn_edite->configure('HREF',core\general::createUrl(['service','1','plugin','administrator','action','main','p','blog','a','edite_cat','id',$cat->id]));
-			$row->add($btn_edite,2);
-			
-			$btn_delete = new control\button('btn_content_cats_delete');
-			$btn_delete->configure('LABEL',_('Delete'));
-			$btn_delete->configure('HREF',core\general::createUrl(['service','1','plugin','administrator','action','main','p','blog','a','sure_delete_cat','id',$cat->id]));
-			$btn_delete->configure('TYPE','danger');
-			$row->add($btn_delete,2);
-			
-			$table->add_row($row);
-			$table->configure('HEADERS',[_('ID'),_('Name'),_('Localize'),_('Edit'),_('Delete')]);
-			$table->configure('HEADERS_WIDTH',[1,7,2,1,1]);
-			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
-			$table->configure('BORDER',true);
-			$table->configure('SIZE',9);
-		}
-		$form->add($table);	
+                $lbl_id = new control\label('lbl');
+                $lbl_id->configure('LABEL', $counter);
+                $row->add($lbl_id, 1);
+
+                $lbl_cat = new control\label('lbl');
+                $lbl_cat->configure('LABEL', $cat->name);
+                $row->add($lbl_cat, 1);
+
+                $lbl_cat = new control\label('lbl');
+                $lbl_cat->configure('LABEL', $cat->language_name);
+                $row->add($lbl_cat, 1);
+
+                $btn_edite = new control\button('btn_content_cats_edite');
+                $btn_edite->configure('LABEL', _('Edit'));
+                $btn_edite->configure('VALUE', $cat->id);
+                $btn_edite->configure('HREF', core\general::createUrl(['service', 'administrator', 'load', 'page', 'editeCat', $cat->id]));
+                $row->add($btn_edite, 2);
+
+                $btn_delete = new control\button('btn_content_cats_delete');
+                $btn_delete->configure('LABEL', _('Delete'));
+                $btn_delete->configure('HREF', core\general::createUrl(['service', 'administrator', 'load', 'page', 'sureDeleteCat', $cat->id]));
+                $btn_delete->configure('TYPE', 'danger');
+                $row->add($btn_delete, 2);
+
+                $table->add_row($row);
+                $table->configure('HEADERS', [_('ID'), _('Name'), _('Localize'), _('Edit'), _('Delete')]);
+                $table->configure('HEADERS_WIDTH', [1, 7, 2, 1, 1]);
+                $table->configure('ALIGN_CENTER', [TRUE, FALSE, TRUE, TRUE, TRUE]);
+                $table->configure('BORDER', true);
+                $table->configure('SIZE', 9);
+            }
+            $form->add($table);
+        }
+        else{
+            //catalogues not found
+            $abelNotFound = new control\label(_('No catalogue added.first add a catalogue.'));
+            $form->add($abelNotFound);
+        }
 
 		$btn_add_cats = new control\button('btn_add_cats');
 		$btn_add_cats->configure('LABEL',_('Add new catalogue'));
 		$btn_add_cats->configure('TYPE','success');
-		$btn_add_cats->configure('HREF',core\general::createUrl(['service','1','plugin','administrator','action','main','p','blog','a','add_cat']));
+		$btn_add_cats->configure('HREF',core\general::createUrl(['service','administrator','load','page','newCat']));
 		$form->add($btn_add_cats);
 		
 		return [_('Catalogues'),$form->draw()];
 	}
+
+
+    /*
+	 * show form for add new catalogue
+     * @param array $languages, all languages information
+     * @param object $settings, plugin settings
+	 * @RETURN html content [title,body]
+	 */
+    protected function viewNewCat($languages,$settings){
+        $form = new control\form('frmNewCatalogue');
+
+        $txtName = new control\textbox('txtName');
+        $txtName->label = _('Catalogue name');
+        $txtName->place_holder = _('Catalogue name');
+        $txtName->size = 4;
+        $form->add($txtName);
+
+
+        $btnAddCat = new control\button('btnEditeGroup');
+        $btnAddCat->configure('LABEL',_('New Group'));
+        $btnAddCat->configure('TYPE','primary');
+        $btnAddCat->p_onclick_plugin = 'users';
+        $btnAddCat->p_onclick_function = 'btnOnclickEditeGroup';
+
+        $ckbCanComment = new control\checkbox('ckbCanComment');
+        $ckbCanComment->label = _('Allow users and guests for submit comment?');
+        $form->add($ckbCanComment);
+
+        $cobLang = new control\combobox('cobNewRoll');
+        $cobLang->configure('LABEL',_('Default users roll'));
+        $cobLang->configure('HELP',_('New users get roll that you select in above.'));
+        $cobLang->configure('TABLE',$languages);
+        $cobLang->configure('COLUMN_VALUES','id');
+        $cobLang->configure('COLUMN_LABELS','language_name');
+        $cobLang->configure('SELECTED_INDEX',$settings->defaultPermission);
+        $cobLang->configure('SIZE',3);
+        $form->add($cobLang);
+
+        $btn_cancel = new control\button('btn_cancel');
+        $btn_cancel->configure('LABEL',_('Cancel'));
+        $btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','catalogues']));
+
+        $row = new control\row;
+        $row->configure('IN_TABLE',false);
+
+        $row->add($btnAddCat,1);
+        $row->add($btn_cancel,11);
+        $form->add($row);
+
+        return [_('New catalogue'),$form->draw()];
+    }
 }

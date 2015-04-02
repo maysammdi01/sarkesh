@@ -60,5 +60,18 @@ class module{
 		}
 		return browser\msg::pageAccessDenied();	
 	}
+
+    /*
+	 * show form for add new catalogue
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleNewCat(){
+        if($this->hasAdminPanel()){
+            $orm = db\orm::singleton();
+            $localize = core\localize::singleton();
+            return $this->viewNewCat($rm->findAll('localize'),$);
+        }
+        return browser\msg::pageAccessDenied();
+    }
 	
 }
