@@ -89,11 +89,11 @@ trait view {
 
     /*
 	 * show form for add new catalogue
-     * @param array $languages, all languages information
+     * @param object $local, localize information
      * @param object $settings, plugin settings
 	 * @RETURN html content [title,body]
 	 */
-    protected function viewNewCat($languages,$settings){
+    protected function viewNewCat($languages,$local){
         $form = new control\form('frmNewCatalogue');
 
         $txtName = new control\textbox('txtName');
@@ -102,24 +102,23 @@ trait view {
         $txtName->size = 4;
         $form->add($txtName);
 
-
-        $btnAddCat = new control\button('btnEditeGroup');
-        $btnAddCat->configure('LABEL',_('New Group'));
+        $btnAddCat = new control\button('btnAddCat');
+        $btnAddCat->configure('LABEL',_('Add catalogue'));
         $btnAddCat->configure('TYPE','primary');
-        $btnAddCat->p_onclick_plugin = 'users';
-        $btnAddCat->p_onclick_function = 'btnOnclickEditeGroup';
+        $btnAddCat->p_onclick_plugin = 'page';
+        $btnAddCat->p_onclick_function = 'btnOnclickAddCat';
 
         $ckbCanComment = new control\checkbox('ckbCanComment');
         $ckbCanComment->label = _('Allow users and guests for submit comment?');
         $form->add($ckbCanComment);
 
-        $cobLang = new control\combobox('cobNewRoll');
+        $cobLang = new control\combobox('cobLang');
         $cobLang->configure('LABEL',_('Default users roll'));
         $cobLang->configure('HELP',_('New users get roll that you select in above.'));
         $cobLang->configure('TABLE',$languages);
         $cobLang->configure('COLUMN_VALUES','id');
         $cobLang->configure('COLUMN_LABELS','language_name');
-        $cobLang->configure('SELECTED_INDEX',$settings->defaultPermission);
+        $cobLang->configure('SELECTED_INDEX',$local->id);
         $cobLang->configure('SIZE',3);
         $form->add($cobLang);
 
@@ -136,4 +135,98 @@ trait view {
 
         return [_('New catalogue'),$form->draw()];
     }
+    
+    /*
+	 * show form for delete catalogue
+	 * @param object $cat, catalogue information
+	 * @RETURN html content [title,body]
+	 */
+    protected function viewSureDeletCat($cat){
+       $form = new control\form('frmSureDeletCat');
+       
+       $hidID = new control\hidden('hidID');
+       $hidID->value = $cat->id;
+       $form->add($hidID);
+       
+       $label = new control\label(sprintf(_('Are you sure for delete %s'),$cat->name));
+       $form->add($label);
+       
+       $btnDelete = new control\button('btnDelete');
+       $btnDelete->configure('LABEL',_('Yes, Delete'));
+       $btnDelete->configure('TYPE','primary');
+       $btnDelete->p_onclick_plugin = 'page';
+       $btnDelete->p_onclick_function = 'btnOnclickDeleteCat';
+        
+       $btn_cancel = new control\button('btn_cancel');
+       $btn_cancel->configure('LABEL',_('Cancel'));
+       $btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','catalogues']));
+
+       $row = new control\row;
+       $row->configure('IN_TABLE',false);
+
+       $row->add($btnDelete,1);
+       $row->add($btn_cancel,11);
+       $form->add($row);
+       
+       return [sprintf(_('Delete %s'),$cat->name),$form->draw()]; 
+    }
+    
+    /*
+	 * edite catalogue form
+	 * @param object $cat, catalogue information
+	 * @param object $local, localize information
+     * @param object $settings, plugin settings
+	 * @RETURN html content [title,body]
+	 */
+    protected function viewEditeCat($cat,$languages,$local){
+        $form = new control\form('frmNewCatalogue');
+		
+		$hidID = new control\hidden('hidID');
+		$hidID->value = $cat->id;
+		$form->add($hidID);
+		
+        $txtName = new control\textbox('txtName');
+        $txtName->label = _('Catalogue name');
+        $txtName->value = $cat->name;
+        $txtName->place_holder = _('Catalogue name');
+        $txtName->size = 4;
+        $form->add($txtName);
+
+
+        $btnAddCat = new control\button('btnEditeCat');
+        $btnAddCat->configure('LABEL',_('Save changes'));
+        $btnAddCat->configure('TYPE','primary');
+        $btnAddCat->p_onclick_plugin = 'page';
+        $btnAddCat->p_onclick_function = 'btnOnclickEditeCat';
+
+        $ckbCanComment = new control\checkbox('ckbCanComment');
+        $ckbCanComment->label = _('Allow users and guests for submit comment?');
+        $ckbCanComment->checked = false;
+        if($cat->canComment == 1)
+			$ckbCanComment->checked = true;
+        $form->add($ckbCanComment);
+
+        $cobLang = new control\combobox('cobLang');
+        $cobLang->configure('LABEL',_('Default users roll'));
+        $cobLang->configure('HELP',_('New users get roll that you select in above.'));
+        $cobLang->configure('TABLE',$languages);
+        $cobLang->configure('COLUMN_VALUES','id');
+        $cobLang->configure('COLUMN_LABELS','language_name');
+        $cobLang->configure('SELECTED_INDEX',$cat->localize);
+        $cobLang->configure('SIZE',3);
+        $form->add($cobLang);
+
+        $btn_cancel = new control\button('btn_cancel');
+        $btn_cancel->configure('LABEL',_('Cancel'));
+        $btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','catalogues']));
+
+        $row = new control\row;
+        $row->configure('IN_TABLE',false);
+
+        $row->add($btnAddCat,2);
+        $row->add($btn_cancel,10);
+        $form->add($row);
+
+        return [sprintf(_('Edite %s'),$cat->name),$form->draw()];
+	}
 }

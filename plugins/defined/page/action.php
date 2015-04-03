@@ -40,4 +40,24 @@ class action extends module{
             return $this->moduleNewCat();
         return core\router::jump(['service','users','login','service/administrator/load/page/newCat']);
     }
+    
+    /*
+	 * show form for delete catalogue
+	 * @RETURN html content [title,body]
+	 */
+    public function sureDeleteCat(){
+        if($this->isLogedin())
+            return $this->moduleSureDeleteCat();
+        return core\router::jump(['service','users','login','service/administrator/load/page/catalogues']);
+    }
+    
+    /*
+	 * edite catalogue form
+	 * @RETURN html content [title,body]
+	 */
+    public function editeCat(){
+        if($this->isLogedin())
+            return $this->moduleEditeCat();
+        return core\router::jump(['service','users','login','service/administrator/load/page/catalogues']);
+    }
 }

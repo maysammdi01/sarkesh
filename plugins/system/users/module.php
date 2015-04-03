@@ -129,7 +129,6 @@ class module{
 			$this->loginWithUsername($user->username);
 			//jump to change password form
 			return core\router::jump(['users','changePassword','newUser']);
-			
 		}
 		//show fail message
 		return $this->viewFailActiveAccount();
@@ -137,6 +136,7 @@ class module{
 	
 	/*
 	 * show login form in single page
+	 * @return string html content
 	 */
 	protected function moduleLoginSinglePage(){
 		$loginForm = $this->frmLogin();

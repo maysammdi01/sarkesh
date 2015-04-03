@@ -69,7 +69,42 @@ class module{
         if($this->hasAdminPanel()){
             $orm = db\orm::singleton();
             $localize = core\localize::singleton();
-            return $this->viewNewCat($rm->findAll('localize'),$);
+            return $this->viewNewCat($orm->findAll('localize'),$localize->localize());
+        }
+        return browser\msg::pageAccessDenied();
+    }
+    
+    /*
+	 * show form for delete catalogue
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleSureDeleteCat(){
+		if($this->hasAdminPanel()){
+			$options = explode('/',PLUGIN_OPTIONS);
+			if(count($options == 3)){
+				$orm = db\orm::singleton();
+				if($orm->count('page_catalogue','id=?',[$options[2]]) != 0)
+					return $this->viewSureDeletCat($orm->load('page_catalogue',$options[2]));
+			}
+			return browser\msg::pageNotFound();
+		}
+		return browser\msg::pageAccessDenied();
+    }
+    
+    /*
+	 * edite catalogue form
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleEditeCat(){
+        if($this->hasAdminPanel()){
+			$options = explode('/',PLUGIN_OPTIONS);
+			if(count($options == 3)){
+				$orm = db\orm::singleton();
+				if($orm->count('page_catalogue','id=?',[$options[2]]) != 0){
+					$localize = core\localize::singleton();
+					return $this->viewEditeCat($orm->load('page_catalogue',$options[2]),$orm->findAll('localize'),$localize->localize());
+				}
+			}
         }
         return browser\msg::pageAccessDenied();
     }
