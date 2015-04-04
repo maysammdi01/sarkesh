@@ -81,4 +81,21 @@ class event extends module{
 		}
 		return browser\msg::modalNoPermission($e);
 	}
+	
+	
+	/*
+	 * save settings
+	 * @param array $e, form properties
+	 * @return array, form properties
+	 */
+	public function btnOnclickSaveSettings($e){
+		if($this->isLogedin() && $this->hasAdminPanel() ){
+			$registry = core\registry::singleton();
+			$registry->set('page','postPerPage',$e['cobPerPage']['SELECTED']);
+			$registry->set('page','showAuthor',$e['ckbShowAuthor']['CHECKED']);
+			$registry->set('page','showDate',$e['ckbShowDate']['CHECKED']);
+			return browser\msg::modalSuccessfull($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
 }

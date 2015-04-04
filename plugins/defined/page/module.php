@@ -108,5 +108,19 @@ class module{
         }
         return browser\msg::pageAccessDenied();
     }
+    
+    /*
+     * show settings page 
+     * @RETURN html content [title,body]
+     */
+    protected function moduleSettings(){
+		if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			$registry = core\registry::singleton();
+			return $this->viewSettings($registry->getPlugin('page'));
+			
+        }
+        return browser\msg::pageAccessDenied();
+	}
 	
 }

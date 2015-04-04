@@ -60,4 +60,24 @@ class action extends module{
             return $this->moduleEditeCat();
         return core\router::jump(['service','users','login','service/administrator/load/page/catalogues']);
     }
+    
+    /*
+     * show settings page 
+     * @RETURN html content [title,body]
+     */
+    public function settings(){
+		 if($this->isLogedin())
+            return $this->moduleSettings();
+        return core\router::jump(['service','users','login','service/administrator/load/page/settings']);
+	}
+	
+	/*
+	 * show form for post new page
+	 * @RETURN html content [title,body]
+	 */
+    public function newPage(){
+        if($this->isLogedin())
+            return $this->moduleNewPage();
+        return core\router::jump(['service','users','login','service/administrator/load/page/newPage']);
+    }
 }

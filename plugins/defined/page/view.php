@@ -129,8 +129,8 @@ trait view {
         $row = new control\row;
         $row->configure('IN_TABLE',false);
 
-        $row->add($btnAddCat,1);
-        $row->add($btn_cancel,11);
+        $row->add($btnAddCat,2);
+        $row->add($btn_cancel,10);
         $form->add($row);
 
         return [_('New catalogue'),$form->draw()];
@@ -228,5 +228,60 @@ trait view {
         $form->add($row);
 
         return [sprintf(_('Edite %s'),$cat->name),$form->draw()];
+	}
+	
+	 /*
+     * show settings page
+     * @param object $settings, plugin settings that stored in registry
+     * @RETURN html content [title,body]
+     */
+    protected function viewSettings($settings){
+		$form = new control\form('blog_settings');
+		
+        //show author of post
+        $ckbShowAuthor = new control\checkbox('ckbShowAuthor');
+		$ckbShowAuthor->configure('LABEL',_('Show author') );
+		
+		$ckbShowAuthor->configure('HELP',_('If checked,author of post show in posts and catlogues.'));
+		if($settings->showAuthor == 1)
+			$ckbShowAuthor->configure('CHECKED',TRUE);
+		$form->add($ckbShowAuthor);
+		
+		
+		//show date of post
+        $ckbShowDate = new control\checkbox('ckbShowDate');
+		$ckbShowDate->configure('LABEL',_('Show date') );
+		$ckbShowDate->configure('HELP',_('If checked,date will showed in post content.'));
+		if($settings->showDate == 1)
+			$ckbShowDate->configure('CHECKED',TRUE);
+		$form->add($ckbShowDate);
+		//set number of post per page
+		$cobPerPage = new control\combobox('cobPerPage');
+        $cobPerPage->configure('LABEL',_('Posts per page'));
+        $cobPerPage->configure('HELP',_('This option set number of post that can show per page.'));
+        $cobPerPage->configure('SOURCE',[1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20]);
+        $cobPerPage->configure('SELECTED_INDEX',$settings->PostPerPage);
+        $cobPerPage->configure('SIZE',4);
+        $form->add($cobPerPage);
+		
+        //add update and cancel buttons
+		$btnUpdate = new control\button('btnUpdate');
+		$btnUpdate->configure('LABEL',_('Update'));
+		$btnUpdate->configure('P_ONCLICK_PLUGIN','page');
+		$btnUpdate->configure('P_ONCLICK_FUNCTION','btnOnclickSaveSettings');
+		$btnUpdate->configure('TYPE','primary');
+		
+		$btnCancel = new control\button('btnCancel');
+		$btnCancel->configure('LABEL',_('Cancel'));
+		$btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','administrator','dashboard']));
+		
+		$row = new control\row;
+		$row->configure('IN_TABLE',false);
+		
+		$row->add($btnUpdate,1);
+		$row->add($btnCancel,11);
+		$form->add($row);  
+
+		return [_('page settings'),$form->draw()];
 	}
 }

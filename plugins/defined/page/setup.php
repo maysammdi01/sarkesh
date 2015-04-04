@@ -63,6 +63,9 @@ class setup{
 		//save registry keys
 		$registry =  core\registry::singleton();
 		$registry->newKey('page','postDateFormat','Y:m:d');
+		$registry->newKey('page','PostPerPage','5');
+		$registry->newKey('page','showAuthor','1');
+		$registry->newKey('page','showDate','1');
 	}
 	
 	
