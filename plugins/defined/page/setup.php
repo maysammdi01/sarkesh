@@ -3,8 +3,9 @@ namespace addon\plugin\page;
 use \core\cls\core as core;
 use \core\cls\db as db;
 class setup{
+	use addons;
 	
-	public static function install(){
+	public function install(){
 		$orm = db\orm::singleton();
 		$strQuery = "CREATE TABLE IF NOT EXISTS `page_catalogue` (
 					`id` int(11) NOT NULL,
@@ -59,6 +60,12 @@ class setup{
 					MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
 		$orm->exec($strQuery,[],NON_SELECT);
+		
+		//add permissions
+		$this->newPermission('pagePublish',false);
+		$this->newPermission('pageInsert',true);
+		$this->newPermission('pageEditeOwnPage',true);
+		$this->newPermission('pageEditeAllPage',false);
 		
 		//save registry keys
 		$registry =  core\registry::singleton();

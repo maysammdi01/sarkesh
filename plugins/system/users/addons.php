@@ -172,4 +172,19 @@ trait addons {
 				}
 			}
 	}
+	
+	/*
+	 * function for add new permission
+	 * @param string $name, permission name
+	 * @param boolean $default, default permission
+	 * @return boolean
+	 */
+	public function newPermission($name,$default){
+		$name = htmlspecialchars($name);
+		$defaultString = 0;
+		if($default) $defaultString = 1;
+		$orm = db\orm::singleton();
+		$orm->exec('ALTER TABLE permissions ADD ' . $name . " VARCHAR(1) DEFAULT ?;",[$defaultString],NON_SELECT);
+		$orm->exec("UPDATE permissions SET " . $name . "='1' WHERE name='Administrators';",[],NON_SELECT);
+	}
 }

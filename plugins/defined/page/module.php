@@ -123,4 +123,18 @@ class module{
         return browser\msg::pageAccessDenied();
 	}
 	
+	/*
+	 * show form for post new page
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleNewPage(){
+        if($this->hasAdminPanel()){
+			$orm = db\orm::singleton();
+			$registry = core\registry::singleton();
+			return $this->viewSettings($registry->getPlugin('page'));
+			
+        }
+        return browser\msg::pageAccessDenied();
+    }
+	
 }

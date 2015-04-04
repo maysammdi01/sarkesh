@@ -77,8 +77,10 @@ trait addons {
 					$newPlugin->name = $plugin;
 					$newPlugin->enable = 0;
 					$newPlugin->can_edite = 1;
-					$orm->store($newPlugin);
-					call_user_func(array('\\addon\\plugin\\' . $plugin . '\\setup' ,'install'));
+					//$orm->store($newPlugin);
+					$pluginString = '\\addon\\plugin\\' . $plugin . '\\setup';
+					$pluginObj = new $pluginString;
+					call_user_func(array( $pluginObj,'install'));
 				}
 			}
 		}
