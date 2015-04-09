@@ -295,12 +295,32 @@ trait view {
 
         $txtTitle = new control\textbox('txtTitle');
         $txtTitle->label = _('Title:');
+        $txtTitle->PLACE_HOLDER = _('Your title in here!');
         $form->add($txtTitle);
 
         $txtBody = new control\textarea('txtBody');
+        $txtBody->label = _('Body:');
         $txtBody->editor = true;
         $form->add($txtBody);
 
+
+        //add update and cancel buttons
+        $btnSubmit = new control\button('btnUpdate');
+        $btnSubmit->configure('LABEL',_('Submit'));
+        $btnSubmit->configure('P_ONCLICK_PLUGIN','page');
+        $btnSubmit->configure('P_ONCLICK_FUNCTION','btnOnclickSubmitPage');
+        $btnSubmit->configure('TYPE','primary');
+
+        $btnCancel = new control\button('btnCancel');
+        $btnCancel->configure('LABEL',_('Cancel'));
+        $btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','lastPages']));
+
+        $row = new control\row;
+        $row->configure('IN_TABLE',false);
+
+        $row->add($btnSubmit,1);
+        $row->add($btnCancel,11);
+        $form->add($row);
         return [_('New Page'), $form->draw()];
     }
 }
