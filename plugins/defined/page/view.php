@@ -284,4 +284,23 @@ trait view {
 
 		return [_('page settings'),$form->draw()];
 	}
+
+    /*
+     * for submit new post
+     * @param array $settings, plugin settings
+     * @return array html content [ title,content]
+     */
+    protected function viewNewPage($settings){
+        $form = new control\form('frmNewPost');
+
+        $txtTitle = new control\textbox('txtTitle');
+        $txtTitle->label = _('Title:');
+        $form->add($txtTitle);
+
+        $txtBody = new control\textarea('txtBody');
+        $txtBody->editor = true;
+        $form->add($txtBody);
+
+        return [_('New Page'), $form->draw()];
+    }
 }

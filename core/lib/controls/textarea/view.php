@@ -13,7 +13,7 @@ class view{
 	protected function view_draw($config){
 		
 		if($config['EDITOR']){
-				browser\page::addHeader('<script src="./core/lib/controls/textarea/editors/nicedit/nicEdit.js" type="text/javascript"></script>');
+				browser\page::addHeader('<script src="' . SiteDomain . '/core/lib/controls/textarea/editors/nicedit/nicEdit.js" type="text/javascript"></script>');
 }
 		if($config['CSS_FILE'] != ''){ browser\page::addHeader('<link rel="stylesheet" type="text/css" href="' . $config['CSS_FILE']) . '" />';}
 
