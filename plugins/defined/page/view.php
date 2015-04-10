@@ -290,7 +290,7 @@ trait view {
      * @param array $settings, plugin settings
      * @return array html content [ title,content]
      */
-    protected function viewNewPage($settings){
+    protected function viewNewPage($settings,$cats){
         $form = new control\form('frmNewPost');
 
         $txtTitle = new control\textbox('txtTitle');
@@ -302,6 +302,24 @@ trait view {
         $txtBody->label = _('Body:');
         $txtBody->editor = true;
         $form->add($txtBody);
+
+        $txtTags = new control\textbox('txtTags');
+        $txtTags->label = _('Tags:');
+        $txtTags->help = _("seperate tags with ','.");
+        $form->add($txtTags);
+
+        $uplPhoto = new control\uploader('uplPhoto');
+        $uplPhoto->label = _('Featured image');
+        $uplPhoto->help = _('Set featured image');
+        $form->add($uplPhoto);
+
+        $cobCatalogue = new control\combobox('cobCatalogue');
+        $cobCatalogue->configure('LABEL',_('Catalogue'));
+        $cobCatalogue->configure('TABLE',$cats);
+        $cobCatalogue->configure('COLUMN_VALUES','id');
+        $cobCatalogue->configure('COLUMN_LABELS','name');
+        $cobCatalogue->configure('SIZE',3);
+        $form->add($cobCatalogue);
 
 
         //add update and cancel buttons

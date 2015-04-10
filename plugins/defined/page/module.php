@@ -131,7 +131,7 @@ class module{
         if($this->hasAdminPanel()){
 			$orm = db\orm::singleton();
 			$registry = core\registry::singleton();
-			return $this->viewNewPage($registry->getPlugin('page'));
+			return $this->viewNewPage($registry->getPlugin('page'),$orm->findAll('page_catalogue'));
 			
         }
         return browser\msg::pageAccessDenied();
