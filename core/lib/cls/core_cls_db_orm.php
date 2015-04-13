@@ -42,6 +42,7 @@ class orm{
 			$options = [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''];
 			$this->pdoObj = new \PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME , DB_USER, DB_PASS, $options);
 			$this->pdoObj->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
+			$this->pdoObj->setAttribute( \PDO::ATTR_EMULATE_PREPARES, false );
 		}
 		catch(PDOException $e) {
             echo sprintf(_('Error in query execution!Reason: %s') , $e->getMessage());

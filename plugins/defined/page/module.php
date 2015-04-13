@@ -131,7 +131,39 @@ class module{
         if($this->hasAdminPanel()){
 			$orm = db\orm::singleton();
 			$registry = core\registry::singleton();
-			return $this->viewNewPage($registry->getPlugin('page'),$orm->findAll('page_catalogue'));
+			if($orm->count('page_catalogue') != 0)
+				return $this->viewDoPage($registry->getPlugin('page'),$orm->findAll('page_catalogue'));
+			//user first should create catalogue
+			return $this->viewMsgAddCatalogue();
+			
+        }
+        return browser\msg::pageAccessDenied();
+    }
+    
+    /*
+	 * show list of pages
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleListPages(){
+        if($this->hasAdminPanel()){
+			//check page
+			if(defined('PLUGIN_OPTIONS')){
+				$options = explode('/',PLUGIN_OPTIONS);
+			}
+			$pageNum = 0;
+			if(count($options) > 2)
+				$pageNum = $options[2];
+			$registry = core\registry::singleton();
+			$postPerPage = $registry->get('page','PostPerPage');
+			$startFrom = ($pageNum * $postPerPage);
+			$orm = db\orm::singleton();
+			$hasPre = true;
+			if($startFrom == 0) $hasPre = false;
+			$count = $orm->count('page_posts');
+			$hasNext = true;
+			if(($startFrom + $postPerPage) >= $count) $hasNext = false;
+			$pages = $orm->exec('SELECT p.id,p.title,p.adr,c.name FROM page_posts p INNER JOIN page_catalogue c ON p.catalogue=c.id limit 5 OFFSET ?;',[$startFrom],SELECT);
+			return $this->viewListPages($pages,$hasPre,$hasNext,$pageNum);
 			
         }
         return browser\msg::pageAccessDenied();

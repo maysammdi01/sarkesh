@@ -33,7 +33,7 @@ class uploader extends control\uploader\module{
 		
 		//this config set max size of file that can be uploaded 
 		//unit of this number is byte
-		$this->config['MAX_FILE_SIZE'] = 1024 * 8 * 8; //Byte
+		$this->config['MAX_FILE_SIZE'] = 65536; //Byte
 		
 		//this id for set id that plugin get from file system
 		$this->config['FILE_SYSTEM_ID'] = '0'; 

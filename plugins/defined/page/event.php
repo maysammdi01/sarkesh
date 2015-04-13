@@ -98,4 +98,41 @@ class event extends module{
 		}
 		return browser\msg::modalNoPermission($e);
 	}
+		
+	/*
+	 * submit new page
+	 * @param array $e, form properties
+	 * @return array, form properties
+	 */
+	public function btnOnclickSubmitPage($e){
+		if($this->isLogedin() && $this->hasAdminPanel() ){
+			if($e['txtTitle']['VALUE'] == '' || $e['txtBody']['VALUE'] == '<br>' || $e['txtBody']['VALUE'] == '')
+				return browser\msg::modalNotComplete($e);
+			$orm = db\orm::singleton();
+			$page = $orm->dispense('page_posts');
+			if(array_key_exists('hidID',$e))
+				if($orm->count('page_posts','id=?',[$e['hidID']['VALUE']]) != 0)
+					$page = $orm->load('page_posts',$e['hidID']['VALUE']);
+			$userInfo = $this->getCurrentUserInfo();
+			$page->username = $userInfo->id;
+
+			$page->photo = $e['uplPhoto']['VALUE'];
+			$page->title = $e['txtTitle']['VALUE'];
+			$page->body = $e['txtBody']['VALUE'];
+			$page->catalogue = $e['cobCatalogue']['SELECTED'];
+			$page->date = time();
+			$page->adr = str_replace(' ','_',$e['txtTitle']['VALUE']);
+			//load catalogue
+			$cat = $orm->load('page_catalogue',$e['cobCatalogue']['SELECTED']);
+			$page->canComment = $cat->canComment;
+			$page->publish = 0;
+				if($e['ckbPublish']['CHECKED'] == 1)
+					$page->publish = 1;
+			$page->tags = $e['txtTags']['VALUE'];
+			$orm->store($page);
+			return browser\msg::modalSuccessfull($e);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
 }

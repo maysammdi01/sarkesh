@@ -16,8 +16,18 @@ class action extends module{
 		return $this->moduleSample();
 	 }
 	 
+	 
 	 public function ali(){
-		 $a = new control\textbox('txt');
-		 return ['ali',$a->draw()];
+		 $form = new control\form('fgn');
+		 
+		 $a = new control\textbox('txtAli');
+		 $form->add($a);
+		 
+		 $b = new control\button('btn');
+		 $b->P_ONCLICK_PLUGIN = 'hello';
+		 $b->P_ONCLICK_FUNCTION = 'tt';
+		 $b->type = 'success';
+		 $form->add($b);
+		 return ['ali',$form->draw()];
 	 }
 }

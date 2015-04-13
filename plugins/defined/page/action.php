@@ -80,4 +80,15 @@ class action extends module{
             return $this->moduleNewPage();
         return core\router::jump(['service','users','login','service/administrator/load/page/newPage']);
     }
+    
+    /*
+	 * show list of all pages
+	 * @RETURN html content [title,body]
+	 */
+    public function listPages(){
+        if($this->isLogedin())
+            return $this->moduleListPages();
+        return core\router::jump(['service','users','login','service/administrator/load/page/listPages']);
+    }
+    
 }

@@ -16,6 +16,10 @@ class event{
 		var_dump($e);
 		 return $e;
 	 }
+	 public function tt($e){
+		 $e['txtAli']['VALUE'] = 'ALI';
+		 return $e;
+	 }
 	 
 	 
 }

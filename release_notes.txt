@@ -19,6 +19,7 @@ Additions
 	-add index option to checkbox control for use checkbox in tables
 	-add new control(wall)
 	-add auto install for new plugins
+	-add page plugin
 Removals
 	-old Menus plugin
 	-msg plugin

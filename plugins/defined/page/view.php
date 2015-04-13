@@ -290,28 +290,25 @@ trait view {
      * @param array $settings, plugin settings
      * @return array html content [ title,content]
      */
-    protected function viewNewPage($settings,$cats){
+    protected function viewDoPage($settings,$cats,$page = null){
         $form = new control\form('frmNewPost');
 
         $txtTitle = new control\textbox('txtTitle');
-        $txtTitle->label = _('Title:');
+        $txtTitle->label = _('Title:');	
         $txtTitle->PLACE_HOLDER = _('Your title in here!');
-        $form->add($txtTitle);
 
         $txtBody = new control\textarea('txtBody');
         $txtBody->label = _('Body:');
         $txtBody->editor = true;
-        $form->add($txtBody);
 
         $txtTags = new control\textbox('txtTags');
         $txtTags->label = _('Tags:');
         $txtTags->help = _("seperate tags with ','.");
-        $form->add($txtTags);
 
         $uplPhoto = new control\uploader('uplPhoto');
         $uplPhoto->label = _('Featured image');
+        $uplPhoto->max_file_size = 65536 * 1024;
         $uplPhoto->help = _('Set featured image');
-        $form->add($uplPhoto);
 
         $cobCatalogue = new control\combobox('cobCatalogue');
         $cobCatalogue->configure('LABEL',_('Catalogue'));
@@ -319,11 +316,25 @@ trait view {
         $cobCatalogue->configure('COLUMN_VALUES','id');
         $cobCatalogue->configure('COLUMN_LABELS','name');
         $cobCatalogue->configure('SIZE',3);
-        $form->add($cobCatalogue);
+        
+        $ckbPublish = new control\checkbox('ckbPublish');
+        $ckbPublish->label = _('Publish page?');
+        $ckbPublish->help = _('Uncheck for save page without publish for other.');
+        $ckbPublish->checked = true;
 
-
+		if(! is_null($page)){
+			$txtTitle->value = $page->title;
+			$txtBody->value = $page->body;
+			$txtTags->value = $page->tags;
+			$uplPhoto->value = $page->photo;
+			$cobCatalogue->selected_index = $page->catalogue;
+			$ckbPublish->checked = true;
+			if($page->publish == 1)
+				$ckbPublish->checked = true;
+		}
+		$form->addArray([$txtTitle,$txtBody,$txtTags,$uplPhoto,$cobCatalogue,$ckbPublish]);
         //add update and cancel buttons
-        $btnSubmit = new control\button('btnUpdate');
+        $btnSubmit = new control\button('btnSubmit');
         $btnSubmit->configure('LABEL',_('Submit'));
         $btnSubmit->configure('P_ONCLICK_PLUGIN','page');
         $btnSubmit->configure('P_ONCLICK_FUNCTION','btnOnclickSubmitPage');
@@ -340,5 +351,99 @@ trait view {
         $row->add($btnCancel,11);
         $form->add($row);
         return [_('New Page'), $form->draw()];
+    }
+    
+    /*
+     * this function show message to user to add catalogue
+     * @return array [title,msg]
+     */
+    protected function viewMsgAddCatalogue(){
+		$form = new control\form('frmMsgAddCat');
+		$label = new control\label(_('Please add catalogue before submit new page!'));
+		$form->add($label);
+		
+		$btnAddCat = new control\button('btnAddCat');
+		$btnAddCat->label = _('Add catalogue');
+		$btnAddCat->type = 'default';
+		$btnAddCat->href = core\general::createUrl(['service','administrator','load','page','newCat']);
+		$form->add($btnAddCat);
+		return [_('Error!'),$form->draw()];
+	}
+	
+	 /*
+	 * show list of all pages
+	 * @param array $posts, pages for show
+	 * $param boolean $hasPre, has priveus page
+	 * @param boolean $hasNext, has next page
+	 * @param integer $pageNum, page number
+	 * @RETURN html content [title,body]
+	 */
+    protected function viewListPages($posts,$hasPre,$hasNext,$pageNum){
+        $form = new control\form('blog_list_posts');
+        
+        $btn_add_post = new control\button('btn_add_post');
+		$btn_add_post->configure('LABEL',_('New post'));
+		$btn_add_post->configure('TYPE','success');
+		$btn_add_post->configure('HREF',core\general::createUrl(['service','administrator','load','page','newPage']));
+		$form->add($btn_add_post);
+		
+		$table = new control\table('blog_list_posts');
+		$counter = 0;
+		foreach($posts as $key=>$post){
+			$counter += 1;
+			$row = new control\row('blog_cat_row');
+			
+			$lbl_id = new control\label('lbl');
+			$lbl_id->configure('LABEL',$counter);
+			$row->add($lbl_id,1);
+			
+			$btn_header = new control\button('lbl');
+			$btn_header->configure('LABEL',$post->title);
+			$btn_header->configure('TYPE','link');
+			$btn_header->configure('HREF',core\general::createUrl(['plugin','blog','action','show','id',$post->id]));
+			$row->add($btn_header,1);
+
+			$lbl_loc = new control\label('lbl');
+			$lbl_loc->configure('LABEL',$post->name);
+			$row->add($lbl_loc,1);
+			
+			$btn_edite = new control\button('btn_content_cats_edite');
+			$btn_edite->configure('LABEL',_('Edit'));
+			$btn_edite->configure('HREF',core\general::createUrl(['service','administrator','load','page','editePost',$post->id]));
+			$row->add($btn_edite,2);
+			
+			$btn_delete = new control\button('btn_content_cats_delete');
+			$btn_delete->configure('LABEL',_('Delete'));
+			$btn_delete->configure('HREF',core\general::createUrl(['service','administrator','load','page','sureDeletePage',$post->id]));
+			$btn_delete->configure('TYPE','danger');
+			$row->add($btn_delete,2);
+			
+			$table->add_row($row);
+			$table->configure('HEADERS',[_('ID'),_('Header'),_('Catalogue'),_('Edit'),_('Delete')]);
+			$table->configure('HEADERS_WIDTH',[1,7,2,1,1]);
+			$table->configure('ALIGN_CENTER',[TRUE,FALSE,TRUE,TRUE,TRUE]);
+			$table->configure('BORDER',true);
+			$table->configure('SIZE',9);
+		}
+		$form->add($table);
+		
+		$row = new control\row;
+        $row->configure('IN_TABLE',false);
+		if($hasPre){
+			//add update and cancel buttons
+			$btnPre = new control\button('btnPre');
+			$btnPre->configure('LABEL',_('Privius'));
+			$btnPre->configure('HREF',core\general::createUrl(['service','administrator','load','page','listPages',$pageNum - 1]));
+			$row->add($btnPre,6);
+		}
+		if($hasNext){
+			$btnNext = new control\button('btnNext');
+			$btnNext->configure('LABEL',_('Next'));
+			$btnNext->configure('HREF',core\general::createUrl(['service','administrator','load','page','listPages',$pageNum + 1]));
+			$row->add($btnNext,6);
+		}
+		$form->add($row);
+
+		return [_('Blog posts'),$form->draw()];
     }
 }
