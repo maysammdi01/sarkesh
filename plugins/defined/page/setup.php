@@ -67,6 +67,9 @@ class setup{
 		$this->newPermission('pageEditeOwnPage',true);
 		$this->newPermission('pageEditeAllPage',false);
 		
+		//install widgets
+		$this->installWidget('page','widgetCatalogues','Catalogues widget');
+		
 		//save registry keys
 		$registry =  core\registry::singleton();
 		$registry->newKey('page','postDateFormat','Y:m:d');

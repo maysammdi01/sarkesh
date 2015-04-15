@@ -168,7 +168,7 @@ trait view {
        $row->add($btn_cancel,11);
        $form->add($row);
        
-       return [sprintf(_('Delete %s'),$cat->name),$form->draw()]; 
+       return [sprintf(_('Delete %s'),$cat->name),$form->draw()];
     }
     
     /*
@@ -323,6 +323,9 @@ trait view {
         $ckbPublish->checked = true;
 
 		if(! is_null($page)){
+			$hidID = new control\hidden('hidID');
+			$hidID->value = $page->id;
+			$form->add($hidID);
 			$txtTitle->value = $page->title;
 			$txtBody->value = $page->body;
 			$txtTags->value = $page->tags;
@@ -342,7 +345,7 @@ trait view {
 
         $btnCancel = new control\button('btnCancel');
         $btnCancel->configure('LABEL',_('Cancel'));
-        $btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','lastPages']));
+        $btnCancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','listPages']));
 
         $row = new control\row;
         $row->configure('IN_TABLE',false);
@@ -443,7 +446,51 @@ trait view {
 			$row->add($btnNext,6);
 		}
 		$form->add($row);
-
 		return [_('Blog posts'),$form->draw()];
+    }
+    
+    /*
+	 * show page for delete page
+	 * @param object $post, post information
+	 * @RETURN html content [title,body]
+	 */
+    protected function viewSureDeletPost($post){
+        $form = new control\form('frmSureDeletCat');
+       
+       $hidID = new control\hidden('hidID');
+       $hidID->value = $post->id;
+       $form->add($hidID);
+       
+       $label = new control\label(sprintf(_('Are you sure for delete %s'),$post->title));
+       $form->add($label);
+       
+       $btnDelete = new control\button('btnDelete');
+       $btnDelete->configure('LABEL',_('Yes, Delete'));
+       $btnDelete->configure('TYPE','primary');
+       $btnDelete->p_onclick_plugin = 'page';
+       $btnDelete->p_onclick_function = 'btnOnclickDeletePost';
+        
+       $btn_cancel = new control\button('btn_cancel');
+       $btn_cancel->configure('LABEL',_('Cancel'));
+       $btn_cancel->configure('HREF',core\general::createUrl(['service','administrator','load','page','listPages']));
+
+       $row = new control\row;
+       $row->configure('IN_TABLE',false);
+
+       $row->add($btnDelete,1);
+       $row->add($btn_cancel,11);
+       $form->add($row);
+       
+       return [sprintf(_('Delete %s'),$post->name),$form->draw()]; 
+    }
+    
+    /*
+	 * show pages in catalogue
+	 * @param array $pages, all pages in catalogue
+	 * @RETURN html content [title,body]
+	 */
+    protected function viewShowCtatlogePages($pages){
+		var_dump($pages);
+		return [1,1];
     }
 }

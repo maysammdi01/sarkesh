@@ -85,4 +85,32 @@ trait addons {
 			}
 		}
 	}
+	
+	/*
+	 * install widget
+	 * @param string $name, function name
+	 * @return boolean
+	 */
+	public function installWidget($pluginName,$funcName,$name,$value=0){
+		$orm = db\orm::singleton();
+		$plugin = $orm->findOne('plugins','name=?',[$pluginName]);
+		if($orm->count('blocks','plugin=? and handel=?',[$plugin->id,$funcName]) == 0){
+			$block = $orm->dispense('blocks');
+			$block->name = $name;
+			$block->value = $value;
+			$block->plugin = $plugin->id;
+			$block->position = 'Off';
+			$block->permissions = null;
+			$block->pages = null;
+			$block->pages_ad = 0;
+			$block->rank = 0;
+			$block->handel = $funcName;
+			$block->show_header = 1;
+			$block->localize = 'all';
+			$block->visual = 1;
+			$orm->store($block);
+			return true;
+		}
+		return false;
+	}
 }

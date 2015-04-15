@@ -130,7 +130,21 @@ class event extends module{
 					$page->publish = 1;
 			$page->tags = $e['txtTags']['VALUE'];
 			$orm->store($page);
-			return browser\msg::modalSuccessfull($e);
+			return browser\msg::modalSuccessfull($e,['service','administrator','load','page','listPages']);
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
+	/*
+	 * delete catalogue
+	 * @param array $e, form properties
+	 * @return array, form properties
+	 */
+	public function btnOnclickDeletePost($e){
+		if($this->isLogedin() && $this->hasAdminPanel() ){
+			$orm = db\orm::singleton();
+			$orm->exec('DELETE FROM page_Posts WHERE id=?;',[$e['hidID']['VALUE']],NON_SELECT);
+			return browser\msg::modalSuccessfull($e,['service','administrator','load','page','listPages']);
 		}
 		return browser\msg::modalNoPermission($e);
 	}

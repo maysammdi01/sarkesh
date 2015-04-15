@@ -8,6 +8,7 @@ use core\cls\db as db;
 class module{
 	use view;
 	use addons;
+	use \core\plugin\menus\addons;
 	
 	/*
 	 * construct
@@ -167,6 +168,84 @@ class module{
 			
         }
         return browser\msg::pageAccessDenied();
+    }
+    
+     /*
+	 * show page for delete page
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleSureDeletePage(){
+        if($this->hasAdminPanel()){
+			//check page
+			if(defined('PLUGIN_OPTIONS')){
+				$options = explode('/',PLUGIN_OPTIONS);
+				if(count($options) == 3){
+					$orm = db\orm::singleton();
+					if($orm->count('page_posts','id=?',[$options[2]]) != 0)
+						return $this->viewSureDeletPost($orm->load('page_posts',$options[2]));
+				}
+			}
+        }
+        return browser\msg::pageAccessDenied();
+    }
+    
+    /*
+	 * show form for edite post
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleEditePost(){
+       if($this->hasAdminPanel()){
+		   if(defined('PLUGIN_OPTIONS')){
+				$options = explode('/',PLUGIN_OPTIONS);
+				if(count($options) == 3){
+					$orm = db\orm::singleton();
+					$registry = core\registry::singleton();
+					if($orm->count('page_catalogue') != 0 )
+						return $this->viewDoPage($registry->getPlugin('page'),$orm->findAll('page_catalogue'),$orm->load('page_posts',$options[2]));
+					//user first should create catalogue
+					return $this->viewMsgAddCatalogue();
+				}
+			}
+		   
+			$orm = db\orm::singleton();
+			$registry = core\registry::singleton();
+			if($orm->count('page_catalogue') != 0)
+				return $this->viewDoPage($registry->getPlugin('page'),$orm->findAll('page_catalogue'));
+			
+        }
+        return browser\msg::pageAccessDenied();
+    }
+    
+    /*
+	 * show list of catalogue in widget mode
+	 * @return array [title,body]
+	 */
+	protected function moduleWidgetCatalogues(){
+		//get catalogues
+		$localize = core\localize::singleton();
+		$orm = db\orm::singleton();
+		$local = $localize->localize();
+		$cats = $orm->find('page_catalogue','localize = ?',[$local->id]);
+		$ccats = [];
+		foreach($cats as $cat){
+			array_push($ccats, ['label' => $cat->name,'url' => core\general::createUrl(array('page','catalogue',$cat->id)	)]);
+		}
+		return [_('Blog catalogues'),$this->createMenu($ccats,0,FALSE)];
+	}
+	
+	/*
+	 * show pages in catalogue
+	 * @RETURN html content [title,body]
+	 */
+    protected function moduleCatalogue(){
+		$orm = db\orm::singleton();
+		if(defined('PLUGIN_OPTIONS')){
+			if($orm->count('page_catalogue','id=?',[PLUGIN_OPTIONS]) != 0 ){
+				$cat = $orm->findOne('page_catalogue','id=?',[PLUGIN_OPTIONS]);
+				return $this->viewShowCtatlogePages($orm->find('page_posts','catalogue=?',[$cat->id]));
+			}
+		}
+		
     }
 	
 }

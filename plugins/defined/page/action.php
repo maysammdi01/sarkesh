@@ -91,4 +91,32 @@ class action extends module{
         return core\router::jump(['service','users','login','service/administrator/load/page/listPages']);
     }
     
+     /*
+	 * show page for delete page
+	 * @RETURN html content [title,body]
+	 */
+    public function sureDeletePage(){
+        if($this->isLogedin())
+            return $this->moduleSureDeletePage();
+        return core\router::jump(['service','users','login','service/administrator/load/page/listPages']);
+    }
+    
+    /*
+	 * show form for edite post
+	 * @RETURN html content [title,body]
+	 */
+    public function editePost(){
+        if($this->isLogedin())
+            return $this->moduleEditePost();
+        return core\router::jump(['service','users','login','service/administrator/load/page/newPage']);
+    }
+    
+    /*
+	 * show pages in catalogue
+	 * @RETURN html content [title,body]
+	 */
+    public function catalogue(){
+            return $this->moduleCatalogue();
+    }
+    
 }
