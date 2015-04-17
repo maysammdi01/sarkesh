@@ -1,4 +1,11 @@
-<div class="WALL">
-<h5>{$INFO}</h5>
-<div class="">{$BODY}</div>
-</div>
+    <!-- Date/Time -->
+    <p>{$INFO}</p>
+    <!-- Preview Image -->
+    {if="$image"}
+        <hr>
+        <img class="img-responsive" src="{$fileAdr}" alt="">
+        <hr>
+    {/if}
+    <!-- Post Content -->
+    <p>{$BODY}</p>
+    <hr>

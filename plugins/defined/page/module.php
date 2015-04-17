@@ -41,7 +41,7 @@ class module{
 		if(defined('PLUGIN_OPTIONS')){
 			$orm = db\orm::singleton();
 			if($orm->count('page_posts','adr=?',[PLUGIN_OPTIONS]) != 0){
-				$post = $orm->exec('SELECT u.username,p.title,p.body,p.date FROM page_posts p INNER JOIN users u ON u.id = p.username WHERE p.adr=?',[PLUGIN_OPTIONS],SELECT_ONE_ROW);
+				$post = $orm->exec('SELECT u.username,p.photo,p.title,p.body,p.date FROM page_posts p INNER JOIN users u ON u.id = p.username WHERE p.adr=?',[PLUGIN_OPTIONS],SELECT_ONE_ROW);
 				$registry = core\registry::singleton();
 				return $this->viewShow($post,$registry->getPlugin('page'));
 			}
@@ -242,7 +242,7 @@ class module{
 		if(defined('PLUGIN_OPTIONS')){
 			if($orm->count('page_catalogue','id=?',[PLUGIN_OPTIONS]) != 0 ){
 				$cat = $orm->findOne('page_catalogue','id=?',[PLUGIN_OPTIONS]);
-				return $this->viewShowCtatlogePages($orm->find('page_posts','catalogue=?',[$cat->id]));
+				return $this->viewShowCtatlogePages($orm->findOne('page_posts','catalogue=?',[$cat->id]));
 			}
 		}
 		

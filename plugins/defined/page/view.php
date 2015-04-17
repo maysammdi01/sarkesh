@@ -5,7 +5,7 @@ use \core\cls\template as template;
 use \core\cls\core as core;
 
 trait view {
-	
+	use \core\plugin\files\addons;
 	/*
 	 * show page with id
 	 * @param object $post, post information
@@ -19,8 +19,22 @@ trait view {
 		//Assign variables
 		$raintpl->assign( "TITLE", $post->title);
 		$raintpl->assign( "BODY", $post->body);
+        $hasImage = false;
+        $fileAdr = '';
+        if($post->photo != ''){
+            $hasImage = true;
+            $fileAdr = $this->getFileAddress($post->photo);
+            $raintpl->assign( "image", $hasImage);
+            $raintpl->assign( "fileAdr", $fileAdr);
+
+        }
 		$calendar = \core\cls\calendar\calendar::singleton();
-		$raintpl->assign( "INFO", sprintf(_('Post by %s in %s'),$post->username,$calendar->cdate($settings->postDateFormat,$post->date)));		
+        $infoString = '';
+        if($settings->showAuthor == 1)
+            $infoString = sprintf(_('Post by %s'),$post->username);
+        if($settings->showDate == 1)
+            $infoString .=  ' ' .sprintf(_('in %s'),$calendar->cdate($settings->postDateFormat,$post->date));
+		$raintpl->assign( "INFO", $infoString);
 		return [$post->title,$raintpl->draw('post',true)];
 	}
 	
@@ -490,7 +504,6 @@ trait view {
 	 * @RETURN html content [title,body]
 	 */
     protected function viewShowCtatlogePages($pages){
-		var_dump($pages);
-		return [1,1];
+
     }
 }
