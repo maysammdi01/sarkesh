@@ -242,7 +242,7 @@ class module{
 		if(defined('PLUGIN_OPTIONS')){
 			if($orm->count('page_catalogue','id=?',[PLUGIN_OPTIONS]) != 0 ){
 				$cat = $orm->findOne('page_catalogue','id=?',[PLUGIN_OPTIONS]);
-				return $this->viewShowCtatlogePages($orm->findOne('page_posts','catalogue=?',[$cat->id]));
+				return $this->viewShowCtatlogePages($orm->find('page_posts','catalogue=?',[$cat->id]),$cat);
 			}
 		}
 		

@@ -6,7 +6,6 @@ use \core\cls\db as db;
 use \core\cls\calendar as calendar;
 
 trait view {
-	
 	/*
 	 * show login form
 	 * @return string, html content
@@ -82,11 +81,17 @@ trait view {
 	 * @return string, html content
 	 */
 	protected function viewWidgetProfile($user,$adminAccess){
-		$form = new control\form('usersProfileWidget');
-		 
+		 $form = new control\form('usersProfileWidget');
+		 //add profile
+		 if($user->photo != ''){
+			 if($this->fileExists($user->photo)){
+				 $imgAvatar = new control\image('imgAvatar');
+				 $imgAvatar->src = $this->getFileAddress($user->photo);
+				 $form->add($imgAvatar);
+			 }	 
+		 }
 		 $label = new control\label(sprintf(_('Hello %s !'),$user->username));
 		 $form->add($label);
-		 
 		 $row = new control\row;
 		 $btn_logout = new control\button;
 		 $btn_logout->configure('NAME','btn_logout');

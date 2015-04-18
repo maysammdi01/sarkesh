@@ -21,6 +21,7 @@ trait view {
 		$raintpl->assign( "BODY", $post->body);
         $hasImage = false;
         $fileAdr = '';
+        $raintpl->assign( "image", '');
         if($post->photo != ''){
             $hasImage = true;
             $fileAdr = $this->getFileAddress($post->photo);
@@ -417,7 +418,7 @@ trait view {
 			$btn_header = new control\button('lbl');
 			$btn_header->configure('LABEL',$post->title);
 			$btn_header->configure('TYPE','link');
-			$btn_header->configure('HREF',core\general::createUrl(['plugin','blog','action','show','id',$post->id]));
+			$btn_header->configure('HREF',core\general::createUrl(['page','show',$post->adr]));
 			$row->add($btn_header,1);
 
 			$lbl_loc = new control\label('lbl');
@@ -501,9 +502,17 @@ trait view {
     /*
 	 * show pages in catalogue
 	 * @param array $pages, all pages in catalogue
+	 * @param object $cat, catalogue infoemation
 	 * @RETURN html content [title,body]
 	 */
-    protected function viewShowCtatlogePages($pages){
-
+    protected function viewShowCtatlogePages($pages,$cat){
+		$raintpl = template\raintpl::singleton();
+		//configure raintpl //
+		$raintpl->configure('tpl_dir', AppPath . '/plugins/defined/page/tpl/');
+		//Assign variables
+		$raintpl->assign( "pages", $pages);
+		$raintpl->assign( "baseAdr", core\general::createUrl(['page','show']));
+		
+		return [$cat->name,$raintpl->draw('catalogue',true)];
     }
 }
