@@ -120,13 +120,21 @@ class view {
 		$lblUpdateMsg = new control\label;
 		$lblUpdateMsg->label = _('Your system is update! noting to do.');
 		if($siteBuildNumber<$lastBuildNumber){
+			$row = new control\row();
+			$btnUpdate = new control\button('btnUpdate');
+			$btnUpdate->label = _('Update to new version');
+			$btnUpdate->p_onclick_plugin = 'administrator';
+			$btnUpdate->p_onclick_function = 'updateSystem';
+			$btnUpdate->type = 'success';
+			$row->add($btnUpdate);
+			
 			$lblUpdateMsg->label = sprintf(_('Your system is out of date.for get latest update go to sarkesh website'),$lastBuildNumber);
 			$btnJump = new control\button('btnUpdate');
 			$btnJump->label = _('Jump to release notes');
-			$btnJump->type = 'success';
 			$btnJump->href = S_SERVER_INFO . 'release_notes/' . $lastBuildNumber . '.txt';
 			$form->add($lblUpdateMsg);
-			$form->add($btnJump);
+			$row->add($btnJump);
+			$form->add($row);
 		}
 		else{
 			$form->add($lblUpdateMsg);

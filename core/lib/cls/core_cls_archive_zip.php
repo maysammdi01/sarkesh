@@ -1,6 +1,6 @@
 <?php
 /*
-* Class for working with databases
+* Class for working with zip archives
 */
 namespace core\cls\archive;
 class zip{
@@ -14,7 +14,7 @@ class zip{
 	*/
 	
 	function __construct($fileName){
-		$this->zip = new ZipArchive;
+		$this->zip = new \ZipArchive;
 		if ($this->zip->open($fileName) === FALSE) {
 			exit( _('Can not open zip archive files'));
 		}

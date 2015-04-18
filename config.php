@@ -16,6 +16,9 @@ define('PluginsCenter','http://plugins.sarkesh.org/');
 #THIS URL SET SERVER FOR GET AVALABEL NEW VERSIONS AND SOME MORE INFORMATIONS
 define('S_SERVER_INFO','http://service.sarkesh.org/');
 
+#GET NEW VERSIONS FROM THIS DOMAIN
+define('S_UPDATE_SERVER','http://service.sarkesh.org/');
+
 #error reporting state. for more info about this variable see php documents
 define('ERROR_REPORTING',E_ALL | E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 

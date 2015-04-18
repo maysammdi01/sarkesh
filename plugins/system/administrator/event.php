@@ -217,4 +217,25 @@ class event{
 		}
 		return browser\msg::modalNoPermission($e);
 	}
+	
+	/*
+	 * change change of regional and language settings
+	 * @param array $e,form properties
+	 * @return array $e,form properties
+	 */
+	public function updateSystem($e){
+		if($this->hasAdminPanel()){
+			$newVersionAdr = S_UPDATE_SERVER . 'sarkesh_latest.zip';
+			$newFile = file_get_contents($newVersionAdr);
+			file_put_contents(AppPath . '/upload/UPGRADE/sarkesh_latest.zip',$newFile);
+			$zipObj = new \core\cls\archive\zip(AppPath . '/upload/UPGRADE/sarkesh_latest.zip');
+			$zipObj->extract(AppPath);
+			//include and run update database
+			include_once(AppPath . '/install/update.php');
+			
+			return browser\msg::modalsuccessfull($e,'R');
+		}
+		return browser\msg::modalNoPermission($e);
+	}
+	
 }
